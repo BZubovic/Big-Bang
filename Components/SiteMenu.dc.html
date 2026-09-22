@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="catalog.js"></script>
+<script src="catimg.js"></script>
+</helmet>
+
+<sc-if value="{{ showV2Desktop }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <div onClick="{{ closeMenu }}" style="position:fixed;left:0;right:0;top:116px;bottom:0;background:rgba(16,17,23,0.45);z-index:200"></div>
+    <div style="position:absolute;left:0;right:0;top:116px;z-index:210">
+      <div style="max-width:1480px;margin:0 auto;padding-left:26px;position:relative">
+        <div style="position:absolute;left:74px;top:-7px;width:18px;height:8px;background:#fff;clip-path:polygon(50% 0,100% 100%,0 100%);z-index:2"></div>
+        <div style="width:1160px;max-width:100%;background:#fff;box-shadow:0 12px 32px rgba(0,0,0,0.20);display:flex;height:calc(100vh - 152px);max-height:700px;overflow:hidden">
+
+        <div class="nsb" style="width:222px;flex-shrink:0;background:#EDEDF0;overflow-y:auto;padding:26px 0 12px">
+          <sc-for list="{{ l1sV2 }}" as="c" hint-placeholder-count="12">
+            <button onClick="{{ c.onClick }}" onMouseEnter="{{ c.onClick }}" style="{{ c.style }}">
+              <span>{{ c.name }}</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </sc-for>
+        </div>
+
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;padding-top:26px">
+        <div class="bbsb" style="flex:1;min-height:0;overflow-y:auto;padding:0 32px 36px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px">
+            <h2 style="font-size:20px;font-weight:700;letter-spacing:-0.025em;color:#101117">{{ activeName }}</h2>
+            <a href="#" onClick="{{ openL1 }}" class="arw" style="font-size:13px;font-weight:700;color:#0050A0;display:flex;align-items:center;gap:6px">
+              Prikaži sve u kategoriji
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"></line><polyline points="14 6 20 12 14 18"></polyline></svg>
+            </a>
+          </div>
+          <div style="column-count:3;column-gap:32px">
+            <sc-for list="{{ groups }}" as="g" hint-placeholder-count="5">
+              <div style="break-inside:avoid;margin-bottom:26px">
+                <a href="#" onClick="{{ g.onClick }}" style="display:block;font-size:14px;font-weight:700;color:#101117;letter-spacing:-0.01em;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #E4E4EA" style-hover="color:#0050A0">{{ g.name }}</a>
+                <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="4">
+                  <a href="#" onClick="{{ it.onClick }}" style="display:block;font-size:13px;font-weight:400;color:#545F71;padding:5px 0;line-height:1.35" style-hover="color:#0050A0">{{ it.name }}</a>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        </div>
+        <div style="width:296px;flex-shrink:0;padding:26px 40px 24px 20px;display:flex;flex-direction:column;gap:14px;border-left:1px solid #E4E4EA">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.10em;text-transform:uppercase;color:#8B95A5">Istaknuto</div>
+          <a href="#" style="display:block;border-radius:12px;overflow:hidden">
+            <img src="images/offer-best-6.webp" alt="" style="width:100%;display:block">
+          </a>
+          <a href="#" style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:14px 16px;border-radius:12px;background:#F5F5F8;font-size:13px;font-weight:700;color:#101117" style-hover="background:#EBEBF0;color:#0050A0">
+            Akcije i promocije
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"></line><polyline points="14 6 20 12 14 18"></polyline></svg>
+          </a>
+          <a href="#" style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:14px 16px;border-radius:12px;background:#F5F5F8;font-size:13px;font-weight:700;color:#101117" style-hover="background:#EBEBF0;color:#0050A0">
+            Outlet i obnovljeno
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"></line><polyline points="14 6 20 12 14 18"></polyline></svg>
+          </a>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ showV2Mobile }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;z-index:40">
+    <div onClick="{{ closeMenu }}" style="position:absolute;inset:0;background:rgba(16,17,23,0.5)"></div>
+    <div style="position:absolute;left:0;top:0;bottom:0;width:334px;background:#fff;display:flex;flex-direction:column;box-shadow:8px 0 32px rgba(0,0,0,0.28);overflow-x:hidden">
+      <div style="background:#fff;padding:0 16px;height:64px;display:flex;align-items:center;gap:10px;flex-shrink:0">
+        <span style="display:flex;align-items:center;justify-content:center;color:#fff;margin-right:auto;background:#0050A0;padding:9px 14px">
+          <svg xmlns="http://www.w3.org/2000/svg" width="104" height="21" viewBox="0 0 128.942 26.289" fill="currentColor"><path d="M 10.208 0 L 2.686 0 C 1.24 0 0 1.128 0 2.607 L 0 23.68 C 0 25.156 1.24 26.286 2.686 26.286 L 10.208 26.286 C 14.798 26.286 17.043 24.527 17.043 19.572 L 17.043 17.83 C 17.043 15.372 16.396 13.593 15.493 13.144 C 16.431 12.637 17.043 11.044 17.043 8.458 L 17.043 6.716 C 17.043 2.113 14.865 0 10.208 0 Z M 12.829 9.812 C 12.829 10.53 12.236 11.111 11.507 11.111 L 6.947 11.114 L 6.947 15.182 L 11.507 15.175 C 12.236 15.175 12.829 15.758 12.829 16.477 L 12.829 20.923 C 12.829 21.64 12.236 22.224 11.507 22.224 L 4.443 22.224 C 4.172 22.224 4.141 22.219 4.141 21.857 L 4.141 4.431 C 4.141 4.067 4.172 4.064 4.443 4.064 L 11.507 4.064 C 12.236 4.064 12.829 4.647 12.829 5.366 L 12.829 9.812 Z M 44.271 14.342 L 44.276 20.92 C 44.276 23.886 41.829 26.288 38.814 26.288 L 32.891 26.288 C 29.863 26.288 27.42 23.885 27.42 20.92 L 27.42 5.368 C 27.42 2.404 29.862 0 32.878 0 L 39.127 0 C 40.195 0 41.062 0.851 41.062 1.901 L 41.062 2.17 C 41.062 3.218 40.195 4.068 39.127 4.068 L 35.785 4.068 L 32.955 4.063 C 32.82 4.063 32.707 4.086 32.707 4.086 C 32.1 4.203 31.632 4.736 31.632 5.367 L 31.632 20.976 C 31.632 21.608 32.1 22.137 32.707 22.256 C 32.707 22.256 32.819 22.277 32.912 22.277 L 38.905 22.277 C 39.042 22.277 39.154 22.256 39.154 22.256 C 39.762 22.137 40.228 21.608 40.228 20.976 L 40.228 15.132 L 34.905 15.132 L 34.907 11.067 L 42.118 11.064 L 42.382 11.064 C 43.423 11.064 44.268 11.894 44.268 12.917 L 44.271 14.342 Z M 83.419 0 L 77.038 0 C 74.009 0 71.68 2.412 71.68 5.368 L 71.687 24.432 C 71.687 25.459 72.534 26.288 73.573 26.288 L 73.841 26.288 C 74.885 26.288 75.728 25.459 75.728 24.432 L 75.725 16.526 C 75.766 16.53 75.807 16.537 75.848 16.537 L 84.832 16.534 L 84.828 24.433 C 84.828 25.46 85.672 26.289 86.715 26.289 L 86.982 26.289 C 88.025 26.289 88.869 25.46 88.869 24.433 L 88.878 5.369 C 88.878 2.404 86.434 0 83.419 0 Z M 84.833 12.562 L 75.849 12.562 C 75.807 12.562 75.767 12.567 75.726 12.567 L 75.723 5.309 C 75.723 4.68 76.191 4.15 76.798 4.033 C 76.836 4.02 76.911 4.011 77.005 4.011 L 83.555 4.011 C 83.646 4.011 83.716 4.02 83.76 4.033 C 84.367 4.15 84.836 4.68 84.836 5.309 L 84.833 12.562 Z M 109.007 5.368 L 109.031 24.342 C 109.031 25.416 108.143 26.288 107.049 26.288 L 106.768 26.288 C 105.674 26.288 104.786 25.416 104.786 24.342 L 104.792 5.368 C 104.792 4.648 104.2 4.064 103.471 4.064 L 96.405 4.064 C 96.14 4.064 96.109 4.064 96.109 4.428 L 96.092 24.39 C 96.092 25.438 95.229 26.288 94.162 26.288 L 93.887 26.288 C 92.819 26.288 91.955 25.437 91.955 24.39 L 91.967 2.607 C 91.967 1.132 93.206 0 94.652 0 L 103.55 0 C 106.566 0 109.008 2.404 109.008 5.368 M 24.101 1.901 L 24.101 24.389 C 24.101 25.437 23.234 26.287 22.167 26.287 L 21.894 26.287 C 20.827 26.287 19.964 25.436 19.964 24.389 L 19.964 1.901 C 19.964 0.851 20.827 0 21.894 0 L 22.167 0 C 23.234 0 24.101 0.851 24.101 1.901 Z M 61.879 0.002 L 54.355 0.002 C 52.915 0.002 51.674 1.13 51.674 2.608 L 51.674 23.682 C 51.674 25.158 52.914 26.288 54.355 26.288 L 61.879 26.288 C 66.466 26.288 68.715 24.528 68.715 19.573 L 68.715 17.831 C 68.715 15.374 68.07 13.595 67.167 13.146 C 68.105 12.638 68.715 11.045 68.715 8.459 L 68.715 6.716 C 68.715 2.115 66.536 0.002 61.879 0.002 Z M 64.505 9.814 C 64.505 10.532 63.91 11.113 63.176 11.113 L 58.62 11.116 L 58.62 15.184 L 63.176 15.177 C 63.91 15.177 64.505 15.76 64.505 16.479 L 64.505 20.924 C 64.505 21.641 63.91 22.226 63.176 22.226 L 56.114 22.226 C 55.844 22.226 55.816 22.22 55.816 21.858 L 55.816 4.433 C 55.816 4.068 55.844 4.066 56.114 4.066 L 63.176 4.066 C 63.91 4.066 64.505 4.649 64.505 5.368 L 64.505 9.814 Z M 128.942 20.921 C 128.942 23.886 126.495 26.288 123.48 26.288 L 117.559 26.288 C 114.529 26.288 112.085 23.886 112.085 20.921 L 112.085 5.368 C 112.085 2.404 114.529 0 117.545 0 L 123.795 0 C 124.862 0 125.726 0.851 125.726 1.901 L 125.726 2.17 C 125.726 3.218 124.862 4.068 123.795 4.068 L 117.623 4.063 C 117.485 4.063 117.37 4.086 117.37 4.086 C 116.764 4.203 116.295 4.736 116.295 5.367 L 116.295 20.976 C 116.295 21.608 116.764 22.137 117.37 22.256 C 117.37 22.256 117.485 22.277 117.581 22.277 L 123.573 22.277 C 123.709 22.277 123.821 22.256 123.821 22.256 C 124.424 22.137 124.898 21.608 124.898 20.976 L 124.898 15.132 L 119.57 15.132 L 119.572 11.067 L 126.784 11.064 L 127.048 11.064 C 128.088 11.064 128.936 11.894 128.936 12.917 L 128.942 20.919 L 128.942 20.921 Z"></path></svg>
+        </span>
+        <button onClick="{{ closeMenu }}" style="background:none;border:none;color:#545F71;display:flex;width:40px;height:44px;align-items:center;justify-content:flex-end;margin-right:-6px">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg>
+        </button>
+      </div>
+      <div ref="{{ listRef }}" style="flex:1;min-height:0;display:flex;flex-direction:column">
+      <div style="display:flex;align-items:center;gap:8px;padding:20px 16px 10px;flex-shrink:0;min-height:60px">
+        <sc-if value="{{ canGoBack }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ goBack }}" style="background:none;border:none;color:#101117;display:flex;width:30px;height:30px;align-items:center;justify-content:center;margin-left:-8px">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+        </sc-if>
+        <span style="color:#101117;font-size:17px;font-weight:700;letter-spacing:-0.015em;flex:1">{{ mobTitle }}</span>
+      </div>
+      <div class="nsb" style="flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:0 8px 24px">
+        <sc-for list="{{ mobItems }}" as="m" hint-placeholder-count="12">
+          <button onClick="{{ m.onClick }}" style="width:100%;background:none;border:none;border-radius:10px;padding:0 12px;height:52px;display:flex;align-items:center;gap:12px;font-family:Inter,sans-serif;font-size:15px;font-weight:500;color:#101117;text-align:left" style-active="background:#F1F1F4">
+            <span style="flex:1">{{ m.name }}</span>
+            <sc-if value="{{ m.hasChildren }}" hint-placeholder-val="{{ true }}">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8B95A5" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </sc-if>
+          </button>
+        </sc-for>
+        <sc-if value="{{ showAllLink }}" hint-placeholder-val="{{ false }}">
+          <a href="#" onClick="{{ showAllClick }}" style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin:10px 4px 0;padding:12px 14px;background:#F1F1F4;border-radius:10px;font-size:13px;font-weight:700;color:#0050A0">
+            {{ showAllLabel }}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"></line><polyline points="14 6 20 12 14 18"></polyline></svg>
+          </a>
+        </sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: {
+    &quot;width&quot;: 1480,
+    &quot;height&quot;: 700
+  },
+  &quot;variant&quot;: {
+    &quot;editor&quot;: &quot;enum&quot;,
+    &quot;options&quot;: [
+      &quot;desktop&quot;,
+      &quot;mobile&quot;
+    ],
+    &quot;default&quot;: &quot;desktop&quot;,
+    &quot;tsType&quot;: &quot;string&quot;
+  },
+  &quot;open&quot;: {
+    &quot;editor&quot;: &quot;boolean&quot;,
+    &quot;default&quot;: true,
+    &quot;tsType&quot;: &quot;boolean&quot;
+  },
+  &quot;onOpenCategory&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(c: any) =&gt; void&quot; },
+  &quot;onClose&quot;: {
+    &quot;editor&quot;: null,
+    &quot;tsType&quot;: &quot;() => void&quot;
+  }
+}">
+const POOL = [
+  'images/cat-hladnjaci.webp','images/cat-perilice.webp','images/cat-pranje-posuda.webp',
+  'images/cat-pecnice.webp','images/cat-ploce-kuhanje.webp','images/cat-mali-aparati.webp',
+  'images/cat-osobna-njega.webp','images/cat-televizori.webp','images/cat-audio.webp',
+  'images/cat-laptopi.webp','images/cat-stolna-racunala.webp','images/cat-mobiteli.webp',
+  'images/cat-pametni-satovi.webp','images/cat-kamere.webp','images/cat-gaming.webp',
+  'images/cat-klima.webp'
+];
+
+const CATALOG_LEGACY = [
+  ['Bijela tehnika', [
+    ['Hladnjaci i zamrzivači', ['Hladnjaci','Dodaci za hladnjake','Zamrzivači','Vinske vitrine, hladnjaci za vino']],
+    ['Perilice i sušilice rublja', ['Perilice rublja','Perilice-sušilice rublja','Sušilice rublja','Dodaci za pranje i sušenje']],
+    ['Pranje posuđa', ['Perilice posuđa','Sudoperi','Kuhinjske slavine','Dodaci za pranje posuđa']],
+    ['Pećnice', ['Pećnice','Mikrovalne pećnice']],
+    ['Ploče za kuhanje i nape', ['Ugradbene ploče za kuhanje','Prijenosne ploče za kuhanje','Ploče sa ugradbenom napom','Setovi ploča i pećnica','Nape','Pribor za nape','Štednjaci','Dodaci za kuhanje']]
+  ]],
+  ['TV i audio', [
+    ['Televizori', ['Televizori','Nosači za TV','Projektori','Prijemnici i dodaci']],
+    ['Audio', ['Slušalice','Bluetooth zvučnici','Soundbarovi','Hi-Fi sustavi','Gramofoni','Mikrofoni']],
+    ['Multimedija', ['Media playeri','Streaming uređaji','Kablovi i adapteri']]
+  ]],
+  ['Računala i IT oprema', [
+    ['Laptopi i tableti', ['Laptopi','Gaming laptopi','Tableti','Torbe i futrole']],
+    ['Stolna računala', ['Stolna računala','Gaming računala','All-in-One','Radne stanice']],
+    ['Komponente', ['Grafičke kartice','Procesori','Matične ploče','Memorija','SSD diskovi','Napajanja','Kućišta']],
+    ['Monitori i periferija', ['Monitori','Tipkovnice','Miševi','Web kamere','Podloge za miš']],
+    ['Mreža i pohrana', ['Routeri','Mesh sustavi','Vanjski diskovi','USB memorije','NAS uređaji']],
+    ['Printeri', ['Printeri','Skeneri','Toneri i tinte','Papir']]
+  ]],
+  ['Mobilni uređaji i foto', [
+    ['Mobiteli', ['Mobilni telefoni','Obnovljeni mobiteli','Klasični telefoni','Fiksni telefoni']],
+    ['Dodaci za mobitele', ['Maskice','Zaštitna stakla','Punjači','Powerbanci','Držači za auto']],
+    ['Pametni satovi', ['Pametni satovi','Fitness narukvice','Remeni za satove']],
+    ['Foto i video', ['Fotoaparati','Objektivi','Akcijske kamere','Dronovi','Stativi']]
+  ]],
+  ['Mali kućanski aparati', [
+    ['Priprema kave', ['Espresso aparati','Aparati na kapsule','Filter kave','Mlinci za kavu']],
+    ['Kuhinjski aparati', ['Blenderi','Sokovnici','Mikseri','Toasteri','Friteze na vrući zrak','Kuhala za vodu']],
+    ['Čišćenje doma', ['Usisavači','Roboti usisavači','Štapni usisavači','Parni čistači']],
+    ['Zrak i klima', ['Ventilatori','Pročistači zraka','Odvlaživači']]
+  ]],
+  ['Osobna njega', [
+    ['Brijanje i njega', ['Brijači','Trimeri','Epilatori','Depilacijski aparati']],
+    ['Njega kose', ['Sušila za kosu','Pegle za kosu','Uvijači','Šišači']],
+    ['Zdravlje', ['Toplomjeri','Tlakomjeri','Masažeri','Osobne vage']],
+    ['Oralna higijena', ['Električne zubne četkice','Irigatori','Zamjenski nastavci']]
+  ]],
+  ['Gaming', [
+    ['Konzole', ['PlayStation','Xbox','Nintendo Switch','Ručne konzole']],
+    ['Igre', ['PS5 igre','Xbox igre','Switch igre','PC igre']],
+    ['Gaming oprema', ['Gaming slušalice','Gaming tipkovnice','Gaming miševi','Gaming stolice','Volani i joystickovi']],
+    ['VR', ['VR naočale','VR dodaci']]
+  ]],
+  ['Klimatizacija i grijanje', [
+    ['Klimatizacija', ['Klima uređaji','Prijenosne klime','Montaža klima','Dodaci za klime']],
+    ['Grijanje', ['Grijalice','Radijatori','Kamini','Toplinske pumpe']],
+    ['Bojleri', ['Bojleri','Protočni bojleri','Dodaci za bojlere']]
+  ]],
+  ['Sport i vozila', [
+    ['Fitness', ['Trake za trčanje','Sobni bicikli','Eliptični trenažeri','Utezi','Fitness stanice']],
+    ['Bicikli i romobili', ['Električni bicikli','Električni romobili','Bicikli','Kacige','Dodaci za bicikle']],
+    ['Voda i bazeni', ['SUP daske','Bazeni','Oprema za plivanje']],
+    ['Rekreacija', ['Trampolini','Stolni tenis','Pikado','Boks oprema']]
+  ]],
+  ['Dom', [
+    ['Rasvjeta', ['Pametne žarulje','Stropne lampe','Stolne lampe','LED trake']],
+    ['Pametni dom', ['Pametni zvučnici','Pametne kamere','Senzori','Pametne utičnice']],
+    ['Tekstil', ['Posteljina','Jastuci','Deke','Zavjese']],
+    ['Kuhinjski pribor', ['Posuđe','Noževi','Setovi tanjura','Pribor za pečenje']]
+  ]],
+  ['Namještaj', [
+    ['Dnevna soba', ['Sofe','Fotelje','TV komode','Police']],
+    ['Spavaonica', ['Madraci','Ležajevi','Ormari','Noćni ormarići']],
+    ['Radni prostor', ['Radni stolovi','Uredske stolice','Stolovi s podizanjem']],
+    ['Vanjski namještaj', ['Vrtne garniture','Ležaljke','Suncobrani']]
+  ]],
+  ['Vrt i alati', [
+    ['Održavanje travnjaka', ['Kosilice','Robotske kosilice','Trimeri za travu','Vrtne škare']],
+    ['Čišćenje', ['Visokotlačni perači','Puhala za lišće','Usisavači za lišće']],
+    ['Alati', ['Bušilice','Brusilice','Setovi alata','Radionički stolovi']],
+    ['Vrtne građevine', ['Vrtne kućice','Staklenici','Ograde']]
+  ]],
+  ['Igračke', [
+    ['Po uzrastu', ['0-2 godine','3-5 godina','6-9 godina','10+ godina']],
+    ['Vrste igračaka', ['Konstrukcijske igračke','Društvene igre','Puzzle','Lutke','Autići','Igračke na daljinsko']],
+    ['Vanjske igračke', ['Ljuljačke','Pješčanici','Dječji bazeni']]
+  ]],
+  ['Oprema za bebe', [
+    ['Prijevoz', ['Kolica','Auto sjedalice','Nosiljke']],
+    ['Hranjenje', ['Bočice','Sterilizatori','Grijači','Stolice za hranjenje']],
+    ['Njega', ['Pelene','Kozmetika za bebe','Kade','Monitori za bebe']]
+  ]],
+  ['Škola i ured', [
+    ['Školska oprema', ['Ruksaci','Pernice','Pisaći pribor','Sveske']],
+    ['Uredski materijal', ['Papir','Registratori','Ljepila i škare']],
+    ['Uredska tehnika', ['Kalkulatori','Uništavači papira','Laminatori']]
+  ]],
+  ['Auto-moto', [
+    ['Auto elektronika', ['Auto radio','Navigacija','Auto kamere','Parking senzori']],
+    ['Održavanje', ['Usisavači za auto','Kompresori','Startna pomoć','Auto kozmetika']],
+    ['Električna vozila', ['EV punjači','Kablovi za punjenje','Zidne stanice']]
+  ]],
+  ['Kućni ljubimci', [
+    ['Psi', ['Hrana za pse','Ležajevi','Povodci','Igračke za pse']],
+    ['Mačke', ['Hrana za mačke','Toaleti','Grebalice']],
+    ['Oprema', ['Automatske hranilice','Fontane za vodu','Transporteri']]
+  ]],
+  ['Glazba i glazbala', [
+    ['Instrumenti', ['Gitare','Klavijature','Bubnjevi','Ukulele']],
+    ['Studio', ['Audio interfejsi','Studijski monitori','Mikrofoni','MIDI kontroleri']],
+    ['Dodaci', ['Kablovi','Stalci','Torbe za instrumente']]
+  ]],
+  ['Supermarket', [
+    ['Napitci', ['Kava','Čaj','Sokovi','Voda']],
+    ['Kućne potrepštine', ['Deterdženti','Sredstva za čišćenje','Papirna konfekcija']],
+    ['Baterije i žarulje', ['Baterije','Punjive baterije','Žarulje']]
+  ]],
+  ['Obnovljeno', [
+    ['Obnovljeni uređaji', ['Obnovljeni mobiteli','Obnovljeni laptopi','Obnovljeni tableti','Obnovljene konzole']],
+    ['Outlet', ['Bijela tehnika outlet','TV outlet','Mali aparati outlet']]
+  ]]
+];
+
+let TREE_CACHE = null;
+function getTree() {
+  if (TREE_CACHE) return TREE_CACHE;
+  const src = (typeof window !== 'undefined' && window.BB_CATALOG) || CATALOG_LEGACY;
+  const t = src.map(function (l1, li) {
+    return {
+      name: l1[0],
+      groups: l1[1].map(function (g, gi) {
+        var seed = (li * 5 + gi * 3) % POOL.length;
+        var L3 = (typeof window !== 'undefined' && window.BB_L3IMG) || {};
+        var GRP = (typeof window !== 'undefined' && window.BB_GRPIMG) || {};
+        var groupFile = GRP[g[0]];
+        var usedGroupFallback = false;
+        var fbIdx = 0;
+        return {
+          name: g[0],
+          items: g[1].map(function (n, ii) {
+            var file = L3[n];
+            if (file) return { name: n, img: 'images/c/' + file, hasImg: true };
+            // no artwork for this label: group photo once, then a neutral well —
+            // never an unrelated product photo under a caption
+            if (groupFile && !usedGroupFallback) {
+              usedGroupFallback = true;
+              return { name: n, img: 'images/c/' + groupFile, hasImg: true };
+            }
+            fbIdx++;
+            return { name: n, img: null, hasImg: false, noImg: true };
+          })
+        };
+      })
+    };
+  });
+  if (typeof window !== 'undefined' && window.BB_CATALOG) TREE_CACHE = t;
+  return t;
+}
+
+class Component extends DCLogic {
+  state = { l1: 0, mLevel: 0, mL1: 0, mL2: 0 };
+  listRef = React.createRef();
+  _lastLevel = 0;
+
+  prefetchImages() {
+    const tree = getTree();
+    if (!tree || !tree.length) return;
+    const urls = [];
+    tree.forEach(function (l1) {
+      l1.groups.forEach(function (g) {
+        g.items.forEach(function (it) { if (it.img) urls.push(it.img); });
+      });
+    });
+    const seen = {};
+    const queue = urls.filter(function (u) {
+      if (seen[u]) return false;
+      seen[u] = 1;
+      return true;
+    });
+    // Runs at most once — a second entry (catalog poll) would otherwise clobber
+    // the shared timer/array and kill the in-flight chain.
+    if (this._preloadStarted) return;
+    this._preloadStarted = true;
+    // Assets are served no-cache, so the HTTP cache won't carry a prefetch over
+    // to the DOM <img>. Retaining the Image objects for the session keeps the
+    // decoded bitmaps in the memory cache — that is what removes the flicker.
+    this._preload = [];
+    const hold = u => {
+      const img = new Image();
+      this._preload.push(img);
+      img.src = u;
+    };
+    queue.splice(0, 60).forEach(hold);
+    let i = 0;
+    const step = () => {
+      const batch = queue.slice(i, i + 24);
+      if (!batch.length) return;
+      batch.forEach(hold);
+      i += 24;
+      this._preloadTimer = setTimeout(step, 120);
+    };
+    this._preloadTimer = setTimeout(step, 200);
+  }
+
+  componentDidMount() {
+    this.prefetchImages();
+    if (!window.BB_CATALOG) {
+      this.catPoll = setInterval(() => {
+        if (window.BB_CATALOG) { clearInterval(this.catPoll); this.forceUpdate(); this.prefetchImages(); }
+      }, 120);
+    }
+  }
+  componentWillUnmount() { clearInterval(this.catPoll); clearTimeout(this._preloadTimer); }
+  componentDidUpdate(prevProps) {
+    if (prevProps.variant !== this.props.variant) this.setState({ mLevel: 0, l1: 0 });
+    if (!prevProps.open && this.props.open) this.setState({ mLevel: 0 });
+    if (this._lastLevel !== this.state.mLevel) {
+      const from = this._lastLevel;
+      this._lastLevel = this.state.mLevel;
+      const el = this.listRef.current;
+      if (el && el.animate) {
+        const dir = this.state.mLevel > from ? 1 : -1;
+        el.animate(
+          [
+            { transform: 'translateX(' + (dir * 34) + '%)', opacity: 0 },
+            { transform: 'translateX(0)', opacity: 1 }
+          ],
+          { duration: 260, easing: 'cubic-bezier(0.2,0,0.2,1)', fill: 'both' }
+        );
+      }
+    }
+  }
+
+  renderVals() {
+    const TREE = getTree();
+    const s = this.state;
+    const mobile = this.props.variant === 'mobile';
+    const open = !!this.props.open;
+    const active = TREE[s.l1] || TREE[0];
+
+    const l1Style = (i, size) => ({
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8,
+      width: '100%', textAlign: 'left', border: 'none', background: i === s.l1 ? '#fff' : 'transparent',
+      color: i === s.l1 ? '#0050A0' : '#545F71',
+      fontFamily: 'Inter,sans-serif', fontSize: size, fontWeight: i === s.l1 ? 700 : 500,
+      letterSpacing: '-0.01em', padding: mobile ? '12px 12px' : '13px 22px', lineHeight: 1.3,
+      boxShadow: i === s.l1 ? 'inset 3px 0 0 #0050A0' : 'none'
+    });
+    const mkL1 = size => TREE.map((c, i) => ({ name: c.name, style: l1Style(i, size), onClick: () => this.setState({ l1: i }) }));
+
+    const close = this.props.onClose || (() => {});
+    const nav = this.props.onOpenCategory || (() => {});
+    const goCat = (payload) => (e) => { if (e && e.preventDefault) e.preventDefault(); close(); nav(payload); };
+
+    const groups = active.groups.map((g, i) => ({
+      name: g.name,
+      onClick: goCat({ level: 2, l1: active.name, l2: g.name }),
+      items: g.items.map(it => ({ name: it.name, onClick: goCat({ level: 3, l1: active.name, l2: g.name, l3: it.name }) })),
+      wrapStyle: { paddingBottom: 18, marginBottom: 18, borderBottom: i < active.groups.length - 1 ? '1px solid #E4E4EA' : 'none' },
+      mobWrapStyle: { paddingBottom: 18, marginBottom: 18, borderBottom: i < active.groups.length - 1 ? '1px solid #E4E4EA' : 'none' }
+    }));
+
+    let mobItems = [], mobTitle = 'Kategorije', showAllLink = false, showAllLabel = '', showAllClick = (e) => { if (e) e.preventDefault(); };
+    if (s.mLevel === 0) {
+      mobItems = TREE.map((c, i) => ({ name: c.name, hasChildren: true, onClick: () => this.setState({ mLevel: 1, mL1: i }) }));
+    } else if (s.mLevel === 1) {
+      const l1 = TREE[s.mL1];
+      mobTitle = l1.name;
+      showAllLink = true;
+      showAllLabel = 'Prikaži sve — ' + l1.name;
+      showAllClick = goCat({ level: 1, l1: l1.name });
+      mobItems = l1.groups.map((g, i) => ({ name: g.name, hasChildren: true, onClick: () => this.setState({ mLevel: 2, mL2: i }) }));
+    } else {
+      const g = TREE[s.mL1].groups[s.mL2];
+      mobTitle = g.name;
+      showAllLink = true;
+      showAllLabel = 'Prikaži sve — ' + g.name;
+      showAllClick = goCat({ level: 2, l1: TREE[s.mL1].name, l2: g.name });
+      mobItems = g.items.map(it => ({ name: it.name, hasChildren: false, onClick: goCat({ level: 3, l1: TREE[s.mL1].name, l2: g.name, l3: it.name }) }));
+    }
+
+    return {
+      showV2Desktop: !mobile && open,
+      showV2Mobile: mobile && open,
+      closeMenu: this.props.onClose || (() => {}),
+      l1sV2: mkL1(14),
+      groups: groups,
+      activeName: active.name,
+      mobItems: mobItems,
+      mobTitle: mobTitle,
+      canGoBack: s.mLevel > 0,
+      showAllLink: showAllLink,
+      showAllLabel: showAllLabel,
+      showAllClick: showAllClick,
+      openL1: goCat({ level: 1, l1: active.name }),
+      goBack: () => this.setState(p => ({ mLevel: Math.max(0, p.mLevel - 1) })),
+      listRef: this.listRef
+    };
+  }
+}
+</script>
+</body>
+</html>

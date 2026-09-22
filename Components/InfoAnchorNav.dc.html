@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</helmet>
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<nav style="background:#fff;border-radius:12px;padding:8px">
+  <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;color:#8B95A5;padding:10px 12px 8px">{{ heading }}</div>
+  <div style="display:flex;flex-direction:column;gap:1px">
+    <sc-for list="{{ items }}" as="it" hint-placeholder-count="8">
+      <a href="#" onClick="{{ it.onClick }}" style="{{ it.style }}">
+        <span style="{{ it.numStyle }}">{{ it.num }}</span>
+        <span style="flex:1 1 0;min-width:0">{{ it.label }}</span>
+      </a>
+    </sc-for>
+  </div>
+  <sc-if value="{{ hasNote }}" hint-placeholder-val="{{ false }}">
+    <div style="border-top:1px solid #EFF0F3;margin:8px 4px 0;padding:10px 8px 6px;font-size:11.5px;line-height:1.45;color:#8B95A5">{{ note }}</div>
+  </sc-if>
+</nav>
+</sc-if>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<div>
+  <div class="nsb" style="display:flex;gap:8px;overflow-x:auto;padding:8px 16px;background:#F1F1F4">
+    <sc-for list="{{ itemsMob }}" as="it" hint-placeholder-count="8">
+      <a href="#" onClick="{{ it.onClick }}" style="{{ it.style }}">
+        <span style="{{ it.numStyle }}">{{ it.num }}</span>{{ it.label }}
+      </a>
+    </sc-for>
+  </div>
+  <sc-if value="{{ hasNote }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:2px 16px 8px;font-size:11.5px;color:#8B95A5;background:#F1F1F4">{{ note }}</div>
+  </sc-if>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 260, &quot;height&quot;: 360 },
+  &quot;variant&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;desktop&quot;, &quot;mobile&quot;], &quot;default&quot;: &quot;desktop&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;heading&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;NA OVOJ STRANICI&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;items&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;{id: string, num: string, label: string}[]&quot; },
+  &quot;active&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;note&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;onSelect&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(id: string) =&gt; void&quot; }
+}">
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props;
+    const mobile = p.variant === 'mobile';
+    const items = p.items || [];
+    const active = p.active;
+
+    const map = (mob) => items.map(it => {
+      const on = it.id === active;
+      return {
+        num: it.num,
+        label: it.label,
+        onClick: (e) => { if (e) e.preventDefault(); if (p.onSelect) p.onSelect(it.id); },
+        numStyle: {
+          fontSize: mob ? 10 : 10.5, fontWeight: 700, flexShrink: 0,
+          color: on ? '#0050A0' : '#8B95A5'
+        },
+        style: mob ? {
+          display: 'flex', alignItems: 'center', gap: 6, padding: '7px 11px', borderRadius: 8,
+          border: on ? '1.5px solid #0050A0' : '1.5px solid transparent',
+          background: on ? '#EEF3FA' : '#fff', color: on ? '#0050A0' : '#101117',
+          fontSize: 12.5, fontWeight: on ? 600 : 400,
+          textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0
+        } : {
+          display: 'flex', alignItems: 'flex-start', gap: 9, padding: '9px 12px', borderRadius: 8,
+          background: on ? '#EEF3FA' : 'transparent', color: on ? '#0050A0' : '#101117',
+          fontSize: 13, lineHeight: 1.35, fontWeight: on ? 600 : 400,
+          textDecoration: 'none', transition: 'background .15s, color .15s'
+        }
+      };
+    });
+
+    return {
+      isDesktop: !mobile,
+      isMobile: mobile,
+      heading: p.heading || 'NA OVOJ STRANICI',
+      note: p.note || '',
+      hasNote: !!p.note,
+      items: map(false),
+      itemsMob: map(true)
+    };
+  }
+}
+</script>
+</body>
+</html>

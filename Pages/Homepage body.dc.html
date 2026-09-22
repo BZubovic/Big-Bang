@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</helmet>
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+  <main style="padding-bottom:64px">
+    <div style="position:relative;width:100%;overflow:hidden;user-select:none">
+      <div style="position:relative">
+        <sc-for list="{{ heroLayers }}" as="h" hint-placeholder-count="0">
+          <div style="{{ h.style }}"></div>
+        </sc-for>
+      </div>
+      <button onClick="{{ heroPrev }}" style="position:absolute;left:16px;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.9);border:none;display:flex;align-items:center;justify-content:center;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,0.2)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <button onClick="{{ heroNext }}" style="position:absolute;right:16px;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.9);border:none;display:flex;align-items:center;justify-content:center;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,0.2)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+      <div style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:2">
+        <sc-for list="{{ heroDots }}" as="d" hint-placeholder-count="9">
+          <button onClick="{{ d.onClick }}" style="{{ d.style }}"></button>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="width:100%;margin:14px 0 0;overflow:hidden">
+      <div class="nsb" style="display:flex;gap:12px;overflow-x:auto;padding:10px 0 16px max(20px,calc((100% - 1480px) / 2 + 20px))">
+        <sc-for list="{{ bannerCards }}" as="b" hint-placeholder-count="0">
+          <div style="width:296px;flex-shrink:0;border-radius:12px;overflow:hidden;aspect-ratio:1 / 0.5;transition:transform .2s" style-hover="transform:translateY(-3px)">
+            <div style="{{ b.style }}"></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="max-width:1480px;width:100%;margin:24px auto 0;padding:0 20px;display:flex;flex-direction:column;gap:24px">
+      <div style="background: #fff; border-radius: 12px; display: flex; justify-content: center; overflow: hidden">
+        <sc-for list="{{ usps }}" as="u" hint-placeholder-count="0">
+          <a href="#" style="{{ u.style }}" style-hover="background:#F8F8FC">
+            <div style="{{ u.iconStyle }}"></div>
+            <div>
+              <div style="font-size:13px;font-weight:700;margin-bottom:2px">{{ u.title }}</div>
+              <div style="font-size:11px;color:#545F71">{{ u.sub }}</div>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+
+      <dc-import name="Components/CategoryTiles" variant="desktop" on-open-category="{{ openCategory }}" hint-size="100%,560px"></dc-import>
+    </div>
+
+    <dc-import on-open-product="{{ openProduct }}" name="Components/ProductCarousel" variant="desktop" title="UAU hot deals tjedna!" products="{{ hotList }}" hint-size="100%,560px"></dc-import>
+
+    <div style="width:100%;margin:52px 0 0;overflow:hidden">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding-left:max(20px,calc((100% - 1480px) / 2 + 20px));padding-right:max(20px,calc((100% - 1480px) / 2 + 20px));margin-bottom:18px">
+        <div style="display:flex;align-items:baseline;gap:22px;min-width:0">
+          <h2 style="font-size:24px;font-weight:600;color:#101117;letter-spacing:-0.02em">Najbolja ponuda televizora</h2>
+          <a href="#" class="arw" style="font-size:15px;font-weight:600;color:#0050A0;display:flex;align-items:center;gap:6px;white-space:nowrap">
+            Prikaži više
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </a>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;flex-shrink:0">
+          <button onClick="{{ tvLeft }}" style="width:46px;height:46px;border-radius:50%;background:#fff;border:none;display:flex;align-items:center;justify-content:center;color:#101117;transition:background .15s" style-hover="background:#E7E7EE"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+          <button onClick="{{ tvRight }}" style="width:46px;height:46px;border-radius:50%;background:#fff;border:none;display:flex;align-items:center;justify-content:center;color:#101117;transition:background .15s" style-hover="background:#E7E7EE"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+        </div>
+      </div>
+      <div ref="{{ refTv }}" onScroll="{{ tvScroll }}" class="nsb" style="display:flex;gap:24px;overflow-x:auto;align-items:stretch;padding:8px 0 12px max(20px,calc((100% - 1480px) / 2 + 20px))">
+        <a href="#" style="width:269px;height:477px;flex-shrink:0;border-radius:12px;overflow:hidden;display:block;background:#0050A0">
+          <img src="images/promo-tv-uau.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+        </a>
+        <div style="display:grid;grid-template-rows:226.5px 226.5px;grid-auto-flow:column;grid-auto-columns:269px;gap:24px;flex-shrink:0">
+          <sc-for list="{{ tvProducts }}" as="p" hint-placeholder-count="0">
+            <a href="#" onClick="{{ p.openProduct }}" class="imz" style="position:relative;background:#fff;border-radius:12px;display:flex;flex-direction:column;color:#101117;overflow:hidden;padding:12px 14px 12px">
+              <sc-if value="{{ p.discLabel }}" hint-placeholder-val="{{ false }}">
+                <span style="position:absolute;top:10px;left:12px;z-index:2;background:#DA0D00;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:4px;white-space:nowrap">{{ p.discLabel }}</span>
+              </sc-if>
+              <div style="position:absolute;top:8px;right:8px;display:flex;flex-direction:column;gap:5px;z-index:3">
+                <button onClick="{{ p.stop }}" title="Spremi" style="width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid #E3E4E9;display:flex;align-items:center;justify-content:center;color:#545F71;cursor:pointer;transition:border-color .15s,color .15s" style-hover="border-color:#0050A0;color:#0050A0">
+                  <svg width="16" height="16" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </button>
+                <button onClick="{{ p.stop }}" title="Usporedi" style="width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid #E3E4E9;display:flex;align-items:center;justify-content:center;color:#545F71;cursor:pointer;transition:border-color .15s,color .15s" style-hover="border-color:#0050A0;color:#0050A0">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg>
+                </button>
+              </div>
+
+              <div style="display:flex;align-items:flex-start">
+                <div style="flex:1;min-width:0;height:86px;display:flex;align-items:center;justify-content:center">
+                  <div class="pimg" style="{{ p.imgStyle }}"></div>
+                </div>
+              </div>
+              <div style="margin-top:10px;height:18px"><div style="{{ p.titleStyleTv }}">{{ p.nameTv }}</div></div>
+              <div style="margin-top:auto;padding-top:8px;display:flex;flex-direction:column;gap:6px;align-items:flex-start">
+                <div style="display:flex;align-items:baseline;gap:9px;flex-wrap:wrap">
+                  <span style="{{ p.priceStyle }}">{{ p.priceInt }}<span style="font-size:12.5px;font-weight:700;position:relative;top:-0.55em">{{ p.priceCents }}</span> €</span>
+                  <sc-if value="{{ p.old }}" hint-placeholder-val="{{ false }}">
+                    <span style="font-size:13px;color:#545F71;text-decoration:line-through">{{ p.old }}</span>
+                  </sc-if>
+                </div>
+                <div style="font-size:11px;color:#8B95A5;line-height:1.35">MPC na {{ p.anchorDate }} {{ p.anchor }}</div>
+                <sc-if value="{{ p.code }}" hint-placeholder-val="{{ false }}">
+                  <span style="background:#1FB549;color:#fff;font-size:12.5px;font-weight:600;padding:5px 11px;border-radius:5px;white-space:nowrap">{{ p.code }}</span>
+                </sc-if>
+              </div>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+      <div style="margin:20px max(20px,calc((100% - 1480px) / 2 + 20px)) 0;height:4px;border-radius:2px;background:#D8D8DE;position:relative;overflow:hidden">
+        <div style="{{ tvProg }}"></div>
+      </div>
+    </div>
+
+    <div style="width:100%;margin:52px 0 0;overflow:hidden">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding-left:max(20px,calc((100% - 1480px) / 2 + 20px));padding-right:max(20px,calc((100% - 1480px) / 2 + 20px));margin-bottom:18px">
+        <div style="display:flex;align-items:baseline;gap:22px;min-width:0">
+          <h2 style="font-size:24px;font-weight:600;color:#101117;letter-spacing:-0.02em">Široka ponuda i odlične uštede</h2>
+          <a href="#" class="arw" style="font-size:15px;font-weight:600;color:#0050A0;display:flex;align-items:center;gap:6px;white-space:nowrap">
+            Prikaži više
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </a>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;flex-shrink:0">
+          <button onClick="{{ tilesLeft }}" style="width:46px;height:46px;border-radius:50%;background:#fff;border:none;display:flex;align-items:center;justify-content:center;color:#101117;transition:background .15s" style-hover="background:#E7E7EE"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+          <button onClick="{{ tilesRight }}" style="width:46px;height:46px;border-radius:50%;background:#fff;border:none;display:flex;align-items:center;justify-content:center;color:#101117;transition:background .15s" style-hover="background:#E7E7EE"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+        </div>
+      </div>
+      <div ref="{{ refTiles }}" onScroll="{{ tilesScroll }}" class="nsb" style="display:flex;gap:24px;overflow-x:auto;align-items:stretch;padding:10px 0 14px max(20px,calc((100% - 1480px) / 2 + 20px))">
+        <a href="#" class="arw" style="flex-shrink: 0; width: 269px; height: 477px; border-radius: 12px; overflow: hidden; display: block; position: relative">
+          <img src="images/promo-marketplace-portrait.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:20px 16px;background:linear-gradient(to top,rgba(0,45,115,0.65) 0%,transparent 100%);display:flex;align-items:center;gap:6px">
+            <span style="color:#fff;font-size:13px;font-weight:700">Istraži ponudu</span>
+            <span style="display:flex;color:#fff"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
+          </div>
+        </a>
+        <div style="display:grid;grid-template-rows:226.5px 226.5px;grid-auto-flow:column;grid-auto-columns:269px;gap:24px;flex-shrink:0">
+          <sc-for list="{{ tiles }}" as="t" hint-placeholder-count="0">
+            <a href="#" style="display:block;border-radius:12px;overflow:hidden;position:relative;transition:transform .2s" style-hover="transform:translateY(-3px)">
+              <div style="{{ t.imgStyle }}"></div>
+            </a>
+          </sc-for>
+        </div>
+        <a href="#" style="flex-shrink:0;width:228px;border-radius:16px;background:#EBEBF0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#101117;transition:background .15s" style-hover="background:#E0E0EA;color:#0050A0">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M17 14V20M14 17H20M6 10H8C9.10457 10 10 9.10457 10 8V6C10 4.89543 9.10457 4 8 4H6C4.89543 4 4 4.89543 4 6V8C4 9.10457 4.89543 10 6 10ZM16 10H18C19.1046 10 20 9.10457 20 8V6C20 4.89543 19.1046 4 18 4H16C14.8954 4 14 4.89543 14 6V8C14 9.10457 14.8954 10 16 10ZM6 20H8C9.10457 20 10 19.1046 10 18V16C10 14.8954 9.10457 14 8 14H6C4.89543 14 4 14.8954 4 16V18C4 19.1046 4.89543 20 6 20Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <span style="font-size:14px;font-weight:700;text-align:center;padding:0 20px">Pogledaj sve</span>
+        </a>
+      </div>
+      </div>
+      <div style="margin:20px max(20px,calc((100% - 1480px) / 2 + 20px)) 0;height:4px;border-radius:2px;background:#D8D8DE;position:relative;overflow:hidden">
+        <div style="{{ tilesProg }}"></div>
+      </div>
+    </main>
+    
+
+    <div style="max-width:1480px;width:100%;margin:48px auto 0;padding:0 20px">
+      <div style="display:flex;align-items:baseline;gap:22px;margin-bottom:18px">
+        <h2 style="font-size:24px;font-weight:600;color:#101117;letter-spacing:-0.02em">Ne propusti aktualne promocije</h2>
+        <a href="#" class="arw" style="font-size:15px;color:#0050A0;font-weight:600;display:flex;align-items:center;gap:6px">Prikaži sve <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px">
+        <a href="#" style="grid-column:span 2;aspect-ratio:2.09;display:block;border-radius:12px;overflow:hidden;transition:transform .2s" style-hover="transform:translateY(-3px)"><img src="images/offer-best-1.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></a>
+        <a href="#" style="aspect-ratio:1;display:block;border-radius:12px;overflow:hidden;transition:transform .2s" style-hover="transform:translateY(-3px)"><img src="images/offer-best-2.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></a>
+        <a href="#" style="aspect-ratio:1;display:block;border-radius:12px;overflow:hidden;transition:transform .2s" style-hover="transform:translateY(-3px)"><img src="images/offer-best-3.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></a>
+        <a href="#" style="aspect-ratio:1;display:block;border-radius:12px;overflow:hidden;transition:transform .2s" style-hover="transform:translateY(-3px)"><img src="images/offer-best-4.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></a>
+        <a href="#" style="aspect-ratio:1;display:block;border-radius:12px;overflow:hidden;transition:transform .2s" style-hover="transform:translateY(-3px)"><img src="images/offer-best-5.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></a>
+        <a href="#" style="aspect-ratio:1;display:block;border-radius:12px;overflow:hidden;transition:transform .2s" style-hover="transform:translateY(-3px)"><img src="images/offer-best-6.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></a>
+        <a href="#" style="aspect-ratio:1;display:block;border-radius:12px;overflow:hidden;transition:transform .2s" style-hover="transform:translateY(-3px)"><img src="images/offer-best-7.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></a>
+        <a href="#" style="aspect-ratio:1;display:block;border-radius:12px;overflow:hidden;transition:transform .2s" style-hover="transform:translateY(-3px)"><img src="images/offer-best-8.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></a>
+      </div>
+    </div>
+  
+
+    <dc-import on-open-product="{{ openProduct }}" name="Components/ProductCarousel" variant="desktop" title="Uštedi na laptopima" products="{{ lapList }}" hint-size="100%,560px"></dc-import>
+</sc-if>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+
+      <div style="position:relative;width:100%;aspect-ratio:960 / 676;overflow:hidden">
+        <div style="position:relative;width:100%;height:100%">
+          <sc-for list="{{ mobHeroLayers }}" as="h" hint-placeholder-count="0">
+            <div style="{{ h.style }}"></div>
+          </sc-for>
+        </div>
+        <div style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:2">
+          <sc-for list="{{ mobHeroDots }}" as="d" hint-placeholder-count="7">
+            <button onClick="{{ d.onClick }}" style="{{ d.style }}"></button>
+          </sc-for>
+        </div>
+      </div>
+
+      <div class="nsb" style="display:flex;gap:10px;overflow-x:auto;padding:16px 12px 0">
+        <sc-for list="{{ bannerCards }}" as="b" hint-placeholder-count="0">
+          <div style="width:276px;flex-shrink:0;border-radius:12px;overflow:hidden;aspect-ratio:1 / 0.5">
+            <div style="{{ b.style }}"></div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div class="nsb" style="display:flex;gap:10px;overflow-x:auto;padding:16px 12px 0">
+        <sc-for list="{{ usps }}" as="u" hint-placeholder-count="0">
+          <div style="flex-shrink:0;width:246px;height:56px;display:flex;align-items:center;justify-content:center;gap:10px;background:#fff;border-radius:12px;padding:0 12px">
+            <div style="{{ u.iconStyleMob }}"></div>
+            <div style="font-size:14px;font-weight:500;white-space:nowrap;color:#101117">{{ u.title }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <dc-import name="Components/CategoryTiles" variant="mobile" on-open-category="{{ openCategory }}" hint-size="100%,160px"></dc-import>
+
+      <dc-import on-open-product="{{ openProduct }}" name="Components/ProductCarousel" variant="mobile" title="UAU hot deals tjedna!" products="{{ hotList }}" hint-size="100%,420px"></dc-import>
+
+      <div style="padding:28px 0 0 12px">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding-right:12px;margin-bottom:12px">
+          <h2 style="font-size:18px;font-weight:600;letter-spacing:-0.02em">Najbolja ponuda televizora</h2>
+          <a href="#" class="arw" style="font-size:13px;font-weight:600;color:#0050A0;display:flex;align-items:center;gap:5px;white-space:nowrap">Prikaži sve <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+        </div>
+        <div class="nsb" style="display:flex;gap:12px;overflow-x:auto;align-items:stretch;padding-right:12px">
+          <a href="#" style="width:224px;height:397px;flex-shrink:0;border-radius:12px;overflow:hidden;display:block;background:#0050A0">
+            <img src="images/promo-tv-uau.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+          </a>
+          <div style="display:grid;grid-template-rows:192.5px 192.5px;grid-auto-flow:column;grid-auto-columns:176px;gap:12px;flex-shrink:0">
+            <sc-for list="{{ tvProducts }}" as="p" hint-placeholder-count="8">
+              <a href="#" onClick="{{ p.openProduct }}" style="background:#fff;border-radius:12px;display:flex;flex-direction:column;color:#101117;overflow:hidden;padding:10px 12px 10px;position:relative">
+                <sc-if value="{{ p.discLabel }}" hint-placeholder-val="{{ false }}">
+                  <span style="align-self:flex-start;background:#DA0D00;color:#fff;font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:5px">{{ p.discLabel }}</span>
+                </sc-if>
+                <div style="position:absolute;top:8px;right:8px;display:flex;flex-direction:column;gap:5px;z-index:3">
+                  <button onClick="{{ p.stop }}" title="Spremi" style="width:28px;height:28px;border-radius:50%;background:#fff;border:1px solid #E3E4E9;display:flex;align-items:center;justify-content:center;color:#545F71">
+                    <svg width="15" height="15" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                  </button>
+                  <button onClick="{{ p.stop }}" title="Usporedi" style="width:28px;height:28px;border-radius:50%;background:#fff;border:1px solid #E3E4E9;display:flex;align-items:center;justify-content:center;color:#545F71">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg>
+                  </button>
+                </div>
+                <div style="height:66px;margin-top:6px;display:flex;align-items:center;justify-content:center">
+                  <div class="pimg" style="{{ p.imgStyle }}"></div>
+                </div>
+                <div style="margin-top:8px;height:16px"><div style="{{ p.titleStyleTvMob }}">{{ p.nameTvMob }}</div></div>
+                <div style="margin-top:auto;display:flex;flex-direction:column;gap:5px;align-items:flex-start">
+                  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+                    <span style="{{ p.priceStyleMob }}">{{ p.priceInt }}<span style="font-size:10px;font-weight:700;position:relative;top:-0.55em">{{ p.priceCents }}</span> €</span>
+                    <sc-if value="{{ p.old }}" hint-placeholder-val="{{ false }}">
+                      <span style="font-size:10.5px;color:#8B95A5;text-decoration:line-through">{{ p.old }}</span>
+                    </sc-if>
+                  </div>
+                  <div style="font-size:9px;color:#8B95A5;line-height:1.3">MPC na {{ p.anchorDate }} {{ p.anchor }}</div>
+                  <sc-if value="{{ p.code }}" hint-placeholder-val="{{ false }}">
+                    <span style="background:#1FB549;color:#fff;font-size:10px;font-weight:600;padding:4px 8px;border-radius:5px;white-space:nowrap">{{ p.code }}</span>
+                  </sc-if>
+                </div>
+              </a>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:28px 0 0 12px">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding-right:12px;margin-bottom:12px">
+          <h2 style="font-size:18px;font-weight:600;letter-spacing:-0.02em">Široka ponuda i odlične uštede</h2>
+          <a href="#" class="arw" style="font-size:13px;font-weight:600;color:#0050A0;display:flex;align-items:center;gap:5px;white-space:nowrap">Prikaži sve <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+        </div>
+        <div class="nsb" style="display:flex;gap:12px;overflow-x:auto;align-items:stretch;padding-right:12px">
+          <a href="#" style="width:224px;height:397px;flex-shrink:0;border-radius:12px;overflow:hidden;display:block">
+            <img src="images/promo-marketplace-portrait.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block">
+          </a>
+          <div style="display:grid;grid-template-rows:192.5px 192.5px;grid-auto-flow:column;grid-auto-columns:176px;gap:12px;flex-shrink:0">
+            <sc-for list="{{ tiles }}" as="t" hint-placeholder-count="0">
+              <a href="#" style="display:block;border-radius:12px;overflow:hidden;background:#fff">
+                <div style="{{ t.imgStyle }}"></div>
+              </a>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+
+      <div style="padding:28px 12px 0">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <h2 style="font-size:18px;font-weight:600;letter-spacing:-0.02em">Ne propusti aktualne promocije</h2>
+          <a href="#" class="arw" style="font-size:13px;font-weight:600;color:#0050A0;display:flex;align-items:center;gap:5px;white-space:nowrap">Prikaži sve <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <a href="#" style="grid-column:1 / 3;display:block;border-radius:12px;overflow:hidden;aspect-ratio:2.09"><img src="images/offer-best-1.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></a>
+          <a href="#" style="display:block;border-radius:12px;overflow:hidden;aspect-ratio:1"><img src="images/offer-best-2.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></a>
+          <a href="#" style="display:block;border-radius:12px;overflow:hidden;aspect-ratio:1"><img src="images/offer-best-3.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></a>
+          <a href="#" style="display:block;border-radius:12px;overflow:hidden;aspect-ratio:1"><img src="images/offer-best-4.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></a>
+          <a href="#" style="display:block;border-radius:12px;overflow:hidden;aspect-ratio:1"><img src="images/offer-best-5.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></a>
+          <a href="#" style="display:block;border-radius:12px;overflow:hidden;aspect-ratio:1"><img src="images/offer-best-6.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></a>
+          <a href="#" style="display:block;border-radius:12px;overflow:hidden;aspect-ratio:1"><img src="images/offer-best-7.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></a>
+          <a href="#" style="display:block;border-radius:12px;overflow:hidden;aspect-ratio:1"><img src="images/offer-best-8.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></a>
+        </div>
+      </div>
+
+      <dc-import on-open-product="{{ openProduct }}" name="Components/ProductCarousel" variant="mobile" title="Uštedi na laptopima" products="{{ lapList }}" hint-size="100%,420px"></dc-import>
+</sc-if>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;variant&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;desktop&quot;, &quot;mobile&quot;], &quot;default&quot;: &quot;desktop&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;cardHover&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;onOpenCategory&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(c: any) =&gt; void&quot; },
+  &quot;onOpenProduct&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(p: any) =&gt; void&quot; }
+}">
+const SLIDES = ['images/hero-1-premium-visa.webp','images/hero-2-epic-deals.webp','images/hero-3-brand-week.webp','images/hero-4-tv.webp','images/hero-5-end-of-school.webp','images/hero-6-summer.webp','images/hero-7-desktop-pc.webp','images/hero-8-hisense.webp','images/hero-9-flexstrike.webp'];
+const MHERO = ['images/hero-m-1.jpg','images/hero-m-2.jpg','images/hero-m-3.jpg','images/hero-m-4.jpg','images/hero-m-5.jpg','images/hero-m-6.jpg','images/hero-m-7.jpg'];
+const BANNERS = ['images/featured-card-1.webp','images/featured-card-2.webp','images/featured-card-3.webp','images/featured-card-4.webp','images/featured-card-5.webp','images/featured-card-6.webp','images/featured-card-7.webp','images/featured-card-8.webp','images/featured-card-9.webp','images/featured-card-10.webp','images/featured-card-2.webp','images/featured-card-5.webp','images/featured-card-7.webp','images/featured-card-1.webp'];
+const USPS = [
+  { icon: 'images/usp-dostava.svg', title: 'Pouzdana dostava', sub: 'Brza i sigurna dostava' },
+  { icon: 'images/usp-rate.svg', title: 'Plaćanje na rate', sub: 'Do 36 rata bez kamata' },
+  { icon: 'images/usp-preuzimanje.svg', title: 'Osobno preuzimanje', sub: 'Više od 100 poslovnica' },
+  { icon: 'images/usp-povrat.svg', title: 'Povrat unutar 14 dana', sub: 'Jednostavan povrat' }
+];
+const CATS = [
+  { img: 'images/cat-televizori.webp', label: 'Televizori' },
+  { img: 'images/cat-laptopi.webp', label: 'Laptopi' },
+  { img: 'images/cat-mobiteli.webp', label: 'Pametni telefoni', cat: 'Smartphone' },
+  { img: 'images/cat-pametni-satovi.webp', label: 'Pametni satovi' },
+  { img: 'images/cat-audio.webp', label: 'Audio oprema' },
+  { img: 'images/cat-gaming.webp', label: 'Gaming' },
+  { img: 'images/cat-stolna-racunala.webp', label: 'Stolna računala' },
+  { img: 'images/cat-kamere.webp', label: 'Kamere' },
+  { img: 'images/cat-hladnjaci.webp', label: 'Hladnjaci' },
+  { img: 'images/cat-perilice.webp', label: 'Perilice rublja' },
+  { img: 'images/cat-pranje-posuda.webp', label: 'Pranje posuđa' },
+  { img: 'images/cat-ploce-kuhanje.webp', label: 'Ploče za kuhanje', cat: 'Ugradbene ploče za kuhanje' },
+  { img: 'images/cat-klima.webp', label: 'Klimatizacija', cat: 'Klimatizacija i grijanje' },
+  { img: 'images/cat-pecnice.webp', label: 'Pećnice' },
+  { img: 'images/cat-mali-aparati.webp', label: 'Mali kućanski uređaji', cat: 'Mali kućanski aparati' },
+  { img: 'images/cat-osobna-njega.webp', label: 'Osobna njega' }
+];
+const HOT = [
+  { img: 'images/prod-bosch-perilica.webp', name: 'Perilica rublja Bosch WAN24266BY', price: '519,00 €', old: '659,00 €', disc: '140,00 €', rate: '43,25 € / 12 rata' },
+  { img: 'images/prod-philips-mop.webp', name: 'Mop električni Philips XV5113/01', price: '159,99 €', uau: true, rate: '13,33 € / 12 rata' },
+  { img: 'images/prod-samsung-a16.webp', name: 'Mobitel Samsung Galaxy A16 4GB/128GB', price: '99,00 €', old: '119,00 €', disc: '20,00 €', rate: '8,25 € / 12 rata' },
+  { img: 'images/prod-nutribullet.webp', name: 'Blender Nutribullet NB907CP 900W', price: '69,00 €', old: '99,00 €', disc: '30,00 €', rate: '5,75 € / 12 rata' },
+  { img: 'images/prod-krups-kava.webp', name: 'Aparat za kavu Krups KP1A3B10 Piccolo XS', price: '70,46 €' },
+  { img: 'images/prod-huawei-watch.webp', name: 'Pametni sat Huawei Watch GT6 Pro 46mm', price: '289,00 €', old: '299,00 €', disc: '10,00 €', rate: '24,08 € / 12 rata' },
+  { img: 'images/prod-hisense-klima.webp', name: 'Klima uređaj 3,4kW Hisense CA35LR03G', price: '348,00 €', old: '459,00 €', disc: '111,00 €', rate: '29,00 € / 12 rata' },
+  { img: 'images/prod-philips-brijac.webp', name: 'Brijač za glavu Philips HS7980/15', price: '89,99 €', old: '119,99 €', disc: '30,00 €', rate: '7,50 € / 12 rata' },
+  { img: 'images/prod-gorenje-perilica.webp', name: 'Perilica rublja Gorenje WNHPI84AS', price: '299,00 €', old: '559,00 €', disc: '260,00 €', rate: '24,92 € / 12 rata' },
+  { img: 'images/prod-gaming-pc.webp', name: 'Gaming PC Greed MK2 Pro AMD Ryzen 7 5700X', price: '1.549,90 €', old: '1.999,90 €', disc: '450,00 €' }
+];
+const TVP = [
+  { img: 'images/prod-samsung-a16.webp', name: 'TV TCL 55C6K, 139.9cm (55"), QD-Mini LED, 4K UHD SMART TV, GOOGLE TV', price: '499,00 €', old: '699,00 €' },
+  { img: 'images/prod-huawei-watch.webp', name: 'TV SAMSUNG QE65QN990FTXXH, 165.1cm (65"), Neo QLED Mini LED, 8K UHD Smart TV', price: '3.499,00 €', old: '4.799,00 €' },
+  { img: 'images/prod-gaming-pc.webp', name: 'TV Sony Bravia 5 K-85XR55BP 215cm (85") Mini LED', price: '2.299,00 €', old: '2.799,00 €' },
+  { img: 'images/prod-hisense-klima.webp', name: 'TV TCL 65C9K, 165.1cm (65"), QD-Mini LED, 4K UHD SMART TV, GOOGLE TV', price: '1.399,00 €', old: '1.699,00 €' },
+  { img: 'images/prod-bosch-perilica.webp', name: 'TV Sony K-75XR55BP Bravia 5 190cm (75") Mini LED', price: '1.949,00 €', old: '2.199,00 €' },
+  { img: 'images/prod-nutribullet.webp', name: 'TV SAMSUNG QE75LS03FWUXXH, 190.5cm (75"), QLED, 4K UHD Smart TV, The Frame', price: '1.999,00 €' },
+  { img: 'images/prod-krups-kava.webp', name: 'TV SONY K98XR55BP.CEI, 248.9cm (98"), Mini LED, 4K UHD SMART TV, Android TV', price: '4.399,00 €', old: '5.199,00 €' },
+  { img: 'images/prod-gorenje-perilica.webp', name: 'TV SONY K65XR55B.CEI, 165.1cm (65"), Mini LED, 4K UHD SMART TV, Android TV', price: '1.399,00 €', old: '1.699,00 €' },
+  { img: 'images/prod-philips-brijac.webp', name: 'TV SAMSUNG QE55Q80DATXXH, 138.8cm (55"), QLED, 4K UHD Smart TV, Tizen OS', price: '799,00 €', old: '999,00 €' },
+  { img: 'images/prod-philips-mop.webp', name: 'TV HISENSE 65U7NQ, 164cm (65"), QLED, 4K UHD Smart TV, VIDAA OS', price: '549,00 €', old: '749,00 €' },
+  { img: 'images/prod-samsung-a16.webp', name: 'TV LG OLED65C45LA, 164cm (65"), OLED evo, 4K UHD Smart TV, webOS', price: '1.299,00 €', old: '1.799,00 €' },
+  { img: 'images/prod-gaming-pc.webp', name: 'TV PHILIPS 75PUS8909/12, 189cm (75"), 4K UHD LED, Smart TV, Ambilight', price: '899,00 €', old: '1.199,00 €' }
+];
+const LAP = [
+  { img: 'images/prod-laptop-acer-aspire-lite1.webp', name: 'Laptop ACER Aspire Go 15 NX.J7WEX.00Q, 39.6cm (15.6") IPS Full HD, AMD Ryzen 7 5825U, 16 GB RAM', price: '699,00 €', disc: '140,00 €' },
+  { img: 'images/prod-laptop-acer-aspire-lite2.webp', name: 'Laptop ACER Nitro V 15 NH.QSGEX.007, 43.9cm (17.3") IPS Full HD 144Hz, AMD Ryzen 7 7735HS, 16 GB', price: '949,00 €', old: '1.099,00 €' },
+  { img: 'images/prod-laptop-asus-tuf.webp', name: 'Laptop ASUS Zenbook 14 UX3405CA-ST1439W, 35.6cm (14") OLED 3K 120Hz, Intel Core Ultra 7 255H', price: '1.399,00 €', old: '3.599,00 €' },
+  { img: 'images/prod-laptop-hp-victus.webp', name: 'Laptop ASUS TUF Gaming A15 FA506NCG-HN185, 39.6cm (15.6") Full HD 144Hz, AMD Ryzen 7 7445HS, 16 G', price: '779,00 €' },
+  { img: 'images/prod-laptop-lenovo-slim5.webp', name: 'Laptop ASUS ROG Strix G16 G615LW-BA2L4EA, 40.6cm (16") 2.5K WQXGA 240Hz, Intel Core 9 275HX, 32', price: '3.399,00 €', old: '3.599,00 €' },
+  { img: 'images/prod-laptop-hp-omnibook5-flip.webp', name: 'Laptop HP VICTUS Gaming 15-fb3702nm BA2L4EA, 39.6cm (15.6") IPS Full HD 144Hz, AMD Ryzen 5 8645HS', price: '899,00 €' },
+  { img: 'images/prod-laptop-lenovo-yoga7.webp', name: 'Obnovljen - kao nov - Laptop Microsoft Surface Laptop Go / i5 / RAM 16 GB / SSD Pogon / 12,4"', price: '388,00 €', old: '434,00 €' },
+  { img: 'images/prod-laptop-lenovo-legion5.webp', name: 'Laptop ACER Nitro V 15 NH.QZ8EX.01K, 39.6cm (15.6") IPS Full HD 165Hz, Intel Core 9 270H, 32 GB', price: '1.499,00 €', old: '1.899,00 €' },
+  { img: 'images/prod-laptop-lenovo-ideapad-slim3.webp', name: 'Laptop ASUS Vivobook 15 M1502NAQ-BQ049, 39.6cm (15.6") Full HD, AMD Ryzen 7 170, 16 GB RAM', price: '579,00 €', old: '599,00 €' },
+  { img: 'images/prod-laptop-hp-omnibook5-16.webp', name: 'Obnovljen - kao nov - Laptop HP ZBook 15v G5 / i7 / RAM 16 GB / SSD Pogon / Monitor 15,6" FHD', price: '501,00 €', old: '537,00 €' },
+  { img: 'images/prod-laptop-hp-omnibook5-ai.webp', name: 'Laptop ASUS Vivobook 16 X1605VA-240Hz, 40.6cm (16") OLED WUXGA, Intel Core Ultra 9 270H, 24 GB', price: '969,00 €' },
+  { img: 'images/prod-laptop-hp-omnibook7.webp', name: 'Laptop HP OMEN Gaming MAX 16-ah0042nm BT3K2EA, 40.6cm (16") IPS Full HD 240Hz, Intel Core Ultra 7', price: '2.399,00 €' }
+];
+const TILES = [
+  { img: 'images/tile-gaming-racunala.webp' }, { img: 'images/tile-trampolini.webp' },
+  { img: 'images/tile-ebicikli.webp' }, { img: 'images/tile-fitness.webp' },
+  { img: 'images/tile-fotoaparati.webp' }, { img: 'images/tile-dvoriste.webp' },
+  { img: 'images/tile-visokotle-cni.webp' }, { img: 'images/tile-ev-punjaci.webp' },
+  { img: 'images/tile-madraci.webp' }, { img: 'images/tile-gaming-setovi.webp' },
+  { img: 'images/tile-trake-trcanje.webp' }, { img: 'images/tile-projektori.webp' }
+];
+const FOOTER_COLS = [
+  { title: 'Big Bang', links: ['O nama','Akcije i promocije','Prodajna mjesta','B2B','Novosti','Marketplace za partnere','Korisnički račun'] },
+  { title: 'Usluge i uvjeti', links: ['Načini plaćanja','Načini dostave','Uvjeti korištenja','Privatnost podataka','Pravila o korištenju kolačića','Zbrinjavanje EE otpada','Akt o digitalnim uslugama'] },
+  { title: 'Pomoć i podrška', links: ['Kontakt','Često postavljana pitanja','Podrška','Marketplace','Raskid ugovora'] }
+];
+const PAYMENTS = ['images/pay-visa.png','images/pay-mastercard.png','images/pay-maestro.png','images/pay-diners.png','images/pay-keks.svg'];
+
+class Component extends DCLogic {
+  state = { hero: 0, prog: {} };
+
+  refTv = React.createRef();
+  refTiles = React.createRef();
+
+  syncHoverMode() {
+    document.body.setAttribute('data-cardhover', this.props.cardHover === 'Whole card scales' ? 'card' : 'image');
+  }
+  componentDidMount() {
+    this.syncHoverMode();
+    this.timer = setInterval(() => {
+      this.setState(s => ({ hero: (s.hero + 1) % SLIDES.length }));
+    }, 5000);
+  }
+  componentWillUnmount() { clearInterval(this.timer); }
+  componentDidUpdate(prevProps) {
+    if (prevProps.cardHover !== this.props.cardHover) this.syncHoverMode();
+  }
+
+  scroll(ref, dir, amount) {
+    if (ref.current) ref.current.scrollBy({ left: dir * amount, behavior: 'smooth' });
+  }
+
+  renderVals() {
+    const s = this.state;
+    const mobile = this.props.variant === 'mobile';
+
+    return {
+      heroReady: true,
+      isDesktop: !mobile,
+      openProduct: this.props.onOpenProduct || (() => {}),
+      isMobile: mobile,
+
+
+
+
+      heroLayers: SLIDES.map((src, i) => ({
+        src: src,
+        style: {
+          width: '100%', aspectRatio: '1920 / 440', display: 'block',
+          backgroundImage: 'url("' + src + '")', backgroundSize: 'cover', backgroundPosition: 'center',
+          position: i === 0 ? 'relative' : 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+          opacity: i === s.hero ? 1 : 0, transition: 'opacity 0.5s ease', pointerEvents: 'none'
+        }
+      })),
+      heroDots: SLIDES.map((_, i) => ({
+        onClick: () => this.setState({ hero: i }),
+        style: {
+          width: i === s.hero ? 20 : 8, height: 8, borderRadius: 4,
+          background: i === s.hero ? '#fff' : 'rgba(255,255,255,0.5)',
+          border: 'none', transition: 'all 0.3s', padding: 0
+        }
+      })),
+      mobHeroLayers: MHERO.map((src, i) => ({
+        src: src,
+        style: {
+          width: '100%', height: '100%', display: 'block',
+          backgroundImage: 'url("' + src + '")', backgroundSize: 'cover', backgroundPosition: 'center',
+          position: i === 0 ? 'relative' : 'absolute', top: 0, left: 0,
+          opacity: i === (s.hero % MHERO.length) ? 1 : 0, transition: 'opacity 0.5s ease', pointerEvents: 'none'
+        }
+      })),
+      mobHeroDots: MHERO.map((_, i) => ({
+        onClick: () => this.setState({ hero: i }),
+        style: {
+          width: i === (s.hero % MHERO.length) ? 18 : 7, height: 7, borderRadius: 4,
+          background: i === (s.hero % MHERO.length) ? '#fff' : 'rgba(255,255,255,0.5)',
+          border: 'none', transition: 'all 0.3s', padding: 0
+        }
+      })),
+      heroPrev: () => this.setState(p => ({ hero: (p.hero - 1 + SLIDES.length) % SLIDES.length })),
+      heroNext: () => this.setState(p => ({ hero: (p.hero + 1) % SLIDES.length })),
+
+      banners: BANNERS,
+      bannerCards: BANNERS.map(src => ({
+        style: { width: '100%', height: '100%', backgroundImage: 'url("' + src + '")', backgroundSize: 'cover', backgroundPosition: 'center' }
+      })),
+      mobNav: ['Akcije i promocije', 'Kuhinje', 'Outlet', 'Prodajna mjesta', 'UAU klub', 'Kontakt', 'Prodavatelji'],
+      usps: USPS.map((u, i) => ({
+        icon: u.icon, title: u.title, sub: u.sub,
+        iconStyle: { width: 26, height: 26, flexShrink: 0, backgroundImage: 'url("' + u.icon + '")', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' },
+        iconStyleMob: { width: 22, height: 22, flexShrink: 0, backgroundImage: 'url("' + u.icon + '")', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' },
+        style: {
+          flex: 1, maxWidth: 320, display: 'flex', alignItems: 'center', gap: 14,
+          padding: '16px 24px', borderRight: i < USPS.length - 1 ? '1px solid #E4E4EA' : 'none',
+          color: '#101117', transition: 'background 0.15s'
+        }
+      })),
+      openCategory: this.props.onOpenCategory || (() => {}),
+      cats: CATS.map(c => Object.assign({}, c, {
+        onClick: (e) => { if (e) e.preventDefault(); (this.props.onOpenCategory || (() => {}))(c.cat || c.label); },
+        imgStyle: {
+          width: '100%', height: '100%', backgroundImage: 'url("' + c.img + '")',
+          backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+          mixBlendMode: 'multiply'
+        }
+      })),
+      hotDeals: HOT.map(p => Object.assign({}, p, {
+        discLabel: p.old ? '-' + Math.round((parseFloat(String(p.old).replace(/[^0-9,]/g,'').replace(',','.')) - parseFloat(String(p.price).replace(/[^0-9,]/g,'').replace(',','.'))) / parseFloat(String(p.old).replace(/[^0-9,]/g,'').replace(',','.')) * 100) + '%' : '', rateLabel: p.rate ? 'ili ' + p.rate : ''
+      })),
+      tiles: TILES.map(t => Object.assign({}, t, {
+        imgStyle: {
+          width: '100%', height: '100%', background: '#fff',
+          backgroundImage: 'url("' + t.img + '")', backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat', backgroundPosition: 'center'
+        }
+      })),
+      footerCols: FOOTER_COLS,
+      payments: PAYMENTS,
+
+      hotList: HOT,
+      lapList: LAP,
+
+      mobFooterCols: FOOTER_COLS.map((c, i) => ({
+        title: c.title, links: c.links, open: s.footOpen === i,
+        toggle: () => this.setState(prev => ({ footOpen: prev.footOpen === i ? -1 : i })),
+        chevStyle: { display: 'flex', color: '#fff', transform: s.footOpen === i ? 'rotate(180deg)' : 'none', transition: 'transform .2s' }
+      })),
+      refTv: this.refTv,
+      tvLeft: () => this.scroll(this.refTv, -1, 1172),
+      tvRight: () => this.scroll(this.refTv, 1, 1172),
+      tvProducts: TVP.map((p, i) => {
+        const bits = String(p.price).replace(' €', '').split(',');
+        const clip = (t, n) => (String(t).length > n ? String(t).slice(0, n - 1).replace(/[\s,.;:-]+$/, '') + '…' : String(t));
+        return {
+          img: p.img, name: p.name, nameTv: clip(p.name, 54), nameTvMob: clip(p.name, 30), old: p.old || '',
+          openProduct: (e) => { if (e) e.preventDefault(); (this.props.onOpenProduct || (() => {}))(p); },
+          titleStyleTv: { display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 1, overflow: 'hidden', fontSize: 12, fontWeight: 600, lineHeight: 1.35, color: '#101117' },
+          titleStyleTvMob: { display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 1, overflow: 'hidden', fontSize: 11.5, fontWeight: 600, lineHeight: 1.35, color: '#101117' },
+          imgStyle: { width: '100%', height: '100%', backgroundImage: 'url("' + p.img + '")', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' },
+          priceInt: bits[0], priceCents: bits[1] || '00',
+          anchor: p.anchor || p.old || p.price,
+          anchorDate: p.anchorDate || '10.09.2026.',
+          priceStyle: { fontSize: 20, fontWeight: 700, letterSpacing: '-0.02em', color: p.old ? '#DA0D00' : '#101117' },
+          priceStyleMob: { fontSize: 16, fontWeight: 700, letterSpacing: '-0.02em', color: p.old ? '#DA0D00' : '#101117' },
+          code: i % 3 === 0 ? 'Dodatnih 5% uz kod' : '',
+          stop: (e) => { if (e) { e.preventDefault(); e.stopPropagation(); } },
+          discLabel: p.old ? '-' + Math.round((parseFloat(String(p.old).replace(/[^0-9,]/g,'').replace(',','.')) - parseFloat(String(p.price).replace(/[^0-9,]/g,'').replace(',','.'))) / parseFloat(String(p.old).replace(/[^0-9,]/g,'').replace(',','.')) * 100) + '%' : ''
+        };
+      }),
+      tvScroll: e => {
+        const el = e.currentTarget, span = el.scrollWidth - el.clientWidth;
+        const frac = span > 0 ? el.scrollLeft / span : 0;
+        if (Math.abs((s.prog.tvrow || 0) - frac) > 0.005) {
+          this.setState(prev => ({ prog: Object.assign({}, prev.prog, { tvrow: frac }) }));
+        }
+      },
+      tvProg: {
+        position: 'absolute', top: 0, left: 0, height: '100%', borderRadius: 2,
+        background: '#0050A0', width: (34 + (s.prog.tvrow || 0) * 66) + '%'
+      },
+      refTiles: this.refTiles,
+      tilesLeft: () => this.scroll(this.refTiles, -1, 756),
+      tilesRight: () => this.scroll(this.refTiles, 1, 756),
+      tilesScroll: e => {
+        const el = e.currentTarget, span = el.scrollWidth - el.clientWidth;
+        const frac = span > 0 ? el.scrollLeft / span : 0;
+        if (Math.abs((s.prog.tiles || 0) - frac) > 0.005) {
+          this.setState(prev => ({ prog: Object.assign({}, prev.prog, { tiles: frac }) }));
+        }
+      },
+      tilesProg: {
+        position: 'absolute', top: 0, left: 0, height: '100%', borderRadius: 2,
+        background: '#0050A0', width: (22 + (s.prog.tiles || 0) * 78) + '%'
+      },
+
+    };
+  }
+}
+</script>
+</body>
+</html>

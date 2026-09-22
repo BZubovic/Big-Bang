@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="eu-guarantee.js"></script>
+</helmet>
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<div ref="{{ rootRef }}">
+<dc-import name="Components/InfoPageHead" variant="desktop" heading="Vaša prava na zakonsko jamstvo" intro="Svaki potrošač u Europskoj uniji ima najmanje dvije godine zakonskog jamstva usklađenosti za robu kupljenu u EU. Ovdje je službena obavijest Europske komisije te objašnjenje razlike između zakonskog jamstva, jamstva proizvođača i našeg produženog jamstva." on-home="{{ onHome }}" hint-size="100%,230px"></dc-import>
+
+<div style="background:#F1F1F4;padding:28px 0 64px">
+  <div style="max-width:1480px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:224px minmax(0,1fr);gap:24px;align-items:start">
+
+    <dc-import name="Components/InfoAnchorNav" variant="desktop" items="{{ navItems }}" active="{{ sec }}" on-select="{{ selectSec }}" note="Obveza primjene: 27.09.2026." hint-size="100%,300px" style="position:sticky;top:72px;z-index:100"></dc-import>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <section data-sec="g1" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #0050A0;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#0050A0">01</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">SVAKI PROIZVOD, BEZ IZNIMKE</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Zakonsko jamstvo usklađenosti</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">Zakonsko jamstvo je vaše pravo prema zakonu — ne kupuje se i ne ovisi o proizvođaču. Prodavatelj odgovara za svaku neusklađenost robe koja je postojala u trenutku isporuke i koja se pokaže unutar jamstvenog roka.</p>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #EFF0F3;padding:26px 30px 28px;display:grid;grid-template-columns:340px minmax(0,1fr);gap:30px;align-items:start">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <button onClick="{{ openNotice }}" style="background:none;border:1px solid #E3E4E9;border-radius:8px;padding:0;overflow:hidden;cursor:pointer;display:block;width:100%" style-hover="border-color:#0050A0">
+              <img src="images/eu/legal-guarantee-notice-hr.svg" alt="Obavijest EU o zakonskom jamstvu usklađenosti" style="display:block;width:100%;height:auto">
+            </button>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+              <span style="font-size:11.5px;color:#8B95A5;line-height:1.4">Službena obavijest EU — prikazana u izvornom obliku.</span>
+              <button onClick="{{ openNotice }}" style="background:none;border:none;padding:0;font-family:Inter,sans-serif;font-size:13px;font-weight:600;color:#0050A0;white-space:nowrap;cursor:pointer">Uvećaj</button>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <sc-for list="{{ rights }}" as="r" hint-placeholder-count="5">
+              <div style="display:flex;gap:13px;align-items:flex-start">
+                <span style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#EEF3FA;flex-shrink:0">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0050A0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+                </span>
+                <span style="font-size:15px;line-height:1.55;color:#545F71">{{ r }}</span>
+              </div>
+            </sc-for>
+            <div style="margin-top:4px;background:#F6F7F9;border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:8px">
+              <span style="font-size:13.5px;line-height:1.5;color:#545F71">Više o svojim pravima u pojedinim državama članicama EU:</span>
+              <a href="https://europa.eu/youreurope/jamstva_hr" target="_blank" rel="noopener" style="font-size:14.5px;font-weight:600;color:#0050A0;display:inline-flex;align-items:center;gap:7px;text-decoration:underline;text-underline-offset:2px">
+                europa.eu/youreurope/jamstva_hr
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section data-sec="g2" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #0050A0;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#0050A0">02</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">AKO STE PRIMILI NEUSKLAĐENU ROBU</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Kako ostvariti pravo</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">Prijava je besplatna i ne zahtijeva registraciju proizvoda. Dovoljan je dokaz o kupnji — račun, potvrda narudžbe ili bankovni izvod.</p>
+          </div>
+        </div>
+        <div style="border-top:1px solid #EFF0F3;padding:26px 30px 28px">
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+            <sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
+              <div style="border:1px solid #E3E4E9;border-radius:10px;padding:18px 18px 20px;display:flex;flex-direction:column;gap:8px">
+                <span style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:#002D73;color:#fff;font-size:13px;font-weight:700">{{ st.n }}</span>
+                <span style="font-size:15.5px;font-weight:600;color:#101117;line-height:1.35">{{ st.title }}</span>
+                <span style="font-size:14px;line-height:1.5;color:#545F71">{{ st.text }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <section data-sec="g3" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #10DFBA;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#002D73">03</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">JAMSTVO PROIZVOĐAČA</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Oznaka EU GARAN</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">Neki proizvođači uz zakonsko jamstvo nude i komercijalno jamstvo trajnosti. Kada takvo jamstvo ispunjava sva tri uvjeta propisana EU-om, proizvod nosi oznaku EU GARAN s brojem godina.</p>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #EFF0F3;padding:26px 30px 28px;display:grid;grid-template-columns:232px minmax(0,1fr);gap:30px;align-items:start">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <img src="images/eu/garan-full-4.svg" alt="Primjer oznake EU GARAN s jamstvom trajnosti 4 godine" style="display:block;width:100%;height:auto;border:1px solid #E3E4E9;border-radius:8px">
+            <span style="font-size:11.5px;color:#8B95A5;line-height:1.4">Primjer oznake. Broj godina, proizvođač i model upisuje proizvođač.</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+              <sc-for list="{{ conds }}" as="c" hint-placeholder-count="3">
+                <div style="background:#F6F7F9;border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:5px">
+                  <span style="font-size:14.5px;font-weight:700;color:#101117">{{ c.title }}</span>
+                  <span style="font-size:13.5px;line-height:1.45;color:#545F71">{{ c.text }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <span style="font-size:14px;font-weight:600;color:#101117">Gdje ćete oznaku vidjeti</span>
+              <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+                <button onClick="{{ openLabel }}" style="background:none;border:none;padding:0;display:flex;cursor:pointer" title="Otvori punu oznaku EU GARAN">
+                  <img src="{{ nestedSrc }}" alt="Skraćena oznaka EU GARAN — otvara punu oznaku" style="height:26px;width:auto;display:block">
+                </button>
+                <span style="font-size:13.5px;line-height:1.5;color:#545F71;flex:1;min-width:240px">Skraćena oznaka stoji na karticama proizvoda, u popisu i u košarici. Klikom se otvara puna oznaka s podacima proizvođača i njegovom izjavom o jamstvu.</span>
+              </div>
+            </div>
+            <div style="display:flex;gap:13px;align-items:flex-start;background:#EEF3FA;border-radius:10px;padding:16px 18px">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#0050A0" style="flex-shrink:0;margin-top:1px"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"></path></svg>
+              <p style="font-size:14px;line-height:1.55;color:#545F71;margin:0">Oznaka EU GARAN je jamstvo proizvođača, a ne Big Bangove usluge. Ne odnosi se na naše produženo jamstvo ni na druge dodatne usluge, i ne utječe na vaše pravo iz zakonskog jamstva.</p>
+            </div>
+            <a href="https://europa.eu/youreurope/commercial-guarantee-durability/index.htm" target="_blank" rel="noopener" style="font-size:14.5px;font-weight:600;color:#0050A0;display:inline-flex;align-items:center;gap:7px;align-self:flex-start;text-decoration:underline;text-underline-offset:2px">
+              Više o oznaci EU GARAN na portalu Your Europe
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section data-sec="g4" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #E07842;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#E07842">04</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">DA SE NE POMIJEŠA</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Tri različita jamstva</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">Zakonsko jamstvo imate uvijek. Jamstvo proizvođača dobivate na nekim proizvodima, bez dodatnog troška. Produženo jamstvo je naša usluga koju možete dokupiti.</p>
+          </div>
+        </div>
+        <div style="border-top:1px solid #EFF0F3;padding:26px 30px 28px">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+            <sc-for list="{{ compare }}" as="c" hint-placeholder-count="3">
+              <div style="{{ c.box }}">
+                <div style="{{ c.head }}">
+                  <span style="{{ c.tag }}">{{ c.tagLabel }}</span>
+                  <span style="font-size:17px;font-weight:700;letter-spacing:-0.02em;color:#101117;line-height:1.3">{{ c.title }}</span>
+                </div>
+                <div style="display:flex;flex-direction:column">
+                  <sc-for list="{{ c.rows }}" as="r" hint-placeholder-count="4">
+                    <div style="display:flex;flex-direction:column;gap:2px;padding:12px 0;border-top:1px solid #EFF0F3">
+                      <span style="font-size:11.5px;font-weight:600;letter-spacing:0.06em;color:#8B95A5">{{ r.k }}</span>
+                      <span style="font-size:14px;line-height:1.5;color:#101117">{{ r.v }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <dc-import name="Components/SupportBand" variant="desktop" eyebrow="PITANJE O JAMSTVU?" title="Pomoći ćemo oko prijave i popravka." text="Objasnit ćemo koje jamstvo pokriva vaš slučaj, pokrenuti prijavu i pratiti popravak ili zamjenu. Dostupni smo svaki dan od 8 do 20h." hint-size="100%,190px"></dc-import>
+
+    </div>
+  </div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<div ref="{{ rootRefM }}">
+<dc-import name="Components/InfoPageHead" variant="mobile" heading="Vaša prava na zakonsko jamstvo" intro="Svaki potrošač u EU ima najmanje dvije godine zakonskog jamstva usklađenosti za robu kupljenu u EU." on-home="{{ onHome }}" hint-size="100%,150px"></dc-import>
+
+<div style="background:#F1F1F4;padding:0 0 40px">
+  <div style="position:sticky;top:55px;z-index:310">
+    <dc-import name="Components/InfoAnchorNav" variant="mobile" items="{{ navItems }}" active="{{ sec }}" on-select="{{ selectSec }}" hint-size="100%,48px"></dc-import>
+  </div>
+
+  <div style="padding:12px 12px 0;display:flex;flex-direction:column;gap:12px">
+
+    <section data-sec="g1" style="background:#fff;border-radius:12px;padding:18px 16px 20px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+        <span style="font-size:12px;font-weight:700;color:#0050A0">01</span>
+        <span style="font-size:10.5px;font-weight:600;letter-spacing:0.07em;color:#8B95A5">SVAKI PROIZVOD</span>
+      </div>
+      <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 8px">Zakonsko jamstvo usklađenosti</h2>
+      <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0 0 16px;text-wrap:pretty">Zakonsko jamstvo je vaše pravo prema zakonu — ne kupuje se i ne ovisi o proizvođaču. Prodavatelj odgovara za neusklađenost koja je postojala u trenutku isporuke.</p>
+      <button onClick="{{ openNotice }}" style="background:none;border:1px solid #E3E4E9;border-radius:8px;padding:0;overflow:hidden;cursor:pointer;display:block;width:100%;margin-bottom:8px">
+        <img src="images/eu/legal-guarantee-notice-hr.svg" alt="Obavijest EU o zakonskom jamstvu usklađenosti" style="display:block;width:100%;height:auto">
+      </button>
+      <button onClick="{{ openNotice }}" style="background:none;border:none;padding:0;margin:0 0 16px;font-family:Inter,sans-serif;font-size:13px;font-weight:600;color:#0050A0;cursor:pointer">Uvećaj obavijest</button>
+      <div style="display:flex;flex-direction:column;gap:11px">
+        <sc-for list="{{ rights }}" as="r" hint-placeholder-count="5">
+          <div style="display:flex;gap:10px;align-items:flex-start">
+            <span style="display:flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#EEF3FA;flex-shrink:0">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0050A0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+            </span>
+            <span style="font-size:13.5px;line-height:1.5;color:#545F71">{{ r }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <a href="https://europa.eu/youreurope/jamstva_hr" target="_blank" rel="noopener" style="margin-top:16px;font-size:13.5px;font-weight:600;color:#0050A0;display:inline-flex;align-items:center;gap:6px;text-decoration:underline;text-underline-offset:2px">
+        europa.eu/youreurope/jamstva_hr
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg>
+      </a>
+    </section>
+
+    <section data-sec="g2" style="background:#fff;border-radius:12px;padding:18px 16px 20px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+        <span style="font-size:12px;font-weight:700;color:#0050A0">02</span>
+        <span style="font-size:10.5px;font-weight:600;letter-spacing:0.07em;color:#8B95A5">PRIJAVA</span>
+      </div>
+      <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 14px">Kako ostvariti pravo</h2>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
+          <div style="border:1px solid #E3E4E9;border-radius:10px;padding:14px 15px;display:flex;gap:12px;align-items:flex-start">
+            <span style="display:flex;align-items:center;justify-content:center;width:25px;height:25px;border-radius:50%;background:#002D73;color:#fff;font-size:12px;font-weight:700;flex-shrink:0">{{ st.n }}</span>
+            <span style="display:flex;flex-direction:column;gap:3px">
+              <span style="font-size:14.5px;font-weight:600;color:#101117;line-height:1.35">{{ st.title }}</span>
+              <span style="font-size:13px;line-height:1.5;color:#545F71">{{ st.text }}</span>
+            </span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section data-sec="g3" style="background:#fff;border-radius:12px;padding:18px 16px 20px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+        <span style="font-size:12px;font-weight:700;color:#002D73">03</span>
+        <span style="font-size:10.5px;font-weight:600;letter-spacing:0.07em;color:#8B95A5">JAMSTVO PROIZVOĐAČA</span>
+      </div>
+      <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 8px">Oznaka EU GARAN</h2>
+      <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0 0 14px;text-wrap:pretty">Kada proizvođačevo jamstvo trajnosti ispunjava sva tri uvjeta propisana EU-om, proizvod nosi oznaku EU GARAN s brojem godina.</p>
+      <img src="images/eu/garan-full-4.svg" alt="Primjer oznake EU GARAN s jamstvom trajnosti 4 godine" style="display:block;width:180px;height:auto;border:1px solid #E3E4E9;border-radius:8px;margin-bottom:14px">
+      <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:14px">
+        <sc-for list="{{ conds }}" as="c" hint-placeholder-count="3">
+          <div style="background:#F6F7F9;border-radius:10px;padding:13px 15px;display:flex;flex-direction:column;gap:3px">
+            <span style="font-size:13.5px;font-weight:700;color:#101117">{{ c.title }}</span>
+            <span style="font-size:13px;line-height:1.45;color:#545F71">{{ c.text }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <button onClick="{{ openLabel }}" style="background:none;border:none;padding:0;margin-bottom:10px;display:flex;cursor:pointer">
+        <img src="{{ nestedSrc }}" alt="Skraćena oznaka EU GARAN — otvara punu oznaku" style="height:22px;width:auto;display:block">
+      </button>
+      <p style="font-size:13px;line-height:1.5;color:#545F71;margin:0 0 12px">Skraćena oznaka stoji na karticama proizvoda i u košarici. Klikom se otvara puna oznaka s izjavom proizvođača.</p>
+      <div style="display:flex;gap:10px;align-items:flex-start;background:#EEF3FA;border-radius:10px;padding:13px 15px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#0050A0" style="flex-shrink:0;margin-top:1px"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"></path></svg>
+        <p style="font-size:13px;line-height:1.5;color:#545F71;margin:0">Oznaka EU GARAN je jamstvo proizvođača, a ne Big Bangova usluga, i ne utječe na zakonsko jamstvo.</p>
+      </div>
+    </section>
+
+    <section data-sec="g4" style="background:#fff;border-radius:12px;padding:18px 16px 20px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+        <span style="font-size:12px;font-weight:700;color:#E07842">04</span>
+        <span style="font-size:10.5px;font-weight:600;letter-spacing:0.07em;color:#8B95A5">DA SE NE POMIJEŠA</span>
+      </div>
+      <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 14px">Tri različita jamstva</h2>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <sc-for list="{{ compare }}" as="c" hint-placeholder-count="3">
+          <div style="{{ c.boxMob }}">
+            <div style="{{ c.headMob }}">
+              <span style="{{ c.tag }}">{{ c.tagLabel }}</span>
+              <span style="font-size:15.5px;font-weight:700;letter-spacing:-0.02em;color:#101117;line-height:1.3">{{ c.title }}</span>
+            </div>
+            <div style="display:flex;flex-direction:column">
+              <sc-for list="{{ c.rows }}" as="r" hint-placeholder-count="4">
+                <div style="display:flex;flex-direction:column;gap:2px;padding:10px 0;border-top:1px solid #EFF0F3">
+                  <span style="font-size:10.5px;font-weight:600;letter-spacing:0.06em;color:#8B95A5">{{ r.k }}</span>
+                  <span style="font-size:13px;line-height:1.5;color:#101117">{{ r.v }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+  </div>
+
+  <dc-import name="Components/SupportBand" variant="mobile" eyebrow="PITANJE O JAMSTVU?" title="Pomoći ćemo oko prijave i popravka." text="Objasnit ćemo koje jamstvo pokriva vaš slučaj i pokrenuti prijavu. Dostupni smo svaki dan od 8 do 20h." hint-size="100%,260px"></dc-import>
+</div>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;variant&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;desktop&quot;, &quot;mobile&quot;], &quot;default&quot;: &quot;desktop&quot;, &quot;tsType&quot;: &quot;'desktop'|'mobile'&quot;}, &quot;onHome&quot;: {&quot;editor&quot;: null, &quot;tsType&quot;: &quot;() =&gt; void&quot;}, &quot;onNav&quot;: {&quot;editor&quot;: null, &quot;tsType&quot;: &quot;(key: string) =&gt; void&quot;}}">
+const ANCHORS = [
+  { id: 'g1', num: '01', label: 'Zakonsko jamstvo' },
+  { id: 'g2', num: '02', label: 'Kako ostvariti pravo' },
+  { id: 'g3', num: '03', label: 'Oznaka EU GARAN' },
+  { id: 'g4', num: '04', label: 'Tri različita jamstva' }
+];
+
+const RIGHTS = [
+  'Najmanje dvije godine od isporuke za novu robu; za rabljenu robu rok može biti kraći, ali ne kraći od jedne godine.',
+  'Prodavatelj odgovara za svaku neusklađenost koja je postojala u trenutku isporuke — neovisno o tome nudi li proizvođač svoje jamstvo.',
+  'Imate pravo na besplatan popravak ili besplatnu zamjenu, po vašem odabiru, osim ako je odabrano rješenje nemoguće ili nesrazmjerno.',
+  'U određenim slučajevima možete zahtijevati sniženje cijene ili potpuni povrat plaćenog iznosa.',
+  'Ostvarivanje prava ne košta ništa i ne zahtijeva registraciju proizvoda kod proizvođača.'
+];
+
+const STEPS = [
+  { n: '1', title: 'Prijavite problem', text: 'Što prije nas obavijestite — putem Kontakta, u poslovnici ili preko korisničkog računa.' },
+  { n: '2', title: 'Predočite dokaz o kupnji', text: 'Račun, potvrda narudžbe ili bankovni izvod. Jamstveni list nije uvjet.' },
+  { n: '3', title: 'Odaberite rješenje', text: 'Popravak ili zamjena, bez naknade i bez troška dostave na vašu stranu.' },
+  { n: '4', title: 'Pratite status', text: 'O svakom koraku obavještavamo vas e-poštom; status vidite i u korisničkom računu.' }
+];
+
+const CONDS = [
+  { title: 'Bez dodatnog troška', text: 'Jamstvo proizvođača je besplatno — ne naplaćuje se ni kao usluga ni kao paket.' },
+  { title: 'Cijeli proizvod', text: 'Pokriva proizvod u cjelini, a ne samo pojedini dio ili komponentu.' },
+  { title: 'Dulje od 2 godine', text: 'Traje dulje od zakonskog minimuma; broj godina upisan je u oznaci.' }
+];
+
+const COMPARE = [
+  {
+    tagLabel: 'ZAKONSKO',
+    tagColor: '#0050A0',
+    title: 'Zakonsko jamstvo usklađenosti',
+    rows: [
+      { k: 'KO GA DAJE', v: 'Prodavatelj — Big Bang ili prodavatelj na Marketplaceu' },
+      { k: 'TRAJANJE', v: 'Najmanje 2 godine (rabljena roba najmanje 1 godina)' },
+      { k: 'CIJENA', v: 'Besplatno, uključeno u svaku kupnju' },
+      { k: 'KAKO OSTVARITI', v: 'Prijava prodavatelju uz dokaz o kupnji' }
+    ]
+  },
+  {
+    tagLabel: 'EU GARAN',
+    tagColor: '#002D73',
+    title: 'Jamstvo trajnosti proizvođača',
+    rows: [
+      { k: 'KO GA DAJE', v: 'Proizvođač proizvoda' },
+      { k: 'TRAJANJE', v: 'Dulje od 2 godine; točan broj godina piše u oznaci' },
+      { k: 'CIJENA', v: 'Besplatno — uvjet za nošenje oznake EU GARAN' },
+      { k: 'KAKO OSTVARITI', v: 'Prema izjavi proizvođača, dostupnoj u punoj oznaci' }
+    ]
+  },
+  {
+    tagLabel: 'DODATNA USLUGA',
+    tagColor: '#E07842',
+    title: 'Big Bang produženo jamstvo',
+    rows: [
+      { k: 'KO GA DAJE', v: 'Big Bang, kao usluga koja se dokupljuje' },
+      { k: 'TRAJANJE', v: 'Prema odabranom paketu, nakon zakonskog jamstva' },
+      { k: 'CIJENA', v: 'Plaća se posebno pri kupnji proizvoda' },
+      { k: 'KAKO OSTVARITI', v: 'Prijava Big Bangu prema uvjetima paketa' }
+    ]
+  }
+];
+
+class Component extends DCLogic {
+  state = { sec: 'g1' };
+
+  rootRef = (el) => { if (el) this.root = el; };
+
+  selectSec = (id) => {
+    this.setState({ sec: id });
+    const el = this.root && this.root.querySelector('[data-sec="' + id + '"]');
+    if (!el) return;
+    let node = el.parentElement, cont = null;
+    while (node && node !== document.body && node !== document.documentElement) {
+      const oy = getComputedStyle(node).overflowY;
+      if ((oy === 'auto' || oy === 'scroll') && node.scrollHeight > node.clientHeight) { cont = node; break; }
+      node = node.parentElement;
+    }
+    const r = el.getBoundingClientRect();
+    if (cont) {
+      const cr = cont.getBoundingClientRect();
+      cont.scrollBy({ top: r.top - cr.top - 68, behavior: 'smooth' });
+    } else {
+      window.scrollBy({ top: r.top - 110, behavior: 'smooth' });
+    }
+  };
+
+  demoGaran() {
+    return {
+      years: 4,
+      brand: 'Proizvođač',
+      model: 'Model',
+      statement: 'Primjer izjave proizvođača: jamstvo trajnosti pokriva cijeli proizvod, bez dodatnih troškova za potrošača; zahtjev se podnosi prema uputama proizvođača. Ovo komercijalno jamstvo ne utječe na vaša prava iz zakonskog jamstva usklađenosti.'
+    };
+  }
+
+  renderVals() {
+    const mobile = this.props.variant === 'mobile';
+    return {
+      isDesktop: !mobile,
+      isMobile: mobile,
+      rootRef: mobile ? null : this.rootRef,
+      rootRefM: mobile ? this.rootRef : null,
+      onHome: this.props.onHome,
+      sec: this.state.sec,
+      selectSec: this.selectSec,
+      navItems: ANCHORS,
+      rights: RIGHTS,
+      steps: STEPS,
+      conds: CONDS,
+      nestedSrc: window.BBEU ? window.BBEU.nestedURI(4) : '',
+      openNotice: (e) => { if (e) e.preventDefault(); if (window.BBEU) window.BBEU.openNotice(); },
+      openLabel: (e) => { if (e) e.preventDefault(); if (window.BBEU) window.BBEU.openLabel(this.demoGaran()); },
+      compare: COMPARE.map(c => ({
+        tagLabel: c.tagLabel,
+        title: c.title,
+        rows: c.rows,
+        tag: {
+          alignSelf: 'flex-start', background: c.tagColor, color: '#fff', fontSize: 10,
+          fontWeight: 700, letterSpacing: '0.07em', padding: '4px 9px', borderRadius: 4
+        },
+        box: { border: '1px solid #E3E4E9', borderRadius: 12, padding: '20px 20px 8px', display: 'flex', flexDirection: 'column', gap: 14 },
+        boxMob: { border: '1px solid #E3E4E9', borderRadius: 12, padding: '16px 16px 6px', display: 'flex', flexDirection: 'column', gap: 12 },
+        head: { display: 'flex', flexDirection: 'column', gap: 9 },
+        headMob: { display: 'flex', flexDirection: 'column', gap: 8 }
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

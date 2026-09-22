@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<title>Big Bang — TV i audio (razina 1, desktop)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   BIG BANG DESIGN SYSTEM — Colors & Typography
+   Source: Big Bang Web.fig (Figma)
+   ============================================================ */
+
+/* -----------------------------------------------------------
+   @FONT-FACE — Inter (brand font, local files)
+   ----------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* -----------------------------------------------------------
+   COLOR TOKENS
+   ----------------------------------------------------------- */
+:root {
+  /* Brand Blues */
+  --bb-blue-primary:   #0050A0;   /* Primary blue — CTAs, links */
+  --bb-blue-dark:      #002D73;   /* Dark blue — headers, accents */
+  --bb-blue-navy:      #171C51;   /* Nav bar background */
+  --bb-blue-medium:    #2A307A;   /* Mid blue — secondary nav */
+  --bb-blue-light:     #0050A0;   /* Alias for primary */
+
+  /* Accent / Semantic */
+  --bb-turquoise:      #10DFBA;   /* Promo / highlight accent */
+  --bb-yellow:         #FFC857;   /* Star ratings, highlights */
+  --bb-orange:         #E07842;   /* Secondary accent */
+  --bb-orange-bang:    #F65F04;   /* "Bang Cijena" price label */
+  --bb-red:            #C1292E;   /* Danger / destructive */
+  --bb-alert:          #DA0D00;   /* Error states, alert */
+  --bb-success:        #1FB549;   /* Success, in-stock badge */
+  --bb-aqua:           #088696;   /* Info accent */
+
+  /* Neutral / Gray Scale */
+  --bb-black:          #101117;   /* Primary text */
+  --bb-gray-900:       #3D4043;   /* Dark body text */
+  --bb-gray-700:       #545F71;   /* Secondary text, borders */
+  --bb-gray-600:       #6D6D6D;   /* Muted text */
+  --bb-gray-500:       #818181;   /* Placeholder-adjacent */
+  --bb-gray-400:       #B6B6B6;   /* Disabled states */
+  --bb-gray-300:       #C7C7CD;   /* Placeholder text */
+  --bb-gray-200:       #D2D2D7;   /* Dividers */
+  --bb-gray-100:       #F1F1F4;   /* Page background */
+  --bb-gray-50:        #F3F3F3;   /* Light gray fills */
+  --bb-white:          #FFFFFF;
+
+  /* Semantic / Functional */
+  --bb-bg-page:        var(--bb-gray-100);    /* #F1F1F4 */
+  --bb-bg-card:        var(--bb-white);
+  --bb-bg-header:      var(--bb-white);
+  --bb-bg-nav:         var(--bb-blue-navy);   /* #171C51 */
+  --bb-bg-promo:       var(--bb-orange-bang); /* #F65F04 */
+
+  --bb-text-primary:   var(--bb-black);
+  --bb-text-secondary: var(--bb-gray-700);
+  --bb-text-muted:     var(--bb-gray-500);
+  --bb-text-inverse:   var(--bb-white);
+  --bb-text-link:      var(--bb-blue-primary);
+
+  --bb-border-default: var(--bb-gray-700);    /* 1px solid */
+  --bb-border-subtle:  var(--bb-gray-300);
+
+  --bb-focus:          var(--bb-blue-primary);
+
+  /* -----------------------------------------------------------
+     SPACING / RADIUS / SHADOW TOKENS
+     ----------------------------------------------------------- */
+  --bb-radius-sm:      6px;    /* inputs, small elements */
+  --bb-radius-md:      12px;   /* cards, panels */
+  --bb-radius-pill:    24px;   /* pill buttons, search bar */
+  --bb-radius-circle:  50%;
+
+  --bb-shadow-card:    0 2px 8px rgba(0,0,0,0.10);
+  --bb-shadow-hover:   0 4px 16px rgba(0,0,0,0.15);
+  --bb-shadow-modal:   0 8px 32px rgba(0,0,0,0.20);
+
+  --bb-spacing-xs:     4px;
+  --bb-spacing-sm:     8px;
+  --bb-spacing-md:     12px;
+  --bb-spacing-lg:     16px;
+  --bb-spacing-xl:     24px;
+  --bb-spacing-2xl:    32px;
+  --bb-spacing-3xl:    48px;
+  --bb-spacing-page:   240px;  /* desktop horizontal page padding */
+}
+
+/* -----------------------------------------------------------
+   TYPOGRAPHY TOKENS
+   Source: Inter (Google Fonts) — primary typeface throughout
+   Fallback: system-ui, sans-serif
+   ----------------------------------------------------------- */
+:root {
+  --bb-font-family:    'Inter', system-ui, sans-serif;
+
+  /* Scale */
+  --bb-text-hero:      58px;    /* Hero headers (desktop) */
+  --bb-text-h1:        36px;
+  --bb-text-h2:        24px;
+  --bb-text-h3:        22px;
+  --bb-text-h4:        18px;
+  --bb-text-lg:        16px;
+  --bb-text-md:        15px;
+  --bb-text-base:      14px;
+  --bb-text-sm:        12px;
+  --bb-text-xs:        11px;
+  --bb-text-2xs:       10px;
+
+  /* Line heights */
+  --bb-lh-tight:       1.1;
+  --bb-lh-snug:        1.2;
+  --bb-lh-normal:      1.4;
+  --bb-lh-relaxed:     1.5;
+  --bb-lh-body:        22px;   /* body line-height at 16px base */
+
+  /* Letter spacing */
+  --bb-ls-tight:       -0.02em;
+  --bb-ls-normal:      -0.01em;
+  --bb-ls-wide:        0em;
+
+  /* Weights */
+  --bb-fw-light:       300;
+  --bb-fw-regular:     400;
+  --bb-fw-medium:      500;
+  --bb-fw-semibold:    600;
+  --bb-fw-bold:        700;
+  --bb-fw-black:       900;
+}
+
+/* -----------------------------------------------------------
+   SEMANTIC TEXT STYLES
+   ----------------------------------------------------------- */
+.bb-h1 {
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-h1);
+  font-weight: var(--bb-fw-bold);
+  line-height: var(--bb-lh-snug);
+  letter-spacing: var(--bb-ls-tight);
+  color: var(--bb-text-primary);
+}
+
+.bb-h2 {
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-h2);
+  font-weight: var(--bb-fw-semibold);
+  line-height: var(--bb-lh-snug);
+  letter-spacing: var(--bb-ls-tight);
+  color: var(--bb-text-primary);
+}
+
+.bb-h3 {
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-h3);
+  font-weight: var(--bb-fw-bold);
+  line-height: var(--bb-lh-normal);
+  letter-spacing: var(--bb-ls-normal);
+  color: var(--bb-text-primary);
+}
+
+.bb-h4 {
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-h4);
+  font-weight: var(--bb-fw-semibold);
+  line-height: var(--bb-lh-normal);
+  color: var(--bb-text-primary);
+}
+
+.bb-body-lg {
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-lg);
+  font-weight: var(--bb-fw-regular);
+  line-height: var(--bb-lh-body);
+  letter-spacing: var(--bb-ls-tight);
+  color: var(--bb-text-primary);
+}
+
+.bb-body {
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-base);
+  font-weight: var(--bb-fw-regular);
+  line-height: var(--bb-lh-normal);
+  letter-spacing: var(--bb-ls-tight);
+  color: var(--bb-text-primary);
+}
+
+.bb-body-sm {
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-sm);
+  font-weight: var(--bb-fw-regular);
+  line-height: var(--bb-lh-normal);
+  color: var(--bb-text-secondary);
+}
+
+.bb-label {
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-sm);
+  font-weight: var(--bb-fw-semibold);
+  line-height: var(--bb-lh-normal);
+  letter-spacing: var(--bb-ls-normal);
+}
+
+.bb-link {
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-base);
+  font-weight: var(--bb-fw-semibold);
+  color: var(--bb-text-link);
+  text-decoration: none;
+}
+.bb-link:hover { text-decoration: underline; }
+
+.bb-caption {
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-xs);
+  font-weight: var(--bb-fw-regular);
+  line-height: var(--bb-lh-normal);
+  color: var(--bb-text-muted);
+}
+
+/* -----------------------------------------------------------
+   COMPONENT PRIMITIVES
+   ----------------------------------------------------------- */
+
+/* Buttons */
+.bb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 32px;
+  border-radius: var(--bb-radius-pill);
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-lg);
+  font-weight: var(--bb-fw-bold);
+  line-height: 1;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: background 0.2s, opacity 0.2s, transform 0.15s;
+  text-decoration: none;
+}
+.bb-btn:active { transform: scale(0.98); }
+
+.bb-btn-primary {
+  background: var(--bb-blue-primary);
+  color: var(--bb-white);
+  border-color: var(--bb-blue-primary);
+}
+.bb-btn-primary:hover { background: var(--bb-blue-dark); border-color: var(--bb-blue-dark); }
+
+.bb-btn-secondary {
+  background: var(--bb-white);
+  color: var(--bb-blue-primary);
+  border-color: var(--bb-blue-primary);
+}
+.bb-btn-secondary:hover { background: var(--bb-gray-50); }
+
+.bb-btn-outline {
+  background: transparent;
+  color: var(--bb-gray-700);
+  border-color: var(--bb-gray-700);
+}
+.bb-btn-outline:hover { background: var(--bb-gray-50); }
+
+.bb-btn-sm { height: 36px; padding: 0 20px; font-size: var(--bb-text-base); border-radius: 18px; }
+.bb-btn-pill { border-radius: var(--bb-radius-pill); }
+.bb-btn:disabled, .bb-btn[disabled] { opacity: 0.4; cursor: not-allowed; }
+
+/* Input */
+.bb-input {
+  height: 48px;
+  padding: 0 12px;
+  border-radius: var(--bb-radius-sm);
+  border: 1px solid var(--bb-gray-700);
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-lg);
+  letter-spacing: var(--bb-ls-tight);
+  color: var(--bb-text-primary);
+  background: var(--bb-white);
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+}
+.bb-input::placeholder { color: var(--bb-gray-300); }
+.bb-input:focus { border-color: var(--bb-blue-primary); }
+
+/* Card */
+.bb-card {
+  background: var(--bb-bg-card);
+  border-radius: var(--bb-radius-md);
+  box-shadow: var(--bb-shadow-card);
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.bb-card:hover {
+  box-shadow: var(--bb-shadow-hover);
+  transform: scale(1.02);
+}
+
+/* Badge / Label */
+.bb-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 11px;
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-sm);
+  font-weight: var(--bb-fw-bold);
+  line-height: 16px;
+}
+.bb-badge-red    { background: var(--bb-alert);   color: var(--bb-white); }
+.bb-badge-green  { background: var(--bb-success);  color: var(--bb-white); }
+.bb-badge-orange { background: var(--bb-orange-bang); color: var(--bb-white); }
+.bb-badge-blue   { background: var(--bb-blue-primary); color: var(--bb-white); }
+
+</style>
+<style>
+/* Big Bang — shared category-page styles (tokens from _ds/colors_and_type.css) */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--bb-font-family);background:var(--bb-gray-100);color:var(--bb-black);-webkit-font-smoothing:antialiased}
+a{color:var(--bb-blue-primary);text-decoration:none}a:hover{color:var(--bb-blue-dark)}
+img{display:block;max-width:100%}
+.page{min-height:100vh;background:var(--bb-gray-100)}
+.wrapc{max-width:1330px;margin:0 auto;padding:0 20px}
+/* ---------- desktop header (Header.jsx) ---------- */
+.dsi{display:inline-block;flex:none;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat}
+.top{background:var(--bb-blue-primary);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.18)}
+.topin{max-width:1330px;margin:0 auto;padding:0 20px;height:72px;display:flex;align-items:center;gap:20px;position:relative}
+.logo{display:block;flex:none}
+.logomark{display:block;width:129px;height:26px;background:#fff;-webkit-mask:url(assets/logo-white.svg) left center/contain no-repeat;mask:url(assets/logo-white.svg) left center/contain no-repeat}
+.tsearch{position:absolute;left:50%;transform:translateX(-50%);width:560px;max-width:42vw}
+.tsearch input{width:100%;height:44px;border-radius:22px;border:none;padding:0 44px 0 18px;font:400 14px/1 var(--bb-font-family);letter-spacing:var(--bb-ls-tight);color:var(--bb-black);background:#fff;outline:none}
+.tsearch input::placeholder{color:var(--bb-gray-500)}
+.tsearch .dsi{position:absolute;right:16px;top:50%;transform:translateY(-50%);color:var(--bb-gray-500);pointer-events:none}
+.ticons{display:flex;align-items:center;gap:14px;margin-left:auto}
+.ticon{width:36px;height:36px;border:none;background:none;border-radius:8px;display:grid;place-items:center;color:#fff;cursor:pointer;position:relative}
+.ticon:hover{background:rgba(255,255,255,.14)}
+.ticon b{position:absolute;top:0;right:0;width:18px;height:18px;border-radius:50%;background:var(--bb-yellow);color:var(--bb-black);font-size:10px;font-weight:700;display:grid;place-items:center;line-height:1}
+.nav{background:var(--bb-blue-dark)}
+.navin{max-width:1330px;margin:0 auto;padding:0 20px;height:44px;display:flex;align-items:center;gap:4px}
+.navin a{display:inline-flex;align-items:center;gap:6px;height:44px;padding:0 12px;color:rgba(255,255,255,.88);font-size:13px;font-weight:500;white-space:nowrap}
+.navin a:hover{color:#fff;background:rgba(255,255,255,.08)}
+/* ---------- full-width banner carousel ---------- */
+.banner{position:relative;background:#fff;overflow:hidden}
+.brail{display:flex;transition:transform .4s cubic-bezier(.32,.72,0,1)}
+.bslide{flex:0 0 100%;height:220px}
+.bslide .ph{display:block;width:100%;height:100%}
+.barrow{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border:none;border-radius:50%;background:rgba(255,255,255,.9);box-shadow:var(--bb-shadow-card);display:grid;place-items:center;cursor:pointer;color:var(--bb-black);z-index:2}
+.barrow:hover{background:#fff}
+.barrow.prev{left:18px}.barrow.next{right:18px}
+.bdots{position:absolute;left:0;right:0;bottom:12px;display:flex;justify-content:center;gap:7px;z-index:2}
+.bdots button{width:8px;height:8px;border-radius:50%;border:none;background:rgba(16,17,23,.28);cursor:pointer;padding:0}
+.bdots button.on{background:var(--bb-blue-primary);width:22px;border-radius:4px}
+/* ---------- breadcrumbs + title ---------- */
+.crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:16px 0 10px;font-size:13px;color:var(--bb-gray-700)}
+.crumbs a{font-weight:500}
+.crumbs svg{opacity:.5}
+.crumbs span[aria-current]{color:var(--bb-black)}
+.h1row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+h1{font-size:var(--bb-text-h1);font-weight:700;letter-spacing:var(--bb-ls-tight);line-height:1.15}
+.cnt{display:inline-flex;align-items:center;height:26px;padding:0 11px;border-radius:13px;background:var(--bb-gray-200);font-size:13px;font-weight:600;color:var(--bb-gray-700)}
+.intro{margin-top:10px;max-width:760px;font-size:14px;line-height:1.55;color:var(--bb-gray-700);text-wrap:pretty}
+/* ---------- sections ---------- */
+.sec{margin-top:38px}
+.sechead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:16px}
+.sechead h2{font-size:var(--bb-text-h2);font-weight:600;letter-spacing:var(--bb-ls-tight)}
+.sechead a{font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.sechead p{font-size:13px;color:var(--bb-gray-700)}
+/* slim banner */
+.slim{display:flex;align-items:center;gap:26px;background:var(--bb-blue-navy);border-radius:var(--bb-radius-md);padding:20px 26px;margin-top:22px;color:#fff;overflow:hidden}
+.slim .sb{flex:1;min-width:0}
+.slim .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--bb-turquoise);margin-bottom:6px}
+.slim h3{font-size:20px;font-weight:700;letter-spacing:-.01em}
+.slim p{font-size:13.5px;color:#c9cbe4;margin-top:5px;max-width:620px;text-wrap:pretty}
+.slim .sbtn{flex:none;height:44px;padding:0 24px;border-radius:22px;border:none;background:#fff;color:var(--bb-blue-navy);font:700 14px/1 var(--bb-font-family);cursor:pointer}
+.slim .sbtn:hover{background:var(--bb-turquoise)}
+.slim .ph{flex:none;width:190px;height:88px}
+/* category tiles */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.tile{display:flex;align-items:center;gap:14px;background:#fff;border-radius:var(--bb-radius-md);padding:16px;box-shadow:var(--bb-shadow-card);transition:box-shadow .18s,transform .18s;min-width:0}
+.tile:hover{box-shadow:var(--bb-shadow-hover);transform:translateY(-2px)}
+.tile .ic{flex:none;width:54px;height:54px;border-radius:var(--bb-radius-sm);background:var(--bb-gray-100);display:grid;place-items:center;color:var(--bb-blue-primary)}
+.tile .tn{font-size:14.5px;font-weight:600;color:var(--bb-black);line-height:1.3;text-wrap:pretty}
+.tile .tc{font-size:12px;color:var(--bb-gray-500);margin-top:3px}
+/* product rail */
+.rail{position:relative}
+.rtrack{display:flex;gap:14px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;padding:4px 2px}
+.rtrack::-webkit-scrollbar{display:none}
+.rtrack>.card{flex:0 0 236px}
+.rarrow{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border:none;border-radius:50%;background:#fff;box-shadow:var(--bb-shadow-hover);display:grid;place-items:center;cursor:pointer;z-index:3;color:var(--bb-black)}
+.rarrow.prev{left:-14px}.rarrow.next{right:-14px}
+/* promos */
+.promos{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.promo{background:#fff;border-radius:var(--bb-radius-md);overflow:hidden;box-shadow:var(--bb-shadow-card);display:flex;flex-direction:column;transition:box-shadow .18s}
+.promo:hover{box-shadow:var(--bb-shadow-hover)}
+.promo .ph{display:block;width:100%;height:132px}
+.promo .pb{padding:14px 16px 18px;display:flex;flex-direction:column;gap:7px;flex:1}
+.promo .pt{font-size:15px;font-weight:600;line-height:1.3;color:var(--bb-black);text-wrap:pretty}
+.promo .pd{font-size:12px;color:var(--bb-gray-500)}
+.promo .pl{margin-top:auto;font-size:13px;font-weight:600}
+.bdg{align-self:flex-start;display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:10px;font-size:11px;font-weight:700;letter-spacing:.02em;color:#fff}
+.bdg.o{background:var(--bb-orange-bang)}.bdg.g{background:var(--bb-success)}.bdg.b{background:var(--bb-blue-primary)}
+/* brands */
+.brands{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.brand{background:#fff;border-radius:var(--bb-radius-md);box-shadow:var(--bb-shadow-card);padding:14px;display:flex;flex-direction:column;align-items:center;gap:9px;transition:box-shadow .18s}
+.brand:hover{box-shadow:var(--bb-shadow-hover)}
+.brand .ph{width:100%;height:44px}
+.brand .bn{font-size:12px;font-weight:600;color:var(--bb-gray-700);letter-spacing:.04em}
+/* services */
+.servs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.serv{background:#fff;border-radius:var(--bb-radius-md);box-shadow:var(--bb-shadow-card);padding:20px;display:flex;flex-direction:column;gap:10px}
+.serv .ic{width:44px;height:44px;border-radius:50%;background:var(--bb-gray-100);display:grid;place-items:center;color:var(--bb-blue-primary)}
+.serv h3{font-size:var(--bb-text-h4);font-weight:600}
+.serv p{font-size:13.5px;line-height:1.5;color:var(--bb-gray-700);text-wrap:pretty}
+.serv .sp{font-size:14px;font-weight:700;color:var(--bb-black)}
+.serv .sl{margin-top:auto;padding-top:6px;font-size:13.5px;font-weight:600}
+/* blog */
+.posts{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.post{background:#fff;border-radius:var(--bb-radius-md);overflow:hidden;box-shadow:var(--bb-shadow-card);transition:box-shadow .18s}
+.post:hover{box-shadow:var(--bb-shadow-hover)}
+.post .ph{display:block;width:100%;height:168px}
+.post .pb{padding:15px 17px 19px}
+.post .pk{font-size:11px;font-weight:700;letter-spacing:.07em;color:var(--bb-blue-primary);text-transform:uppercase}
+.post h3{font-size:16px;font-weight:600;line-height:1.35;margin:7px 0 8px;color:var(--bb-black);text-wrap:pretty}
+.post .pm{font-size:12px;color:var(--bb-gray-500)}
+/* seo copy */
+.seo{margin-top:44px;background:#fff;border-radius:var(--bb-radius-md);padding:26px 30px;box-shadow:var(--bb-shadow-card)}
+.seo h2{font-size:var(--bb-text-h4);font-weight:600;margin-bottom:10px}
+.seo p{font-size:13.5px;line-height:1.62;color:var(--bb-gray-700);max-width:900px;text-wrap:pretty}
+.seo p+p{margin-top:9px}
+/* footer (Footer.jsx) */
+.foot{margin-top:52px;background:var(--bb-blue-navy);color:#fff;padding:48px 0 24px}
+.fin{max-width:1330px;margin:0 auto 40px;padding:0 20px;display:grid;grid-template-columns:1fr repeat(4,auto);gap:48px}
+.fbrand .logomark{margin-bottom:16px}
+.fbrand p{font-size:13px;color:rgba(255,255,255,.6);line-height:1.6;max-width:220px}
+.foot b{display:block;color:#fff;font-size:13px;font-weight:700;margin-bottom:12px}
+.foot a{display:block;color:rgba(255,255,255,.6);font-size:13px;padding:4px 0}
+.foot a:hover{color:#fff}
+.fbot{max-width:1330px;margin:0 auto;padding:20px 20px 0;border-top:1px solid rgba(255,255,255,.12);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:12px;color:rgba(255,255,255,.4)}
+.fbot .fl{display:flex;gap:16px}
+.fbot a{display:inline-block;font-size:12px;color:rgba(255,255,255,.4);padding:0}
+/* ---------- product card (ProductCard.jsx) ---------- */
+.card{min-width:0;position:relative;background:#fff;border-radius:var(--bb-radius-md);border:1px solid var(--bb-gray-100);box-shadow:var(--bb-shadow-card);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .18s}
+.card:hover{box-shadow:var(--bb-shadow-hover)}
+.well{position:relative;height:180px;background:var(--bb-gray-50)}
+.well .ph{display:block;width:100%;height:100%;min-width:0}
+.disc{position:absolute;top:8px;left:8px;background:var(--bb-alert);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:5px;z-index:2}
+.bang{position:absolute;bottom:8px;left:8px;background:var(--bb-orange-bang);color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;z-index:2}
+.wish{position:absolute;top:8px;right:8px;width:28px;height:28px;border:none;background:none;display:grid;place-items:center;color:var(--bb-gray-700);cursor:pointer;z-index:2}
+.wish:hover{color:var(--bb-alert)}
+.wish.on{color:var(--bb-alert)}
+.cbody{padding:12px 12px 8px;flex:1;display:flex;flex-direction:column;min-width:0}
+.cname{font-size:13px;font-weight:600;line-height:1.35;color:var(--bb-black);margin-bottom:3px;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:35px}
+.cspecs{font-size:10px;color:var(--bb-gray-700);line-height:1.5;margin-bottom:6px;min-height:15px}
+.crate{display:flex;align-items:center;gap:4px;margin-bottom:8px}
+.crate .st{color:var(--bb-yellow);font-size:12px;line-height:1;letter-spacing:.5px}
+.crate .rn{color:var(--bb-gray-400);font-size:10px}
+.cmeta{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--bb-gray-700);line-height:1.4;margin-bottom:3px}
+.cmeta.ok{color:var(--bb-success)}
+.cmeta.no{color:var(--bb-alert)}
+.cprice{margin-top:auto;padding-top:10px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.cprice .pv{font-size:20px;font-weight:700;color:var(--bb-alert);letter-spacing:-.01em}
+.cprice .po{font-size:11px;color:var(--bb-gray-400);text-decoration:line-through}
+.ccta{padding:8px 12px 12px}
+.addbtn{width:100%;height:40px;background:#fff;color:var(--bb-blue-primary);border:2px solid var(--bb-blue-primary);border-radius:20px;font:700 13px/1 var(--bb-font-family);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.addbtn:hover{background:var(--bb-blue-primary);color:#fff}
+.addbtn.added{background:var(--bb-success);border-color:var(--bb-success);color:#fff}
+.addbtn:disabled{color:var(--bb-gray-400);border-color:var(--bb-gray-400);background:#fff;cursor:not-allowed}
+/* ---------- L3: filters + results ---------- */
+.pills{display:flex;flex-wrap:wrap;gap:9px;margin:20px 0 26px}
+.pill{white-space:nowrap;display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 18px;border:1px solid var(--bb-gray-200);border-radius:19px;background:#fff;font:500 14px/1 var(--bb-font-family);color:var(--bb-black);cursor:pointer}
+.pill:hover{border-color:var(--bb-blue-primary);color:var(--bb-blue-primary)}
+.pill .n{font-size:12px;font-weight:400;color:var(--bb-gray-500)}
+.pill.on{background:var(--bb-blue-navy);border-color:var(--bb-blue-navy);color:#fff}
+.pill.on .n{color:#a9abcc}
+.cols{display:grid;grid-template-columns:250px 1fr;gap:22px;align-items:start}
+.side{background:#fff;border-radius:var(--bb-radius-md);box-shadow:var(--bb-shadow-card);position:sticky;top:16px;max-height:calc(100vh - 32px);overflow-y:auto}
+.side::-webkit-scrollbar{width:6px}.side::-webkit-scrollbar-thumb{background:var(--bb-gray-200);border-radius:3px}
+.side h2{font-size:15px;font-weight:600;padding:17px 19px;border-bottom:1px solid var(--bb-gray-200)}
+.fgroup{padding:15px 19px 14px;border-bottom:1px solid var(--bb-gray-200)}
+.fhead{display:flex;justify-content:space-between;align-items:center;width:100%;background:none;border:none;padding:0;cursor:pointer;font:600 14px/1 var(--bb-font-family);color:var(--bb-black);margin-bottom:12px}
+.fhead svg{transition:transform .18s}
+.fgroup.closed .fhead svg{transform:rotate(-90deg)}
+.fgroup.closed .flist,.fgroup.closed .more{display:none}
+.flist{display:flex;flex-direction:column;gap:9px}
+.frow{display:grid;grid-template-columns:16px 1fr auto;gap:9px;align-items:center;cursor:pointer;font-size:13px;line-height:1.25}
+.frow input{appearance:none;width:16px;height:16px;border:1px solid var(--bb-gray-300);border-radius:4px;background:#fff;cursor:pointer;position:relative;flex:none}
+.frow input:checked{background:var(--bb-blue-primary);border-color:var(--bb-blue-primary)}
+.frow input:checked::after{content:"";position:absolute;left:4.5px;top:1.5px;width:5px;height:9px;border:solid #fff;border-width:0 1.7px 1.7px 0;transform:rotate(40deg)}
+.frow .c{font-size:12px;color:var(--bb-gray-500)}
+.more{display:inline-flex;align-items:center;gap:5px;margin-top:12px;background:none;border:none;padding:0;font:400 13px/1 var(--bb-font-family);color:var(--bb-gray-700);cursor:pointer}
+.more:hover{color:var(--bb-blue-primary)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+.count{flex:1 1 auto;min-width:220px;font-size:14px;color:var(--bb-gray-700)}.count b{color:var(--bb-black);font-weight:700}
+.tools{display:flex;align-items:center;gap:12px}
+.seg{display:flex;background:#fff;border-radius:8px;padding:4px;box-shadow:var(--bb-shadow-card)}
+.seg button{display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 13px;border:none;border-radius:6px;background:none;font:500 13px/1 var(--bb-font-family);color:var(--bb-gray-700);cursor:pointer}
+.seg button.on{background:var(--bb-blue-navy);color:#fff}
+.sort{display:flex;align-items:center;gap:8px;background:#fff;border-radius:8px;height:40px;padding:0 14px;font-size:13px;color:var(--bb-gray-700);box-shadow:var(--bb-shadow-card)}
+.sort select{appearance:none;border:none;background:none;font:500 13px/1 var(--bb-font-family);color:var(--bb-black);padding-right:16px;cursor:pointer}
+.sort .chev{margin-left:-14px;pointer-events:none}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.grid.udobno{grid-template-columns:repeat(3,1fr)}
+.grid.seznam{grid-template-columns:1fr;gap:10px}
+.grid.seznam .card{flex-direction:row;align-items:stretch;flex-wrap:wrap}
+.grid.seznam .well{width:190px;flex:0 1 190px;min-width:120px;height:auto;min-height:184px}
+.grid.seznam .cbody{padding:16px 20px;flex:1 1 280px;min-width:0}
+.grid.seznam .cname{font-size:15px;-webkit-line-clamp:1;min-height:0}
+.grid.seznam .cspecs{font-size:12px}
+.grid.seznam .crate{margin-bottom:10px}
+.grid.seznam .cprice{padding-top:12px}
+.grid.seznam .ccta{flex:1 1 auto;min-width:0;max-width:100%;display:flex;align-items:flex-end;padding:16px 20px}
+.grid.udobno .well{height:240px}
+.grid.udobno .cname{font-size:15px;min-height:41px}
+.grid.udobno .cspecs{font-size:11px}
+.load{display:flex;justify-content:center;margin-top:26px}
+.load button{height:44px;padding:0 30px;border-radius:22px;border:1px solid var(--bb-gray-300);background:#fff;font:600 14px/1 var(--bb-font-family);color:var(--bb-black);cursor:pointer}
+.load button:hover{border-color:var(--bb-blue-primary);color:var(--bb-blue-primary)}
+/* ---------- tweaks ---------- */
+/* ---------- mobile chrome (shared) ---------- */
+/* mobile filter/sort action row + sheets */
+@media(max-width:1180px){.tiles,.promos{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:repeat(3,1fr)}.brands{grid-template-columns:repeat(4,1fr)}}
+
+/* --- static export overrides --- */
+body{width:1920px;margin:0}
+.top{position:static}
+.side{position:static;max-height:none;overflow:visible}
+.rtrack{overflow:visible;flex-wrap:nowrap}
+.rail{overflow:hidden}
+.ph{display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;background:var(--bb-gray-100);border:1px dashed var(--bb-gray-300);border-radius:6px;box-sizing:border-box}
+.ph span{font-size:11px;line-height:1.35;color:var(--bb-gray-500)}
+.logomark{display:block;width:auto;height:26px;background:none;color:#fff}
+.logomark svg{display:block;height:26px;width:auto}
+.dsi{display:inline-flex;align-items:center;justify-content:center;background:none;-webkit-mask:none;mask:none}
+.dsi svg{display:block}
+.tsearch input{border:1px solid var(--bb-gray-200)}
+
+</style>
+</head>
+<body>
+<header class="top"><div class="topin">
+<a class="logo" href="Category L1.html" aria-label="Big Bang"><span class="logomark"><svg xmlns="http://www.w3.org/2000/svg" width="128.942" height="26.289" viewBox="0 0 128.942 26.289" fill="none">
+  <path d="M 10.208 0 L 2.686 0 C 1.24 0 0 1.128 0 2.607 L 0 23.68 C 0 25.156 1.24 26.286 2.686 26.286 L 10.208 26.286 C 14.798 26.286 17.043 24.527 17.043 19.572 L 17.043 17.83 C 17.043 15.372 16.396 13.593 15.493 13.144 C 16.431 12.637 17.043 11.044 17.043 8.458 L 17.043 6.716 C 17.043 2.113 14.865 0 10.208 0 Z M 12.829 9.812 C 12.829 10.53 12.236 11.111 11.507 11.111 L 6.947 11.114 L 6.947 15.182 L 11.507 15.175 C 12.236 15.175 12.829 15.758 12.829 16.477 L 12.829 20.923 C 12.829 21.64 12.236 22.224 11.507 22.224 L 4.443 22.224 C 4.172 22.224 4.141 22.219 4.141 21.857 L 4.141 4.431 C 4.141 4.067 4.172 4.064 4.443 4.064 L 11.507 4.064 C 12.236 4.064 12.829 4.647 12.829 5.366 L 12.829 9.812 Z M 44.271 14.342 L 44.276 20.92 C 44.276 23.886 41.829 26.288 38.814 26.288 L 32.891 26.288 C 29.863 26.288 27.42 23.885 27.42 20.92 L 27.42 5.368 C 27.42 2.404 29.862 0 32.878 0 L 39.127 0 C 40.195 0 41.062 0.851 41.062 1.901 L 41.062 2.17 C 41.062 3.218 40.195 4.068 39.127 4.068 L 35.785 4.068 L 32.955 4.063 C 32.82 4.063 32.707 4.086 32.707 4.086 C 32.1 4.203 31.632 4.736 31.632 5.367 L 31.632 20.976 C 31.632 21.608 32.1 22.137 32.707 22.256 C 32.707 22.256 32.819 22.277 32.912 22.277 L 38.905 22.277 C 39.042 22.277 39.154 22.256 39.154 22.256 C 39.762 22.137 40.228 21.608 40.228 20.976 L 40.228 15.132 L 34.905 15.132 L 34.907 11.067 L 42.118 11.064 L 42.382 11.064 C 43.423 11.064 44.268 11.894 44.268 12.917 L 44.271 14.342 Z M 83.419 0 L 77.038 0 C 74.009 0 71.68 2.412 71.68 5.368 L 71.687 24.432 C 71.687 25.459 72.534 26.288 73.573 26.288 L 73.841 26.288 C 74.885 26.288 75.728 25.459 75.728 24.432 L 75.725 16.526 C 75.766 16.53 75.807 16.537 75.848 16.537 L 84.832 16.534 L 84.828 24.433 C 84.828 25.46 85.672 26.289 86.715 26.289 L 86.982 26.289 C 88.025 26.289 88.869 25.46 88.869 24.433 L 88.878 5.369 C 88.878 2.404 86.434 0 83.419 0 Z M 84.833 12.562 L 75.849 12.562 C 75.807 12.562 75.767 12.567 75.726 12.567 L 75.723 5.309 C 75.723 4.68 76.191 4.15 76.798 4.033 C 76.836 4.02 76.911 4.011 77.005 4.011 L 83.555 4.011 C 83.646 4.011 83.716 4.02 83.76 4.033 C 84.367 4.15 84.836 4.68 84.836 5.309 L 84.833 12.562 Z M 109.007 5.368 L 109.031 24.342 C 109.031 25.416 108.143 26.288 107.049 26.288 L 106.768 26.288 C 105.674 26.288 104.786 25.416 104.786 24.342 L 104.792 5.368 C 104.792 4.648 104.2 4.064 103.471 4.064 L 96.405 4.064 C 96.14 4.064 96.109 4.064 96.109 4.428 L 96.092 24.39 C 96.092 25.438 95.229 26.288 94.162 26.288 L 93.887 26.288 C 92.819 26.288 91.955 25.437 91.955 24.39 L 91.967 2.607 C 91.967 1.132 93.206 0 94.652 0 L 103.55 0 C 106.566 0 109.008 2.404 109.008 5.368 M 24.101 1.901 L 24.101 24.389 C 24.101 25.437 23.234 26.287 22.167 26.287 L 21.894 26.287 C 20.827 26.287 19.964 25.436 19.964 24.389 L 19.964 1.901 C 19.964 0.851 20.827 0 21.894 0 L 22.167 0 C 23.234 0 24.101 0.851 24.101 1.901 Z M 61.879 0.002 L 54.355 0.002 C 52.915 0.002 51.674 1.13 51.674 2.608 L 51.674 23.682 C 51.674 25.158 52.914 26.288 54.355 26.288 L 61.879 26.288 C 66.466 26.288 68.715 24.528 68.715 19.573 L 68.715 17.831 C 68.715 15.374 68.07 13.595 67.167 13.146 C 68.105 12.638 68.715 11.045 68.715 8.459 L 68.715 6.716 C 68.715 2.115 66.536 0.002 61.879 0.002 Z M 64.505 9.814 C 64.505 10.532 63.91 11.113 63.176 11.113 L 58.62 11.116 L 58.62 15.184 L 63.176 15.177 C 63.91 15.177 64.505 15.76 64.505 16.479 L 64.505 20.924 C 64.505 21.641 63.91 22.226 63.176 22.226 L 56.114 22.226 C 55.844 22.226 55.816 22.22 55.816 21.858 L 55.816 4.433 C 55.816 4.068 55.844 4.066 56.114 4.066 L 63.176 4.066 C 63.91 4.066 64.505 4.649 64.505 5.368 L 64.505 9.814 Z M 128.942 20.921 C 128.942 23.886 126.495 26.288 123.48 26.288 L 117.559 26.288 C 114.529 26.288 112.085 23.886 112.085 20.921 L 112.085 5.368 C 112.085 2.404 114.529 0 117.545 0 L 123.795 0 C 124.862 0 125.726 0.851 125.726 1.901 L 125.726 2.17 C 125.726 3.218 124.862 4.068 123.795 4.068 L 117.623 4.063 C 117.485 4.063 117.37 4.086 117.37 4.086 C 116.764 4.203 116.295 4.736 116.295 5.367 L 116.295 20.976 C 116.295 21.608 116.764 22.137 117.37 22.256 C 117.37 22.256 117.485 22.277 117.581 22.277 L 123.573 22.277 C 123.709 22.277 123.821 22.256 123.821 22.256 C 124.424 22.137 124.898 21.608 124.898 20.976 L 124.898 15.132 L 119.57 15.132 L 119.572 11.067 L 126.784 11.064 L 127.048 11.064 C 128.088 11.064 128.936 11.894 128.936 12.917 L 128.942 20.919 L 128.942 20.921 Z" fill="currentColor" fill-rule="nonzero"></path>
+</svg></span></a>
+<div class="tsearch"><input type="text" placeholder="Koji proizvod tražiš? Unesi pojam za pretragu..." aria-label="Pretraga"><span class="dsi"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+  <path d="M 17.293 18.707 C 17.683 19.098 18.317 19.098 18.707 18.707 C 19.098 18.317 19.098 17.683 18.707 17.293 L 18 18 L 17.293 18.707 Z M 12.707 11.293 C 12.317 10.902 11.683 10.902 11.293 11.293 C 10.902 11.683 10.902 12.317 11.293 12.707 L 12 12 L 12.707 11.293 Z M 14 7 L 13 7 C 13 10.314 10.314 13 7 13 L 7 14 L 7 15 C 11.418 15 15 11.418 15 7 L 14 7 Z M 7 14 L 7 13 C 3.686 13 1 10.314 1 7 L 0 7 L -1 7 C -1 11.418 2.582 15 7 15 L 7 14 Z M 0 7 L 1 7 C 1 3.686 3.686 1 7 1 L 7 0 L 7 -1 C 2.582 -1 -1 2.582 -1 7 L 0 7 Z M 7 0 L 7 1 C 10.314 1 13 3.686 13 7 L 14 7 L 15 7 C 15 2.582 11.418 -1 7 -1 L 7 0 Z M 18 18 L 18.707 17.293 L 12.707 11.293 L 12 12 L 11.293 12.707 L 17.293 18.707 L 18 18 Z" fill="currentColor" fill-rule="nonzero"></path>
+</svg></span></div>
+<div class="ticons">
+<button class="ticon" aria-label="Popis želja"><span class="dsi"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 20" fill="none">
+  <path d="M 1.757 10 L 1.059 10.715 L 1.757 10 Z M 10.243 1.716 L 10.941 1 L 10.941 1 L 10.243 1.716 Z M 12 3.432 L 11.301 4.147 C 11.69 4.526 12.31 4.526 12.699 4.147 L 12 3.432 Z M 22.243 10 L 21.544 9.284 L 21.544 9.284 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 13.059 1 L 13.757 1.716 Z M 1.757 10 L 2.456 9.284 C 0.515 7.389 0.515 4.327 2.456 2.431 L 1.757 1.716 L 1.059 1 C -1.686 3.68 -1.686 8.035 1.059 10.715 L 1.757 10 Z M 1.757 1.716 L 2.456 2.431 C 4.411 0.523 7.589 0.523 9.544 2.431 L 10.243 1.716 L 10.941 1 C 8.21 -1.667 3.79 -1.667 1.059 1 L 1.757 1.716 Z M 10.243 1.716 L 9.544 2.431 L 11.301 4.147 L 12 3.432 L 12.699 2.716 L 10.941 1 L 10.243 1.716 Z M 1.757 10 L 1.059 10.715 L 10.153 19.594 L 10.852 18.879 L 11.55 18.163 L 2.456 9.284 L 1.757 10 Z M 22.243 1.716 L 21.544 2.431 C 23.485 4.327 23.485 7.389 21.544 9.284 L 22.243 10 L 22.941 10.715 C 25.686 8.035 25.686 3.68 22.941 1 L 22.243 1.716 Z M 13.757 1.716 L 14.456 2.431 C 16.411 0.523 19.589 0.523 21.544 2.431 L 22.243 1.716 L 22.941 1 C 20.21 -1.667 15.79 -1.667 13.059 1 L 13.757 1.716 Z M 22.243 10 L 21.544 9.284 L 12.45 18.163 L 13.149 18.879 L 13.847 19.594 L 22.941 10.715 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 11.301 2.716 L 12 3.432 L 12.699 4.147 L 14.456 2.431 L 13.757 1.716 Z M 10.852 18.879 L 10.153 19.594 C 11.18 20.597 12.82 20.597 13.847 19.594 L 13.149 18.879 L 12.45 18.163 C 12.2 18.407 11.8 18.407 11.55 18.163 L 10.852 18.879 Z" fill="currentColor" fill-rule="nonzero"></path>
+</svg></span></button>
+<button class="ticon" aria-label="Moj račun"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"></path></svg></button>
+<button class="ticon" aria-label="Košarica"><span class="dsi"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 20 20" fill="none">
+  <path d="M 0 -1 C -0.552 -1 -1 -0.552 -1 0 C -1 0.552 -0.552 1 0 1 L 0 0 L 0 -1 Z M 2.222 0 L 3.203 -0.196 C 3.109 -0.664 2.699 -1 2.222 -1 L 2.222 0 Z M 4.444 11.111 L 3.464 11.307 C 3.557 11.775 3.968 12.111 4.444 12.111 L 4.444 11.111 Z M 15.556 11.111 L 15.556 12.111 C 15.934 12.111 16.281 11.897 16.45 11.558 L 15.556 11.111 Z M 20 2.222 L 20.894 2.669 C 21.049 2.359 21.033 1.991 20.851 1.696 C 20.668 1.402 20.347 1.222 20 1.222 L 20 2.222 Z M 0 0 L 0 1 L 2.222 1 L 2.222 0 L 2.222 -1 L 0 -1 L 0 0 Z M 4.444 11.111 L 4.444 12.111 L 15.556 12.111 L 15.556 11.111 L 15.556 10.111 L 4.444 10.111 L 4.444 11.111 Z M 15.556 11.111 L 16.45 11.558 L 20.894 2.669 L 20 2.222 L 19.106 1.775 L 14.661 10.664 L 15.556 11.111 Z M 2.222 0 L 1.242 0.196 L 1.686 2.418 L 2.667 2.222 L 3.647 2.026 L 3.203 -0.196 L 2.222 0 Z M 2.667 2.222 L 1.686 2.418 L 3.464 11.307 L 4.444 11.111 L 5.425 10.915 L 3.647 2.026 L 2.667 2.222 Z M 2.667 2.222 L 2.667 3.222 L 20 3.222 L 20 2.222 L 20 1.222 L 2.667 1.222 L 2.667 2.222 Z M 17.778 17.778 L 16.778 17.778 C 16.778 18.453 16.231 19 15.556 19 L 15.556 20 L 15.556 21 C 17.335 21 18.778 19.557 18.778 17.778 L 17.778 17.778 Z M 15.556 20 L 15.556 19 C 14.881 19 14.333 18.453 14.333 17.778 L 13.333 17.778 L 12.333 17.778 C 12.333 19.557 13.776 21 15.556 21 L 15.556 20 Z M 13.333 17.778 L 14.333 17.778 C 14.333 17.103 14.881 16.556 15.556 16.556 L 15.556 15.556 L 15.556 14.556 C 13.776 14.556 12.333 15.998 12.333 17.778 L 13.333 17.778 Z M 15.556 15.556 L 15.556 16.556 C 16.231 16.556 16.778 17.103 16.778 17.778 L 17.778 17.778 L 18.778 17.778 C 18.778 15.998 17.335 14.556 15.556 14.556 L 15.556 15.556 Z M 6.667 17.778 L 5.667 17.778 C 5.667 18.453 5.119 19 4.444 19 L 4.444 20 L 4.444 21 C 6.224 21 7.667 19.557 7.667 17.778 L 6.667 17.778 Z M 4.444 20 L 4.444 19 C 3.769 19 3.222 18.453 3.222 17.778 L 2.222 17.778 L 1.222 17.778 C 1.222 19.557 2.665 21 4.444 21 L 4.444 20 Z M 2.222 17.778 L 3.222 17.778 C 3.222 17.103 3.769 16.556 4.444 16.556 L 4.444 15.556 L 4.444 14.556 C 2.665 14.556 1.222 15.998 1.222 17.778 L 2.222 17.778 Z M 4.444 15.556 L 4.444 16.556 C 5.119 16.556 5.667 17.103 5.667 17.778 L 6.667 17.778 L 7.667 17.778 C 7.667 15.998 6.224 14.556 4.444 14.556 L 4.444 15.556 Z M 4.444 15.556 L 4.444 16.556 L 15.556 16.556 L 15.556 15.556 L 15.556 14.556 L 4.444 14.556 L 4.444 15.556 Z" fill="currentColor" fill-rule="nonzero"></path>
+</svg></span><b>3</b></button>
+</div></div></header>
+<nav class="nav"><div class="navin">
+<a href="Category L1.html"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>Proizvodi</a>
+<a href="#"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>Akcije i promocije</a>
+<a href="#">B2B</a>
+<a href="#"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"></path><circle cx="12" cy="9" r="2.5"></circle></svg>Prodajna mjesta</a>
+<a href="#">Prodavatelji</a>
+</div></nav><section class="banner" id="banner"><div class="brail" id="brail"><div class="bslide"><div class="ph"><span>Banner 1920×220 — Specijalni popusti uz Premium Visa karticu</span></div></div><div class="bslide"><div class="ph"><span>Banner 1920×220 — Dani velikih ekrana</span></div></div><div class="bslide"><div class="ph"><span>Banner 1920×220 — 36 rata bez kamata</span></div></div></div>
+<button class="barrow prev" id="bprev" aria-label="Prethodno"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+<button class="barrow next" id="bnext" aria-label="Sljedeće"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button>
+<div class="bdots" id="bdots"><button class="on" aria-label="Slajd 1"></button><button class="" aria-label="Slajd 2"></button><button class="" aria-label="Slajd 3"></button></div></section><div class="wrapc"><nav class="crumbs"><a href="Category L1.html">Big Bang</a><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"></polyline></svg><span aria-current="page">TV i audio</span></nav>
+<div class="h1row"><h1>TV i audio</h1><span class="cnt">18.248</span></div>
+<p class="intro">Televizori, soundbarovi, slušalice i projektori uz montažu, produženu garanciju i dostavu u 24 sata. Odaberite potkategoriju ili pogledajte najprodavanije modele.</p>
+<div class="slim"><div class="sb"><span class="tag">AKCIJA DO 31. 8.</span><h3>Dani velikih ekrana</h3><p>Do 40% popusta na odabrane televizore od 55" i više, uz besplatnu dostavu i montažu na zid.</p></div><div class="ph"><span>Vizual akcije 380×180</span></div><button class="sbtn">Pogledaj ponudu</button></div>
+<section class="sec"><div class="sechead"><div><h2>Kupujte po potkategoriji</h2></div></div><div class="tiles"><a class="tile" href="Category L2.html"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="12.5" rx="2"></rect><path d="M8 20h8M12 16.5V20"></path></svg></span><span><span class="tn">Televizori i dodatna oprema</span><span class="tc">4.312 proizvoda</span></span></a><a class="tile" href="Category L2.html"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2.5" width="14" height="19" rx="2.5"></rect><circle cx="12" cy="8" r="2"></circle><circle cx="12" cy="16" r="3"></circle></svg></span><span><span class="tn">Audio i Hi-Fi</span><span class="tc">3.180 proizvoda</span></span></a><a class="tile" href="Category L2.html"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14v-2a8 8 0 0 1 16 0v2"></path><rect x="2.5" y="13.5" width="4.5" height="7" rx="2"></rect><rect x="17" y="13.5" width="4.5" height="7" rx="2"></rect></svg></span><span><span class="tn">Slušalice</span><span class="tc">2.964 proizvoda</span></span></a><a class="tile" href="Category L2.html"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="9" width="20" height="6.5" rx="2"></rect><circle cx="7" cy="12.2" r="1.3"></circle><circle cx="12" cy="12.2" r="1.3"></circle><circle cx="17" cy="12.2" r="1.3"></circle></svg></span><span><span class="tn">Soundbarovi i kućna kina</span><span class="tc">1.421 proizvod</span></span></a><a class="tile" href="Category L2.html"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7.5" width="16" height="9" rx="2"></rect><circle cx="9" cy="12" r="2.4"></circle><path d="M20 9.5 22 12l-2 2.5"></path></svg></span><span><span class="tn">Projektori i platna</span><span class="tc">742 proizvoda</span></span></a><a class="tile" href="Category L2.html"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="4" width="14" height="10" rx="1.6"></rect><path d="M3 3v18M3 9h4M7 14v3h5"></path></svg></span><span><span class="tn">Nosači i montaža</span><span class="tc">938 proizvoda</span></span></a><a class="tile" href="Category L2.html"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17a10 10 0 0 1 14 0M8 13.5a6 6 0 0 1 8 0"></path><circle cx="12" cy="18" r="1.4"></circle></svg></span><span><span class="tn">Media playeri i streaming</span><span class="tc">613 proizvoda</span></span></a><a class="tile" href="Category L2.html"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="2.4"></circle><path d="M17 6.5 13.6 10"></path></svg></span><span><span class="tn">Gramofoni i vinil</span><span class="tc">428 proizvoda</span></span></a></div></section>
+<section class="sec"><div class="sechead"><div><h2>Najprodavanije u TV i audio</h2></div><a href="Category L2.html">Prikaži sve<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"></polyline></svg></a></div><div class="rail"><button class="rarrow prev" aria-label="Lijevo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+<div class="rtrack"><article class="card">
+<div class="well"><div class="ph"><span>SAMSUNG</span></div>
+<span class="disc">-27%</span><span class="bang">Bang Cijena</span>
+<button class="wish" aria-label="Dodaj u popis želja"><span class="dsi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 20" fill="none">
+  <path d="M 1.757 10 L 1.059 10.715 L 1.757 10 Z M 10.243 1.716 L 10.941 1 L 10.941 1 L 10.243 1.716 Z M 12 3.432 L 11.301 4.147 C 11.69 4.526 12.31 4.526 12.699 4.147 L 12 3.432 Z M 22.243 10 L 21.544 9.284 L 21.544 9.284 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 13.059 1 L 13.757 1.716 Z M 1.757 10 L 2.456 9.284 C 0.515 7.389 0.515 4.327 2.456 2.431 L 1.757 1.716 L 1.059 1 C -1.686 3.68 -1.686 8.035 1.059 10.715 L 1.757 10 Z M 1.757 1.716 L 2.456 2.431 C 4.411 0.523 7.589 0.523 9.544 2.431 L 10.243 1.716 L 10.941 1 C 8.21 -1.667 3.79 -1.667 1.059 1 L 1.757 1.716 Z M 10.243 1.716 L 9.544 2.431 L 11.301 4.147 L 12 3.432 L 12.699 2.716 L 10.941 1 L 10.243 1.716 Z M 1.757 10 L 1.059 10.715 L 10.153 19.594 L 10.852 18.879 L 11.55 18.163 L 2.456 9.284 L 1.757 10 Z M 22.243 1.716 L 21.544 2.431 C 23.485 4.327 23.485 7.389 21.544 9.284 L 22.243 10 L 22.941 10.715 C 25.686 8.035 25.686 3.68 22.941 1 L 22.243 1.716 Z M 13.757 1.716 L 14.456 2.431 C 16.411 0.523 19.589 0.523 21.544 2.431 L 22.243 1.716 L 22.941 1 C 20.21 -1.667 15.79 -1.667 13.059 1 L 13.757 1.716 Z M 22.243 10 L 21.544 9.284 L 12.45 18.163 L 13.149 18.879 L 13.847 19.594 L 22.941 10.715 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 11.301 2.716 L 12 3.432 L 12.699 4.147 L 14.456 2.431 L 13.757 1.716 Z M 10.852 18.879 L 10.153 19.594 C 11.18 20.597 12.82 20.597 13.847 19.594 L 13.149 18.879 L 12.45 18.163 C 12.2 18.407 11.8 18.407 11.55 18.163 L 10.852 18.879 Z" fill="currentColor" fill-rule="nonzero"></path>
+</svg></span></button></div>
+<div class="cbody">
+<div class="cname">SAMSUNG QLED TV QE65Q60D 65" 4K Smart</div>
+<div class="cspecs">164 cm · 4K UHD · QLED · Tizen · energetska klasa E</div>
+<div class="crate"><span class="st">★★★★★</span><span class="rn">4,5 (214)</span></div>
+<div class="cmeta ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><polyline points="9 12 11 14 15 10"></polyline></svg><span>Na zalihi · Besplatna dostava</span></div>
+<div class="cmeta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-6h16l1 6"></path><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"></path><path d="M5 9v11h14V9"></path></svg><span>Trgovac: Big Bang</span></div>
+<div class="cprice"><span class="pv">749,99 €</span><span class="po">1.029,99 €</span></div>
+</div>
+<div class="ccta"><button class="addbtn">Dodaj u košaricu</button></div>
+</article><article class="card">
+<div class="well"><div class="ph"><span>LG</span></div>
+<span class="disc">-21%</span><span class="bang">Bang Cijena</span>
+<button class="wish" aria-label="Dodaj u popis želja"><span class="dsi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 20" fill="none">
+  <path d="M 1.757 10 L 1.059 10.715 L 1.757 10 Z M 10.243 1.716 L 10.941 1 L 10.941 1 L 10.243 1.716 Z M 12 3.432 L 11.301 4.147 C 11.69 4.526 12.31 4.526 12.699 4.147 L 12 3.432 Z M 22.243 10 L 21.544 9.284 L 21.544 9.284 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 13.059 1 L 13.757 1.716 Z M 1.757 10 L 2.456 9.284 C 0.515 7.389 0.515 4.327 2.456 2.431 L 1.757 1.716 L 1.059 1 C -1.686 3.68 -1.686 8.035 1.059 10.715 L 1.757 10 Z M 1.757 1.716 L 2.456 2.431 C 4.411 0.523 7.589 0.523 9.544 2.431 L 10.243 1.716 L 10.941 1 C 8.21 -1.667 3.79 -1.667 1.059 1 L 1.757 1.716 Z M 10.243 1.716 L 9.544 2.431 L 11.301 4.147 L 12 3.432 L 12.699 2.716 L 10.941 1 L 10.243 1.716 Z M 1.757 10 L 1.059 10.715 L 10.153 19.594 L 10.852 18.879 L 11.55 18.163 L 2.456 9.284 L 1.757 10 Z M 22.243 1.716 L 21.544 2.431 C 23.485 4.327 23.485 7.389 21.544 9.284 L 22.243 10 L 22.941 10.715 C 25.686 8.035 25.686 3.68 22.941 1 L 22.243 1.716 Z M 13.757 1.716 L 14.456 2.431 C 16.411 0.523 19.589 0.523 21.544 2.431 L 22.243 1.716 L 22.941 1 C 20.21 -1.667 15.79 -1.667 13.059 1 L 13.757 1.716 Z M 22.243 10 L 21.544 9.284 L 12.45 18.163 L 13.149 18.879 L 13.847 19.594 L 22.941 10.715 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 11.301 2.716 L 12 3.432 L 12.699 4.147 L 14.456 2.431 L 13.757 1.716 Z M 10.852 18.879 L 10.153 19.594 C 11.18 20.597 12.82 20.597 13.847 19.594 L 13.149 18.879 L 12.45 18.163 C 12.2 18.407 11.8 18.407 11.55 18.163 L 10.852 18.879 Z" fill="currentColor" fill-rule="nonzero"></path>
+</svg></span></button></div>
+<div class="cbody">
+<div class="cname">LG OLED evo TV OLED55C46LA 55" 4K</div>
+<div class="cspecs">139 cm · 4K UHD · OLED evo · 120 Hz · webOS · energetska klasa F</div>
+<div class="crate"><span class="st">★★★★★</span><span class="rn">4,8 (341)</span></div>
+<div class="cmeta ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><polyline points="9 12 11 14 15 10"></polyline></svg><span>Na zalihi · Besplatna dostava</span></div>
+<div class="cmeta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-6h16l1 6"></path><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"></path><path d="M5 9v11h14V9"></path></svg><span>Trgovac: Big Bang</span></div>
+<div class="cprice"><span class="pv">1.099,00 €</span><span class="po">1.399,00 €</span></div>
+</div>
+<div class="ccta"><button class="addbtn">Dodaj u košaricu</button></div>
+</article><article class="card">
+<div class="well"><div class="ph"><span>TCL</span></div>
+<span class="disc">-30%</span><span class="bang">Bang Cijena</span>
+<button class="wish" aria-label="Dodaj u popis želja"><span class="dsi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 20" fill="none">
+  <path d="M 1.757 10 L 1.059 10.715 L 1.757 10 Z M 10.243 1.716 L 10.941 1 L 10.941 1 L 10.243 1.716 Z M 12 3.432 L 11.301 4.147 C 11.69 4.526 12.31 4.526 12.699 4.147 L 12 3.432 Z M 22.243 10 L 21.544 9.284 L 21.544 9.284 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 13.059 1 L 13.757 1.716 Z M 1.757 10 L 2.456 9.284 C 0.515 7.389 0.515 4.327 2.456 2.431 L 1.757 1.716 L 1.059 1 C -1.686 3.68 -1.686 8.035 1.059 10.715 L 1.757 10 Z M 1.757 1.716 L 2.456 2.431 C 4.411 0.523 7.589 0.523 9.544 2.431 L 10.243 1.716 L 10.941 1 C 8.21 -1.667 3.79 -1.667 1.059 1 L 1.757 1.716 Z M 10.243 1.716 L 9.544 2.431 L 11.301 4.147 L 12 3.432 L 12.699 2.716 L 10.941 1 L 10.243 1.716 Z M 1.757 10 L 1.059 10.715 L 10.153 19.594 L 10.852 18.879 L 11.55 18.163 L 2.456 9.284 L 1.757 10 Z M 22.243 1.716 L 21.544 2.431 C 23.485 4.327 23.485 7.389 21.544 9.284 L 22.243 10 L 22.941 10.715 C 25.686 8.035 25.686 3.68 22.941 1 L 22.243 1.716 Z M 13.757 1.716 L 14.456 2.431 C 16.411 0.523 19.589 0.523 21.544 2.431 L 22.243 1.716 L 22.941 1 C 20.21 -1.667 15.79 -1.667 13.059 1 L 13.757 1.716 Z M 22.243 10 L 21.544 9.284 L 12.45 18.163 L 13.149 18.879 L 13.847 19.594 L 22.941 10.715 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 11.301 2.716 L 12 3.432 L 12.699 4.147 L 14.456 2.431 L 13.757 1.716 Z M 10.852 18.879 L 10.153 19.594 C 11.18 20.597 12.82 20.597 13.847 19.594 L 13.149 18.879 L 12.45 18.163 C 12.2 18.407 11.8 18.407 11.55 18.163 L 10.852 18.879 Z" fill="currentColor" fill-rule="nonzero"></path>
+</svg></span></button></div>
+<div class="cbody">
+<div class="cname">TCL 55C69B QLED 55" 4K Google TV</div>
+<div class="cspecs">139 cm · 4K UHD · QLED · Google TV · energetska klasa E</div>
+<div class="crate"><span class="st">★★★★☆</span><span class="rn">4,2 (402)</span></div>
+<div class="cmeta ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><polyline points="9 12 11 14 15 10"></polyline></svg><span>Na zalihi · Besplatna dostava</span></div>
+<div class="cmeta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-6h16l1 6"></path><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"></path><path d="M5 9v11h14V9"></path></svg><span>Trgovac: Big Bang</span></div>
+<div class="cprice"><span class="pv">399,99 €</span><span class="po">569,99 €</span></div>
+</div>
+<div class="ccta"><button class="addbtn">Dodaj u košaricu</button></div>
+</article><article class="card">
+<div class="well"><div class="ph"><span>JBL</span></div>
+<span class="disc">-19%</span><span class="bang">Bang Cijena</span>
+<button class="wish" aria-label="Dodaj u popis želja"><span class="dsi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 20" fill="none">
+  <path d="M 1.757 10 L 1.059 10.715 L 1.757 10 Z M 10.243 1.716 L 10.941 1 L 10.941 1 L 10.243 1.716 Z M 12 3.432 L 11.301 4.147 C 11.69 4.526 12.31 4.526 12.699 4.147 L 12 3.432 Z M 22.243 10 L 21.544 9.284 L 21.544 9.284 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 13.059 1 L 13.757 1.716 Z M 1.757 10 L 2.456 9.284 C 0.515 7.389 0.515 4.327 2.456 2.431 L 1.757 1.716 L 1.059 1 C -1.686 3.68 -1.686 8.035 1.059 10.715 L 1.757 10 Z M 1.757 1.716 L 2.456 2.431 C 4.411 0.523 7.589 0.523 9.544 2.431 L 10.243 1.716 L 10.941 1 C 8.21 -1.667 3.79 -1.667 1.059 1 L 1.757 1.716 Z M 10.243 1.716 L 9.544 2.431 L 11.301 4.147 L 12 3.432 L 12.699 2.716 L 10.941 1 L 10.243 1.716 Z M 1.757 10 L 1.059 10.715 L 10.153 19.594 L 10.852 18.879 L 11.55 18.163 L 2.456 9.284 L 1.757 10 Z M 22.243 1.716 L 21.544 2.431 C 23.485 4.327 23.485 7.389 21.544 9.284 L 22.243 10 L 22.941 10.715 C 25.686 8.035 25.686 3.68 22.941 1 L 22.243 1.716 Z M 13.757 1.716 L 14.456 2.431 C 16.411 0.523 19.589 0.523 21.544 2.431 L 22.243 1.716 L 22.941 1 C 20.21 -1.667 15.79 -1.667 13.059 1 L 13.757 1.716 Z M 22.243 10 L 21.544 9.284 L 12.45 18.163 L 13.149 18.879 L 13.847 19.594 L 22.941 10.715 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 11.301 2.716 L 12 3.432 L 12.699 4.147 L 14.456 2.431 L 13.757 1.716 Z M 10.852 18.879 L 10.153 19.594 C 11.18 20.597 12.82 20.597 13.847 19.594 L 13.149 18.879 L 12.45 18.163 C 12.2 18.407 11.8 18.407 11.55 18.163 L 10.852 18.879 Z" fill="currentColor" fill-rule="nonzero"></path>
+</svg></span></button></div>
+<div class="cbody">
+<div class="cname">JBL Bar 500 soundbar 5.1 s Dolby Atmos</div>
+<div class="cspecs">5.1 kanala · Dolby Atmos · 590 W</div>
+<div class="crate"><span class="st">★★★★★</span><span class="rn">4,5 (231)</span></div>
+<div class="cmeta ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><polyline points="9 12 11 14 15 10"></polyline></svg><span>Na zalihi · Besplatna dostava</span></div>
+<div class="cmeta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-6h16l1 6"></path><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"></path><path d="M5 9v11h14V9"></path></svg><span>Trgovac: Big Bang</span></div>
+<div class="cprice"><span class="pv">449,99 €</span><span class="po">559,99 €</span></div>
+</div>
+<div class="ccta"><button class="addbtn">Dodaj u košaricu</button></div>
+</article><article class="card">
+<div class="well"><div class="ph"><span>SONY</span></div>
+<span class="disc">-29%</span><span class="bang">Bang Cijena</span>
+<button class="wish" aria-label="Dodaj u popis želja"><span class="dsi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 20" fill="none">
+  <path d="M 1.757 10 L 1.059 10.715 L 1.757 10 Z M 10.243 1.716 L 10.941 1 L 10.941 1 L 10.243 1.716 Z M 12 3.432 L 11.301 4.147 C 11.69 4.526 12.31 4.526 12.699 4.147 L 12 3.432 Z M 22.243 10 L 21.544 9.284 L 21.544 9.284 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 13.059 1 L 13.757 1.716 Z M 1.757 10 L 2.456 9.284 C 0.515 7.389 0.515 4.327 2.456 2.431 L 1.757 1.716 L 1.059 1 C -1.686 3.68 -1.686 8.035 1.059 10.715 L 1.757 10 Z M 1.757 1.716 L 2.456 2.431 C 4.411 0.523 7.589 0.523 9.544 2.431 L 10.243 1.716 L 10.941 1 C 8.21 -1.667 3.79 -1.667 1.059 1 L 1.757 1.716 Z M 10.243 1.716 L 9.544 2.431 L 11.301 4.147 L 12 3.432 L 12.699 2.716 L 10.941 1 L 10.243 1.716 Z M 1.757 10 L 1.059 10.715 L 10.153 19.594 L 10.852 18.879 L 11.55 18.163 L 2.456 9.284 L 1.757 10 Z M 22.243 1.716 L 21.544 2.431 C 23.485 4.327 23.485 7.389 21.544 9.284 L 22.243 10 L 22.941 10.715 C 25.686 8.035 25.686 3.68 22.941 1 L 22.243 1.716 Z M 13.757 1.716 L 14.456 2.431 C 16.411 0.523 19.589 0.523 21.544 2.431 L 22.243 1.716 L 22.941 1 C 20.21 -1.667 15.79 -1.667 13.059 1 L 13.757 1.716 Z M 22.243 10 L 21.544 9.284 L 12.45 18.163 L 13.149 18.879 L 13.847 19.594 L 22.941 10.715 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 11.301 2.716 L 12 3.432 L 12.699 4.147 L 14.456 2.431 L 13.757 1.716 Z M 10.852 18.879 L 10.153 19.594 C 11.18 20.597 12.82 20.597 13.847 19.594 L 13.149 18.879 L 12.45 18.163 C 12.2 18.407 11.8 18.407 11.55 18.163 L 10.852 18.879 Z" fill="currentColor" fill-rule="nonzero"></path>
+</svg></span></button></div>
+<div class="cbody">
+<div class="cname">SONY WH-1000XM5 bežične slušalice s ANC</div>
+<div class="cspecs">Bluetooth · ANC · do 30 h</div>
+<div class="crate"><span class="st">★★★★★</span><span class="rn">4,8 (1284)</span></div>
+<div class="cmeta ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><polyline points="9 12 11 14 15 10"></polyline></svg><span>Na zalihi · Besplatna dostava</span></div>
+<div class="cmeta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-6h16l1 6"></path><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"></path><path d="M5 9v11h14V9"></path></svg><span>Trgovac: Big Bang</span></div>
+<div class="cprice"><span class="pv">279,99 €</span><span class="po">399,99 €</span></div>
+</div>
+<div class="ccta"><button class="addbtn">Dodaj u košaricu</button></div>
+</article><article class="card">
+<div class="well"><div class="ph"><span>SONOS</span></div>
+
+<button class="wish" aria-label="Dodaj u popis želja"><span class="dsi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 20" fill="none">
+  <path d="M 1.757 10 L 1.059 10.715 L 1.757 10 Z M 10.243 1.716 L 10.941 1 L 10.941 1 L 10.243 1.716 Z M 12 3.432 L 11.301 4.147 C 11.69 4.526 12.31 4.526 12.699 4.147 L 12 3.432 Z M 22.243 10 L 21.544 9.284 L 21.544 9.284 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 13.059 1 L 13.757 1.716 Z M 1.757 10 L 2.456 9.284 C 0.515 7.389 0.515 4.327 2.456 2.431 L 1.757 1.716 L 1.059 1 C -1.686 3.68 -1.686 8.035 1.059 10.715 L 1.757 10 Z M 1.757 1.716 L 2.456 2.431 C 4.411 0.523 7.589 0.523 9.544 2.431 L 10.243 1.716 L 10.941 1 C 8.21 -1.667 3.79 -1.667 1.059 1 L 1.757 1.716 Z M 10.243 1.716 L 9.544 2.431 L 11.301 4.147 L 12 3.432 L 12.699 2.716 L 10.941 1 L 10.243 1.716 Z M 1.757 10 L 1.059 10.715 L 10.153 19.594 L 10.852 18.879 L 11.55 18.163 L 2.456 9.284 L 1.757 10 Z M 22.243 1.716 L 21.544 2.431 C 23.485 4.327 23.485 7.389 21.544 9.284 L 22.243 10 L 22.941 10.715 C 25.686 8.035 25.686 3.68 22.941 1 L 22.243 1.716 Z M 13.757 1.716 L 14.456 2.431 C 16.411 0.523 19.589 0.523 21.544 2.431 L 22.243 1.716 L 22.941 1 C 20.21 -1.667 15.79 -1.667 13.059 1 L 13.757 1.716 Z M 22.243 10 L 21.544 9.284 L 12.45 18.163 L 13.149 18.879 L 13.847 19.594 L 22.941 10.715 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 11.301 2.716 L 12 3.432 L 12.699 4.147 L 14.456 2.431 L 13.757 1.716 Z M 10.852 18.879 L 10.153 19.594 C 11.18 20.597 12.82 20.597 13.847 19.594 L 13.149 18.879 L 12.45 18.163 C 12.2 18.407 11.8 18.407 11.55 18.163 L 10.852 18.879 Z" fill="currentColor" fill-rule="nonzero"></path>
+</svg></span></button></div>
+<div class="cbody">
+<div class="cname">SONOS Beam (Gen 2) soundbar</div>
+<div class="cspecs">Dolby Atmos · Wi-Fi · AirPlay 2</div>
+<div class="crate"><span class="st">★★★★★</span><span class="rn">4,7 (176)</span></div>
+<div class="cmeta ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><polyline points="9 12 11 14 15 10"></polyline></svg><span>Na zalihi · Besplatna dostava</span></div>
+<div class="cmeta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-6h16l1 6"></path><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"></path><path d="M5 9v11h14V9"></path></svg><span>Trgovac: Big Bang</span></div>
+<div class="cprice"><span class="pv">499,00 €</span></div>
+</div>
+<div class="ccta"><button class="addbtn">Dodaj u košaricu</button></div>
+</article><article class="card">
+<div class="well"><div class="ph"><span>EPSON</span></div>
+<span class="disc">-14%</span><span class="bang">Bang Cijena</span>
+<button class="wish" aria-label="Dodaj u popis želja"><span class="dsi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 20" fill="none">
+  <path d="M 1.757 10 L 1.059 10.715 L 1.757 10 Z M 10.243 1.716 L 10.941 1 L 10.941 1 L 10.243 1.716 Z M 12 3.432 L 11.301 4.147 C 11.69 4.526 12.31 4.526 12.699 4.147 L 12 3.432 Z M 22.243 10 L 21.544 9.284 L 21.544 9.284 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 13.059 1 L 13.757 1.716 Z M 1.757 10 L 2.456 9.284 C 0.515 7.389 0.515 4.327 2.456 2.431 L 1.757 1.716 L 1.059 1 C -1.686 3.68 -1.686 8.035 1.059 10.715 L 1.757 10 Z M 1.757 1.716 L 2.456 2.431 C 4.411 0.523 7.589 0.523 9.544 2.431 L 10.243 1.716 L 10.941 1 C 8.21 -1.667 3.79 -1.667 1.059 1 L 1.757 1.716 Z M 10.243 1.716 L 9.544 2.431 L 11.301 4.147 L 12 3.432 L 12.699 2.716 L 10.941 1 L 10.243 1.716 Z M 1.757 10 L 1.059 10.715 L 10.153 19.594 L 10.852 18.879 L 11.55 18.163 L 2.456 9.284 L 1.757 10 Z M 22.243 1.716 L 21.544 2.431 C 23.485 4.327 23.485 7.389 21.544 9.284 L 22.243 10 L 22.941 10.715 C 25.686 8.035 25.686 3.68 22.941 1 L 22.243 1.716 Z M 13.757 1.716 L 14.456 2.431 C 16.411 0.523 19.589 0.523 21.544 2.431 L 22.243 1.716 L 22.941 1 C 20.21 -1.667 15.79 -1.667 13.059 1 L 13.757 1.716 Z M 22.243 10 L 21.544 9.284 L 12.45 18.163 L 13.149 18.879 L 13.847 19.594 L 22.941 10.715 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 11.301 2.716 L 12 3.432 L 12.699 4.147 L 14.456 2.431 L 13.757 1.716 Z M 10.852 18.879 L 10.153 19.594 C 11.18 20.597 12.82 20.597 13.847 19.594 L 13.149 18.879 L 12.45 18.163 C 12.2 18.407 11.8 18.407 11.55 18.163 L 10.852 18.879 Z" fill="currentColor" fill-rule="nonzero"></path>
+</svg></span></button></div>
+<div class="cbody">
+<div class="cname">EPSON EH-TW6250 4K PRO-UHD projektor</div>
+<div class="cspecs">4K PRO-UHD · 2.800 lm · Android TV</div>
+<div class="crate"><span class="st">★★★★☆</span><span class="rn">4,4 (68)</span></div>
+<div class="cmeta ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><polyline points="9 12 11 14 15 10"></polyline></svg><span>Na zalihi · Besplatna dostava</span></div>
+<div class="cmeta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-6h16l1 6"></path><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"></path><path d="M5 9v11h14V9"></path></svg><span>Trgovac: Big Bang</span></div>
+<div class="cprice"><span class="pv">999,99 €</span><span class="po">1.169,99 €</span></div>
+</div>
+<div class="ccta"><button class="addbtn">Dodaj u košaricu</button></div>
+</article><article class="card">
+<div class="well"><div class="ph"><span>MARSHALL</span></div>
+<span class="disc">-12%</span><span class="bang">Bang Cijena</span>
+<button class="wish" aria-label="Dodaj u popis želja"><span class="dsi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 20" fill="none">
+  <path d="M 1.757 10 L 1.059 10.715 L 1.757 10 Z M 10.243 1.716 L 10.941 1 L 10.941 1 L 10.243 1.716 Z M 12 3.432 L 11.301 4.147 C 11.69 4.526 12.31 4.526 12.699 4.147 L 12 3.432 Z M 22.243 10 L 21.544 9.284 L 21.544 9.284 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 13.059 1 L 13.757 1.716 Z M 1.757 10 L 2.456 9.284 C 0.515 7.389 0.515 4.327 2.456 2.431 L 1.757 1.716 L 1.059 1 C -1.686 3.68 -1.686 8.035 1.059 10.715 L 1.757 10 Z M 1.757 1.716 L 2.456 2.431 C 4.411 0.523 7.589 0.523 9.544 2.431 L 10.243 1.716 L 10.941 1 C 8.21 -1.667 3.79 -1.667 1.059 1 L 1.757 1.716 Z M 10.243 1.716 L 9.544 2.431 L 11.301 4.147 L 12 3.432 L 12.699 2.716 L 10.941 1 L 10.243 1.716 Z M 1.757 10 L 1.059 10.715 L 10.153 19.594 L 10.852 18.879 L 11.55 18.163 L 2.456 9.284 L 1.757 10 Z M 22.243 1.716 L 21.544 2.431 C 23.485 4.327 23.485 7.389 21.544 9.284 L 22.243 10 L 22.941 10.715 C 25.686 8.035 25.686 3.68 22.941 1 L 22.243 1.716 Z M 13.757 1.716 L 14.456 2.431 C 16.411 0.523 19.589 0.523 21.544 2.431 L 22.243 1.716 L 22.941 1 C 20.21 -1.667 15.79 -1.667 13.059 1 L 13.757 1.716 Z M 22.243 10 L 21.544 9.284 L 12.45 18.163 L 13.149 18.879 L 13.847 19.594 L 22.941 10.715 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 11.301 2.716 L 12 3.432 L 12.699 4.147 L 14.456 2.431 L 13.757 1.716 Z M 10.852 18.879 L 10.153 19.594 C 11.18 20.597 12.82 20.597 13.847 19.594 L 13.149 18.879 L 12.45 18.163 C 12.2 18.407 11.8 18.407 11.55 18.163 L 10.852 18.879 Z" fill="currentColor" fill-rule="nonzero"></path>
+</svg></span></button></div>
+<div class="cbody">
+<div class="cname">MARSHALL Stanmore III Bluetooth zvučnik</div>
+<div class="cspecs">Bluetooth 5.2 · 80 W</div>
+<div class="crate"><span class="st">★★★★★</span><span class="rn">4,6 (154)</span></div>
+<div class="cmeta ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><polyline points="9 12 11 14 15 10"></polyline></svg><span>Na zalihi · Besplatna dostava</span></div>
+<div class="cmeta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-6h16l1 6"></path><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"></path><path d="M5 9v11h14V9"></path></svg><span>Trgovac: Big Bang</span></div>
+<div class="cprice"><span class="pv">349,99 €</span><span class="po">399,99 €</span></div>
+</div>
+<div class="ccta"><button class="addbtn">Dodaj u košaricu</button></div>
+</article><article class="card">
+<div class="well"><div class="ph"><span>APPLE</span></div>
+
+<button class="wish" aria-label="Dodaj u popis želja"><span class="dsi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 20" fill="none">
+  <path d="M 1.757 10 L 1.059 10.715 L 1.757 10 Z M 10.243 1.716 L 10.941 1 L 10.941 1 L 10.243 1.716 Z M 12 3.432 L 11.301 4.147 C 11.69 4.526 12.31 4.526 12.699 4.147 L 12 3.432 Z M 22.243 10 L 21.544 9.284 L 21.544 9.284 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 13.059 1 L 13.757 1.716 Z M 1.757 10 L 2.456 9.284 C 0.515 7.389 0.515 4.327 2.456 2.431 L 1.757 1.716 L 1.059 1 C -1.686 3.68 -1.686 8.035 1.059 10.715 L 1.757 10 Z M 1.757 1.716 L 2.456 2.431 C 4.411 0.523 7.589 0.523 9.544 2.431 L 10.243 1.716 L 10.941 1 C 8.21 -1.667 3.79 -1.667 1.059 1 L 1.757 1.716 Z M 10.243 1.716 L 9.544 2.431 L 11.301 4.147 L 12 3.432 L 12.699 2.716 L 10.941 1 L 10.243 1.716 Z M 1.757 10 L 1.059 10.715 L 10.153 19.594 L 10.852 18.879 L 11.55 18.163 L 2.456 9.284 L 1.757 10 Z M 22.243 1.716 L 21.544 2.431 C 23.485 4.327 23.485 7.389 21.544 9.284 L 22.243 10 L 22.941 10.715 C 25.686 8.035 25.686 3.68 22.941 1 L 22.243 1.716 Z M 13.757 1.716 L 14.456 2.431 C 16.411 0.523 19.589 0.523 21.544 2.431 L 22.243 1.716 L 22.941 1 C 20.21 -1.667 15.79 -1.667 13.059 1 L 13.757 1.716 Z M 22.243 10 L 21.544 9.284 L 12.45 18.163 L 13.149 18.879 L 13.847 19.594 L 22.941 10.715 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 11.301 2.716 L 12 3.432 L 12.699 4.147 L 14.456 2.431 L 13.757 1.716 Z M 10.852 18.879 L 10.153 19.594 C 11.18 20.597 12.82 20.597 13.847 19.594 L 13.149 18.879 L 12.45 18.163 C 12.2 18.407 11.8 18.407 11.55 18.163 L 10.852 18.879 Z" fill="currentColor" fill-rule="nonzero"></path>
+</svg></span></button></div>
+<div class="cbody">
+<div class="cname">APPLE TV 4K 128 GB (2024)</div>
+<div class="cspecs">128 GB · Dolby Vision · Siri Remote</div>
+<div class="crate"><span class="st">★★★★★</span><span class="rn">4,8 (397)</span></div>
+<div class="cmeta ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><polyline points="9 12 11 14 15 10"></polyline></svg><span>Na zalihi · Besplatna dostava</span></div>
+<div class="cmeta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-6h16l1 6"></path><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"></path><path d="M5 9v11h14V9"></path></svg><span>Trgovac: Big Bang</span></div>
+<div class="cprice"><span class="pv">169,99 €</span></div>
+</div>
+<div class="ccta"><button class="addbtn">Dodaj u košaricu</button></div>
+</article><article class="card">
+<div class="well"><div class="ph"><span>VOGEL'S</span></div>
+<span class="disc">-25%</span><span class="bang">Bang Cijena</span>
+<button class="wish" aria-label="Dodaj u popis želja"><span class="dsi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 20" fill="none">
+  <path d="M 1.757 10 L 1.059 10.715 L 1.757 10 Z M 10.243 1.716 L 10.941 1 L 10.941 1 L 10.243 1.716 Z M 12 3.432 L 11.301 4.147 C 11.69 4.526 12.31 4.526 12.699 4.147 L 12 3.432 Z M 22.243 10 L 21.544 9.284 L 21.544 9.284 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 13.059 1 L 13.757 1.716 Z M 1.757 10 L 2.456 9.284 C 0.515 7.389 0.515 4.327 2.456 2.431 L 1.757 1.716 L 1.059 1 C -1.686 3.68 -1.686 8.035 1.059 10.715 L 1.757 10 Z M 1.757 1.716 L 2.456 2.431 C 4.411 0.523 7.589 0.523 9.544 2.431 L 10.243 1.716 L 10.941 1 C 8.21 -1.667 3.79 -1.667 1.059 1 L 1.757 1.716 Z M 10.243 1.716 L 9.544 2.431 L 11.301 4.147 L 12 3.432 L 12.699 2.716 L 10.941 1 L 10.243 1.716 Z M 1.757 10 L 1.059 10.715 L 10.153 19.594 L 10.852 18.879 L 11.55 18.163 L 2.456 9.284 L 1.757 10 Z M 22.243 1.716 L 21.544 2.431 C 23.485 4.327 23.485 7.389 21.544 9.284 L 22.243 10 L 22.941 10.715 C 25.686 8.035 25.686 3.68 22.941 1 L 22.243 1.716 Z M 13.757 1.716 L 14.456 2.431 C 16.411 0.523 19.589 0.523 21.544 2.431 L 22.243 1.716 L 22.941 1 C 20.21 -1.667 15.79 -1.667 13.059 1 L 13.757 1.716 Z M 22.243 10 L 21.544 9.284 L 12.45 18.163 L 13.149 18.879 L 13.847 19.594 L 22.941 10.715 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 11.301 2.716 L 12 3.432 L 12.699 4.147 L 14.456 2.431 L 13.757 1.716 Z M 10.852 18.879 L 10.153 19.594 C 11.18 20.597 12.82 20.597 13.847 19.594 L 13.149 18.879 L 12.45 18.163 C 12.2 18.407 11.8 18.407 11.55 18.163 L 10.852 18.879 Z" fill="currentColor" fill-rule="nonzero"></path>
+</svg></span></button></div>
+<div class="cbody">
+<div class="cname">VOGEL'S TVM 3403 zglobni zidni nosač</div>
+<div class="cspecs">40–77" · zglobni · do 35 kg</div>
+<div class="crate"><span class="st">★★★★★</span><span class="rn">4,5 (88)</span></div>
+<div class="cmeta ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><polyline points="9 12 11 14 15 10"></polyline></svg><span>Na zalihi · Besplatna dostava</span></div>
+<div class="cmeta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-6h16l1 6"></path><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"></path><path d="M5 9v11h14V9"></path></svg><span>Trgovac: Big Bang</span></div>
+<div class="cprice"><span class="pv">59,99 €</span><span class="po">79,99 €</span></div>
+</div>
+<div class="ccta"><button class="addbtn">Dodaj u košaricu</button></div>
+</article><article class="card">
+<div class="well"><div class="ph"><span>SAMSUNG</span></div>
+<span class="disc">-25%</span><span class="bang">Bang Cijena</span>
+<button class="wish" aria-label="Dodaj u popis želja"><span class="dsi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 20" fill="none">
+  <path d="M 1.757 10 L 1.059 10.715 L 1.757 10 Z M 10.243 1.716 L 10.941 1 L 10.941 1 L 10.243 1.716 Z M 12 3.432 L 11.301 4.147 C 11.69 4.526 12.31 4.526 12.699 4.147 L 12 3.432 Z M 22.243 10 L 21.544 9.284 L 21.544 9.284 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 13.059 1 L 13.757 1.716 Z M 1.757 10 L 2.456 9.284 C 0.515 7.389 0.515 4.327 2.456 2.431 L 1.757 1.716 L 1.059 1 C -1.686 3.68 -1.686 8.035 1.059 10.715 L 1.757 10 Z M 1.757 1.716 L 2.456 2.431 C 4.411 0.523 7.589 0.523 9.544 2.431 L 10.243 1.716 L 10.941 1 C 8.21 -1.667 3.79 -1.667 1.059 1 L 1.757 1.716 Z M 10.243 1.716 L 9.544 2.431 L 11.301 4.147 L 12 3.432 L 12.699 2.716 L 10.941 1 L 10.243 1.716 Z M 1.757 10 L 1.059 10.715 L 10.153 19.594 L 10.852 18.879 L 11.55 18.163 L 2.456 9.284 L 1.757 10 Z M 22.243 1.716 L 21.544 2.431 C 23.485 4.327 23.485 7.389 21.544 9.284 L 22.243 10 L 22.941 10.715 C 25.686 8.035 25.686 3.68 22.941 1 L 22.243 1.716 Z M 13.757 1.716 L 14.456 2.431 C 16.411 0.523 19.589 0.523 21.544 2.431 L 22.243 1.716 L 22.941 1 C 20.21 -1.667 15.79 -1.667 13.059 1 L 13.757 1.716 Z M 22.243 10 L 21.544 9.284 L 12.45 18.163 L 13.149 18.879 L 13.847 19.594 L 22.941 10.715 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 11.301 2.716 L 12 3.432 L 12.699 4.147 L 14.456 2.431 L 13.757 1.716 Z M 10.852 18.879 L 10.153 19.594 C 11.18 20.597 12.82 20.597 13.847 19.594 L 13.149 18.879 L 12.45 18.163 C 12.2 18.407 11.8 18.407 11.55 18.163 L 10.852 18.879 Z" fill="currentColor" fill-rule="nonzero"></path>
+</svg></span></button></div>
+<div class="cbody">
+<div class="cname">SAMSUNG HW-Q800D soundbar 5.1.2</div>
+<div class="cspecs">5.1.2 · Q-Symphony · bežični subwoofer</div>
+<div class="crate"><span class="st">★★★★★</span><span class="rn">4,6 (112)</span></div>
+<div class="cmeta ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><polyline points="9 12 11 14 15 10"></polyline></svg><span>Na zalihi · Besplatna dostava</span></div>
+<div class="cmeta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-6h16l1 6"></path><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"></path><path d="M5 9v11h14V9"></path></svg><span>Trgovac: Big Bang</span></div>
+<div class="cprice"><span class="pv">599,99 €</span><span class="po">799,99 €</span></div>
+</div>
+<div class="ccta"><button class="addbtn">Dodaj u košaricu</button></div>
+</article><article class="card">
+<div class="well"><div class="ph"><span>JBL</span></div>
+<span class="disc">-37%</span><span class="bang">Bang Cijena</span>
+<button class="wish" aria-label="Dodaj u popis želja"><span class="dsi"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 20" fill="none">
+  <path d="M 1.757 10 L 1.059 10.715 L 1.757 10 Z M 10.243 1.716 L 10.941 1 L 10.941 1 L 10.243 1.716 Z M 12 3.432 L 11.301 4.147 C 11.69 4.526 12.31 4.526 12.699 4.147 L 12 3.432 Z M 22.243 10 L 21.544 9.284 L 21.544 9.284 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 13.059 1 L 13.757 1.716 Z M 1.757 10 L 2.456 9.284 C 0.515 7.389 0.515 4.327 2.456 2.431 L 1.757 1.716 L 1.059 1 C -1.686 3.68 -1.686 8.035 1.059 10.715 L 1.757 10 Z M 1.757 1.716 L 2.456 2.431 C 4.411 0.523 7.589 0.523 9.544 2.431 L 10.243 1.716 L 10.941 1 C 8.21 -1.667 3.79 -1.667 1.059 1 L 1.757 1.716 Z M 10.243 1.716 L 9.544 2.431 L 11.301 4.147 L 12 3.432 L 12.699 2.716 L 10.941 1 L 10.243 1.716 Z M 1.757 10 L 1.059 10.715 L 10.153 19.594 L 10.852 18.879 L 11.55 18.163 L 2.456 9.284 L 1.757 10 Z M 22.243 1.716 L 21.544 2.431 C 23.485 4.327 23.485 7.389 21.544 9.284 L 22.243 10 L 22.941 10.715 C 25.686 8.035 25.686 3.68 22.941 1 L 22.243 1.716 Z M 13.757 1.716 L 14.456 2.431 C 16.411 0.523 19.589 0.523 21.544 2.431 L 22.243 1.716 L 22.941 1 C 20.21 -1.667 15.79 -1.667 13.059 1 L 13.757 1.716 Z M 22.243 10 L 21.544 9.284 L 12.45 18.163 L 13.149 18.879 L 13.847 19.594 L 22.941 10.715 L 22.243 10 Z M 13.757 1.716 L 13.059 1 L 11.301 2.716 L 12 3.432 L 12.699 4.147 L 14.456 2.431 L 13.757 1.716 Z M 10.852 18.879 L 10.153 19.594 C 11.18 20.597 12.82 20.597 13.847 19.594 L 13.149 18.879 L 12.45 18.163 C 12.2 18.407 11.8 18.407 11.55 18.163 L 10.852 18.879 Z" fill="currentColor" fill-rule="nonzero"></path>
+</svg></span></button></div>
+<div class="cbody">
+<div class="cname">JBL PARTYBOX 310 Bluetooth zvučni sistem</div>
+<div class="cspecs">240 W · IPX4 · svjetlosni efekti</div>
+<div class="crate"><span class="st">★★★★★</span><span class="rn">4,7 (208)</span></div>
+<div class="cmeta ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><polyline points="9 12 11 14 15 10"></polyline></svg><span>Na zalihi · Besplatna dostava</span></div>
+<div class="cmeta"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-6h16l1 6"></path><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"></path><path d="M5 9v11h14V9"></path></svg><span>Trgovac: Big Bang</span></div>
+<div class="cprice"><span class="pv">429,99 €</span><span class="po">679,99 €</span></div>
+</div>
+<div class="ccta"><button class="addbtn">Dodaj u košaricu</button></div>
+</article></div>
+<button class="rarrow next" aria-label="Desno"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"></polyline></svg></button></div></section>
+<section class="sec"><div class="sechead"><div><h2>Aktivne promocije</h2></div><a href="#">Sve promocije<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"></polyline></svg></a></div><div class="promos"><a class="promo" href="#"><div class="ph"><span>Vizual 320×132</span></div><div class="pb"><span class="bdg o">AKCIJA</span><span class="pt">Dani velikih ekrana — do 40% na TV</span><span class="pd">Do 31. 8. 2026.</span><span class="pl">Pogledaj ponudu →</span></div></a><a class="promo" href="#"><div class="ph"><span>Vizual 320×132</span></div><div class="pb"><span class="bdg g">KOD: TV10</span><span class="pt">Dodatnih 10% na soundbarove uz TV</span><span class="pd">Uz kupnju televizora</span><span class="pl">Iskoristi kod →</span></div></a><a class="promo" href="#"><div class="ph"><span>Vizual 320×132</span></div><div class="pb"><span class="bdg b">36 RATA</span><span class="pt">36 rata bez kamata i naknada</span><span class="pd">Za košaricu iznad 300 €</span><span class="pl">Uvjeti plaćanja →</span></div></a><a class="promo" href="#"><div class="ph"><span>Vizual 320×132</span></div><div class="pb"><span class="bdg o">BANG CIJENA</span><span class="pt">Slušalice tjedna — do 45% popusta</span><span class="pd">Novi modeli svaki ponedjeljak</span><span class="pl">Pogledaj modele →</span></div></a></div></section>
+<section class="sec"><div class="sechead"><div><h2>Istaknuti brendovi</h2></div><a href="#">Svi brendovi<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"></polyline></svg></a></div><div class="brands"><a class="brand" href="#"><div class="ph"><span>SAMSUNG</span></div><span class="bn">SAMSUNG</span></a><a class="brand" href="#"><div class="ph"><span>LG</span></div><span class="bn">LG</span></a><a class="brand" href="#"><div class="ph"><span>SONY</span></div><span class="bn">SONY</span></a><a class="brand" href="#"><div class="ph"><span>PHILIPS</span></div><span class="bn">PHILIPS</span></a><a class="brand" href="#"><div class="ph"><span>TCL</span></div><span class="bn">TCL</span></a><a class="brand" href="#"><div class="ph"><span>HISENSE</span></div><span class="bn">HISENSE</span></a><a class="brand" href="#"><div class="ph"><span>JBL</span></div><span class="bn">JBL</span></a><a class="brand" href="#"><div class="ph"><span>BOSE</span></div><span class="bn">BOSE</span></a><a class="brand" href="#"><div class="ph"><span>SONOS</span></div><span class="bn">SONOS</span></a><a class="brand" href="#"><div class="ph"><span>MARSHALL</span></div><span class="bn">MARSHALL</span></a></div></section>
+<section class="sec"><div class="sechead"><div><h2>Usluge i montaža</h2><p>Ovlašteni serviseri, dolazak na adresu i jamstvo na izvedene radove.</p></div></div><div class="servs"><div class="serv"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="4" width="14" height="10" rx="1.6"></rect><path d="M3 3v18M3 9h4M7 14v3h5"></path></svg></span><h3>Montaža TV-a na zid</h3><p>Dolazak na adresu, montaža nosača, spajanje uređaja i osnovno podešavanje slike.</p><span class="sp">od 49,99 €</span><a class="sl" href="#">Rezerviraj uslugu <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"></polyline></svg></a></div><div class="serv"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="8" rx="2"></rect><path d="M6 16.5c1.5 0 1.5 2 3 2M13 16.5c1.5 0 1.5 2 3 2"></path></svg></span><h3>Instalacija klima uređaja</h3><p>Ovlašteni serviseri, jamstvo na rad i obavezni servisni list uz uređaj.</p><span class="sp">od 199,00 €</span><a class="sl" href="#">Rezerviraj uslugu <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"></polyline></svg></a></div><div class="serv"><span class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5v4.7l3 1.8"></path></svg></span><h3>Kalibracija slike i zvuka</h3><p>Profesionalno podešavanje TV-a i kućnog kina prema vašem prostoru.</p><span class="sp">od 89,99 €</span><a class="sl" href="#">Rezerviraj uslugu <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"></polyline></svg></a></div></div></section>
+<section class="sec"><div class="sechead"><div><h2>Savjeti i vodiči</h2></div><a href="#">Svi savjeti<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"></polyline></svg></a></div><div class="posts"><a class="post" href="#"><div class="ph"><span>Naslovna slika 420×168</span></div><div class="pb"><span class="pk">Vodič za kupnju</span><h3>Kako odabrati televizor u 2026: dijagonala, rezolucija i udaljenost gledanja</h3><span class="pm">12. 8. 2026. · 7 min čitanja</span></div></a><a class="post" href="#"><div class="ph"><span>Naslovna slika 420×168</span></div><div class="pb"><span class="pk">Usporedba</span><h3>OLED, QLED ili Mini-LED — koja se tehnologija isplati za vašu sobu?</h3><span class="pm">4. 8. 2026. · 9 min čitanja</span></div></a><a class="post" href="#"><div class="ph"><span>Naslovna slika 420×168</span></div><div class="pb"><span class="pk">Zvuk</span><h3>Soundbar ili kućno kino: 5 pitanja prije nego što kupite</h3><span class="pm">28. 7. 2026. · 6 min čitanja</span></div></a></div></section>
+<div class="seo"><h2>O kategoriji TV i audio</h2><p>U kategoriji TV i audio nalazi se cjelovita ponuda kućne zabave — od 32-inčnih televizora za spavaću sobu do 98-inčnih Mini-LED modela, soundbarova, kućnih kina, slušalica, projektora i gramofona. Sve cijene uključuju PDV, a dostupnost provjerite po trgovini prije dolaska.</p><p>Uz svaki televizor dostupna je usluga montaže na zid, produžena garancija do 5 godina te odvoz starog uređaja. Za savjet o odabiru dijagonale i tehnologije ekrana pogledajte naše vodiče ili posjetite najbližu Big Bang trgovinu.</p></div>
+</div><footer class="foot"><div class="fin">
+<div class="fbrand"><span class="logomark"><svg xmlns="http://www.w3.org/2000/svg" width="128.942" height="26.289" viewBox="0 0 128.942 26.289" fill="none">
+  <path d="M 10.208 0 L 2.686 0 C 1.24 0 0 1.128 0 2.607 L 0 23.68 C 0 25.156 1.24 26.286 2.686 26.286 L 10.208 26.286 C 14.798 26.286 17.043 24.527 17.043 19.572 L 17.043 17.83 C 17.043 15.372 16.396 13.593 15.493 13.144 C 16.431 12.637 17.043 11.044 17.043 8.458 L 17.043 6.716 C 17.043 2.113 14.865 0 10.208 0 Z M 12.829 9.812 C 12.829 10.53 12.236 11.111 11.507 11.111 L 6.947 11.114 L 6.947 15.182 L 11.507 15.175 C 12.236 15.175 12.829 15.758 12.829 16.477 L 12.829 20.923 C 12.829 21.64 12.236 22.224 11.507 22.224 L 4.443 22.224 C 4.172 22.224 4.141 22.219 4.141 21.857 L 4.141 4.431 C 4.141 4.067 4.172 4.064 4.443 4.064 L 11.507 4.064 C 12.236 4.064 12.829 4.647 12.829 5.366 L 12.829 9.812 Z M 44.271 14.342 L 44.276 20.92 C 44.276 23.886 41.829 26.288 38.814 26.288 L 32.891 26.288 C 29.863 26.288 27.42 23.885 27.42 20.92 L 27.42 5.368 C 27.42 2.404 29.862 0 32.878 0 L 39.127 0 C 40.195 0 41.062 0.851 41.062 1.901 L 41.062 2.17 C 41.062 3.218 40.195 4.068 39.127 4.068 L 35.785 4.068 L 32.955 4.063 C 32.82 4.063 32.707 4.086 32.707 4.086 C 32.1 4.203 31.632 4.736 31.632 5.367 L 31.632 20.976 C 31.632 21.608 32.1 22.137 32.707 22.256 C 32.707 22.256 32.819 22.277 32.912 22.277 L 38.905 22.277 C 39.042 22.277 39.154 22.256 39.154 22.256 C 39.762 22.137 40.228 21.608 40.228 20.976 L 40.228 15.132 L 34.905 15.132 L 34.907 11.067 L 42.118 11.064 L 42.382 11.064 C 43.423 11.064 44.268 11.894 44.268 12.917 L 44.271 14.342 Z M 83.419 0 L 77.038 0 C 74.009 0 71.68 2.412 71.68 5.368 L 71.687 24.432 C 71.687 25.459 72.534 26.288 73.573 26.288 L 73.841 26.288 C 74.885 26.288 75.728 25.459 75.728 24.432 L 75.725 16.526 C 75.766 16.53 75.807 16.537 75.848 16.537 L 84.832 16.534 L 84.828 24.433 C 84.828 25.46 85.672 26.289 86.715 26.289 L 86.982 26.289 C 88.025 26.289 88.869 25.46 88.869 24.433 L 88.878 5.369 C 88.878 2.404 86.434 0 83.419 0 Z M 84.833 12.562 L 75.849 12.562 C 75.807 12.562 75.767 12.567 75.726 12.567 L 75.723 5.309 C 75.723 4.68 76.191 4.15 76.798 4.033 C 76.836 4.02 76.911 4.011 77.005 4.011 L 83.555 4.011 C 83.646 4.011 83.716 4.02 83.76 4.033 C 84.367 4.15 84.836 4.68 84.836 5.309 L 84.833 12.562 Z M 109.007 5.368 L 109.031 24.342 C 109.031 25.416 108.143 26.288 107.049 26.288 L 106.768 26.288 C 105.674 26.288 104.786 25.416 104.786 24.342 L 104.792 5.368 C 104.792 4.648 104.2 4.064 103.471 4.064 L 96.405 4.064 C 96.14 4.064 96.109 4.064 96.109 4.428 L 96.092 24.39 C 96.092 25.438 95.229 26.288 94.162 26.288 L 93.887 26.288 C 92.819 26.288 91.955 25.437 91.955 24.39 L 91.967 2.607 C 91.967 1.132 93.206 0 94.652 0 L 103.55 0 C 106.566 0 109.008 2.404 109.008 5.368 M 24.101 1.901 L 24.101 24.389 C 24.101 25.437 23.234 26.287 22.167 26.287 L 21.894 26.287 C 20.827 26.287 19.964 25.436 19.964 24.389 L 19.964 1.901 C 19.964 0.851 20.827 0 21.894 0 L 22.167 0 C 23.234 0 24.101 0.851 24.101 1.901 Z M 61.879 0.002 L 54.355 0.002 C 52.915 0.002 51.674 1.13 51.674 2.608 L 51.674 23.682 C 51.674 25.158 52.914 26.288 54.355 26.288 L 61.879 26.288 C 66.466 26.288 68.715 24.528 68.715 19.573 L 68.715 17.831 C 68.715 15.374 68.07 13.595 67.167 13.146 C 68.105 12.638 68.715 11.045 68.715 8.459 L 68.715 6.716 C 68.715 2.115 66.536 0.002 61.879 0.002 Z M 64.505 9.814 C 64.505 10.532 63.91 11.113 63.176 11.113 L 58.62 11.116 L 58.62 15.184 L 63.176 15.177 C 63.91 15.177 64.505 15.76 64.505 16.479 L 64.505 20.924 C 64.505 21.641 63.91 22.226 63.176 22.226 L 56.114 22.226 C 55.844 22.226 55.816 22.22 55.816 21.858 L 55.816 4.433 C 55.816 4.068 55.844 4.066 56.114 4.066 L 63.176 4.066 C 63.91 4.066 64.505 4.649 64.505 5.368 L 64.505 9.814 Z M 128.942 20.921 C 128.942 23.886 126.495 26.288 123.48 26.288 L 117.559 26.288 C 114.529 26.288 112.085 23.886 112.085 20.921 L 112.085 5.368 C 112.085 2.404 114.529 0 117.545 0 L 123.795 0 C 124.862 0 125.726 0.851 125.726 1.901 L 125.726 2.17 C 125.726 3.218 124.862 4.068 123.795 4.068 L 117.623 4.063 C 117.485 4.063 117.37 4.086 117.37 4.086 C 116.764 4.203 116.295 4.736 116.295 5.367 L 116.295 20.976 C 116.295 21.608 116.764 22.137 117.37 22.256 C 117.37 22.256 117.485 22.277 117.581 22.277 L 123.573 22.277 C 123.709 22.277 123.821 22.256 123.821 22.256 C 124.424 22.137 124.898 21.608 124.898 20.976 L 124.898 15.132 L 119.57 15.132 L 119.572 11.067 L 126.784 11.064 L 127.048 11.064 C 128.088 11.064 128.936 11.894 128.936 12.917 L 128.942 20.919 L 128.942 20.921 Z" fill="currentColor" fill-rule="nonzero"></path>
+</svg></span><p>Vaš partner za tehničku robu i kućanske aparate u Hrvatskoj i Sloveniji.</p></div>
+<div><b>Kupovina</b><a href="#">Kategorije</a><a href="#">Akcije i promocije</a><a href="#">Bang Cijena</a><a href="#">Bestselleri</a><a href="#">Novo u ponudi</a></div><div><b>Pomoć</b><a href="#">Kontakt</a><a href="#">Najčešća pitanja</a><a href="#">Reklamacije</a><a href="#">Povrat robe</a><a href="#">Jamstvo</a></div><div><b>O nama</b><a href="#">O Big Bangu</a><a href="#">Prodavatelji</a><a href="#">Prodajna mjesta</a><a href="#">Karijere</a><a href="#">Mediji</a></div><div><b>Plaćanje i dostava</b><a href="#">Načini plaćanja</a><a href="#">Plaćanje na rate</a><a href="#">Dostava</a><a href="#">Poslovnice</a><a href="#">Click &amp; Collect</a></div>
+</div><div class="fbot"><span>© 2026 Big Bang d.o.o. Sva prava pridržana.</span><span class="fl"><a href="#">Privatnost</a><a href="#">Uvjeti</a><a href="#">Kolačići</a></span></div></footer>
+</body>
+</html>

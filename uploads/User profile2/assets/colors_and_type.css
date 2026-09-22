@@ -1,0 +1,328 @@
+/* ============================================================
+   BIG BANG DESIGN SYSTEM — Colors & Typography
+   Source: Big Bang Web.fig (Figma)
+   ============================================================ */
+
+/* -----------------------------------------------------------
+   @FONT-FACE — Inter (brand font, local files)
+   ----------------------------------------------------------- */
+@font-face { font-family: 'Inter'; src: url('fonts/Inter_18pt-Thin.ttf') format('truetype'); font-weight: 100; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter_18pt-ThinItalic.ttf') format('truetype'); font-weight: 100; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter_18pt-ExtraLight.ttf') format('truetype'); font-weight: 200; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter_18pt-ExtraLightItalic.ttf') format('truetype'); font-weight: 200; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter_18pt-Light.ttf') format('truetype'); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter_18pt-LightItalic.ttf') format('truetype'); font-weight: 300; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter_18pt-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter_18pt-Italic.ttf') format('truetype'); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter_18pt-Medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter_18pt-MediumItalic.ttf') format('truetype'); font-weight: 500; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter_18pt-SemiBold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter_18pt-SemiBoldItalic.ttf') format('truetype'); font-weight: 600; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter_18pt-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter_18pt-BoldItalic.ttf') format('truetype'); font-weight: 700; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter_18pt-ExtraBold.ttf') format('truetype'); font-weight: 800; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter_18pt-ExtraBoldItalic.ttf') format('truetype'); font-weight: 800; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter_18pt-Black.ttf') format('truetype'); font-weight: 900; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter_18pt-BlackItalic.ttf') format('truetype'); font-weight: 900; font-style: italic; font-display: swap; }
+
+/* -----------------------------------------------------------
+   COLOR TOKENS
+   ----------------------------------------------------------- */
+:root {
+  /* Brand Blues */
+  --bb-blue-primary:   #0050A0;   /* Primary blue — CTAs, links */
+  --bb-blue-dark:      #002D73;   /* Dark blue — headers, accents */
+  --bb-blue-navy:      #171C51;   /* Nav bar background */
+  --bb-blue-medium:    #2A307A;   /* Mid blue — secondary nav */
+  --bb-blue-light:     #0050A0;   /* Alias for primary */
+
+  /* Accent / Semantic */
+  --bb-turquoise:      #10DFBA;   /* Promo / highlight accent */
+  --bb-yellow:         #FFC857;   /* Star ratings, highlights */
+  --bb-orange:         #E07842;   /* Secondary accent */
+  --bb-orange-bang:    #F65F04;   /* "Bang Cijena" price label */
+  --bb-red:            #C1292E;   /* Danger / destructive */
+  --bb-alert:          #DA0D00;   /* Error states, alert */
+  --bb-success:        #1FB549;   /* Success, in-stock badge */
+  --bb-aqua:           #088696;   /* Info accent */
+
+  /* Neutral / Gray Scale */
+  --bb-black:          #101117;   /* Primary text */
+  --bb-gray-900:       #3D4043;   /* Dark body text */
+  --bb-gray-700:       #545F71;   /* Secondary text, borders */
+  --bb-gray-600:       #6D6D6D;   /* Muted text */
+  --bb-gray-500:       #818181;   /* Placeholder-adjacent */
+  --bb-gray-400:       #B6B6B6;   /* Disabled states */
+  --bb-gray-300:       #C7C7CD;   /* Placeholder text */
+  --bb-gray-200:       #D2D2D7;   /* Dividers */
+  --bb-gray-100:       #F1F1F4;   /* Page background */
+  --bb-gray-50:        #F3F3F3;   /* Light gray fills */
+  --bb-white:          #FFFFFF;
+
+  /* Semantic / Functional */
+  --bb-bg-page:        var(--bb-gray-100);    /* #F1F1F4 */
+  --bb-bg-card:        var(--bb-white);
+  --bb-bg-header:      var(--bb-white);
+  --bb-bg-nav:         var(--bb-blue-navy);   /* #171C51 */
+  --bb-bg-promo:       var(--bb-orange-bang); /* #F65F04 */
+
+  --bb-text-primary:   var(--bb-black);
+  --bb-text-secondary: var(--bb-gray-700);
+  --bb-text-muted:     var(--bb-gray-500);
+  --bb-text-inverse:   var(--bb-white);
+  --bb-text-link:      var(--bb-blue-primary);
+
+  --bb-border-default: var(--bb-gray-700);    /* 1px solid */
+  --bb-border-subtle:  var(--bb-gray-300);
+
+  --bb-focus:          var(--bb-blue-primary);
+
+  /* -----------------------------------------------------------
+     SPACING / RADIUS / SHADOW TOKENS
+     ----------------------------------------------------------- */
+  --bb-radius-sm:      6px;    /* inputs, small elements */
+  --bb-radius-md:      12px;   /* cards, panels */
+  --bb-radius-pill:    24px;   /* pill buttons, search bar */
+  --bb-radius-circle:  50%;
+
+  --bb-shadow-card:    0 2px 8px rgba(0,0,0,0.10);
+  --bb-shadow-hover:   0 4px 16px rgba(0,0,0,0.15);
+  --bb-shadow-modal:   0 8px 32px rgba(0,0,0,0.20);
+
+  --bb-spacing-xs:     4px;
+  --bb-spacing-sm:     8px;
+  --bb-spacing-md:     12px;
+  --bb-spacing-lg:     16px;
+  --bb-spacing-xl:     24px;
+  --bb-spacing-2xl:    32px;
+  --bb-spacing-3xl:    48px;
+  --bb-spacing-page:   240px;  /* desktop horizontal page padding */
+}
+
+/* -----------------------------------------------------------
+   TYPOGRAPHY TOKENS
+   Source: Inter (Google Fonts) — primary typeface throughout
+   Fallback: system-ui, sans-serif
+   ----------------------------------------------------------- */
+:root {
+  --bb-font-family:    'Inter', system-ui, sans-serif;
+
+  /* Scale */
+  --bb-text-hero:      58px;    /* Hero headers (desktop) */
+  --bb-text-h1:        36px;
+  --bb-text-h2:        24px;
+  --bb-text-h3:        22px;
+  --bb-text-h4:        18px;
+  --bb-text-lg:        16px;
+  --bb-text-md:        15px;
+  --bb-text-base:      14px;
+  --bb-text-sm:        12px;
+  --bb-text-xs:        11px;
+  --bb-text-2xs:       10px;
+
+  /* Line heights */
+  --bb-lh-tight:       1.1;
+  --bb-lh-snug:        1.2;
+  --bb-lh-normal:      1.4;
+  --bb-lh-relaxed:     1.5;
+  --bb-lh-body:        22px;   /* body line-height at 16px base */
+
+  /* Letter spacing */
+  --bb-ls-tight:       -0.02em;
+  --bb-ls-normal:      -0.01em;
+  --bb-ls-wide:        0em;
+
+  /* Weights */
+  --bb-fw-light:       300;
+  --bb-fw-regular:     400;
+  --bb-fw-medium:      500;
+  --bb-fw-semibold:    600;
+  --bb-fw-bold:        700;
+  --bb-fw-black:       900;
+}
+
+/* -----------------------------------------------------------
+   SEMANTIC TEXT STYLES
+   ----------------------------------------------------------- */
+.bb-h1 {
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-h1);
+  font-weight: var(--bb-fw-bold);
+  line-height: var(--bb-lh-snug);
+  letter-spacing: var(--bb-ls-tight);
+  color: var(--bb-text-primary);
+}
+
+.bb-h2 {
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-h2);
+  font-weight: var(--bb-fw-semibold);
+  line-height: var(--bb-lh-snug);
+  letter-spacing: var(--bb-ls-tight);
+  color: var(--bb-text-primary);
+}
+
+.bb-h3 {
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-h3);
+  font-weight: var(--bb-fw-bold);
+  line-height: var(--bb-lh-normal);
+  letter-spacing: var(--bb-ls-normal);
+  color: var(--bb-text-primary);
+}
+
+.bb-h4 {
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-h4);
+  font-weight: var(--bb-fw-semibold);
+  line-height: var(--bb-lh-normal);
+  color: var(--bb-text-primary);
+}
+
+.bb-body-lg {
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-lg);
+  font-weight: var(--bb-fw-regular);
+  line-height: var(--bb-lh-body);
+  letter-spacing: var(--bb-ls-tight);
+  color: var(--bb-text-primary);
+}
+
+.bb-body {
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-base);
+  font-weight: var(--bb-fw-regular);
+  line-height: var(--bb-lh-normal);
+  letter-spacing: var(--bb-ls-tight);
+  color: var(--bb-text-primary);
+}
+
+.bb-body-sm {
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-sm);
+  font-weight: var(--bb-fw-regular);
+  line-height: var(--bb-lh-normal);
+  color: var(--bb-text-secondary);
+}
+
+.bb-label {
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-sm);
+  font-weight: var(--bb-fw-semibold);
+  line-height: var(--bb-lh-normal);
+  letter-spacing: var(--bb-ls-normal);
+}
+
+.bb-link {
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-base);
+  font-weight: var(--bb-fw-semibold);
+  color: var(--bb-text-link);
+  text-decoration: none;
+}
+.bb-link:hover { text-decoration: underline; }
+
+.bb-caption {
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-xs);
+  font-weight: var(--bb-fw-regular);
+  line-height: var(--bb-lh-normal);
+  color: var(--bb-text-muted);
+}
+
+/* -----------------------------------------------------------
+   COMPONENT PRIMITIVES
+   ----------------------------------------------------------- */
+
+/* Buttons */
+.bb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 32px;
+  border-radius: var(--bb-radius-pill);
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-lg);
+  font-weight: var(--bb-fw-bold);
+  line-height: 1;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: background 0.2s, opacity 0.2s, transform 0.15s;
+  text-decoration: none;
+}
+.bb-btn:active { transform: scale(0.98); }
+
+.bb-btn-primary {
+  background: var(--bb-blue-primary);
+  color: var(--bb-white);
+  border-color: var(--bb-blue-primary);
+}
+.bb-btn-primary:hover { background: var(--bb-blue-dark); border-color: var(--bb-blue-dark); }
+
+.bb-btn-secondary {
+  background: var(--bb-white);
+  color: var(--bb-blue-primary);
+  border-color: var(--bb-blue-primary);
+}
+.bb-btn-secondary:hover { background: var(--bb-gray-50); }
+
+.bb-btn-outline {
+  background: transparent;
+  color: var(--bb-gray-700);
+  border-color: var(--bb-gray-700);
+}
+.bb-btn-outline:hover { background: var(--bb-gray-50); }
+
+.bb-btn-sm { height: 36px; padding: 0 20px; font-size: var(--bb-text-base); border-radius: 18px; }
+.bb-btn-pill { border-radius: var(--bb-radius-pill); }
+.bb-btn:disabled, .bb-btn[disabled] { opacity: 0.4; cursor: not-allowed; }
+
+/* Input */
+.bb-input {
+  height: 48px;
+  padding: 0 12px;
+  border-radius: var(--bb-radius-sm);
+  border: 1px solid var(--bb-gray-700);
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-lg);
+  letter-spacing: var(--bb-ls-tight);
+  color: var(--bb-text-primary);
+  background: var(--bb-white);
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+}
+.bb-input::placeholder { color: var(--bb-gray-300); }
+.bb-input:focus { border-color: var(--bb-blue-primary); }
+
+/* Card */
+.bb-card {
+  background: var(--bb-bg-card);
+  border-radius: var(--bb-radius-md);
+  box-shadow: var(--bb-shadow-card);
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.bb-card:hover {
+  box-shadow: var(--bb-shadow-hover);
+  transform: scale(1.02);
+}
+
+/* Badge / Label */
+.bb-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 11px;
+  font-family: var(--bb-font-family);
+  font-size: var(--bb-text-sm);
+  font-weight: var(--bb-fw-bold);
+  line-height: 16px;
+}
+.bb-badge-red    { background: var(--bb-alert);   color: var(--bb-white); }
+.bb-badge-green  { background: var(--bb-success);  color: var(--bb-white); }
+.bb-badge-orange { background: var(--bb-orange-bang); color: var(--bb-white); }
+.bb-badge-blue   { background: var(--bb-blue-primary); color: var(--bb-white); }

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</helmet>
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<section style="background:#fff;border-bottom:1px solid #E3E4E9">
+  <div style="max-width:1480px;margin:0 auto;padding:16px 20px 32px">
+    <dc-import name="Components/Breadcrumbs" variant="desktop" items="{{ crumbs }}" hint-size="100%,18px"></dc-import>
+    <h1 style="font-size:36px;font-weight:700;letter-spacing:-0.025em;color:#101117;margin:0 0 12px">{{ heading }}</h1>
+    <p style="font-size:15.5px;line-height:1.55;color:#545F71;margin:0;max-width:620px;text-wrap:pretty">{{ intro }}</p>
+    <sc-if value="{{ hasTabs }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;gap:10px;margin-top:24px">
+        <sc-for list="{{ tabList }}" as="t" hint-placeholder-count="2">
+          <button onClick="{{ t.onClick }}" style="{{ t.style }}">
+            <span style="{{ t.iconStyle }}">
+              <sc-if value="{{ t.globe }}" hint-placeholder-val="{{ true }}">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"></circle><ellipse cx="12" cy="12" rx="4" ry="9"></ellipse><line x1="3" y1="12" x2="21" y2="12"></line></svg>
+              </sc-if>
+              <sc-if value="{{ t.pin }}" hint-placeholder-val="{{ false }}">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"></path><circle cx="12" cy="10" r="2.6"></circle></svg>
+              </sc-if>
+            </span>
+            <span style="display:flex;flex-direction:column;align-items:flex-start;gap:1px;line-height:1.2">
+              <span style="font-size:14px;font-weight:600;letter-spacing:-0.01em">{{ t.label }}</span>
+              <span style="{{ t.subStyle }}">{{ t.sub }}</span>
+            </span>
+          </button>
+        </sc-for>
+      </div>
+    </sc-if>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<section style="background:#fff;border-bottom:1px solid #E3E4E9">
+  <div style="padding:12px 16px 20px">
+    <dc-import name="Components/Breadcrumbs" variant="mobile" items="{{ crumbs }}" hint-size="100%,16px"></dc-import>
+    <h1 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 8px">{{ heading }}</h1>
+    <p style="font-size:13.5px;line-height:1.5;color:#545F71;margin:0;text-wrap:pretty">{{ intro }}</p>
+    <sc-if value="{{ hasTabs }}" hint-placeholder-val="{{ true }}">
+      <div class="nsb" style="display:flex;gap:8px;margin-top:16px;overflow-x:auto">
+        <sc-for list="{{ tabListMob }}" as="t" hint-placeholder-count="2">
+          <button onClick="{{ t.onClick }}" style="{{ t.style }}">
+            <span style="{{ t.iconStyle }}">
+              <sc-if value="{{ t.globe }}" hint-placeholder-val="{{ true }}">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"></circle><ellipse cx="12" cy="12" rx="4" ry="9"></ellipse><line x1="3" y1="12" x2="21" y2="12"></line></svg>
+              </sc-if>
+              <sc-if value="{{ t.pin }}" hint-placeholder-val="{{ false }}">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"></path><circle cx="12" cy="10" r="2.6"></circle></svg>
+              </sc-if>
+            </span>
+            <span style="display:flex;flex-direction:column;align-items:flex-start;gap:1px;line-height:1.2">
+              <span style="font-size:13px;font-weight:600;letter-spacing:-0.01em">{{ t.label }}</span>
+              <span style="{{ t.subStyle }}">{{ t.sub }}</span>
+            </span>
+          </button>
+        </sc-for>
+      </div>
+    </sc-if>
+  </div>
+</section>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1480, &quot;height&quot;: 260 },
+  &quot;variant&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;desktop&quot;, &quot;mobile&quot;], &quot;default&quot;: &quot;desktop&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;heading&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Načini plaćanja&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;intro&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Online u webshopu, gotovinom po dostavi ili u jednoj od naših poslovnica — odaberite način plaćanja koji vam najviše odgovara.&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;tabs&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;{label: string, sub?: string, icon?: 'globe'|'pin'}[]&quot; },
+  &quot;activeTab&quot;: { &quot;editor&quot;: &quot;int&quot;, &quot;default&quot;: 0, &quot;tsType&quot;: &quot;number&quot; },
+  &quot;onTab&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(i: number) =&gt; void&quot; },
+  &quot;onHome&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;() =&gt; void&quot; }
+}">
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props;
+    const mobile = p.variant === 'mobile';
+    const heading = p.heading || 'Načini plaćanja';
+    const tabs = p.tabs || [];
+    const active = p.activeTab == null ? 0 : p.activeTab;
+
+    const btn = (on, mob) => ({
+      display: 'flex', alignItems: 'center', gap: mob ? 8 : 10,
+      padding: mob ? '8px 14px' : '9px 18px', borderRadius: 8,
+      border: on ? '1px solid #002D73' : '1px solid #E3E4E9',
+      background: on ? '#002D73' : '#fff', color: on ? '#fff' : '#101117',
+      fontFamily: 'Inter, sans-serif', cursor: 'pointer', flexShrink: 0,
+      transition: 'border-color .15s, background .15s'
+    });
+
+    const map = (mob) => tabs.map((t, i) => ({
+      label: t.label, sub: t.sub,
+      globe: t.icon === 'globe', pin: t.icon === 'pin',
+      style: btn(i === active, mob),
+      iconStyle: { display: 'flex', color: i === active ? 'rgba(255,255,255,0.85)' : '#0050A0' },
+      subStyle: { fontSize: mob ? 10.5 : 11, fontWeight: 500, color: i === active ? 'rgba(255,255,255,0.7)' : '#8B95A5' },
+      onClick: () => { if (p.onTab) p.onTab(i); }
+    }));
+
+    return {
+      isDesktop: !mobile,
+      isMobile: mobile,
+      heading,
+      intro: p.intro || '',
+      hasTabs: tabs.length > 0,
+      tabList: map(false),
+      tabListMob: map(true),
+      crumbs: [
+        { label: mobile ? 'Početna' : 'Big Bang', onClick: p.onHome },
+        { label: heading }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

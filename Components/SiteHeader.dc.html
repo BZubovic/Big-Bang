@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</helmet>
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<header ref="{{ rootRef }}" data-bb-header="desktop" style="position:relative;z-index:300;box-shadow:0 2px 16px rgba(0,0,0,0.20)">
+  <sc-if value="{{ searchFocused }}" hint-placeholder-val="{{ false }}"><div onClick="{{ closeQ }}" style="position:fixed;left:0;right:0;top:72px;bottom:0;z-index:340;background:rgba(16,17,23,0.45);animation:bbfade .18s ease both"></div></sc-if>
+  <div style="background:#0050A0">
+    <div style="max-width:1480px;margin:0 auto;height:72px;display:flex;align-items:center;position:relative;padding:0 20px 0 40px">
+      <a href="#" onClick="{{ onLogo }}" style="flex-shrink:0;z-index:1;position:relative;color:#fff;display:flex">
+        <svg xmlns="http://www.w3.org/2000/svg" width="129" height="26" viewBox="0 0 128.942 26.289" fill="currentColor"><path d="M 10.208 0 L 2.686 0 C 1.24 0 0 1.128 0 2.607 L 0 23.68 C 0 25.156 1.24 26.286 2.686 26.286 L 10.208 26.286 C 14.798 26.286 17.043 24.527 17.043 19.572 L 17.043 17.83 C 17.043 15.372 16.396 13.593 15.493 13.144 C 16.431 12.637 17.043 11.044 17.043 8.458 L 17.043 6.716 C 17.043 2.113 14.865 0 10.208 0 Z M 12.829 9.812 C 12.829 10.53 12.236 11.111 11.507 11.111 L 6.947 11.114 L 6.947 15.182 L 11.507 15.175 C 12.236 15.175 12.829 15.758 12.829 16.477 L 12.829 20.923 C 12.829 21.64 12.236 22.224 11.507 22.224 L 4.443 22.224 C 4.172 22.224 4.141 22.219 4.141 21.857 L 4.141 4.431 C 4.141 4.067 4.172 4.064 4.443 4.064 L 11.507 4.064 C 12.236 4.064 12.829 4.647 12.829 5.366 L 12.829 9.812 Z M 44.271 14.342 L 44.276 20.92 C 44.276 23.886 41.829 26.288 38.814 26.288 L 32.891 26.288 C 29.863 26.288 27.42 23.885 27.42 20.92 L 27.42 5.368 C 27.42 2.404 29.862 0 32.878 0 L 39.127 0 C 40.195 0 41.062 0.851 41.062 1.901 L 41.062 2.17 C 41.062 3.218 40.195 4.068 39.127 4.068 L 35.785 4.068 L 32.955 4.063 C 32.82 4.063 32.707 4.086 32.707 4.086 C 32.1 4.203 31.632 4.736 31.632 5.367 L 31.632 20.976 C 31.632 21.608 32.1 22.137 32.707 22.256 C 32.707 22.256 32.819 22.277 32.912 22.277 L 38.905 22.277 C 39.042 22.277 39.154 22.256 39.154 22.256 C 39.762 22.137 40.228 21.608 40.228 20.976 L 40.228 15.132 L 34.905 15.132 L 34.907 11.067 L 42.118 11.064 L 42.382 11.064 C 43.423 11.064 44.268 11.894 44.268 12.917 L 44.271 14.342 Z M 83.419 0 L 77.038 0 C 74.009 0 71.68 2.412 71.68 5.368 L 71.687 24.432 C 71.687 25.459 72.534 26.288 73.573 26.288 L 73.841 26.288 C 74.885 26.288 75.728 25.459 75.728 24.432 L 75.725 16.526 C 75.766 16.53 75.807 16.537 75.848 16.537 L 84.832 16.534 L 84.828 24.433 C 84.828 25.46 85.672 26.289 86.715 26.289 L 86.982 26.289 C 88.025 26.289 88.869 25.46 88.869 24.433 L 88.878 5.369 C 88.878 2.404 86.434 0 83.419 0 Z M 84.833 12.562 L 75.849 12.562 C 75.807 12.562 75.767 12.567 75.726 12.567 L 75.723 5.309 C 75.723 4.68 76.191 4.15 76.798 4.033 C 76.836 4.02 76.911 4.011 77.005 4.011 L 83.555 4.011 C 83.646 4.011 83.716 4.02 83.76 4.033 C 84.367 4.15 84.836 4.68 84.836 5.309 L 84.833 12.562 Z M 109.007 5.368 L 109.031 24.342 C 109.031 25.416 108.143 26.288 107.049 26.288 L 106.768 26.288 C 105.674 26.288 104.786 25.416 104.786 24.342 L 104.792 5.368 C 104.792 4.648 104.2 4.064 103.471 4.064 L 96.405 4.064 C 96.14 4.064 96.109 4.064 96.109 4.428 L 96.092 24.39 C 96.092 25.438 95.229 26.288 94.162 26.288 L 93.887 26.288 C 92.819 26.288 91.955 25.437 91.955 24.39 L 91.967 2.607 C 91.967 1.132 93.206 0 94.652 0 L 103.55 0 C 106.566 0 109.008 2.404 109.008 5.368 M 24.101 1.901 L 24.101 24.389 C 24.101 25.437 23.234 26.287 22.167 26.287 L 21.894 26.287 C 20.827 26.287 19.964 25.436 19.964 24.389 L 19.964 1.901 C 19.964 0.851 20.827 0 21.894 0 L 22.167 0 C 23.234 0 24.101 0.851 24.101 1.901 Z M 61.879 0.002 L 54.355 0.002 C 52.915 0.002 51.674 1.13 51.674 2.608 L 51.674 23.682 C 51.674 25.158 52.914 26.288 54.355 26.288 L 61.879 26.288 C 66.466 26.288 68.715 24.528 68.715 19.573 L 68.715 17.831 C 68.715 15.374 68.07 13.595 67.167 13.146 C 68.105 12.638 68.715 11.045 68.715 8.459 L 68.715 6.716 C 68.715 2.115 66.536 0.002 61.879 0.002 Z M 64.505 9.814 C 64.505 10.532 63.91 11.113 63.176 11.113 L 58.62 11.116 L 58.62 15.184 L 63.176 15.177 C 63.91 15.177 64.505 15.76 64.505 16.479 L 64.505 20.924 C 64.505 21.641 63.91 22.226 63.176 22.226 L 56.114 22.226 C 55.844 22.226 55.816 22.22 55.816 21.858 L 55.816 4.433 C 55.816 4.068 55.844 4.066 56.114 4.066 L 63.176 4.066 C 63.91 4.066 64.505 4.649 64.505 5.368 L 64.505 9.814 Z M 128.942 20.921 C 128.942 23.886 126.495 26.288 123.48 26.288 L 117.559 26.288 C 114.529 26.288 112.085 23.886 112.085 20.921 L 112.085 5.368 C 112.085 2.404 114.529 0 117.545 0 L 123.795 0 C 124.862 0 125.726 0.851 125.726 1.901 L 125.726 2.17 C 125.726 3.218 124.862 4.068 123.795 4.068 L 117.623 4.063 C 117.485 4.063 117.37 4.086 117.37 4.086 C 116.764 4.203 116.295 4.736 116.295 5.367 L 116.295 20.976 C 116.295 21.608 116.764 22.137 117.37 22.256 C 117.37 22.256 117.485 22.277 117.581 22.277 L 123.573 22.277 C 123.709 22.277 123.821 22.256 123.821 22.256 C 124.424 22.137 124.898 21.608 124.898 20.976 L 124.898 15.132 L 119.57 15.132 L 119.572 11.067 L 126.784 11.064 L 127.048 11.064 C 128.088 11.064 128.936 11.894 128.936 12.917 L 128.942 20.919 L 128.942 20.921 Z"></path></svg>
+      </a>
+      <div style="position:absolute;left:50%;transform:translateX(-50%);width:600px;max-width:calc(100% - 520px);z-index:345">
+        <div style="display:flex;align-items:center;background:#fff;border-radius:22px;height:44px;overflow:hidden">
+          <input value="{{ q }}" onChange="{{ onQ }}" onKeyDown="{{ onKeyQ }}" onFocus="{{ onFocusQ }}" placeholder="Koji proizvod tražiš? Unesi pojam za pretragu..." style="flex:1;min-width:0;height:100%;border:none;outline:none;padding:0 16px;font-family:Inter,sans-serif;font-size:14px;color:#101117;background:transparent;letter-spacing:-0.02em">
+          <sc-if value="{{ showClear }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ clearQ }}" style="width:30px;height:100%;background:transparent;border:none;display:flex;align-items:center;justify-content:center;color:#545F71;flex-shrink:0" style-hover="color:#101117">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg>
+            </button>
+          </sc-if>
+          <button onClick="{{ submitQ }}" style="width:48px;height:100%;background:#10DFBA;border:none;display:flex;align-items:center;justify-content:center;color:#002D73;flex-shrink:0">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </button>
+        </div>
+        <sc-if value="{{ searchOpen }}" hint-placeholder-val="{{ false }}">
+                    <dc-import name="Components/SearchPanel" term="{{ q }}" mobile="{{ false }}" suggestions="{{ sugg }}" items="{{ sitems }}" on-all="{{ submitQ }}" hint-size="100%,400px" style="position:absolute;left:0;right:0;top:52px;z-index:350"></dc-import>
+                  </sc-if>
+                  <sc-if value="{{ searchPopular }}" hint-placeholder-val="{{ false }}">
+                    <dc-import name="Components/SearchPanel" term="" mode="popular" popular="{{ popularTerms }}" mobile="{{ false }}" on-all="{{ submitQ }}" hint-size="100%,400px" style="position:absolute;left:0;right:0;top:52px;z-index:350"></dc-import>
+                  </sc-if>
+      </div>
+      <div style="display:flex;gap:4px;align-items:center;margin-left:auto;position:relative;z-index:1">
+        <button onClick="{{ onWish }}" style="background:none;border:none;padding:6px 10px;display:flex;flex-direction:column;align-items:center;gap:3px;border-radius:8px;color:#fff;font-family:Inter,sans-serif;cursor:pointer">
+          <span style="color:#fff;display:flex"><svg width="22" height="22" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+          <span style="font-size:10px;font-weight:500;opacity:0.85;white-space:nowrap">Lista želja</span>
+        </button>
+        <button style="background:none;border:none;padding:6px 10px;display:flex;flex-direction:column;align-items:center;gap:3px;border-radius:8px;color:#fff;font-family:Inter,sans-serif" onClick="{{ onAccount }}">
+          <span style="color:#fff;display:flex"><svg width="22" height="22" viewBox="0 0 30 30" fill="none"><path d="M15 18.25C18.866 18.25 22 15.116 22 11.25C22 7.38401 18.866 4.25 15 4.25C11.134 4.25 8 7.38401 8 11.25C8 15.116 11.134 18.25 15 18.25Z" stroke="currentColor" stroke-width="2"></path><path d="M4 24.25C5.064 22.4258 6.59451 20.9109 8.43766 19.8577C10.2808 18.8045 12.3717 18.25 14.5 18.25C16.6283 18.25 18.7192 18.8045 20.5623 19.8577C22.4055 20.9109 23.936 22.4258 25 24.25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+          <span style="font-size:10px;font-weight:500;opacity:0.85;white-space:nowrap">{{ accountLabel }}</span>
+        </button>
+        <button onClick="{{ onCart }}" style="background:none;border:none;padding:6px 10px;display:flex;flex-direction:column;align-items:center;gap:3px;border-radius:8px;color:#fff;font-family:Inter,sans-serif;position:relative">
+          <span style="position:relative;color:#fff;display:flex">
+            <svg width="22" height="22" viewBox="0 0 30 30" fill="none"><path d="M4 4.25H6.22222L6.66667 6.47222M6.66667 6.47222L8.44444 15.3611H19.5556L24 6.47222H6.66667ZM19.5556 19.8056C18.3283 19.8056 17.3333 20.8005 17.3333 22.0278C17.3333 23.2551 18.3283 24.25 19.5556 24.25C20.7829 24.25 21.7778 23.2551 21.7778 22.0278C21.7778 20.8005 20.7829 19.8056 19.5556 19.8056ZM19.5556 19.8056H8.44444M8.44444 19.8056C7.21714 19.8056 6.22222 20.8005 6.22222 22.0278C6.22222 23.2551 7.21714 24.25 8.44444 24.25C9.67174 24.25 10.6667 23.2551 10.6667 22.0278C10.6667 20.8005 9.67174 19.8056 8.44444 19.8056Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <sc-if value="{{ hasCart }}" hint-placeholder-val="{{ true }}"><span style="position:absolute;top:-6px;right:-8px;background:#10DFBA;color:#002D73;border-radius:50%;width:18px;height:18px;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ cartCount }}</span></sc-if>
+          </span>
+          <span style="font-size:10px;font-weight:500;opacity:0.85">Košarica</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#002D73;position:relative">
+    <nav class="nsb" style="max-width:1480px;margin:0 auto;height:44px;display:flex;align-items:center;padding:0 20px 0 26px;overflow-x:auto">
+      <button onClick="{{ toggleMenu }}" style="{{ trigStyle }}" style-hover="color:#fff;background:rgba(255,255,255,0.08)">
+        <span style="display:flex;opacity:0.95">
+          <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ true }}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg>
+          </sc-if>
+          <sc-if value="{{ menuClosed }}" hint-placeholder-val="{{ true }}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </sc-if>
+        </span>
+        Proizvodi
+      </button>
+      <button style="background:none;border:none;color:rgba(255,255,255,0.88);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:background .15s,color .15s" style-hover="color:#fff;background:rgba(255,255,255,0.08)">
+        <span style="display:flex;opacity:0.85"><svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M13.2426 13.9926C10.8995 16.3358 7.1005 16.3358 4.75736 13.9926C3.58579 12.8211 3 11.2855 3 9.75C3 8.21446 3.58578 6.67893 4.75736 5.50735C4.75736 5.50735 5.25003 6.74997 6.75003 7.49997C6.75003 5.99997 7.12503 3.74997 8.98941 2.25C10.5 3.75 12.0684 4.33308 13.2426 5.50735C14.4142 6.67893 15 8.21446 15 9.75C15 11.2855 14.4142 12.8211 13.2426 13.9926Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7.40901 12.091C8.28769 12.9696 9.71231 12.9696 10.591 12.091C11.0303 11.6516 11.25 11.0758 11.25 10.5C11.25 9.92416 11.0303 9.34832 10.591 8.90897C10.1544 8.47241 9.5831 8.25275 9.01092 8.24999L8.24996 10.5L6.75 10.5C6.75001 11.0758 6.96968 11.6516 7.40901 12.091Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+        Akcije i promocije
+      </button>
+      <button style="background:none;border:none;color:rgba(255,255,255,0.88);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:background .15s,color .15s" style-hover="color:#fff;background:rgba(255,255,255,0.08)">
+        <span style="display:flex;opacity:0.85"><svg width="17" height="17" viewBox="0 0 17 17" fill="none"><path d="M14.6018 2.90032C14.6018 2.20032 10.0018 2.00032 8.4018 2.10032C6.5018 2.10032 2.4018 3.30032 2.5018 4.00032" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2.29922 8.19922H1.29922C0.999219 8.19922 0.699219 8.49922 0.699219 8.79922V9.49922" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16.2016 9.49922V8.79922C16.2016 8.49922 15.9016 8.19922 15.6016 8.19922H14.6016" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2.39844 13.5004C2.39844 14.2004 2.99844 14.9004 3.79844 14.9004H13.2984C13.9984 14.9004 14.6984 14.3004 14.6984 13.5004V6.40039H2.39844V13.5004Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+        Kuhinje
+      </button>
+      <button style="background:none;border:none;color:rgba(255,255,255,0.88);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:background .15s,color .15s" style-hover="color:#fff;background:rgba(255,255,255,0.08)">
+        <span style="display:flex;opacity:0.85"><svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M15.75 9.94157C13.6655 10.7853 11.387 11.25 9 11.25C6.61298 11.25 4.33447 10.7853 2.25 9.94157M12 4.5V3C12 2.17157 11.3284 1.5 10.5 1.5H7.5C6.67157 1.5 6 2.17157 6 3V4.5M9 9H9.0075M3.75 15H14.25C15.0784 15 15.75 14.3284 15.75 13.5V6C15.75 5.17157 15.0784 4.5 14.25 4.5H3.75C2.92157 4.5 2.25 5.17157 2.25 6V13.5C2.25 14.3284 2.92157 15 3.75 15Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+        B2B
+      </button>
+      <div style="margin-left:auto;display:flex;align-items:center;flex-shrink:0">
+        <button style="background:none;border:none;color:rgba(255,255,255,0.88);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:background .15s,color .15s" style-hover="color:#fff;background:rgba(255,255,255,0.08)">
+          <span style="display:flex;opacity:0.85"><svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M13.2426 12.4926C12.5621 13.1731 11.1623 14.573 10.1564 15.5788C9.5174 16.2179 8.4823 16.2176 7.84326 15.5785C6.85524 14.5905 5.48222 13.2175 4.75736 12.4926C2.41421 10.1495 2.41421 6.35051 4.75736 4.00736C7.10051 1.66421 10.8995 1.66421 13.2426 4.00736C15.5858 6.35051 15.5858 10.1495 13.2426 12.4926Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path><path d="M11.25 8.25C11.25 9.49264 10.2426 10.5 9 10.5C7.75736 10.5 6.75 9.49264 6.75 8.25C6.75 7.00736 7.75736 6 9 6C10.2426 6 11.25 7.00736 11.25 8.25Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+          Prodajna mjesta
+        </button>
+        <button style="background:none;border:none;color:rgba(255,255,255,0.88);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:background .15s,color .15s" style-hover="color:#fff;background:rgba(255,255,255,0.08)">
+          <span style="display:flex;opacity:0.85"><svg width="16" height="16" viewBox="0 0 18 18" fill="none"><polygon points="9,1.5 11.3,6.5 16.5,7.2 12.75,10.8 13.7,16 9,13.4 4.3,16 5.25,10.8 1.5,7.2 6.7,6.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></polygon></svg></span>
+          UAU klub
+        </button>
+        <button onClick="{{ onContact }}" style="background:none;border:none;color:rgba(255,255,255,0.88);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:background .15s,color .15s" style-hover="color:#fff;background:rgba(255,255,255,0.08)">
+          <span style="display:flex;opacity:0.85"><svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M16.5 12.69v2.25a1.5 1.5 0 0 1-1.635 1.5 14.843 14.843 0 0 1-6.473-2.303A14.625 14.625 0 0 1 3.878 9.007 14.843 14.843 0 0 1 1.575 2.561 1.5 1.5 0 0 1 3.068.944h2.25a1.5 1.5 0 0 1 1.5 1.29c.095.72.27 1.427.525 2.108a1.5 1.5 0 0 1-.338 1.583L6.098 6.832a12 12 0 0 0 4.5 4.5l.908-.908a1.5 1.5 0 0 1 1.582-.337c.682.254 1.39.43 2.108.524A1.5 1.5 0 0 1 16.5 12.69z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+          Kontakt
+        </button>
+        <button style="background:none;border:none;color:rgba(255,255,255,0.88);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:background .15s,color .15s" style-hover="color:#fff;background:rgba(255,255,255,0.08)">
+          <span style="display:flex;opacity:0.85"><svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M3 7.5V15.75H15V7.5M7.125 15.75V9.375H10.875V15.75M3.375 2.25H8.625H14.625L15.75 5.625V6.375C15.75 7.875 13.5 7.875 13.5 6.375C13.5 7.875 11.25 7.875 11.25 6.375C11.25 7.875 9 7.875 9 6.375C9 7.875 6.75 7.875 6.75 6.375C6.75 7.875 4.5 7.875 4.5 6.375C4.5 7.875 2.25 7.875 2.25 6.375V5.625L3.375 2.25Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+          Prodavatelji
+        </button>
+        <button style="background:none;border:none;color:rgba(255,255,255,0.88);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px;height:44px;display:flex;align-items:center;white-space:nowrap;transition:background .15s,color .15s" style-hover="color:#fff;background:rgba(255,255,255,0.08)">•••</button>
+      </div>
+    </nav>
+  </div>
+
+</header>
+</sc-if>
+
+<sc-if value="{{ isDesktopBar }}" hint-placeholder-val="{{ false }}">
+<div ref="{{ rootRef }}" style="{{ deskBarStyle }}">
+  <sc-if value="{{ searchFocused }}" hint-placeholder-val="{{ false }}"><div onClick="{{ closeQ }}" style="position:fixed;left:0;right:0;top:56px;bottom:0;z-index:340;background:rgba(16,17,23,0.45);animation:bbfade .18s ease both"></div></sc-if>
+  <div style="max-width:1480px;margin:0 auto;height:100%;display:flex;align-items:center;gap:18px;padding:0 20px 0 40px;position:relative">
+    <a href="#" onClick="{{ onLogo }}" style="color:#fff;display:flex;flex-shrink:0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="106" height="21" viewBox="0 0 128.942 26.289" fill="currentColor"><path d="M 10.208 0 L 2.686 0 C 1.24 0 0 1.128 0 2.607 L 0 23.68 C 0 25.156 1.24 26.286 2.686 26.286 L 10.208 26.286 C 14.798 26.286 17.043 24.527 17.043 19.572 L 17.043 17.83 C 17.043 15.372 16.396 13.593 15.493 13.144 C 16.431 12.637 17.043 11.044 17.043 8.458 L 17.043 6.716 C 17.043 2.113 14.865 0 10.208 0 Z M 12.829 9.812 C 12.829 10.53 12.236 11.111 11.507 11.111 L 6.947 11.114 L 6.947 15.182 L 11.507 15.175 C 12.236 15.175 12.829 15.758 12.829 16.477 L 12.829 20.923 C 12.829 21.64 12.236 22.224 11.507 22.224 L 4.443 22.224 C 4.172 22.224 4.141 22.219 4.141 21.857 L 4.141 4.431 C 4.141 4.067 4.172 4.064 4.443 4.064 L 11.507 4.064 C 12.236 4.064 12.829 4.647 12.829 5.366 L 12.829 9.812 Z M 44.271 14.342 L 44.276 20.92 C 44.276 23.886 41.829 26.288 38.814 26.288 L 32.891 26.288 C 29.863 26.288 27.42 23.885 27.42 20.92 L 27.42 5.368 C 27.42 2.404 29.862 0 32.878 0 L 39.127 0 C 40.195 0 41.062 0.851 41.062 1.901 L 41.062 2.17 C 41.062 3.218 40.195 4.068 39.127 4.068 L 35.785 4.068 L 32.955 4.063 C 32.82 4.063 32.707 4.086 32.707 4.086 C 32.1 4.203 31.632 4.736 31.632 5.367 L 31.632 20.976 C 31.632 21.608 32.1 22.137 32.707 22.256 C 32.707 22.256 32.819 22.277 32.912 22.277 L 38.905 22.277 C 39.042 22.277 39.154 22.256 39.154 22.256 C 39.762 22.137 40.228 21.608 40.228 20.976 L 40.228 15.132 L 34.905 15.132 L 34.907 11.067 L 42.118 11.064 L 42.382 11.064 C 43.423 11.064 44.268 11.894 44.268 12.917 L 44.271 14.342 Z M 83.419 0 L 77.038 0 C 74.009 0 71.68 2.412 71.68 5.368 L 71.687 24.432 C 71.687 25.459 72.534 26.288 73.573 26.288 L 73.841 26.288 C 74.885 26.288 75.728 25.459 75.728 24.432 L 75.725 16.526 C 75.766 16.53 75.807 16.537 75.848 16.537 L 84.832 16.534 L 84.828 24.433 C 84.828 25.46 85.672 26.289 86.715 26.289 L 86.982 26.289 C 88.025 26.289 88.869 25.46 88.869 24.433 L 88.878 5.369 C 88.878 2.404 86.434 0 83.419 0 Z M 84.833 12.562 L 75.849 12.562 C 75.807 12.562 75.767 12.567 75.726 12.567 L 75.723 5.309 C 75.723 4.68 76.191 4.15 76.798 4.033 C 76.836 4.02 76.911 4.011 77.005 4.011 L 83.555 4.011 C 83.646 4.011 83.716 4.02 83.76 4.033 C 84.367 4.15 84.836 4.68 84.836 5.309 L 84.833 12.562 Z M 109.007 5.368 L 109.031 24.342 C 109.031 25.416 108.143 26.288 107.049 26.288 L 106.768 26.288 C 105.674 26.288 104.786 25.416 104.786 24.342 L 104.792 5.368 C 104.792 4.648 104.2 4.064 103.471 4.064 L 96.405 4.064 C 96.14 4.064 96.109 4.064 96.109 4.428 L 96.092 24.39 C 96.092 25.438 95.229 26.288 94.162 26.288 L 93.887 26.288 C 92.819 26.288 91.955 25.437 91.955 24.39 L 91.967 2.607 C 91.967 1.132 93.206 0 94.652 0 L 103.55 0 C 106.566 0 109.008 2.404 109.008 5.368 M 24.101 1.901 L 24.101 24.389 C 24.101 25.437 23.234 26.287 22.167 26.287 L 21.894 26.287 C 20.827 26.287 19.964 25.436 19.964 24.389 L 19.964 1.901 C 19.964 0.851 20.827 0 21.894 0 L 22.167 0 C 23.234 0 24.101 0.851 24.101 1.901 Z M 61.879 0.002 L 54.355 0.002 C 52.915 0.002 51.674 1.13 51.674 2.608 L 51.674 23.682 C 51.674 25.158 52.914 26.288 54.355 26.288 L 61.879 26.288 C 66.466 26.288 68.715 24.528 68.715 19.573 L 68.715 17.831 C 68.715 15.374 68.07 13.595 67.167 13.146 C 68.105 12.638 68.715 11.045 68.715 8.459 L 68.715 6.716 C 68.715 2.115 66.536 0.002 61.879 0.002 Z M 64.505 9.814 C 64.505 10.532 63.91 11.113 63.176 11.113 L 58.62 11.116 L 58.62 15.184 L 63.176 15.177 C 63.91 15.177 64.505 15.76 64.505 16.479 L 64.505 20.924 C 64.505 21.641 63.91 22.226 63.176 22.226 L 56.114 22.226 C 55.844 22.226 55.816 22.22 55.816 21.858 L 55.816 4.433 C 55.816 4.068 55.844 4.066 56.114 4.066 L 63.176 4.066 C 63.91 4.066 64.505 4.649 64.505 5.368 L 64.505 9.814 Z M 128.942 20.921 C 128.942 23.886 126.495 26.288 123.48 26.288 L 117.559 26.288 C 114.529 26.288 112.085 23.886 112.085 20.921 L 112.085 5.368 C 112.085 2.404 114.529 0 117.545 0 L 123.795 0 C 124.862 0 125.726 0.851 125.726 1.901 L 125.726 2.17 C 125.726 3.218 124.862 4.068 123.795 4.068 L 117.623 4.063 C 117.485 4.063 117.37 4.086 117.37 4.086 C 116.764 4.203 116.295 4.736 116.295 5.367 L 116.295 20.976 C 116.295 21.608 116.764 22.137 117.37 22.256 C 117.37 22.256 117.485 22.277 117.581 22.277 L 123.573 22.277 C 123.709 22.277 123.821 22.256 123.821 22.256 C 124.424 22.137 124.898 21.608 124.898 20.976 L 124.898 15.132 L 119.57 15.132 L 119.572 11.067 L 126.784 11.064 L 127.048 11.064 C 128.088 11.064 128.936 11.894 128.936 12.917 L 128.942 20.919 L 128.942 20.921 Z"></path></svg>
+      </a>
+    <button onClick="{{ toggleMenu }}" style="background:rgba(255,255,255,0.12);border:none;color:#fff;font-family:Inter,sans-serif;font-size:13px;font-weight:600;letter-spacing:-0.01em;height:36px;padding:0 14px;display:flex;align-items:center;gap:8px;white-space:nowrap;flex-shrink:0;border-radius:18px;transition:background .15s" style-hover="background:rgba(255,255,255,0.2)">
+      <span style="display:flex">
+        <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg>
+        </sc-if>
+        <sc-if value="{{ menuClosed }}" hint-placeholder-val="{{ true }}">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </sc-if>
+      </span>
+      Proizvodi
+    </button>
+    <div style="position:absolute;left:50%;transform:translateX(-50%);width:600px;max-width:calc(100% - 560px);z-index:345">
+      <div style="display:flex;align-items:center;background:#fff;border-radius:19px;height:38px;overflow:hidden">
+        <input value="{{ q }}" onChange="{{ onQ }}" onKeyDown="{{ onKeyQ }}" onFocus="{{ onFocusQ }}" placeholder="Koji proizvod tražiš? Unesi pojam za pretragu..." style="flex:1;min-width:0;height:100%;border:none;outline:none;padding:0 16px;font-family:Inter,sans-serif;font-size:13px;color:#101117;background:transparent;letter-spacing:-0.02em">
+        <sc-if value="{{ showClear }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ clearQ }}" style="width:28px;height:100%;background:transparent;border:none;display:flex;align-items:center;justify-content:center;color:#545F71;flex-shrink:0" style-hover="color:#101117">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg>
+            </button>
+          </sc-if>
+        <button onClick="{{ submitQ }}" style="width:44px;height:100%;background:#10DFBA;border:none;display:flex;align-items:center;justify-content:center;color:#002D73;flex-shrink:0">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+      </div>
+      <sc-if value="{{ searchOpen }}" hint-placeholder-val="{{ false }}">
+                <dc-import name="Components/SearchPanel" term="{{ q }}" mobile="{{ false }}" suggestions="{{ sugg }}" items="{{ sitems }}" on-all="{{ submitQ }}" hint-size="100%,400px" style="position:absolute;left:0;right:0;top:46px;z-index:350"></dc-import>
+              </sc-if>
+              <sc-if value="{{ searchPopular }}" hint-placeholder-val="{{ false }}">
+                <dc-import name="Components/SearchPanel" term="" mode="popular" popular="{{ popularTerms }}" mobile="{{ false }}" on-all="{{ submitQ }}" hint-size="100%,400px" style="position:absolute;left:0;right:0;top:46px;z-index:350"></dc-import>
+              </sc-if>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;margin-left:auto;flex-shrink:0">
+      <button onClick="{{ onWish }}" style="background:none;border:none;color:#fff;display:flex;width:36px;height:36px;align-items:center;justify-content:center;flex-shrink:0">
+    <svg width="21" height="21" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+  </button>
+  <button style="background:none;border:none;color:#fff;display:flex;width:36px;height:36px;align-items:center;justify-content:center;flex-shrink:0" onClick="{{ onAccount }}">
+    <svg width="21" height="21" viewBox="0 0 30 30" fill="none"><path d="M15 18.25C18.866 18.25 22 15.116 22 11.25C22 7.38401 18.866 4.25 15 4.25C11.134 4.25 8 7.38401 8 11.25C8 15.116 11.134 18.25 15 18.25Z" stroke="currentColor" stroke-width="2"></path><path d="M4 24.25C5.064 22.4258 6.59451 20.9109 8.43766 19.8577C10.2808 18.8045 12.3717 18.25 14.5 18.25C16.6283 18.25 18.7192 18.8045 20.5623 19.8577C22.4055 20.9109 23.936 22.4258 25 24.25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+  </button>
+  <button onClick="{{ onCart }}" style="background:none;border:none;color:#fff;display:flex;width:36px;height:36px;align-items:center;justify-content:center;position:relative;margin-right:-6px;flex-shrink:0">
+    <svg width="21" height="21" viewBox="0 0 30 30" fill="none"><path d="M4 4.25H6.22222L6.66667 6.47222M6.66667 6.47222L8.44444 15.3611H19.5556L24 6.47222H6.66667ZM19.5556 19.8056C18.3283 19.8056 17.3333 20.8005 17.3333 22.0278C17.3333 23.2551 18.3283 24.25 19.5556 24.25C20.7829 24.25 21.7778 23.2551 21.7778 22.0278C21.7778 20.8005 20.7829 19.8056 19.5556 19.8056ZM19.5556 19.8056H8.44444M8.44444 19.8056C7.21714 19.8056 6.22222 20.8005 6.22222 22.0278C6.22222 23.2551 7.21714 24.25 8.44444 24.25C9.67174 24.25 10.6667 23.2551 10.6667 22.0278C10.6667 20.8005 9.67174 19.8056 8.44444 19.8056Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    <sc-if value="{{ hasCart }}" hint-placeholder-val="{{ true }}"><span style="position:absolute;top:1px;right:0;background:#10DFBA;color:#002D73;border-radius:50%;width:16px;height:16px;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ cartCount }}</span></sc-if>
+  </button>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMobileBar }}" hint-placeholder-val="{{ false }}">
+<div style="{{ mobBarStyle }}">
+  <button onClick="{{ toggleMenu }}" style="background:none;border:none;color:#fff;display:flex;align-items:center;justify-content:center;width:38px;height:38px;margin-left:-8px;flex-shrink:0">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+  </button>
+      <a href="#" onClick="{{ onLogo }}" style="color:#fff;display:flex;flex:1;min-width:0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="106" height="21" viewBox="0 0 128.942 26.289" fill="currentColor"><path d="M 10.208 0 L 2.686 0 C 1.24 0 0 1.128 0 2.607 L 0 23.68 C 0 25.156 1.24 26.286 2.686 26.286 L 10.208 26.286 C 14.798 26.286 17.043 24.527 17.043 19.572 L 17.043 17.83 C 17.043 15.372 16.396 13.593 15.493 13.144 C 16.431 12.637 17.043 11.044 17.043 8.458 L 17.043 6.716 C 17.043 2.113 14.865 0 10.208 0 Z M 12.829 9.812 C 12.829 10.53 12.236 11.111 11.507 11.111 L 6.947 11.114 L 6.947 15.182 L 11.507 15.175 C 12.236 15.175 12.829 15.758 12.829 16.477 L 12.829 20.923 C 12.829 21.64 12.236 22.224 11.507 22.224 L 4.443 22.224 C 4.172 22.224 4.141 22.219 4.141 21.857 L 4.141 4.431 C 4.141 4.067 4.172 4.064 4.443 4.064 L 11.507 4.064 C 12.236 4.064 12.829 4.647 12.829 5.366 L 12.829 9.812 Z M 44.271 14.342 L 44.276 20.92 C 44.276 23.886 41.829 26.288 38.814 26.288 L 32.891 26.288 C 29.863 26.288 27.42 23.885 27.42 20.92 L 27.42 5.368 C 27.42 2.404 29.862 0 32.878 0 L 39.127 0 C 40.195 0 41.062 0.851 41.062 1.901 L 41.062 2.17 C 41.062 3.218 40.195 4.068 39.127 4.068 L 35.785 4.068 L 32.955 4.063 C 32.82 4.063 32.707 4.086 32.707 4.086 C 32.1 4.203 31.632 4.736 31.632 5.367 L 31.632 20.976 C 31.632 21.608 32.1 22.137 32.707 22.256 C 32.707 22.256 32.819 22.277 32.912 22.277 L 38.905 22.277 C 39.042 22.277 39.154 22.256 39.154 22.256 C 39.762 22.137 40.228 21.608 40.228 20.976 L 40.228 15.132 L 34.905 15.132 L 34.907 11.067 L 42.118 11.064 L 42.382 11.064 C 43.423 11.064 44.268 11.894 44.268 12.917 L 44.271 14.342 Z M 83.419 0 L 77.038 0 C 74.009 0 71.68 2.412 71.68 5.368 L 71.687 24.432 C 71.687 25.459 72.534 26.288 73.573 26.288 L 73.841 26.288 C 74.885 26.288 75.728 25.459 75.728 24.432 L 75.725 16.526 C 75.766 16.53 75.807 16.537 75.848 16.537 L 84.832 16.534 L 84.828 24.433 C 84.828 25.46 85.672 26.289 86.715 26.289 L 86.982 26.289 C 88.025 26.289 88.869 25.46 88.869 24.433 L 88.878 5.369 C 88.878 2.404 86.434 0 83.419 0 Z M 84.833 12.562 L 75.849 12.562 C 75.807 12.562 75.767 12.567 75.726 12.567 L 75.723 5.309 C 75.723 4.68 76.191 4.15 76.798 4.033 C 76.836 4.02 76.911 4.011 77.005 4.011 L 83.555 4.011 C 83.646 4.011 83.716 4.02 83.76 4.033 C 84.367 4.15 84.836 4.68 84.836 5.309 L 84.833 12.562 Z M 109.007 5.368 L 109.031 24.342 C 109.031 25.416 108.143 26.288 107.049 26.288 L 106.768 26.288 C 105.674 26.288 104.786 25.416 104.786 24.342 L 104.792 5.368 C 104.792 4.648 104.2 4.064 103.471 4.064 L 96.405 4.064 C 96.14 4.064 96.109 4.064 96.109 4.428 L 96.092 24.39 C 96.092 25.438 95.229 26.288 94.162 26.288 L 93.887 26.288 C 92.819 26.288 91.955 25.437 91.955 24.39 L 91.967 2.607 C 91.967 1.132 93.206 0 94.652 0 L 103.55 0 C 106.566 0 109.008 2.404 109.008 5.368 M 24.101 1.901 L 24.101 24.389 C 24.101 25.437 23.234 26.287 22.167 26.287 L 21.894 26.287 C 20.827 26.287 19.964 25.436 19.964 24.389 L 19.964 1.901 C 19.964 0.851 20.827 0 21.894 0 L 22.167 0 C 23.234 0 24.101 0.851 24.101 1.901 Z M 61.879 0.002 L 54.355 0.002 C 52.915 0.002 51.674 1.13 51.674 2.608 L 51.674 23.682 C 51.674 25.158 52.914 26.288 54.355 26.288 L 61.879 26.288 C 66.466 26.288 68.715 24.528 68.715 19.573 L 68.715 17.831 C 68.715 15.374 68.07 13.595 67.167 13.146 C 68.105 12.638 68.715 11.045 68.715 8.459 L 68.715 6.716 C 68.715 2.115 66.536 0.002 61.879 0.002 Z M 64.505 9.814 C 64.505 10.532 63.91 11.113 63.176 11.113 L 58.62 11.116 L 58.62 15.184 L 63.176 15.177 C 63.91 15.177 64.505 15.76 64.505 16.479 L 64.505 20.924 C 64.505 21.641 63.91 22.226 63.176 22.226 L 56.114 22.226 C 55.844 22.226 55.816 22.22 55.816 21.858 L 55.816 4.433 C 55.816 4.068 55.844 4.066 56.114 4.066 L 63.176 4.066 C 63.91 4.066 64.505 4.649 64.505 5.368 L 64.505 9.814 Z M 128.942 20.921 C 128.942 23.886 126.495 26.288 123.48 26.288 L 117.559 26.288 C 114.529 26.288 112.085 23.886 112.085 20.921 L 112.085 5.368 C 112.085 2.404 114.529 0 117.545 0 L 123.795 0 C 124.862 0 125.726 0.851 125.726 1.901 L 125.726 2.17 C 125.726 3.218 124.862 4.068 123.795 4.068 L 117.623 4.063 C 117.485 4.063 117.37 4.086 117.37 4.086 C 116.764 4.203 116.295 4.736 116.295 5.367 L 116.295 20.976 C 116.295 21.608 116.764 22.137 117.37 22.256 C 117.37 22.256 117.485 22.277 117.581 22.277 L 123.573 22.277 C 123.709 22.277 123.821 22.256 123.821 22.256 C 124.424 22.137 124.898 21.608 124.898 20.976 L 124.898 15.132 L 119.57 15.132 L 119.572 11.067 L 126.784 11.064 L 127.048 11.064 C 128.088 11.064 128.936 11.894 128.936 12.917 L 128.942 20.919 L 128.942 20.921 Z"></path></svg>
+      </a>
+
+  <button style="background:none;border:none;color:#fff;display:flex;width:36px;height:36px;align-items:center;justify-content:center;flex-shrink:0">
+    <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7.5"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+  </button>
+  <button onClick="{{ onWish }}" style="background:none;border:none;color:#fff;display:flex;width:36px;height:36px;align-items:center;justify-content:center;flex-shrink:0">
+    <svg width="21" height="21" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+  </button>
+  <button style="background:none;border:none;color:#fff;display:flex;width:36px;height:36px;align-items:center;justify-content:center;flex-shrink:0" onClick="{{ onAccount }}">
+    <svg width="21" height="21" viewBox="0 0 30 30" fill="none"><path d="M15 18.25C18.866 18.25 22 15.116 22 11.25C22 7.38401 18.866 4.25 15 4.25C11.134 4.25 8 7.38401 8 11.25C8 15.116 11.134 18.25 15 18.25Z" stroke="currentColor" stroke-width="2"></path><path d="M4 24.25C5.064 22.4258 6.59451 20.9109 8.43766 19.8577C10.2808 18.8045 12.3717 18.25 14.5 18.25C16.6283 18.25 18.7192 18.8045 20.5623 19.8577C22.4055 20.9109 23.936 22.4258 25 24.25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+  </button>
+  <button onClick="{{ onCart }}" style="background:none;border:none;color:#fff;display:flex;width:36px;height:36px;align-items:center;justify-content:center;position:relative;margin-right:-6px;flex-shrink:0">
+    <svg width="21" height="21" viewBox="0 0 30 30" fill="none"><path d="M4 4.25H6.22222L6.66667 6.47222M6.66667 6.47222L8.44444 15.3611H19.5556L24 6.47222H6.66667ZM19.5556 19.8056C18.3283 19.8056 17.3333 20.8005 17.3333 22.0278C17.3333 23.2551 18.3283 24.25 19.5556 24.25C20.7829 24.25 21.7778 23.2551 21.7778 22.0278C21.7778 20.8005 20.7829 19.8056 19.5556 19.8056ZM19.5556 19.8056H8.44444M8.44444 19.8056C7.21714 19.8056 6.22222 20.8005 6.22222 22.0278C6.22222 23.2551 7.21714 24.25 8.44444 24.25C9.67174 24.25 10.6667 23.2551 10.6667 22.0278C10.6667 20.8005 9.67174 19.8056 8.44444 19.8056Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    <sc-if value="{{ hasCart }}" hint-placeholder-val="{{ true }}"><span style="position:absolute;top:1px;right:0;background:#10DFBA;color:#002D73;border-radius:50%;width:16px;height:16px;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ cartCount }}</span></sc-if>
+  </button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<div ref="{{ rootRef }}" data-bb-header="mobile" style="background:#0050A0;padding:10px 16px 12px;position:relative;z-index:25">
+  <sc-if value="{{ searchFocused }}" hint-placeholder-val="{{ false }}"><div onClick="{{ closeQ }}" style="{{ mobBackdropStyle }}"></div></sc-if>
+  <div style="height:44px;display:flex;align-items:center;gap:12px">
+    <button onClick="{{ toggleMenu }}" style="background:none;border:none;color:#fff;display:flex;align-items:center;justify-content:center;width:40px;height:40px;margin-left:-8px">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="#" onClick="{{ onLogo }}" style="color:#fff;display:flex;flex:1">
+      <svg xmlns="http://www.w3.org/2000/svg" width="106" height="21" viewBox="0 0 128.942 26.289" fill="currentColor"><path d="M 10.208 0 L 2.686 0 C 1.24 0 0 1.128 0 2.607 L 0 23.68 C 0 25.156 1.24 26.286 2.686 26.286 L 10.208 26.286 C 14.798 26.286 17.043 24.527 17.043 19.572 L 17.043 17.83 C 17.043 15.372 16.396 13.593 15.493 13.144 C 16.431 12.637 17.043 11.044 17.043 8.458 L 17.043 6.716 C 17.043 2.113 14.865 0 10.208 0 Z M 12.829 9.812 C 12.829 10.53 12.236 11.111 11.507 11.111 L 6.947 11.114 L 6.947 15.182 L 11.507 15.175 C 12.236 15.175 12.829 15.758 12.829 16.477 L 12.829 20.923 C 12.829 21.64 12.236 22.224 11.507 22.224 L 4.443 22.224 C 4.172 22.224 4.141 22.219 4.141 21.857 L 4.141 4.431 C 4.141 4.067 4.172 4.064 4.443 4.064 L 11.507 4.064 C 12.236 4.064 12.829 4.647 12.829 5.366 L 12.829 9.812 Z M 44.271 14.342 L 44.276 20.92 C 44.276 23.886 41.829 26.288 38.814 26.288 L 32.891 26.288 C 29.863 26.288 27.42 23.885 27.42 20.92 L 27.42 5.368 C 27.42 2.404 29.862 0 32.878 0 L 39.127 0 C 40.195 0 41.062 0.851 41.062 1.901 L 41.062 2.17 C 41.062 3.218 40.195 4.068 39.127 4.068 L 35.785 4.068 L 32.955 4.063 C 32.82 4.063 32.707 4.086 32.707 4.086 C 32.1 4.203 31.632 4.736 31.632 5.367 L 31.632 20.976 C 31.632 21.608 32.1 22.137 32.707 22.256 C 32.707 22.256 32.819 22.277 32.912 22.277 L 38.905 22.277 C 39.042 22.277 39.154 22.256 39.154 22.256 C 39.762 22.137 40.228 21.608 40.228 20.976 L 40.228 15.132 L 34.905 15.132 L 34.907 11.067 L 42.118 11.064 L 42.382 11.064 C 43.423 11.064 44.268 11.894 44.268 12.917 L 44.271 14.342 Z M 83.419 0 L 77.038 0 C 74.009 0 71.68 2.412 71.68 5.368 L 71.687 24.432 C 71.687 25.459 72.534 26.288 73.573 26.288 L 73.841 26.288 C 74.885 26.288 75.728 25.459 75.728 24.432 L 75.725 16.526 C 75.766 16.53 75.807 16.537 75.848 16.537 L 84.832 16.534 L 84.828 24.433 C 84.828 25.46 85.672 26.289 86.715 26.289 L 86.982 26.289 C 88.025 26.289 88.869 25.46 88.869 24.433 L 88.878 5.369 C 88.878 2.404 86.434 0 83.419 0 Z M 84.833 12.562 L 75.849 12.562 C 75.807 12.562 75.767 12.567 75.726 12.567 L 75.723 5.309 C 75.723 4.68 76.191 4.15 76.798 4.033 C 76.836 4.02 76.911 4.011 77.005 4.011 L 83.555 4.011 C 83.646 4.011 83.716 4.02 83.76 4.033 C 84.367 4.15 84.836 4.68 84.836 5.309 L 84.833 12.562 Z M 109.007 5.368 L 109.031 24.342 C 109.031 25.416 108.143 26.288 107.049 26.288 L 106.768 26.288 C 105.674 26.288 104.786 25.416 104.786 24.342 L 104.792 5.368 C 104.792 4.648 104.2 4.064 103.471 4.064 L 96.405 4.064 C 96.14 4.064 96.109 4.064 96.109 4.428 L 96.092 24.39 C 96.092 25.438 95.229 26.288 94.162 26.288 L 93.887 26.288 C 92.819 26.288 91.955 25.437 91.955 24.39 L 91.967 2.607 C 91.967 1.132 93.206 0 94.652 0 L 103.55 0 C 106.566 0 109.008 2.404 109.008 5.368 M 24.101 1.901 L 24.101 24.389 C 24.101 25.437 23.234 26.287 22.167 26.287 L 21.894 26.287 C 20.827 26.287 19.964 25.436 19.964 24.389 L 19.964 1.901 C 19.964 0.851 20.827 0 21.894 0 L 22.167 0 C 23.234 0 24.101 0.851 24.101 1.901 Z M 61.879 0.002 L 54.355 0.002 C 52.915 0.002 51.674 1.13 51.674 2.608 L 51.674 23.682 C 51.674 25.158 52.914 26.288 54.355 26.288 L 61.879 26.288 C 66.466 26.288 68.715 24.528 68.715 19.573 L 68.715 17.831 C 68.715 15.374 68.07 13.595 67.167 13.146 C 68.105 12.638 68.715 11.045 68.715 8.459 L 68.715 6.716 C 68.715 2.115 66.536 0.002 61.879 0.002 Z M 64.505 9.814 C 64.505 10.532 63.91 11.113 63.176 11.113 L 58.62 11.116 L 58.62 15.184 L 63.176 15.177 C 63.91 15.177 64.505 15.76 64.505 16.479 L 64.505 20.924 C 64.505 21.641 63.91 22.226 63.176 22.226 L 56.114 22.226 C 55.844 22.226 55.816 22.22 55.816 21.858 L 55.816 4.433 C 55.816 4.068 55.844 4.066 56.114 4.066 L 63.176 4.066 C 63.91 4.066 64.505 4.649 64.505 5.368 L 64.505 9.814 Z M 128.942 20.921 C 128.942 23.886 126.495 26.288 123.48 26.288 L 117.559 26.288 C 114.529 26.288 112.085 23.886 112.085 20.921 L 112.085 5.368 C 112.085 2.404 114.529 0 117.545 0 L 123.795 0 C 124.862 0 125.726 0.851 125.726 1.901 L 125.726 2.17 C 125.726 3.218 124.862 4.068 123.795 4.068 L 117.623 4.063 C 117.485 4.063 117.37 4.086 117.37 4.086 C 116.764 4.203 116.295 4.736 116.295 5.367 L 116.295 20.976 C 116.295 21.608 116.764 22.137 117.37 22.256 C 117.37 22.256 117.485 22.277 117.581 22.277 L 123.573 22.277 C 123.709 22.277 123.821 22.256 123.821 22.256 C 124.424 22.137 124.898 21.608 124.898 20.976 L 124.898 15.132 L 119.57 15.132 L 119.572 11.067 L 126.784 11.064 L 127.048 11.064 C 128.088 11.064 128.936 11.894 128.936 12.917 L 128.942 20.919 L 128.942 20.921 Z"></path></svg>
+    </a>
+    <button onClick="{{ onWish }}" style="background:none;border:none;color:#fff;display:flex;width:40px;height:40px;align-items:center;justify-content:center">
+      <svg width="22" height="22" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </button>
+    <button style="background:none;border:none;color:#fff;display:flex;width:40px;height:40px;align-items:center;justify-content:center" onClick="{{ onAccount }}">
+      <svg width="22" height="22" viewBox="0 0 30 30" fill="none"><path d="M15 18.25C18.866 18.25 22 15.116 22 11.25C22 7.38401 18.866 4.25 15 4.25C11.134 4.25 8 7.38401 8 11.25C8 15.116 11.134 18.25 15 18.25Z" stroke="currentColor" stroke-width="2"></path><path d="M4 24.25C5.064 22.4258 6.59451 20.9109 8.43766 19.8577C10.2808 18.8045 12.3717 18.25 14.5 18.25C16.6283 18.25 18.7192 18.8045 20.5623 19.8577C22.4055 20.9109 23.936 22.4258 25 24.25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    </button>
+    <button onClick="{{ onCart }}" style="background:none;border:none;color:#fff;display:flex;width:40px;height:40px;align-items:center;justify-content:center;position:relative;margin-right:-8px">
+      <svg width="22" height="22" viewBox="0 0 30 30" fill="none"><path d="M4 4.25H6.22222L6.66667 6.47222M6.66667 6.47222L8.44444 15.3611H19.5556L24 6.47222H6.66667ZM19.5556 19.8056C18.3283 19.8056 17.3333 20.8005 17.3333 22.0278C17.3333 23.2551 18.3283 24.25 19.5556 24.25C20.7829 24.25 21.7778 23.2551 21.7778 22.0278C21.7778 20.8005 20.7829 19.8056 19.5556 19.8056ZM19.5556 19.8056H8.44444M8.44444 19.8056C7.21714 19.8056 6.22222 20.8005 6.22222 22.0278C6.22222 23.2551 7.21714 24.25 8.44444 24.25C9.67174 24.25 10.6667 23.2551 10.6667 22.0278C10.6667 20.8005 9.67174 19.8056 8.44444 19.8056Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <sc-if value="{{ hasCart }}" hint-placeholder-val="{{ true }}"><span style="position:absolute;top:4px;right:2px;background:#10DFBA;color:#002D73;border-radius:50%;width:17px;height:17px;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ cartCount }}</span></sc-if>
+    </button>
+  </div>
+  <div ref="{{ mobSearchRef }}" style="position:relative;z-index:345;margin-top:8px">
+    <div style="display:flex;align-items:center;background:#fff;border-radius:22px;height:42px;overflow:hidden">
+      <input value="{{ q }}" onChange="{{ onQ }}" onKeyDown="{{ onKeyQ }}" onFocus="{{ onFocusQ }}" placeholder="Koji proizvod tražiš?" style="flex:1;min-width:0;height:100%;border:none;outline:none;padding:0 16px;font-family:Inter,sans-serif;font-size:14px;color:#101117;background:transparent">
+      <sc-if value="{{ showClear }}" hint-placeholder-val="{{ false }}">
+            <button onClick="{{ clearQ }}" style="width:30px;height:100%;background:transparent;border:none;display:flex;align-items:center;justify-content:center;color:#545F71;flex-shrink:0" style-hover="color:#101117">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg>
+            </button>
+          </sc-if>
+      <button onClick="{{ submitQ }}" style="width:46px;height:100%;background:#10DFBA;border:none;display:flex;align-items:center;justify-content:center;color:#002D73;flex-shrink:0">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+    </div>
+    <sc-if value="{{ searchOpen }}" hint-placeholder-val="{{ false }}">
+            <dc-import name="Components/SearchPanel" term="{{ q }}" mobile="{{ true }}" suggestions="{{ sugg }}" items="{{ sitems }}" on-all="{{ submitQ }}" hint-size="100%,100%" style="{{ mobPanelStyle }}"></dc-import>
+          </sc-if>
+          <sc-if value="{{ searchPopular }}" hint-placeholder-val="{{ false }}">
+            <dc-import name="Components/SearchPanel" term="" mode="popular" popular="{{ popularTerms }}" mobile="{{ true }}" on-all="{{ submitQ }}" hint-size="100%,100%" style="{{ mobPanelStyle }}"></dc-import>
+          </sc-if>
+  </div>
+  <div class="nsb" style="margin:12px -16px -12px;background:#002D73;height:44px;display:flex;align-items:center;overflow-x:auto;padding:0 16px">
+    <button onClick="{{ onContact }}" style="background:none;border:none;color:rgba(255,255,255,0.9);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px 0 0;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0">
+      <span style="display:flex;opacity:0.85"><svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M13.2426 13.9926C10.8995 16.3358 7.1005 16.3358 4.75736 13.9926C3.58579 12.8211 3 11.2855 3 9.75C3 8.21446 3.58578 6.67893 4.75736 5.50735C4.75736 5.50735 5.25003 6.74997 6.75003 7.49997C6.75003 5.99997 7.12503 3.74997 8.98941 2.25C10.5 3.75 12.0684 4.33308 13.2426 5.50735C14.4142 6.67893 15 8.21446 15 9.75C15 11.2855 14.4142 12.8211 13.2426 13.9926Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7.40901 12.091C8.28769 12.9696 9.71231 12.9696 10.591 12.091C11.0303 11.6516 11.25 11.0758 11.25 10.5C11.25 9.92416 11.0303 9.34832 10.591 8.90897C10.1544 8.47241 9.5831 8.25275 9.01092 8.24999L8.24996 10.5L6.75 10.5C6.75001 11.0758 6.96968 11.6516 7.40901 12.091Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+      Akcije i promocije
+    </button>
+    <button onClick="{{ onContact }}" style="background:none;border:none;color:rgba(255,255,255,0.9);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px 0 0;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0">
+      <span style="display:flex;opacity:0.85"><svg width="17" height="17" viewBox="0 0 17 17" fill="none"><path d="M14.6018 2.90032C14.6018 2.20032 10.0018 2.00032 8.4018 2.10032C6.5018 2.10032 2.4018 3.30032 2.5018 4.00032" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2.29922 8.19922H1.29922C0.999219 8.19922 0.699219 8.49922 0.699219 8.79922V9.49922" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16.2016 9.49922V8.79922C16.2016 8.49922 15.9016 8.19922 15.6016 8.19922H14.6016" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2.39844 13.5004C2.39844 14.2004 2.99844 14.9004 3.79844 14.9004H13.2984C13.9984 14.9004 14.6984 14.3004 14.6984 13.5004V6.40039H2.39844V13.5004Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+      Kuhinje
+    </button>
+    <button onClick="{{ onContact }}" style="background:none;border:none;color:rgba(255,255,255,0.9);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px 0 0;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0">
+      <span style="display:flex;opacity:0.85"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="5" x2="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg></span>
+      Outlet
+    </button>
+    <button onClick="{{ onContact }}" style="background:none;border:none;color:rgba(255,255,255,0.9);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px 0 0;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0">
+      <span style="display:flex;opacity:0.85"><svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M13.2426 12.4926C12.5621 13.1731 11.1623 14.573 10.1564 15.5788C9.5174 16.2179 8.4823 16.2176 7.84326 15.5785C6.85524 14.5905 5.48222 13.2175 4.75736 12.4926C2.41421 10.1495 2.41421 6.35051 4.75736 4.00736C7.10051 1.66421 10.8995 1.66421 13.2426 4.00736C15.5858 6.35051 15.5858 10.1495 13.2426 12.4926Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path><path d="M11.25 8.25C11.25 9.49264 10.2426 10.5 9 10.5C7.75736 10.5 6.75 9.49264 6.75 8.25C6.75 7.00736 7.75736 6 9 6C10.2426 6 11.25 7.00736 11.25 8.25Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+      Prodajna mjesta
+    </button>
+    <button onClick="{{ onContact }}" style="background:none;border:none;color:rgba(255,255,255,0.9);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px 0 0;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0">
+      <span style="display:flex;opacity:0.85"><svg width="16" height="16" viewBox="0 0 18 18" fill="none"><polygon points="9,1.5 11.3,6.5 16.5,7.2 12.75,10.8 13.7,16 9,13.4 4.3,16 5.25,10.8 1.5,7.2 6.7,6.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></polygon></svg></span>
+      UAU klub
+    </button>
+    <button onClick="{{ onContact }}" style="background:none;border:none;color:rgba(255,255,255,0.9);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px 0 0;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0">
+      <span style="display:flex;opacity:0.85"><svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M16.5 12.69v2.25a1.5 1.5 0 0 1-1.635 1.5 14.843 14.843 0 0 1-6.473-2.303A14.625 14.625 0 0 1 3.878 9.007 14.843 14.843 0 0 1 1.575 2.561 1.5 1.5 0 0 1 3.068.944h2.25a1.5 1.5 0 0 1 1.5 1.29c.095.72.27 1.427.525 2.108a1.5 1.5 0 0 1-.338 1.583L6.098 6.832a12 12 0 0 0 4.5 4.5l.908-.908a1.5 1.5 0 0 1 1.582-.337c.682.254 1.39.43 2.108.524A1.5 1.5 0 0 1 16.5 12.69z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+      Kontakt
+    </button>
+    <button onClick="{{ onContact }}" style="background:none;border:none;color:rgba(255,255,255,0.9);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px 0 0;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0">
+      <span style="display:flex;opacity:0.85"><svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M3 7.5V15.75H15V7.5M7.125 15.75V9.375H10.875V15.75M3.375 2.25H8.625H14.625L15.75 5.625V6.375C15.75 7.875 13.5 7.875 13.5 6.375C13.5 7.875 11.25 7.875 11.25 6.375C11.25 7.875 9 7.875 9 6.375C9 7.875 6.75 7.875 6.75 6.375C6.75 7.875 4.5 7.875 4.5 6.375C4.5 7.875 2.25 7.875 2.25 6.375V5.625L3.375 2.25Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+      Prodavatelji
+    </button>
+  </div>
+  </sc-if>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: {
+    &quot;width&quot;: 1480,
+    &quot;height&quot;: 160
+  },
+  &quot;variant&quot;: {
+    &quot;editor&quot;: &quot;enum&quot;,
+    &quot;options&quot;: [
+      &quot;desktop&quot;,
+      &quot;mobile&quot;,
+      &quot;mobile-bar&quot;,
+      &quot;desktop-bar&quot;
+    ],
+    &quot;default&quot;: &quot;desktop&quot;,
+    &quot;tsType&quot;: &quot;string&quot;
+  },
+  &quot;onLogo&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(e: any) =&gt; void&quot; },
+  &quot;onAccount&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(e: any) =&gt; void&quot; },
+  &quot;loggedIn&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot; },
+  &quot;menuOpen&quot;: {
+    &quot;editor&quot;: &quot;boolean&quot;,
+    &quot;default&quot;: false,
+    &quot;tsType&quot;: &quot;boolean&quot;
+  },
+  &quot;scrolled&quot;: {
+    &quot;editor&quot;: &quot;boolean&quot;,
+    &quot;default&quot;: false,
+    &quot;tsType&quot;: &quot;boolean&quot;
+  },
+  &quot;onCart&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;() =&gt; void&quot; },
+  &quot;onWish&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;() =&gt; void&quot; },
+  &quot;cartCount&quot;: {
+    &quot;editor&quot;: &quot;int&quot;,
+    &quot;default&quot;: 2,
+    &quot;tsType&quot;: &quot;number&quot;
+  },
+  &quot;onSearch&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(term: string) =&gt; void&quot; },
+  &quot;onOpenProduct&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(p: any) =&gt; void&quot; },
+  &quot;onToggleMenu&quot;: {
+    &quot;editor&quot;: null,
+    &quot;tsType&quot;: &quot;() => void&quot;
+  }
+}">
+const TERMS = [
+  'laptop', 'laptop gaming', 'laptop hp', 'laptop torba', 'mobitel', 'mobitel samsung',
+  'televizor', 'televizor 55', 'klima uređaj', 'perilica posuđa', 'perilica rublja',
+  'slušalice', 'pametni sat', 'usisavač', 'hladnjak', 'tablet', 'monitor', 'konzola', 'kava aparat'
+];
+
+const POPULAR = [
+  'pametni telefon', 'televizor 55"', 'laptop za posao', 'perilica rublja',
+  'klima uređaj', 'slušalice bežične', 'pametni sat', 'usisavač robot'
+];
+
+const SPROD = [
+  { img: 'images/prod-laptop-hp-victus.webp', brand: 'HP', name: 'Laptop Victus Gaming 15-fa2721nc | i5-13420H | RTX 4050 (6GB) / i5 / RAM 16 GB / SSD Drive / 15,6" FHD', price: '1231,38 €' },
+  { img: 'images/prod-laptop-hp-omnibook7.webp', brand: 'HP', name: 'Laptop HP Zbook Fury 18 G1i | U9 285HX | 64GB RAM | 2TB SSD | NVIDIA RTX PRO 5000 / Core Ultra 9 / RAM 64 GB / 18" WQHD', price: '13.219,85 €' },
+  { img: 'images/prod-laptop-hp-omnibook5-16.webp', brand: 'HP', name: 'Laptop HP ProBook 465 G11 | R5-7535U | 16GB RAM | W11H | AMD Ryzen 5 / RAM 16 GB / SSD Drive / 16,0" WUXGA', price: '873,99 €', old: '1005,49 €' },
+  { img: 'images/prod-laptop-acer-aspire-lite1.webp', brand: 'ACER', name: 'Laptop Acer Nitro V15 NH.QPGEX.00B, 15/R5/16/512/RTX2050/W11', price: '689,99 €' },
+  { img: 'images/prod-samsung-a16.webp', brand: 'SAMSUNG', name: 'Mobitel SAMSUNG Galaxy A16 5G, 128 GB, Blue Black', price: '199,00 €', old: '249,00 €' },
+  { img: 'images/prod-huawei-watch.webp', brand: 'HUAWEI', name: 'Pametni sat HUAWEI Watch GT 5 Pro 46 mm, Black', price: '379,00 €' },
+  { img: 'images/prod-hisense-klima.webp', brand: 'HISENSE', name: 'Klima uređaj HISENSE Energy Ultra 3,5 kW, WiFi, komplet s montažom', price: '699,00 €', old: '899,00 €' },
+  { img: 'images/prod-bosch-perilica.webp', brand: 'BOSCH', name: 'Perilica rublja BOSCH WGG14403BY, 9 kg, 1400 o/min, A', price: '549,00 €' }
+];
+
+class Component extends DCLogic {
+  state = { q: '', open: false, focused: false, mobTop: 116 };
+
+  rootRef = (el) => { this.root = el || this.root; };
+  mobSearchRef = (el) => { if (el) { this.mobSearch = el; this.measureMob(); } };
+
+  /* the mobile panel and backdrop start at the top of the navy nav strip, so the
+     strip is covered while the blue search bar above it stays bright */
+  measureMob = () => {
+    const el = this.mobSearch;
+    if (!el || !el.isConnected) return;
+    const header = el.closest('[data-bb-header="mobile"]');
+    const nav = header && header.querySelector('.nsb');
+    const edge = nav || el;
+    const frame = el.closest('[data-bb-frame]');
+    const base = frame ? frame.getBoundingClientRect().top : 0;
+    const r = edge.getBoundingClientRect();
+    const top = Math.round((nav ? r.top : r.bottom) - base);
+    if (top !== this.state.mobTop) this.setState({ mobTop: top });
+  };
+
+  componentDidMount() {
+    /* a click anywhere outside the search field and its panel dismisses both */
+    this.onDocDown = (e) => {
+      if (!this.state.focused && !this.state.open) return;
+      const t = e.target;
+      if (this.root && this.root.contains(t)) return;
+      const panel = document.querySelector('[data-bb-searchpanel]');
+      if (panel && panel.contains(t)) return;
+      this.setState({ open: false, focused: false });
+    };
+    document.addEventListener('mousedown', this.onDocDown, true);
+    this.onAnyScroll = () => this.measureMob();
+    document.addEventListener('scroll', this.onAnyScroll, true);
+    window.addEventListener('resize', this.onAnyScroll);
+  }
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.onDocDown, true);
+    document.removeEventListener('scroll', this.onAnyScroll, true);
+    window.removeEventListener('resize', this.onAnyScroll);
+  }
+
+  onQ = (e) => {
+    const v = e.target.value;
+    this.setState({ q: v, open: v.trim().length > 0, focused: true });
+  };
+  clearQ = (e) => { if (e) e.preventDefault(); this.setState({ q: '', open: false, focused: false }); };
+  closeQ = (e) => { if (e) e.preventDefault(); this.setState({ open: false, focused: false }); };
+  onFocusQ = () => { this.measureMob(); this.setState({ focused: true, open: this.state.q.trim().length > 0 }); };
+  submitQ = (e) => {
+    if (e) e.preventDefault();
+    const t = this.state.q.trim();
+    if (!t) return;
+    this.setState({ open: false, focused: false });
+    (this.props.onSearch || (() => {}))(t);
+  };
+  pickTerm = (t) => (e) => {
+    if (e) e.preventDefault();
+    this.setState({ q: t, open: false, focused: false });
+    (this.props.onSearch || (() => {}))(t);
+  };
+  openProd = (p) => (e) => {
+    if (e) e.preventDefault();
+    this.setState({ open: false, focused: false });
+    (this.props.onOpenProduct || (() => {}))({ img: p.img, name: p.name, price: p.price, old: p.old || '' });
+  };
+
+  renderVals() {
+    const variant = this.props.variant || 'desktop';
+    const open = !!this.props.menuOpen;
+    const toggle = this.props.onToggleMenu || (() => {});
+    const q = this.state.q;
+    const ql = q.trim().toLowerCase();
+    let terms = TERMS.filter(t => t.indexOf(ql) === 0);
+    if (!terms.length) terms = TERMS.filter(t => t.indexOf(ql) > -1);
+    if (!terms.length && ql) terms = [ql];
+    const words = ql.split(/\s+/).filter(Boolean);
+    let hits = SPROD.filter(p => {
+      const hay = (p.brand + ' ' + p.name).toLowerCase();
+      return words.every(w => hay.indexOf(w) > -1);
+    });
+    if (!hits.length) hits = SPROD.slice(0, 4);
+
+    return {
+      q: q,
+      hasQ: q.length > 0,
+      showClear: q.length > 0 || this.state.focused,
+      searchOpen: this.state.open && ql.length > 0,
+      searchFocused: this.state.focused,
+      searchPopular: this.state.focused && ql.length === 0,
+      popularTerms: POPULAR.map(t => ({ label: t, onClick: this.pickTerm(t) })),
+      rootRef: this.rootRef,
+      mobSearchRef: this.mobSearchRef,
+      mobBackdropStyle: {
+        position: 'fixed', left: 0, right: 0, top: this.state.mobTop, bottom: 0,
+        zIndex: 340, background: 'rgba(16,17,23,0.45)', animation: 'bbfade .18s ease both'
+      },
+      mobPanelStyle: {
+        position: 'fixed', left: 0, right: 0, top: this.state.mobTop, bottom: 0, zIndex: 350
+      },
+      onQ: this.onQ, clearQ: this.clearQ, closeQ: this.closeQ,
+      onFocusQ: this.onFocusQ, submitQ: this.submitQ,
+      onKeyQ: (e) => {
+        if (e.key === 'Enter') this.submitQ(e);
+        else if (e.key === 'Escape') this.setState({ open: false, focused: false });
+      },
+      sugg: terms.slice(0, 4).map(t => ({ label: t, onClick: this.pickTerm(t) })),
+      sitems: hits.slice(0, 4).map(p => ({
+        brand: p.brand, name: p.name, price: p.price, old: p.old || '',
+        onClick: this.openProd(p),
+        imgStyle: {
+          width: '100%', height: '100%', display: 'block',
+          backgroundImage: 'url("' + p.img + '")', backgroundSize: 'contain',
+          backgroundPosition: 'center', backgroundRepeat: 'no-repeat'
+        },
+        priceStyle: {
+          fontSize: 15, fontWeight: 700, letterSpacing: '-0.02em', whiteSpace: 'nowrap',
+          color: p.old ? '#DA0D00' : '#101117'
+        }
+      })),
+      isDesktop: variant === 'desktop',
+      isMobile: variant === 'mobile',
+      isMobileBar: variant === 'mobile-bar',
+      isDesktopBar: variant === 'desktop-bar',
+      toggleMenu: toggle,
+      onLogo: this.props.onLogo || ((e) => { if (e) e.preventDefault(); }),
+      onAccount: this.props.onAccount || ((e) => { if (e) e.preventDefault(); }),
+      accountLabel: this.props.loggedIn ? 'Moj profil' : 'Prijava',
+      menuOpen: open,
+      menuClosed: !open,
+      cartCount: String(this.props.cartCount ?? 2),
+      hasCart: (this.props.cartCount ?? 2) > 0,
+      onCart: (e) => { if (e && e.preventDefault) e.preventDefault(); if (this.props.onCart) this.props.onCart(); },
+      onWish: (e) => { if (e && e.preventDefault) e.preventDefault(); if (this.props.onWish) this.props.onWish(); },
+      onContact: (e) => { if (e && e.preventDefault) e.preventDefault(); if (this.props.onContact) this.props.onContact(); },
+      openNotice: (e) => { if (e && e.preventDefault) e.preventDefault(); if (window.BBEU) window.BBEU.openNotice(); },
+      trigStyle: {
+        background: open ? 'rgba(255,255,255,0.10)' : 'transparent',
+        border: 'none',
+        color: open ? '#fff' : 'rgba(255,255,255,0.95)',
+        fontFamily: 'Inter,sans-serif', fontSize: 13, fontWeight: 600,
+        paddingLeft: 14, paddingRight: 14, height: 44, transition: 'background .15s,color .15s',
+        display: 'flex', alignItems: 'center', gap: 8, whiteSpace: 'nowrap', letterSpacing: '-0.01em'
+      },
+      mobBarStyle: {
+        position: 'absolute', top: 0, left: 0, right: 0, height: 55, zIndex: 30,
+        background: '#0050A0', display: 'flex', alignItems: 'center', gap: 8, padding: '0 16px',
+        transform: this.props.scrolled ? 'translateY(0)' : 'translateY(-101%)',
+        transition: 'transform .3s cubic-bezier(.2,.7,.3,1)',
+        willChange: 'transform', backfaceVisibility: 'hidden',
+        boxShadow: '0 2px 12px rgba(0,0,0,0.25)'
+      },
+      deskBarStyle: {
+        position: 'fixed', top: 0, left: 0, right: 0, height: 56, zIndex: 320,
+        background: '#0050A0',
+        transform: this.props.scrolled ? 'translateY(0)' : 'translateY(-101%)',
+        transition: 'transform .3s cubic-bezier(.2,.7,.3,1)',
+        willChange: 'transform', backfaceVisibility: 'hidden',
+        boxShadow: '0 2px 16px rgba(0,0,0,0.22)'
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

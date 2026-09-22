@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</helmet>
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<div style="padding-bottom:56px">
+  <x-import component="PDPBody" from="./Components/pdp/PDPBody.jsx" bundle-mode="{{ bundleMode }}" product="{{ product }}" hint-size="100%,1800px"></x-import>
+
+  <div style="display:flex;flex-direction:column;gap:16px;margin-top:8px">
+    <dc-import name="Components/ProductCarousel" variant="desktop" title="Slični proizvodi" products="{{ similar }}" on-open-product="{{ openProduct }}" hint-size="100%,560px"></dc-import>
+    <dc-import name="Components/ProductCarousel" variant="desktop" title="Sponzorirani artikli" products="{{ sponsored }}" on-open-product="{{ openProduct }}" hint-size="100%,560px"></dc-import>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<div>
+  <x-import component="PDPBodyMobile" from="./Components/pdp/PDPBodyMobile.jsx" bundle-mode="{{ bundleMode }}" product="{{ product }}" hint-size="100%,2400px"></x-import>
+
+  <div style="background:#fff;margin-top:10px;padding:16px 0">
+    <dc-import name="Components/ProductCarousel" variant="mobile" title="Slični proizvodi" products="{{ similar }}" on-open-product="{{ openProduct }}" hint-size="100%,300px"></dc-import>
+  </div>
+  <div style="background:#fff;margin-top:10px;padding:16px 0">
+    <dc-import name="Components/ProductCarousel" variant="mobile" title="Sponzorirani artikli" products="{{ sponsored }}" on-open-product="{{ openProduct }}" hint-size="100%,300px"></dc-import>
+  </div>
+
+  <x-import component="MobStickyCTA" from="./Components/pdp/PDPBodyMobile.jsx" bundle-mode="{{ bundleMode }}" hint-size="100%,64px"></x-import>
+</div>
+</sc-if>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;variant&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;desktop&quot;, &quot;mobile&quot;], &quot;default&quot;: &quot;desktop&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;bundleMode&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot; },
+  &quot;product&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;any&quot; },
+  &quot;onOpenProduct&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(p: any) =&gt; void&quot; }
+}">
+const SIMILAR = [
+  { img: 'images/pdp/similar/s24-fe.png', name: 'Samsung Galaxy S24 FE 5G 8/256GB', price: '749,99 €', old: '879,99 €', disc: '130,00 €', rate: '62,49 € / 12 rata' },
+  { img: 'images/pdp/similar/s24-ultra.png', name: 'Samsung Galaxy S24 Ultra 5G 12/256GB', price: '1.299,99 €', old: '1.499,99 €', disc: '200,00 €', rate: '108,33 € / 12 rata' },
+  { img: 'images/pdp/similar/iphone-16.png', name: 'Apple iPhone 16 128GB', price: '929,00 €', old: '999,00 €', disc: '70,00 €', rate: '77,42 € / 12 rata' },
+  { img: 'images/pdp/similar/pixel-9-pro.png', name: 'Google Pixel 9 Pro 5G 16/256GB', price: '1.049,00 €', old: '1.199,00 €', disc: '150,00 €', rate: '87,42 € / 12 rata' },
+  { img: 'images/pdp/similar/xiaomi-14-pro.png', name: 'Xiaomi 14 Pro 5G 12/512GB', price: '899,00 €', old: '1.099,00 €', disc: '200,00 €', rate: '74,92 € / 12 rata' },
+  { img: 'images/pdp/similar/oneplus-13.png', name: 'OnePlus 13 5G 16/512GB', price: '1.049,00 €', old: '1.149,00 €', disc: '100,00 €' },
+  { img: 'images/pdp/similar/sony-xperia-1-vi.png', name: 'Sony Xperia 1 VI 5G 12/256GB', price: '1.199,00 €', old: '1.399,00 €', disc: '200,00 €' }
+];
+const SPONSORED = [
+  { img: 'images/pdp/similar/s24-ultra.png', name: 'Samsung Galaxy S24 Ultra 5G 12/512GB', price: '1.449,99 €', old: '1.649,99 €', disc: '200,00 €', rate: '120,83 € / 12 rata' },
+  { img: 'images/pdp/similar/iphone-16.png', name: 'Apple iPhone 16 256GB', price: '1.049,00 €', old: '1.129,00 €', disc: '80,00 €' },
+  { img: 'images/pdp/similar/pixel-9-pro.png', name: 'Google Pixel 9 Pro XL 5G 16/512GB', price: '1.249,00 €', old: '1.399,00 €', disc: '150,00 €', rate: '104,08 € / 12 rata' },
+  { img: 'images/pdp/similar/s24-fe.png', name: 'Samsung Galaxy S24 FE 5G 8/128GB', price: '649,99 €', old: '779,99 €', disc: '130,00 €' },
+  { img: 'images/pdp/similar/xiaomi-14-pro.png', name: 'Xiaomi 14 Pro 5G 12/256GB', price: '799,00 €', old: '949,00 €', disc: '150,00 €', rate: '66,58 € / 12 rata' },
+  { img: 'images/pdp/similar/oneplus-13.png', name: 'OnePlus 13R 5G 12/256GB', price: '699,00 €', old: '799,00 €', disc: '100,00 €' },
+  { img: 'images/pdp/similar/sony-xperia-1-vi.png', name: 'Sony Xperia 10 VI 5G 8/128GB', price: '399,00 €', old: '479,00 €', disc: '80,00 €' }
+];
+
+class Component extends DCLogic {
+  renderVals() {
+    const mobile = this.props.variant === 'mobile';
+    return {
+      isDesktop: !mobile,
+      isMobile: mobile,
+      bundleMode: !!this.props.bundleMode,
+      product: this.props.product || null,
+      openProduct: this.props.onOpenProduct || (() => {}),
+      similar: SIMILAR,
+      sponsored: SPONSORED
+    };
+  }
+}
+</script>
+</body>
+</html>

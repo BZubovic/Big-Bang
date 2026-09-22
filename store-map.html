@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Big Bang prodajna mjesta</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>
+<script src="stores-data.js"></script>
+<style>
+  html,body{margin:0;height:100%;font-family:Inter,system-ui,sans-serif}
+  #map{position:absolute;inset:0;background:#E9EAEE}
+  .leaflet-container{font-family:Inter,system-ui,sans-serif}
+  .bbpin{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50% 50% 50% 4px;background:#0050A0;transform:rotate(-45deg);box-shadow:0 2px 6px rgba(0,0,0,.3);border:2px solid #fff}
+  .bbpin i{display:block;width:9px;height:9px;border-radius:50%;background:#fff}
+  .bbpin.on{background:#002D73;width:38px;height:38px}
+  .bbpin.on i{width:12px;height:12px;background:#10DFBA}
+  .leaflet-popup-content-wrapper{border-radius:10px}
+  .leaflet-popup-content{margin:12px 14px;font-size:13px;line-height:1.45;color:#101117}
+  .leaflet-popup-content b{display:block;font-size:14px;margin-bottom:3px}
+  .leaflet-popup-content span{color:#545F71}
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+  var STORES = (window.BB_STORES || []);
+  var map = L.map('map', { scrollWheelZoom: false, zoomControl: true, attributionControl: true });
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors', maxZoom: 18
+  }).addTo(map);
+
+  function icon(on) {
+    return L.divIcon({
+      className: '', html: '<div class="bbpin' + (on ? ' on' : '') + '"><i></i></div>',
+      iconSize: on ? [38, 38] : [30, 30], iconAnchor: on ? [19, 36] : [15, 28], popupAnchor: [0, -26]
+    });
+  }
+
+  var markers = STORES.map(function (s, i) {
+    var m = L.marker([s.lat, s.lng], { icon: icon(false), title: s.name }).addTo(map);
+    m.bindPopup('<b>' + s.name + '</b><span>' + s.address + '</span>');
+    m.on('click', function () { select(i, false); parent.postMessage({ bbStore: i }, '*'); });
+    return m;
+  });
+
+  var active = -1;
+  function select(i, fly) {
+    if (active > -1 && markers[active]) markers[active].setIcon(icon(false));
+    active = i;
+    if (!markers[i]) return;
+    markers[i].setIcon(icon(true));
+    if (fly) map.flyTo([STORES[i].lat, STORES[i].lng], 12, { duration: 0.6 });
+    markers[i].openPopup();
+  }
+
+  if (markers.length) {
+    map.fitBounds(L.featureGroup(markers).getBounds(), { padding: [34, 34] });
+  } else {
+    map.setView([45.3, 16.3], 7);
+  }
+
+  window.addEventListener('message', function (e) {
+    var d = e.data || {};
+    if (typeof d.bbSelect === 'number') select(d.bbSelect, true);
+    if (d.bbReset) { if (active > -1) markers[active].setIcon(icon(false)); active = -1; map.closePopup(); map.fitBounds(L.featureGroup(markers).getBounds(), { padding: [34, 34] }); }
+  });
+</script>
+</body>
+</html>

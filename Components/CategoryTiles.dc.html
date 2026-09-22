@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</helmet>
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:repeat(8,1fr);gap:24px">
+  <sc-for list="{{ cats }}" as="c" hint-placeholder-count="16">
+    <a href="#" onClick="{{ c.onClick }}" class="imz" style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 20px 8px 16px; background: #fff; border-radius: 12px; color: #101117">
+      <div style="width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;padding:8px">
+        <div class="pimg" style="{{ c.imgStyle }}"></div>
+      </div>
+      <span style="font-size: 15px; font-weight: 600; text-align: center; line-height: 1.35; color: #101117">{{ c.label }}</span>
+    </a>
+  </sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<div class="nsb" style="display:flex;gap:10px;overflow-x:auto;padding:16px 12px 0">
+  <sc-for list="{{ cats }}" as="c" hint-placeholder-count="16">
+    <a href="#" onClick="{{ c.onClick }}" style="width:104px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding:10px 10px 12px;background:#fff;border-radius:12px;color:#101117">
+      <div style="width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center">
+        <div class="pimg" style="{{ c.imgStyle }}"></div>
+      </div>
+      <span style="font-size: 12px; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em">{{ c.label }}</span>
+    </a>
+  </sc-for>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;variant&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;desktop&quot;, &quot;mobile&quot;], &quot;default&quot;: &quot;desktop&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;onOpenCategory&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(c: any) =&gt; void&quot; },
+  &quot;$preview&quot;: { &quot;width&quot;: 1480, &quot;height&quot;: 620 }
+}">
+const CATS = [
+  { img: 'images/cat-televizori.webp', label: 'Televizori' },
+  { img: 'images/cat-laptopi.webp', label: 'Laptopi' },
+  { img: 'images/cat-mobiteli.webp', label: 'Pametni telefoni', cat: 'Smartphone' },
+  { img: 'images/cat-pametni-satovi.webp', label: 'Pametni satovi' },
+  { img: 'images/cat-audio.webp', label: 'Audio oprema' },
+  { img: 'images/cat-gaming.webp', label: 'Gaming' },
+  { img: 'images/cat-stolna-racunala.webp', label: 'Stolna računala' },
+  { img: 'images/cat-kamere.webp', label: 'Kamere' },
+  { img: 'images/cat-hladnjaci.webp', label: 'Hladnjaci' },
+  { img: 'images/cat-perilice.webp', label: 'Perilice rublja' },
+  { img: 'images/cat-pranje-posuda.webp', label: 'Pranje posuđa' },
+  { img: 'images/cat-ploce-kuhanje.webp', label: 'Ploče za kuhanje', cat: 'Ugradbene ploče za kuhanje' },
+  { img: 'images/cat-klima.webp', label: 'Klimatizacija', cat: 'Klimatizacija i grijanje' },
+  { img: 'images/cat-pecnice.webp', label: 'Pećnice' },
+  { img: 'images/cat-mali-aparati.webp', label: 'Mali kućanski uređaji', cat: 'Mali kućanski aparati' },
+  { img: 'images/cat-osobna-njega.webp', label: 'Osobna njega' }
+];
+
+class Component extends DCLogic {
+  renderVals() {
+    const open = this.props.onOpenCategory || (() => {});
+    return {
+      isDesktop: this.props.variant !== 'mobile',
+      isMobile: this.props.variant === 'mobile',
+      cats: CATS.map(c => Object.assign({}, c, {
+        onClick: (e) => { if (e) e.preventDefault(); open(c.cat || c.label); },
+        imgStyle: {
+          width: '100%', height: '100%', backgroundImage: 'url("' + c.img + '")',
+          backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+          mixBlendMode: 'multiply'
+        }
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

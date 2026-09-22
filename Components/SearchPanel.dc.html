@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</helmet>
+
+<div data-bb-searchpanel="" style="{{ wrapStyle }}">
+
+  <sc-if value="{{ isPopular }}" hint-placeholder-val="{{ false }}">
+    <div class="nsb" style="{{ scrollStyle }}">
+      <div style="{{ labelStyle }}">POPULARNE PRETRAGE</div>
+      <sc-for list="{{ popular }}" as="pt" hint-placeholder-count="6">
+        <a href="#" onClick="{{ pt.onClick }}" style="{{ rowStyle }}" style-hover="background:#F1F1F4">
+          <span style="display:flex;color:#545F71;flex-shrink:0"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
+          <span style="{{ restStyle }}">{{ pt.label }}</span>
+        </a>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isResults }}" hint-placeholder-val="{{ true }}">
+  <div class="nsb" style="{{ scrollStyle }}">
+    <div style="{{ labelStyle }}">PRIJEDLOZI</div>
+    <sc-for list="{{ suggestions }}" as="sg" hint-placeholder-count="4">
+      <a href="#" onClick="{{ sg.onClick }}" style="{{ rowStyle }}" style-hover="background:#F1F1F4">
+        <span style="display:flex;color:#545F71;flex-shrink:0"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
+        <span style="{{ sugTextStyle }}"><span style="{{ typedStyle }}">{{ sg.head }}</span><span style="{{ restStyle }}">{{ sg.tail }}</span></span>
+      </a>
+    </sc-for>
+
+    <div style="height:1px;background:#E4E4EA;margin-top:10px"></div>
+
+    <div style="{{ labelStyle }}">PROIZVODI</div>
+    <sc-for list="{{ items }}" as="p" hint-placeholder-count="4">
+      <a href="#" onClick="{{ p.onClick }}" style="{{ prodRowStyle }}" style-hover="background:#F1F1F4">
+        <span style="{{ thumbWellStyle }}"><span style="{{ p.imgStyle }}"></span></span>
+        <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+          <span style="{{ brandStyle }}">{{ p.brand }}</span>
+          <span style="{{ nameStyle }}">{{ p.name }}</span>
+        </span>
+        <span style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0;padding-left:6px">
+          <sc-if value="{{ p.old }}" hint-placeholder-val="{{ false }}">
+            <span style="{{ oldStyle }}">{{ p.old }}</span>
+          </sc-if>
+          <span style="{{ p.priceStyle }}">{{ p.price }}</span>
+        </span>
+      </a>
+    </sc-for>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isResults }}" hint-placeholder-val="{{ true }}">
+  <a href="#" onClick="{{ onAll }}" style="{{ allRowStyle }}" style-hover="background:rgba(42,48,122,0.14)">
+    <span style="display:flex;color:#0050A0;flex-shrink:0"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></span>
+    <span style="{{ allTextStyle }}">Prikaži sve rezultate za <span style="font-weight:700">{{ quoted }}</span></span>
+    <span style="display:flex;color:#0050A0;margin-left:auto;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"></line><polyline points="14 6 20 12 14 18"></polyline></svg></span>
+  </a>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 640, &quot;height&quot;: 420}, &quot;term&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;lap&quot;, &quot;tsType&quot;: &quot;string&quot;}, &quot;mobile&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;}, &quot;mode&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;results&quot;, &quot;popular&quot;], &quot;default&quot;: &quot;results&quot;, &quot;tsType&quot;: &quot;'results'|'popular'&quot;}, &quot;popular&quot;: {&quot;editor&quot;: null, &quot;tsType&quot;: &quot;any[]&quot;}, &quot;suggestions&quot;: {&quot;editor&quot;: null, &quot;tsType&quot;: &quot;any[]&quot;}, &quot;items&quot;: {&quot;editor&quot;: null, &quot;tsType&quot;: &quot;any[]&quot;}, &quot;onAll&quot;: {&quot;editor&quot;: null, &quot;tsType&quot;: &quot;(e: any) =&gt; void&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const mob = !!this.props.mobile;
+    const pad = mob ? 16 : 20;
+    const term = String(this.props.term || '');
+    const tl = term.trim().toLowerCase();
+
+    /* the typed part of a suggestion stays grey/regular, the completion is medium ink */
+    const split = (label) => {
+      const s = String(label || '');
+      if (tl && s.toLowerCase().indexOf(tl) === 0) {
+        return { head: s.slice(0, tl.length), tail: s.slice(tl.length) };
+      }
+      return { head: '', tail: s };
+    };
+
+    const popularMode = this.props.mode === 'popular';
+
+    return {
+      isPopular: popularMode,
+      isResults: !popularMode,
+      popular: this.props.popular || [],
+      suggestions: (this.props.suggestions || []).map(sg => Object.assign({}, sg, split(sg.label))),
+      items: this.props.items || [],
+      onAll: this.props.onAll || ((e) => { if (e) e.preventDefault(); }),
+      quoted: '„' + term + '“',
+      wrapStyle: {
+        background: '#fff', borderRadius: mob ? 0 : 12, overflow: 'hidden',
+        boxShadow: mob ? 'none' : '0 12px 32px rgba(0,0,0,0.20)',
+        border: mob ? 'none' : '1px solid #E4E4EA',
+        height: mob && !popularMode ? '100%' : 'auto',
+        maxHeight: mob && popularMode ? 'calc(100% - 16px)' : undefined,
+        display: 'flex', flexDirection: 'column',
+        fontFamily: 'Inter,sans-serif'
+      },
+      scrollStyle: {
+        flex: mob ? '1 1 auto' : '0 1 auto',
+        minHeight: 0, overflowY: 'auto', paddingBottom: 6
+      },
+      labelStyle: {
+        fontSize: 11, fontWeight: 700, letterSpacing: '0.08em', color: '#8B95A5',
+        padding: (mob ? '14px ' : '14px ') + pad + 'px 6px'
+      },
+      rowStyle: {
+        display: 'flex', alignItems: 'center', gap: 12,
+        padding: (mob ? '11px ' : '9px ') + pad + 'px', color: '#101117', textDecoration: 'none'
+      },
+      sugTextStyle: {
+        fontSize: mob ? 15 : 14.5, letterSpacing: '-0.01em',
+        whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'
+      },
+      typedStyle: { color: '#545F71', fontWeight: 400 },
+      restStyle: { color: '#101117', fontWeight: 500 },
+      prodRowStyle: {
+        display: 'flex', alignItems: 'flex-start', gap: mob ? 12 : 14,
+        padding: (mob ? '11px ' : '10px ') + pad + 'px', color: '#101117', textDecoration: 'none'
+      },
+      thumbWellStyle: {
+        width: mob ? 52 : 58, height: mob ? 42 : 46, flexShrink: 0, borderRadius: 6,
+        background: '#F1F1F4', overflow: 'hidden', display: 'flex',
+        alignItems: 'center', justifyContent: 'center'
+      },
+      brandStyle: { fontSize: 11, fontWeight: 700, letterSpacing: '0.04em', color: '#545F71' },
+      nameStyle: {
+        fontSize: mob ? 13 : 13, lineHeight: 1.35, color: '#101117', letterSpacing: '-0.01em',
+        display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2, overflow: 'hidden'
+      },
+      oldStyle: { fontSize: 11.5, color: '#8B95A5', textDecoration: 'line-through', whiteSpace: 'nowrap' },
+      allRowStyle: {
+        display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0,
+        background: 'rgba(42,48,122,0.08)',
+        borderTop: '1px solid #E4E4EA',
+        padding: (mob ? '15px ' : '15px ') + pad + 'px', color: '#0050A0', textDecoration: 'none'
+      },
+      allTextStyle: { fontSize: mob ? 14 : 14.5, fontWeight: 500, color: '#0050A0', letterSpacing: '-0.01em' }
+    };
+  }
+}
+</script>
+</body>
+</html>

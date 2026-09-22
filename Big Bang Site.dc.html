@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="catalog.js"></script>
+<script src="catimg.js"></script>
+<script src="cart-flyout.js"></script>
+<script src="eu-guarantee.js"></script>
+<script src="garan-data.js"></script>
+<script src="changelog.js"></script>
+</helmet>
+
+<sc-if value="{{ isDS }}" hint-placeholder-val="{{ false }}">
+  <div class="pgin">
+    <dc-import name="Pages/Design system body" on-back="{{ dsBack }}" hint-size="100%,3200px"></dc-import>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<div style="min-height:100vh;background:#F1F1F4">
+
+  <dc-import name="Components/SiteHeader" cart-count="{{ cartCount }}" on-cart="{{ goCart }}" on-wish="{{ goWish }}" on-contact="{{ goContact }}" on-search="{{ doSearch }}" on-open-product="{{ openProduct }}" variant="desktop" menu-open="{{ menuOpen }}" on-toggle-menu="{{ toggleMenu }}" on-logo="{{ goHome }}" logged-in="{{ loggedIn }}" on-account="{{ openAccount }}" hint-size="100%,116px"></dc-import>
+  <dc-import name="Components/SiteHeader" cart-count="{{ cartCount }}" on-cart="{{ goCart }}" on-wish="{{ goWish }}" on-contact="{{ goContact }}" on-search="{{ doSearch }}" on-open-product="{{ openProduct }}" variant="desktop-bar" scrolled="{{ deskScrolled }}" menu-open="{{ menuOpen }}" on-toggle-menu="{{ toggleMenu }}" on-logo="{{ goHome }}" logged-in="{{ loggedIn }}" on-account="{{ openAccount }}" hint-size="100%,56px"></dc-import>
+  <dc-import name="Components/SiteMenu" variant="desktop" open="{{ menuOpen }}" on-close="{{ closeMenu }}" on-open-category="{{ openCategory }}" hint-size="100%,0px"></dc-import>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <div class="pgin">
+      <dc-import name="Pages/Homepage body" variant="desktop" card-hover="{{ cardHover }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" hint-size="100%,3200px"></dc-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isCategory }}" hint-placeholder-val="{{ false }}">
+    <div class="pgin">
+      <dc-import name="Pages/Category body" variant="desktop" card-style="{{ cardStyle }}" level="{{ catLevel }}" cat="{{ category }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,3200px"></dc-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isSearch }}" hint-placeholder-val="{{ false }}">
+    <div class="pgin">
+      <dc-import name="Pages/Category body" variant="desktop" card-style="{{ cardStyle }}" search-term="{{ searchTerm }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,3200px"></dc-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
+    <div class="pgin">
+      <dc-import name="Pages/Product body" variant="desktop" product="{{ product }}" bundle-mode="{{ bundleMode }}" on-open-product="{{ openProduct }}" hint-size="100%,3200px"></dc-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isCart }}" hint-placeholder-val="{{ false }}">
+    <div class="pgin">
+      <dc-import name="Pages/Cart body" variant="desktop" empty-cart="{{ cartEmpty }}" on-count="{{ setCartCount }}" on-sign-in="{{ openAccount }}" on-open-category="{{ openCategory }}" unavailable="{{ cartUnavailable }}" on-open-product="{{ openProduct }}" on-home="{{ goHome }}" hint-size="100%,2400px"></dc-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isWishlist }}" hint-placeholder-val="{{ false }}">
+    <div class="pgin">
+      <dc-import name="Pages/Wishlist body" variant="desktop" signed-in="{{ loggedIn }}" empty-wishlist="{{ wishEmpty }}" on-sign-in="{{ openAccount }}" on-open-category="{{ openCategory }}" on-open-product="{{ openProduct }}" on-home="{{ goHome }}" hint-size="100%,2200px"></dc-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isAccount }}" hint-placeholder-val="{{ false }}">
+    <div class="pgin">
+      <dc-import name="Pages/Account body" variant="desktop" mode="{{ accountMode }}" klub-member="{{ klubMember }}" new-user="{{ newUser }}" on-auth-done="{{ authDone }}" on-logout="{{ logout }}" hint-size="100%,1600px"></dc-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+    <div class="pgin">
+      <dc-import name="Pages/Contact body" variant="desktop" dept-layout="{{ deptLayout }}" on-home="{{ goHome }}" hint-size="100%,2400px"></dc-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isPay }}" hint-placeholder-val="{{ false }}">
+    <div class="pgin">
+      <dc-import name="Pages/Payment methods body" variant="desktop" on-home="{{ goHome }}" on-nav="{{ goInfo }}" hint-size="100%,3000px"></dc-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isDelivery }}" hint-placeholder-val="{{ false }}">
+    <div class="pgin">
+      <dc-import name="Pages/Delivery methods body" variant="desktop" on-home="{{ goHome }}" on-nav="{{ goInfo }}" hint-size="100%,3000px"></dc-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isTerms }}" hint-placeholder-val="{{ false }}">
+    <div class="pgin">
+      <dc-import name="Pages/Terms body" variant="desktop" on-home="{{ goHome }}" on-nav="{{ goInfo }}" hint-size="100%,4000px"></dc-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isGuarantee }}" hint-placeholder-val="{{ false }}">
+    <div class="pgin">
+      <dc-import name="Pages/Legal guarantee body" variant="desktop" on-home="{{ goHome }}" on-nav="{{ goInfo }}" hint-size="100%,2600px"></dc-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showFooter }}" hint-placeholder-val="{{ true }}">
+    <dc-import name="Components/SiteFooter" variant="desktop" on-page="{{ goInfo }}" hint-size="100%,620px"></dc-import>
+  </sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<div style="min-height:100vh;background:#22242E;display:flex;align-items:center;justify-content:center;padding:32px 16px">
+  <div data-bb-frame="mobile" style="width:412px;height:915px;flex-shrink:0;border-radius:36px;overflow:hidden;position:relative;background:#F1F1F4;box-shadow:0 24px 64px rgba(0,0,0,0.45);transform:translate(0)">
+
+    <div class="nsb" ref="{{ scrollerRef }}" onScroll="{{ mobScroll }}" style="position:absolute;inset:0;overflow-y:auto;overflow-anchor:none">
+      <dc-import name="Components/SiteHeader" cart-count="{{ cartCount }}" on-cart="{{ goCart }}" on-wish="{{ goWish }}" on-contact="{{ goContact }}" on-search="{{ doSearch }}" on-open-product="{{ openProduct }}" variant="mobile" menu-open="{{ menuOpen }}" on-toggle-menu="{{ toggleMenu }}" on-logo="{{ goHome }}" logged-in="{{ loggedIn }}" on-account="{{ openAccount }}" hint-size="100%,166px"></dc-import>
+
+      <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+        <div class="pgin">
+          <dc-import name="Pages/Homepage body" variant="mobile" card-hover="{{ cardHover }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" hint-size="100%,4000px"></dc-import>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isCategory }}" hint-placeholder-val="{{ false }}">
+        <div class="pgin">
+          <dc-import name="Pages/Category body" variant="mobile" card-style="{{ cardStyle }}" on-overlay="{{ setOverlay }}" level="{{ catLevel }}" cat="{{ category }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,4000px"></dc-import>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isSearch }}" hint-placeholder-val="{{ false }}">
+        <div class="pgin">
+          <dc-import name="Pages/Category body" variant="mobile" card-style="{{ cardStyle }}" on-overlay="{{ setOverlay }}" search-term="{{ searchTerm }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,4000px"></dc-import>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
+        <div class="pgin">
+          <dc-import name="Pages/Product body" variant="mobile" product="{{ product }}" bundle-mode="{{ bundleMode }}" on-open-product="{{ openProduct }}" hint-size="100%,4000px"></dc-import>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isCart }}" hint-placeholder-val="{{ false }}">
+        <div class="pgin">
+          <dc-import name="Pages/Cart body" variant="mobile" empty-cart="{{ cartEmpty }}" on-count="{{ setCartCount }}" on-sign-in="{{ openAccount }}" on-open-category="{{ openCategory }}" unavailable="{{ cartUnavailable }}" on-open-product="{{ openProduct }}" on-home="{{ goHome }}" hint-size="100%,3200px"></dc-import>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isWishlist }}" hint-placeholder-val="{{ false }}">
+        <div class="pgin">
+          <dc-import name="Pages/Wishlist body" variant="mobile" signed-in="{{ loggedIn }}" empty-wishlist="{{ wishEmpty }}" on-sign-in="{{ openAccount }}" on-open-category="{{ openCategory }}" on-open-product="{{ openProduct }}" on-home="{{ goHome }}" hint-size="100%,3000px"></dc-import>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isAccount }}" hint-placeholder-val="{{ false }}">
+        <div class="pgin">
+          <dc-import name="Pages/Account body" variant="mobile" mode="{{ accountMode }}" klub-member="{{ klubMember }}" new-user="{{ newUser }}" on-auth-done="{{ authDone }}" on-logout="{{ logout }}" hint-size="100%,2400px"></dc-import>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+        <div class="pgin">
+          <dc-import name="Pages/Contact body" variant="mobile" dept-layout="{{ deptLayout }}" on-home="{{ goHome }}" hint-size="100%,3000px"></dc-import>
+        </div>
+      </sc-if>
+
+  <sc-if value="{{ isPay }}" hint-placeholder-val="{{ false }}">
+        <div class="pgin">
+          <dc-import name="Pages/Payment methods body" variant="mobile" on-home="{{ goHome }}" on-nav="{{ goInfo }}" hint-size="100%,4000px"></dc-import>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isDelivery }}" hint-placeholder-val="{{ false }}">
+        <div class="pgin">
+          <dc-import name="Pages/Delivery methods body" variant="mobile" on-home="{{ goHome }}" on-nav="{{ goInfo }}" hint-size="100%,4000px"></dc-import>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isTerms }}" hint-placeholder-val="{{ false }}">
+        <div class="pgin">
+          <dc-import name="Pages/Terms body" variant="mobile" on-home="{{ goHome }}" on-nav="{{ goInfo }}" hint-size="100%,5000px"></dc-import>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isGuarantee }}" hint-placeholder-val="{{ false }}">
+        <div class="pgin">
+          <dc-import name="Pages/Legal guarantee body" variant="mobile" on-home="{{ goHome }}" on-nav="{{ goInfo }}" hint-size="100%,3200px"></dc-import>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ showFooter }}" hint-placeholder-val="{{ true }}">
+        <dc-import name="Components/SiteFooter" variant="mobile" on-page="{{ goInfo }}" hint-size="100%,1180px"></dc-import>
+      </sc-if>
+    </div>
+
+    <dc-import name="Components/SiteHeader" cart-count="{{ cartCount }}" on-cart="{{ goCart }}" on-wish="{{ goWish }}" on-contact="{{ goContact }}" on-search="{{ doSearch }}" on-open-product="{{ openProduct }}" variant="mobile-bar" scrolled="{{ mobBarOn }}" on-toggle-menu="{{ toggleMenu }}" on-logo="{{ goHome }}" logged-in="{{ loggedIn }}" on-account="{{ openAccount }}" hint-size="100%,55px"></dc-import>
+    <dc-import name="Components/SiteMenu" variant="mobile" open="{{ menuOpen }}" on-close="{{ closeMenu }}" on-open-category="{{ openCategory }}" hint-size="100%,100%"></dc-import>
+
+  </div>
+</div>
+</sc-if>
+
+<div style="{{ twWrapStyle }}">
+  <div style="width:248px;background:#fff;border-radius:12px;border:1px solid #E3E4E9;overflow:hidden;font-family:Inter,sans-serif">
+    <div onMouseDown="{{ twDragStart }}" onClick="{{ twToggle }}" style="{{ twHeadStyle }}">
+      <span style="display:flex"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="8" x2="20" y2="8"></line><line x1="4" y1="16" x2="20" y2="16"></line><circle cx="10" cy="8" r="2.4" fill="#002D73"></circle><circle cx="15" cy="16" r="2.4" fill="#002D73"></circle></svg></span>
+      <span style="flex:1;text-align:left">Prototype settings</span>
+      <span style="{{ twChevStyle }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+    </div>
+
+    <sc-if value="{{ twOpen }}" hint-placeholder-val="{{ true }}">
+      <div style="padding:14px;display:flex;flex-direction:column;gap:14px;max-height:60vh;overflow-y:auto">
+        <sc-for list="{{ tweaks }}" as="t" hint-placeholder-count="3">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:10.5px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:#8B95A5">{{ t.label }}</span>
+            <div style="display:flex;background:#F1F1F4;border-radius:8px;padding:3px;gap:3px">
+              <sc-for list="{{ t.options }}" as="o" hint-placeholder-count="2">
+                <button onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+
+        <button onClick="{{ logsOpen }}" style="height:34px;border-radius:8px;border:1px solid #C7C7CD;background:#fff;color:#101117;font-family:Inter,sans-serif;font-size:12.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px" style-hover="border-color:#0050A0;color:#0050A0">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"></path><line x1="9" y1="10" x2="16" y2="10"></line><line x1="9" y1="14" x2="16" y2="14"></line><line x1="9" y1="18" x2="13" y2="18"></line></svg>
+          View logs
+        </button>
+
+        <button onClick="{{ dsOpen }}" style="height:34px;border-radius:8px;border:1px solid #C7C7CD;background:#fff;color:#101117;font-family:Inter,sans-serif;font-size:12.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px" style-hover="border-color:#0050A0;color:#0050A0">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"></circle><path d="M12 3.2v3M12 17.8v3M3.2 12h3M17.8 12h3M6 6l2.1 2.1M15.9 15.9L18 18M18 6l-2.1 2.1M8.1 15.9L6 18"></path></svg>
+          View design system
+        </button>
+      </div>
+    </sc-if>
+  </div>
+</div>
+
+<sc-if value="{{ logsShown }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ logsClose }}" style="position:fixed;inset:0;background:rgba(16,17,23,0.55);z-index:5000;display:flex;align-items:center;justify-content:center;padding:32px;font-family:Inter,sans-serif">
+  <div onClick="{{ stopLogs }}" style="width:640px;max-width:100%;max-height:90vh;background:#fff;border-radius:12px;display:flex;flex-direction:column;overflow:hidden">
+    <div style="flex-shrink:0;display:flex;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid #E3E4E9">
+      <h3 style="flex:1;min-width:0;font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117">Prototype change log</h3>
+      <button onClick="{{ logsClose }}" aria-label="Zatvori" style="width:34px;height:34px;border:none;background:transparent;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#101117">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="nsb" style="flex:1;min-height:0;max-height:620px;overflow-y:auto;padding:6px 22px 18px">
+      <sc-for list="{{ logs }}" as="l" hint-placeholder-count="4">
+        <div style="padding:16px 0;border-bottom:1px solid #EFEFF3">
+          <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
+            <span style="font-size:12.5px;font-weight:700;color:#545F71;white-space:nowrap">{{ l.date }}</span>
+            <span style="flex:1;min-width:0;font-size:14.5px;font-weight:600;letter-spacing:-0.01em;color:#101117">{{ l.title }}</span>
+            <button onClick="{{ l.toggle }}" style="background:none;border:none;padding:0;font-family:Inter,sans-serif;font-size:13px;font-weight:600;color:#0050A0;text-decoration:underline;cursor:pointer;white-space:nowrap">{{ l.linkLabel }}</button>
+          </div>
+          <sc-if value="{{ l.open }}" hint-placeholder-val="{{ false }}">
+            <ul style="margin:10px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:6px">
+              <sc-for list="{{ l.changes }}" as="ch" hint-placeholder-count="3">
+                <li style="font-size:13px;line-height:1.55;color:#545F71">{{ ch }}</li>
+              </sc-for>
+            </ul>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;viewport&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;Desktop&quot;, &quot;Mobile&quot;], &quot;default&quot;: &quot;Desktop&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Prototype&quot; },
+  &quot;bundleMode&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Prototype&quot; },
+  &quot;signedIn&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Prototype&quot; },
+  &quot;statusClanstva&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;UAU klub član&quot;, &quot;Nije član&quot;], &quot;default&quot;: &quot;UAU klub član&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Moj profil&quot; },
+  &quot;vrstaUporabnika&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;Postojeći kupac&quot;, &quot;Novi kupac&quot;], &quot;default&quot;: &quot;Postojeći kupac&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Moj profil&quot; }
+}">
+class Component extends DCLogic {
+  state = {
+    menuOpen: false,
+    mobScrolled: false,
+    overlay: false,
+    deskScrolled: false,
+    page: 'home',
+    product: null,
+    category: null,
+    searchTerm: '',
+    // guest vs signed in — drives the header label and where "Prijava" leads
+    loggedIn: !!this.props.signedIn,
+    // the page the sign-in flow was started from, so we can hand the user back
+    cartCount: 4,
+    returnPage: 'home',
+    returnProduct: null,
+    // in-page prototype tweaks (work without edit rights on the project)
+    twOpen: true,
+    twPos: null,
+    logsOpen: false,
+    logOpen: {},
+    tw: {
+      deptBento: true,
+      card: 'v2',
+      viewport: this.props.viewport === 'Mobile' ? 'Mobile' : 'Desktop',
+      bundle: !!this.props.bundleMode,
+      klub: (this.props.statusClanstva || 'UAU klub član') !== 'Nije član',
+      newUser: (this.props.vrstaUporabnika || 'Postojeći kupac') === 'Novi kupac',
+      cartUnavailable: false,
+      cartEmpty: false,
+      wishEmpty: false
+    }
+  };
+
+  setCartCount = (n) => { if (n !== this.state.cartCount) this.setState({ cartCount: n }); };
+
+  setTweak = (key, val) => this.setState(st => ({ tw: Object.assign({}, st.tw, { [key]: val }) }));
+
+  // the panel header doubles as a drag handle; a real drag suppresses click-to-collapse
+  twDragStart = (e) => {
+    if (e.button !== undefined && e.button !== 0) return;
+    const panel = e.currentTarget.parentNode;
+    const r = panel.getBoundingClientRect();
+    const offX = e.clientX - r.left, offY = e.clientY - r.top;
+    this.twMoved = false;
+    const move = (ev) => {
+      if (Math.abs(ev.clientX - e.clientX) + Math.abs(ev.clientY - e.clientY) > 3) this.twMoved = true;
+      const x = Math.min(Math.max(0, ev.clientX - offX), window.innerWidth - r.width);
+      const y = Math.min(Math.max(0, ev.clientY - offY), window.innerHeight - 44);
+      this.setState({ twPos: { x: x, y: y } });
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+
+  scrollerRef = React.createRef();
+
+  componentDidMount() {
+    this.onWinScroll = () => {
+      if (this.rafPending) return;
+      this.rafPending = true;
+      requestAnimationFrame(() => {
+        this.rafPending = false;
+        const on = (window.scrollY || document.documentElement.scrollTop || 0) > 130;
+        if (on !== this.state.deskScrolled) this.setState({ deskScrolled: on });
+      });
+    };
+    window.addEventListener('scroll', this.onWinScroll, { passive: true });
+    this.onWinScroll();
+    // "Pregled košarice" in the add-to-cart flyout lands on the cart page
+    this.wireCart = () => {
+      if (window.BBCart && window.BBCart.setCartHandler) window.BBCart.setCartHandler(this.goCart);
+      else this.cartTimer = setTimeout(this.wireCart, 120);
+    };
+    this.wireCart();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onWinScroll);
+    if (this.cartTimer) clearTimeout(this.cartTimer);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.viewport !== this.props.viewport) this.setTweak('viewport', this.props.viewport === 'Mobile' ? 'Mobile' : 'Desktop');
+    if (prevProps.bundleMode !== this.props.bundleMode) this.setTweak('bundle', !!this.props.bundleMode);
+    if (prevProps.statusClanstva !== this.props.statusClanstva) this.setTweak('klub', (this.props.statusClanstva || 'UAU klub član') !== 'Nije član');
+    if (prevProps.vrstaUporabnika !== this.props.vrstaUporabnika) this.setTweak('newUser', (this.props.vrstaUporabnika || 'Postojeći kupac') === 'Novi kupac');
+    if (prevProps.signedIn !== this.props.signedIn) {
+      const on = !!this.props.signedIn;
+      this.setState(s => ({ loggedIn: on, page: on ? s.page : (s.page === 'profile' ? 'home' : s.page) }));
+    }
+  }
+
+  // a page switch starts at the top, like a real navigation would
+  toTop = () => {
+    if (this.scrollerRef.current) this.scrollerRef.current.scrollTop = 0;
+    window.scrollTo(0, 0);
+  };
+
+  // the mega menu is anchored under the full header, so opening it from the
+  // collapsed bar returns the page to the top first
+  toggleMenu = () => this.setState(s => {
+    if (!s.menuOpen && s.deskScrolled) window.scrollTo(0, 0);
+    return { menuOpen: !s.menuOpen };
+  });
+  closeMenu = () => this.setState({ menuOpen: false });
+
+  goWish = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    this.setState({ menuOpen: false, page: 'wishlist' }, this.toTop);
+  };
+
+  goCart = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    this.setState({ menuOpen: false, page: 'cart' }, this.toTop);
+  };
+
+  goHome = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    this.setState({ menuOpen: false, page: 'home' }, this.toTop);
+  };
+
+  goContact = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    this.setState({ menuOpen: false, page: 'contact' }, this.toTop);
+  };
+
+  // footer "Usluge i uvjeti" pages; only Načini plaćanja is built so far
+  goInfo = (key) => {
+    if (key === 'contact') { this.setState({ menuOpen: false, page: 'contact' }, this.toTop); return; }
+    if (key !== 'pay' && key !== 'delivery' && key !== 'terms' && key !== 'guarantee') return;
+    this.setState({ menuOpen: false, page: key }, this.toTop);
+  };
+
+  // a product card anywhere in the site hands its product straight to the PDP
+  openProduct = (p) => {
+    this.setState({
+      menuOpen: false,
+      page: 'product',
+      product: p ? {
+        img: p.img,
+        name: p.name,
+        price: String(p.price || '').replace(' €', ''),
+        old: String(p.old || '').replace(' €', '')
+      } : null
+    }, this.toTop);
+  };
+
+  // any category entry point (menu, homepage tile, breadcrumb, sub-tile) lands here.
+  // a bare string is resolved against the catalog so tiles can pass just a label.
+  resolveCat(name) {
+    const tree = window.BB_CATALOG || [];
+    for (let i = 0; i < tree.length; i++) {
+      if (tree[i][0] === name) return { level: 1, l1: name };
+      const groups = tree[i][1] || [];
+      for (let j = 0; j < groups.length; j++) {
+        if (groups[j][0] === name) return { level: 2, l1: tree[i][0], l2: name };
+        const items = groups[j][1] || [];
+        if (items.indexOf(name) > -1) return { level: 3, l1: tree[i][0], l2: groups[j][0], l3: name };
+      }
+    }
+    return { level: 3, l1: 'TV i audio', l2: 'Televizori i dodaci', l3: name };
+  }
+
+  openCategory = (payload) => {
+    const c = typeof payload === 'string' ? this.resolveCat(payload) : (payload || {});
+    this.setState({ menuOpen: false, page: 'category', category: c }, this.toTop);
+  };
+
+  // search: the dropdown's "Prikaži sve", the enter key and the search icon all land here
+  doSearch = (term) => {
+    this.setState({ menuOpen: false, page: 'search', searchTerm: String(term || '') }, this.toTop);
+  };
+
+  // header account button: guest -> sign-in flow, signed in -> profile
+  openAccount = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    if (this.state.loggedIn) {
+      this.setState({ menuOpen: false, page: 'profile' }, this.toTop);
+    } else {
+      this.setState(s => ({
+        menuOpen: false,
+        page: 'auth',
+        returnPage: (s.page === 'auth' || s.page === 'profile') ? 'home' : s.page,
+        returnProduct: s.product
+      }), this.toTop);
+    }
+  };
+
+  // flow finished: sign-in and "Začni nakupovati" hand the user back to the page
+  // the flow started from; only "Odpri moj profil" goes to the profile
+  authDone = (how) => {
+    this.setState(s => how === 'profile'
+      ? { loggedIn: true, page: 'profile' }
+      : { loggedIn: true, page: s.returnPage, product: s.returnProduct }, this.toTop);
+  };
+
+  logout = () => this.setState({ loggedIn: false, menuOpen: false, page: 'home' }, this.toTop);
+
+  setOverlay = (on) => { if (!!on !== this.state.overlay) this.setState({ overlay: !!on }); };
+
+  mobScroll = (e) => {
+    const y = e.currentTarget.scrollTop;
+    const on = y > 170;
+    if (on !== this.state.mobScrolled) this.setState({ mobScrolled: on });
+  };
+
+  renderVals() {
+    const s = this.state;
+    const tw = s.tw;
+    const mobile = tw.viewport === 'Mobile';
+    return {
+      isDesktop: !mobile && s.page !== 'ds',
+      isMobile: mobile && s.page !== 'ds',
+      isHome: s.page === 'home',
+      isProduct: s.page === 'product',
+      isCategory: s.page === 'category',
+      isSearch: s.page === 'search',
+      isCart: s.page === 'cart',
+      isPay: s.page === 'pay',
+      isContact: s.page === 'contact',
+      cardStyle: tw.card || 'v2',
+      deptLayout: tw.deptBento ? 'bento' : 'cards',
+      goContact: this.goContact,
+      isDelivery: s.page === 'delivery',
+      isTerms: s.page === 'terms',
+      isGuarantee: s.page === 'guarantee',
+      goInfo: this.goInfo,
+      openNotice: (e) => { if (e && e.preventDefault) e.preventDefault(); if (window.BBEU) window.BBEU.openNotice(); },
+      isWishlist: s.page === 'wishlist',
+      goWish: this.goWish,
+      wishEmpty: tw.wishEmpty,
+      cartCount: s.cartCount,
+      setCartCount: this.setCartCount,
+      goCart: this.goCart,
+      searchTerm: s.searchTerm,
+      doSearch: this.doSearch,
+      category: s.category,
+      catLevel: (s.category && s.category.level) || 1,
+      openCategory: this.openCategory,
+      isAccount: s.page === 'auth' || s.page === 'profile',
+      accountMode: s.page === 'auth' ? 'auth' : 'profile',
+      showFooter: s.page !== 'auth' && s.page !== 'profile',
+      loggedIn: s.loggedIn,
+      openAccount: this.openAccount,
+      authDone: this.authDone,
+      logout: this.logout,
+      klubMember: tw.klub,
+      newUser: tw.newUser,
+      product: s.product,
+      menuOpen: s.menuOpen,
+      menuClosed: !s.menuOpen,
+      toggleMenu: this.toggleMenu,
+      closeMenu: this.closeMenu,
+      goHome: this.goHome,
+      openProduct: this.openProduct,
+      mobScrolled: s.mobScrolled,
+      mobBarOn: s.mobScrolled && !s.overlay,
+      setOverlay: this.setOverlay,
+      deskScrolled: s.deskScrolled,
+      mobScroll: this.mobScroll,
+      scrollerRef: this.scrollerRef,
+      cardHover: this.props.cardHover || 'Image scales',
+      bundleMode: tw.bundle,
+      cartUnavailable: tw.cartUnavailable,
+      cartEmpty: tw.cartEmpty,
+
+      // ── in-page tweaks panel ──
+      twOpen: s.twOpen,
+      twToggle: () => { if (this.twMoved) { this.twMoved = false; return; } this.setState(st => ({ twOpen: !st.twOpen })); },
+      twDragStart: this.twDragStart,
+      isDS: s.page === 'ds',
+      dsOpen: () => this.setState(st => ({ page: 'ds', dsReturn: st.page === 'ds' ? (st.dsReturn || 'home') : st.page, logsOpen: false }), this.toTop),
+      dsBack: () => this.setState(st => ({ page: st.dsReturn || 'home' }), this.toTop),
+      logsOpen: () => this.setState({ logsOpen: true }),
+      logsClose: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ logsOpen: false }); },
+      stopLogs: (e) => { if (e) e.stopPropagation(); },
+      logsShown: s.logsOpen,
+      logs: (window.BB_CHANGELOG || []).map((l, i) => ({
+        date: l.date,
+        title: l.title,
+        changes: l.changes,
+        open: !!s.logOpen[i],
+        linkLabel: s.logOpen[i] ? 'Sakrij promjene' : 'Prikaži promjene',
+        toggle: () => this.setState(st => ({ logOpen: Object.assign({}, st.logOpen, { [i]: !st.logOpen[i] }) }))
+      })),
+      twWrapStyle: s.twPos
+        ? { position: 'fixed', left: s.twPos.x, top: s.twPos.y, zIndex: 4000 }
+        : { position: 'fixed', left: 20, bottom: 20, zIndex: 4000 },
+      twHeadStyle: { width: '100%', display: 'flex', alignItems: 'center', gap: 9, padding: '12px 14px',
+        background: '#002D73', color: '#fff', fontFamily: 'Inter,sans-serif', fontSize: 13,
+        fontWeight: 700, letterSpacing: '-0.01em', cursor: 'grab', userSelect: 'none' },
+      twChevStyle: { display: 'flex', transform: s.twOpen ? 'rotate(180deg)' : 'none', transition: 'transform .2s' },
+      tweaks: (() => {
+        const seg = (on) => ({
+          flex: 1, minWidth: 0, height: 30, borderRadius: 6, border: 'none', cursor: 'pointer',
+          fontFamily: 'Inter,sans-serif', fontSize: 12, fontWeight: 600, letterSpacing: '-0.01em',
+          background: on ? '#fff' : 'transparent', color: on ? '#101117' : '#545F71',
+          boxShadow: on ? '0 1px 3px rgba(0,0,0,0.14)' : 'none'
+        });
+        const trio = (label, opts) => ({
+          label: label,
+          options: opts.map(o => ({ label: o[0], style: seg(o[1]), pick: o[2] }))
+        });
+        const pair = (label, aLabel, bLabel, isA, onA, onB) => ({
+          label: label,
+          options: [
+            { label: aLabel, style: seg(isA), pick: onA },
+            { label: bLabel, style: seg(!isA), pick: onB }
+          ]
+        });
+        const list = [
+          pair('Prikaz', 'Desktop', 'Mobitel', !mobile,
+            () => this.setTweak('viewport', 'Desktop'), () => this.setTweak('viewport', 'Mobile')),
+          pair('Korisnik', 'Prijavljen', 'Gost', s.loggedIn,
+            () => this.setState({ loggedIn: true }),
+            () => this.setState(st => ({ loggedIn: false, page: st.page === 'profile' ? 'home' : st.page })))
+        ];
+        if (s.page === 'product') {
+          list.push(pair('Bundle', 'Uključen', 'Isključen', tw.bundle,
+            () => this.setTweak('bundle', true), () => this.setTweak('bundle', false)));
+        }
+        if (s.page === 'profile' || s.page === 'auth') {
+          list.push(pair('Status članstva', 'UAU klub član', 'Nije član', tw.klub,
+            () => this.setTweak('klub', true), () => this.setTweak('klub', false)));
+          list.push(pair('Vrsta korisnika', 'Postojeći', 'Novi', !tw.newUser,
+            () => this.setTweak('newUser', false), () => this.setTweak('newUser', true)));
+        }
+        if (s.page === 'category' || s.page === 'search') {
+          list.push(trio('Kartica proizvoda', [
+            ['Bez gumba', tw.card === 'v2', () => this.setTweak('card', 'v2')],
+            ['Standardna', tw.card === 'v1', () => this.setTweak('card', 'v1')],
+            ['Poravnata', tw.card === 'v3', () => this.setTweak('card', 'v3')]
+          ]));
+        }
+        if (s.page === 'contact') {
+          list.push(pair('Odjeli', 'Bento kartice', 'Jedan blok', tw.deptBento,
+            () => this.setTweak('deptBento', true), () => this.setTweak('deptBento', false)));
+        }
+        if (s.page === 'wishlist') {
+          list.push(pair('Popis želja', 'S proizvodima', 'Prazan', !tw.wishEmpty,
+            () => this.setTweak('wishEmpty', false), () => this.setTweak('wishEmpty', true)));
+        }
+        if (s.page === 'cart') {
+          list.push(pair('Košarica', 'S proizvodima', 'Prazna', !tw.cartEmpty,
+            () => this.setTweak('cartEmpty', false), () => this.setTweak('cartEmpty', true)));
+          if (!tw.cartEmpty) {
+            list.push(pair('Proizvod nedostupan', 'Da', 'Ne', tw.cartUnavailable,
+              () => this.setTweak('cartUnavailable', true), () => this.setTweak('cartUnavailable', false)));
+          }
+        }
+        return list;
+      })()
+    };
+  }
+}
+</script>
+</body>
+</html>

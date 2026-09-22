@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="stores-data.js"></script>
+</helmet>
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<div>
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:20px">
+    <div>
+      <div style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#0050A0;margin-bottom:7px">PRODAJNA MJESTA</div>
+      <h2 style="font-size:26px;font-weight:700;letter-spacing:-0.025em;color:#101117;margin:0">{{ title }}</h2>
+      <p style="font-size:14.5px;color:#545F71;margin:8px 0 0">{{ countLabel }}</p>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:352px minmax(0,1fr);gap:20px;align-items:stretch">
+    <div class="bbsb" style="max-height:520px;overflow-y:auto;padding-right:10px;display:flex;flex-direction:column">
+      <sc-for list="{{ list }}" as="s" hint-placeholder-count="6">
+        <button onClick="{{ s.onSelect }}" style="{{ s.cardStyle }}">
+          <div style="display:flex;align-items:flex-start;gap:12px">
+            <span style="{{ s.pinStyle }}">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
+            </span>
+            <div style="flex:1 1 0;min-width:0">
+              <div style="{{ s.nameStyle }}">{{ s.name }}</div>
+              <div style="font-size:13px;color:#545F71;margin-top:3px">{{ s.address }}</div>
+              <div style="display:flex;align-items:center;gap:7px;font-size:12.5px;color:#8B95A5;margin-top:7px">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7.5 12 12 15.5 14"></polyline></svg>
+                {{ s.hours }}
+              </div>
+              <span class="arw" style="display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:#0050A0;margin-top:10px">
+                Prikaži trgovinu
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="18" y2="12"></line><polyline points="13 7 18 12 13 17"></polyline></svg>
+              </span>
+            </div>
+          </div>
+        </button>
+      </sc-for>
+      <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#fff;border-radius:10px;padding:20px;font-size:13.5px;color:#545F71">Nema poslovnice za taj pojam.</div>
+      </sc-if>
+    </div>
+
+    <div style="border-radius:12px;overflow:hidden;background:#E9EAEE;min-height:520px;position:relative">
+      <iframe ref="{{ frameRef }}" src="store-map.html" title="Karta prodajnih mjesta" style="position:absolute;inset:0;width:100%;height:100%;border:none"></iframe>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<div>
+  <div style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#0050A0;margin-bottom:6px">PRODAJNA MJESTA</div>
+  <h2 style="font-size:19px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 12px">{{ title }}</h2>
+
+  <div style="border-radius:12px;overflow:hidden;background:#E9EAEE;height:260px;position:relative">
+    <iframe ref="{{ frameRef }}" src="store-map.html" title="Karta prodajnih mjesta" style="position:absolute;inset:0;width:100%;height:100%;border:none"></iframe>
+  </div>
+
+  <div class="bbsb" style="max-height:420px;overflow-y:auto;display:flex;flex-direction:column;margin-top:12px">
+    <sc-for list="{{ list }}" as="s" hint-placeholder-count="5">
+      <button onClick="{{ s.onSelect }}" style="{{ s.cardStyleMob }}">
+        <div style="{{ s.nameStyleMob }}">{{ s.name }}</div>
+        <div style="font-size:12.5px;color:#545F71;margin-top:3px">{{ s.address }}</div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;color:#8B95A5;margin-top:6px">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7.5 12 12 15.5 14"></polyline></svg>
+          {{ s.hours }}
+        </div>
+        <span class="arw" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#0050A0;margin-top:9px">
+          Prikaži trgovinu
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="18" y2="12"></line><polyline points="13 7 18 12 13 17"></polyline></svg>
+        </span>
+      </button>
+    </sc-for>
+    <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#fff;border-radius:10px;padding:16px;font-size:13px;color:#545F71">Nema poslovnice za taj pojam.</div>
+    </sc-if>
+  </div>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1440, &quot;height&quot;: 640 },
+  &quot;variant&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;desktop&quot;, &quot;mobile&quot;], &quot;default&quot;: &quot;desktop&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;title&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Posjetite nas u poslovnicama širom Hrvatske!&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;stores&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;{name,city,address,hours,phone,lat,lng}[]&quot; }
+}">
+class Component extends DCLogic {
+  state = { sel: -1, q: '', stores: window.BB_STORES || [] };
+
+  componentDidMount() {
+    if (!this.state.stores.length) this.wait();
+    this.onMsg = (e) => {
+      const d = e.data || {};
+      if (typeof d.bbStore === 'number') this.setState({ sel: d.bbStore });
+    };
+    window.addEventListener('message', this.onMsg);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('message', this.onMsg);
+    clearTimeout(this.t);
+  }
+  wait = () => {
+    if (window.BB_STORES) { this.setState({ stores: window.BB_STORES }); return; }
+    this.t = setTimeout(this.wait, 120);
+  };
+
+  frameRef = (el) => { if (el) this.frame = el; };
+
+  post = (msg) => {
+    if (this.frame && this.frame.contentWindow) this.frame.contentWindow.postMessage(msg, '*');
+  };
+
+  pick = (idx) => () => {
+    if (this.state.sel === idx) { this.setState({ sel: -1 }); this.post({ bbReset: true }); return; }
+    this.setState({ sel: idx });
+    this.post({ bbSelect: idx });
+  };
+
+  renderVals() {
+    const p = this.props, s = this.state;
+    const mobile = p.variant === 'mobile';
+    const all = p.stores || s.stores || [];
+
+    const list = all.map((st, i) => ({ st, i }))
+      .map(({ st, i }) => {
+        const on = s.sel === i;
+        return {
+          name: st.name,
+          address: st.address,
+          hours: st.hours,
+          phone: st.phone,
+          tel: 'tel:' + String(st.phone || '').replace(/\s/g, ''),
+          dir: 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(st.name + ', ' + st.address),
+          open: on,
+          onSelect: this.pick(i),
+          cardStyle: {
+            textAlign: 'left', width: '100%', background: '#fff', border: 'none',
+            borderBottom: '1px solid #EFF0F3',
+            padding: '16px 0', fontFamily: 'Inter, sans-serif',
+            cursor: 'pointer', transition: 'color .15s'
+          },
+          cardStyleMob: {
+            textAlign: 'left', width: '100%', border: 'none', direction: 'ltr',
+            background: '#fff', borderBottom: '1px solid #EFF0F3',
+            borderRadius: 0, padding: '14px 0', fontFamily: 'Inter, sans-serif', cursor: 'pointer'
+          },
+          nameStyle: {
+            fontSize: 15, fontWeight: 600, lineHeight: 1.35,
+            color: on ? '#0050A0' : '#101117'
+          },
+          nameStyleMob: {
+            fontSize: 14, fontWeight: 600, lineHeight: 1.35,
+            color: on ? '#0050A0' : '#101117'
+          },
+          pinStyle: {
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            width: 30, height: 30, borderRadius: 9, flexShrink: 0,
+            background: on ? '#0050A0' : '#EEF3FA', color: on ? '#fff' : '#0050A0'
+          }
+        };
+      });
+
+    return {
+      isDesktop: !mobile,
+      isMobile: mobile,
+      title: p.title || 'Posjetite nas u poslovnicama širom Hrvatske!',
+      countLabel: all.length + ' poslovnica · odaberite poslovnicu na karti ili u listi',
+      list,
+      empty: !list.length,
+      frameRef: this.frameRef
+    };
+  }
+}
+</script>
+</body>
+</html>
