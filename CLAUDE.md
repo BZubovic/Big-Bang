@@ -19,7 +19,7 @@ stays accurate.
 
 This project is the **master design for the Big Bang webshop** (bigbang.hr / bigbang.si).
 
-It is a **single-page app shell**: `Big Bang Site.dc.html` is the one file you open. It
+It is a **single-page app shell**: `index.dc.html` is the one file you open. It
 owns the header, the mega menu, the footer, the viewport tweak and a `page` state, and
 switches between page bodies in `Pages/` — so the header never remounts and moving between
 pages is instant. New pages (category / listing, cart, checkout, account, marketplace,
@@ -45,7 +45,7 @@ re-implement a header, footer, menu or product carousel inside a page.
 ## Files
 
 ```
-Big Bang Site.dc.html          THE APP — header, menu, footer, page switch, tweaks
+index.dc.html                  THE APP — header, menu, footer, page switch, tweaks
 Pages/Homepage body.dc.html    homepage content only (no header/footer)
 Pages/Product body.dc.html     PDP content only
 Pages/Cart body.dc.html        cart content only (seller-grouped boxes + summary)
@@ -82,7 +82,7 @@ Components/StoreLocator.dc.html    GLOBAL "Prodajna mjesta" widget — Leaflet m
                                two-way select (list ⇄ pin)
 Components/SupportBand.dc.html     GLOBAL dark support/contact band (#00337A) — eyebrow,
                                title, text, phone + e-mail pills; bottom of every info page
-store-map.html                 plain-HTML Leaflet map the widget embeds in an iframe
+Components/store-map.html      plain-HTML Leaflet map the widget embeds in an iframe
                                (maps must NOT be .dc.html — script timing)
 stores-data.js                 store list (window.BB_STORES) shared by both
 changelog.js                   prototype change log — MUST be updated every working day
