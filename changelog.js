@@ -3,6 +3,15 @@
 window.BB_CHANGELOG = [
   {
     date: '22.09.2026.',
+    title: 'Sidrena cijena (MPC na) premještena ispod oznake promo koda',
+    changes: [
+      'Na svim karticama proizvoda sidrena cijena ("MPC na …") sada stoji kao zadnji red cjenovnog bloka — ispod zelene oznake promo koda, a ne iznad nje.',
+      'Promjena je primijenjena na karusele proizvoda, naslovnicu, kategorijsku stranicu (mreža i lista, desktop i mobitel) te popis želja.',
+      'Primjeri kartica i pravilo u dizajn sustavu ažurirani su u skladu s time.',
+    ],
+  },
+  {
+    date: '22.09.2026.',
     title: 'Pretraga — pozadina, dvobojni prijedlozi i cijeli zaslon na mobitelu',
     changes: [
       'Otvaranjem pretrage sadržaj iza panela zatamnjuje se poluprozirnom pozadinom, pa je fokus na rezultatima.',

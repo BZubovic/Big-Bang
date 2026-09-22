@@ -253,7 +253,8 @@ with the EU GARAN label.
 
 **Anchored price ("sidrena cijena") — legally required from 1.10.2026.** Every product
 price display (cards, PDP, cart flyout, cross-sell) shows the regular price on the reference
-day under the instalment line: `MPC na 10.09.2026. 1.099,00 €` — 11px, `#8B95A5`,
+day as the last line of the price block — on product cards **below the promo-code label**, on the
+PDP under the instalment line: `MPC na 10.09.2026. 1.099,00 €` — 11px, `#8B95A5`,
 never struck through (strike-through stays reserved for the 30-day lowest price). Cards fall
 back to `old || price` when no explicit `anchor` is given; `anchorDate` overrides the date.
 
