@@ -15,7 +15,7 @@
 </helmet>
 
 <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
-<a href="#" onClick="{{ open }}" class="imz" style="position:relative;width:100%;height:100%;min-height:451px;background:#fff;border-radius:12px;display:flex;flex-direction:column;color:#101117;overflow:hidden;font-family:Inter,sans-serif">
+<a href="#" onClick="{{ open }}" class="imz" style="position:relative;width:100%;height:100%;background:#fff;border-radius:12px;display:flex;flex-direction:column;color:#101117;overflow:hidden;font-family:Inter,sans-serif">
   <div style="position:relative;height:200px;flex-shrink:0">
     <div style="position:absolute;top:8px;left:12px;right:12px;bottom:0;overflow:hidden">
       <div class="pimg" style="{{ imgStyle }}"></div>
@@ -65,16 +65,16 @@
 
   <div style="padding:8px 12px 9px;display:flex;flex-direction:column;flex:1">
     <div style="display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:14px;font-weight:600;line-height:19.6px;letter-spacing:-0.01em;color:#101117">{{ c.name }}</div>
+    <sc-if value="{{ rated }}" hint-placeholder-val="{{ true }}">
     <div style="margin-top:4px;height:14px;display:flex;align-items:center;gap:2px">
-      <sc-if value="{{ rated }}" hint-placeholder-val="{{ true }}">
         <span style="display:flex;gap:1px">
           <sc-for list="{{ stars }}" as="st" hint-placeholder-count="5">
             <svg width="13" height="12.5" viewBox="0 0 24 23" fill="{{ st }}"><path d="M12 0l3.1 7.5 8.3.7-6.3 5.4 2 8.2L12 17.4l-7.1 4.4 2-8.2L.6 8.2l8.3-.7z"></path></svg>
           </sc-for>
         </span>
         <span style="font-size:11px;color:#A0A0A0;line-height:14px">{{ ratingLabel }}</span>
-      </sc-if>
     </div>
+    </sc-if>
     <div style="margin-top:15px;height:16px;display:flex;align-items:center;gap:9px;min-width:0">
       <span style="width:12px;display:flex;justify-content:center;flex-shrink:0"><span style="{{ dotStyle }}"></span></span>
       <span style="{{ availStyle }}">{{ c.avail }}</span>
@@ -97,6 +97,7 @@
         </div>
       </sc-if>
     </div>
+    <sc-if value="{{ codeSlot }}" hint-placeholder-val="{{ true }}">
     <div style="margin-top:6.3px;height:24.7px;flex-shrink:0">
       <sc-if value="{{ hasCode }}" hint-placeholder-val="{{ true }}">
         <div style="height:24.7px;box-sizing:border-box;background:#E6F5EC;border:1px dashed #8CC4A7;border-radius:4px;padding:0 6px;display:flex;align-items:center;justify-content:space-between;gap:8px;white-space:nowrap;overflow:hidden;color:#0B7A48;font-size:14px;line-height:22px">
@@ -108,6 +109,7 @@
         </div>
       </sc-if>
     </div>
+    </sc-if>
     <div style="margin-top:10.3px;font-size:11px;line-height:14px;letter-spacing:-0.01em;color:#808080;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">MPC na {{ anchorDate }} {{ anchor }}</div>
     <sc-if value="{{ wish }}" hint-placeholder-val="{{ false }}">
       <button onClick="{{ removeWish }}" style="margin-top:12px;height:40px;width:100%;border-radius:20px;background:#fff;border:1.5px solid #0050A0;color:#0050A0;font-family:Inter,sans-serif;font-size:13px;font-weight:700;letter-spacing:-0.01em;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer" style-hover="background:#EDF3FA">
@@ -120,7 +122,7 @@
 </sc-if>
 
 <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
-<a href="#" onClick="{{ open }}" class="imz" style="position:relative;width:100%;height:100%;min-height:390px;background:#fff;border-radius:12px;display:flex;flex-direction:column;color:#101117;overflow:hidden;font-family:Inter,sans-serif">
+<a href="#" onClick="{{ open }}" class="imz" style="position:relative;width:100%;height:100%;background:#fff;border-radius:12px;display:flex;flex-direction:column;color:#101117;overflow:hidden;font-family:Inter,sans-serif">
   <div style="position:relative;height:154px;flex-shrink:0">
     <div style="position:absolute;top:8px;left:8px;right:8px;bottom:0;overflow:hidden">
       <div class="pimg" style="{{ imgStyle }}"></div>
@@ -170,16 +172,16 @@
 
   <div style="padding:9.8px 22px 6.8px 8px;display:flex;flex-direction:column;flex:1">
     <div style="display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:12.5px;font-weight:600;line-height:16.875px;letter-spacing:-0.01em;color:#101117">{{ c.name }}</div>
+    <sc-if value="{{ rated }}" hint-placeholder-val="{{ true }}">
     <div style="margin-top:4.4px;height:12px;display:flex;align-items:center;gap:4px">
-      <sc-if value="{{ rated }}" hint-placeholder-val="{{ true }}">
         <span style="display:flex;gap:1px">
           <sc-for list="{{ stars }}" as="st" hint-placeholder-count="5">
             <svg width="11.6" height="11.2" viewBox="0 0 24 23" fill="{{ st }}"><path d="M12 0l3.1 7.5 8.3.7-6.3 5.4 2 8.2L12 17.4l-7.1 4.4 2-8.2L.6 8.2l8.3-.7z"></path></svg>
           </sc-for>
         </span>
         <span style="font-size:10px;color:#A0A0A0;line-height:12px">{{ ratingLabel }}</span>
-      </sc-if>
     </div>
+    </sc-if>
     <div style="margin-top:16.2px;height:14px;display:flex;align-items:center;gap:8px;min-width:0">
       <span style="width:11px;display:flex;justify-content:center;flex-shrink:0"><span style="{{ dotStyleMob }}"></span></span>
       <span style="{{ availStyleMob }}">{{ c.avail }}</span>
@@ -202,6 +204,7 @@
         </div>
       </sc-if>
     </div>
+    <sc-if value="{{ codeSlot }}" hint-placeholder-val="{{ true }}">
     <div style="margin-top:5.2px;height:26px;flex-shrink:0">
       <sc-if value="{{ hasCode }}" hint-placeholder-val="{{ true }}">
         <div style="height:26px;box-sizing:border-box;background:#E6F5EC;border:1px dashed #8CC4A7;border-radius:4px;padding:0 6px 0 7px;display:flex;align-items:center;justify-content:space-between;gap:6px;white-space:nowrap;overflow:hidden;color:#0B7A48;font-size:11.5px;line-height:24px">
@@ -213,6 +216,7 @@
         </div>
       </sc-if>
     </div>
+    </sc-if>
     <div style="margin-top:15px;font-size:9px;line-height:12px;color:#808080;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">MPC na {{ anchorDate }} {{ anchor }}</div>
     <sc-if value="{{ wish }}" hint-placeholder-val="{{ false }}">
       <button onClick="{{ removeWish }}" style="margin-top:10px;height:38px;width:100%;border-radius:19px;background:#fff;border:1.5px solid #0050A0;color:#0050A0;font-family:Inter,sans-serif;font-size:11.5px;font-weight:700;letter-spacing:-0.01em;display:flex;align-items:center;justify-content:center;gap:6px">
@@ -279,6 +283,7 @@ class Component extends DCLogic {
       old: c.old ? euro(c.old) : '',
       monthly: monthlyAmt,
       hasCode: pct > 0,
+      codeSlot: pct > 0 || c.reserveCode !== false,
       codePct: '-' + pct + '%',
       codePrice: pct ? fmt(num(c.price) * (1 - pct / 100)) : '',
       anchor: euro(c.anchor || c.old || c.price || ''),

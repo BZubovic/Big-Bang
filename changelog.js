@@ -17,6 +17,11 @@ window.BB_CHANGELOG = [
       'Kad naslov stane u jedan red, ocjena, dostupnost i prodavatelj pomiču se gore; cjenovni dio i MPC ostaju uz dno kartice.',
       '"Dostupno za 2 – 3 radna dana" zeleno kao "Na zalihi"; "Nije na zalihi" sivim tekstom uz crvenu točku.',
       'Dvoredni slider na naslovnici koristi isti okvir promo koda.',
+      'Bez recenzija dostupnost i prodavatelj pomiču se gore; na kategoriji jedan cijeli red bez recenzija, jedan bez promo koda i jedan bez oboje.',
+      'Nov prikaz kategorije u obliku popisa: energetski razred i jamstvo lijevo, galerija s točkama, naslov, ocjena i oznake, opis, cijena s ratama u istom redu, okvir promo koda, MPC; dostupnost, prodavatelj, Usporedi/Spremi i gumb Dodaj u košaricu desno.',
+      'Desktop prikaz popisa: povećani tekstovi, cijena, okviri, ikone i gumb.',
+      'Nov mobilni prikaz popisa: slika s gumbima Spremi/Usporedi i točkama galerije lijevo, povrat novca, jamstvo i POKLON na dnu; desno naslov, ocjena, oznake s energetskim razredom, dostupnost, prodavatelj, cijena, rate, promo kod i MPC.',
+      'Red kartica bez recenzija ili bez promo koda skraćuje se po sadržaju (nema praznog prostora).',
     ],
   },
   {
