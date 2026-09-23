@@ -150,7 +150,7 @@
           </div>
 
           <sc-if value="{{ isGrid }}" hint-placeholder-val="{{ true }}">
-            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
+            <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px">
               <sc-for list="{{ gridCells }}" as="cell" hint-placeholder-count="8">
                 <sc-if value="{{ cell.isPromo }}" hint-placeholder-val="{{ false }}">
                   <a href="#" style="{{ cell.promoBox }}">
@@ -158,119 +158,7 @@
                   </a>
                 </sc-if>
                 <sc-if value="{{ cell.isProduct }}" hint-placeholder-val="{{ true }}">
-                  <div class="imz" style="{{ cell.cardBox }}">
-                    <a href="#" onClick="{{ cell.open }}" style="position:relative;height:178px;display:block;padding:12px 12px 0;color:#101117">
-                      <div class="pimg" style="{{ cell.imgStyle }}"></div>
-                      <sc-if value="{{ cardV2 }}" hint-placeholder-val="{{ false }}">
-                        <div style="position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:6px;z-index:2">
-                          <button onClick="{{ cell.stop }}" title="Spremi" style="width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid #E3E4E9;display:flex;align-items:center;justify-content:center;color:#545F71;cursor:pointer;transition:border-color .15s,color .15s" style-hover="border-color:#0050A0;color:#0050A0">
-                            <svg width="18" height="18" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                          </button>
-                          <button onClick="{{ cell.stop }}" title="Usporedi" style="width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid #E3E4E9;display:flex;align-items:center;justify-content:center;color:#545F71;cursor:pointer;transition:border-color .15s,color .15s" style-hover="border-color:#0050A0;color:#0050A0">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg>
-                          </button>
-                        </div>
-                      </sc-if>
-                      <sc-if value="{{ cell.cashbackV1 }}" hint-placeholder-val="{{ false }}">
-                        <div style="position:absolute;top:8px;right:8px;width:54px;height:54px;border-radius:50%;background:#0090DF;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05">
-                          <span style="font-size:5px;font-weight:700;letter-spacing:0.02em">POVRAT NOVCA</span>
-                          <span style="font-size:20px;font-weight:800;letter-spacing:-0.03em">{{ cell.cashback }}</span>
-                          <span style="font-size:7.5px;font-weight:700">EUR</span>
-                        </div>
-                      </sc-if>
-                      <sc-if value="{{ cell.cashbackV2 }}" hint-placeholder-val="{{ false }}">
-                        <div style="position:absolute;top:10px;left:10px;width:58px;height:58px;border-radius:50%;background:#0090DF;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05;z-index:2">
-                          <span style="font-size:6px;font-weight:700;letter-spacing:0.02em">POVRAT</span>
-                          <span style="font-size:6px;font-weight:700;letter-spacing:0.02em">NOVCA</span>
-                          <span style="font-size:21px;font-weight:800;letter-spacing:-0.03em">{{ cell.cashbackV2 }}</span>
-                          <span style="font-size:8px;font-weight:700">EUR</span>
-                        </div>
-                      </sc-if>
-                      <div style="position:absolute;left:12px;bottom:0;display:flex;flex-direction:column;align-items:flex-start;gap:7px">
-                        <sc-if value="{{ cell.energy }}" hint-placeholder-val="{{ true }}">
-                          <span style="display:flex;align-items:center;gap:2px">
-                            <span style="display:flex;flex-direction:column;align-items:center;font-size:5.5px;font-weight:700;color:#101117;line-height:1.1;background:#fff;border:1px solid #C7C7CD;padding:1px 2px"><span>A</span><span>↑</span><span>G</span></span>
-                            <span style="background:#00A650;color:#fff;font-size:12px;font-weight:700;line-height:1;padding:3px 13px 3px 6px;clip-path:polygon(0 0,80% 0,100% 50%,80% 100%,0 100%)">{{ cell.energy }}</span>
-                          </span>
-                        </sc-if>
-                        <sc-if value="{{ cardV1 }}" hint-placeholder-val="{{ true }}">
-                          <span style="display:flex;flex-wrap:wrap;gap:5px">
-                            <sc-for list="{{ cell.pills }}" as="pl" hint-placeholder-count="2">
-                              <span style="{{ pl.style }}">{{ pl.label }}</span>
-                            </sc-for>
-                          </span>
-                        </sc-if>
-                      </div>
-                    </a>
-                    <div style="{{ cell.cardBody }}">
-                      <sc-if value="{{ cardV2 }}" hint-placeholder-val="{{ false }}">
-                        <span style="{{ cell.pillRow }}">
-                          <sc-for list="{{ cell.pills }}" as="pl" hint-placeholder-count="2">
-                            <span style="{{ pl.style }}">{{ pl.label }}</span>
-                          </sc-for>
-                        </span>
-                      </sc-if>
-                      <div style="{{ cell.titleZone }}">
-                        <a href="#" onClick="{{ cell.open }}" style="{{ cell.titleStyle }}">{{ cell.name }}</a>
-                      </div>
-                      <div style="{{ cell.metaZone }}">
-                      <sc-if value="{{ cell.rated }}" hint-placeholder-val="{{ true }}">
-                      <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
-                        <span style="display:flex;gap:1px">
-                          <sc-for list="{{ cell.stars }}" as="st" hint-placeholder-count="5">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="{{ st }}"><path d="M12 2.6l2.9 5.88 6.5.95-4.7 4.58 1.11 6.47L12 17.42 6.19 20.48 7.3 14.01 2.6 9.43l6.5-.95L12 2.6z"></path></svg>
-                          </sc-for>
-                        </span>
-                        <span style="font-size:13px;color:#545F71">{{ cell.ratingLabel }}</span>
-                      </div>
-                      </sc-if>
-                      <div style="display:flex;align-items:center;gap:8px;font-size:13px;{{ cell.stockGap }}white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">
-                        <span style="{{ cell.availIconStyle }}"></span>
-                        <span style="{{ cell.availStyle }}">{{ cell.avail }}</span>
-                      </div>
-                      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#101117;margin-top:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">
-                        <span style="display:flex;flex-shrink:0;color:#101117"><svg width="15" height="15" viewBox="0 0 23 23" fill="none"><path d="M3.83333 9.58333V20.125H19.1667V9.58333M9.10417 20.125V11.9792H13.8958V20.125M4.3125 2.875H11.0208H18.6875L20.125 7.1875V8.14583C20.125 10.0625 17.25 10.0625 17.25 8.14583C17.25 10.0625 14.375 10.0625 14.375 8.14583C14.375 10.0625 11.5 10.0625 11.5 8.14583C11.5 10.0625 8.625 10.0625 8.625 8.14583C8.625 10.0625 5.75 10.0625 5.75 8.14583C5.75 10.0625 2.875 10.0625 2.875 8.14583V7.1875L4.3125 2.875Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
-                        Prodavatelj: <a href="#" style="color:#0050A0;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">{{ cell.seller }}</a>
-                      </div>
-                      </div>
-                      <div style="{{ cell.priceBlock }}">
-                      <div style="{{ cell.priceRow }}">
-                        <span style="{{ cell.priceStyle }}">{{ cell.priceInt }}<span style="font-size:13px;font-weight:700;position:relative;top:-0.55em">{{ cell.priceCents }}</span> €</span>
-                        <sc-if value="{{ cell.old }}" hint-placeholder-val="{{ false }}">
-                          <span style="font-size:13px;color:#8B95A5;text-decoration:line-through;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">{{ cell.old }}</span>
-                        </sc-if>
-                      </div>
-                      <div style="display:flex;align-items:center;gap:7px;background:rgba(0,80,160,0.06);border-radius:8px;padding:6px 10px;margin-top:2px;align-self:stretch">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0050A0" stroke-width="2" stroke-linecap="round" style="flex-shrink:0"><rect x="1" y="4" width="22" height="16" rx="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-                        <span style="font-size:11.5px;color:#0050A0;font-weight:500;line-height:1.3">ili <strong style="font-weight:700">{{ cell.instal }}</strong></span>
-                      </div>
-                      <div style="{{ cell.codeSlot }}">
-                        <sc-if value="{{ cell.code }}" hint-placeholder-val="{{ false }}">
-                          <span style="{{ cell.codeStyleCard }}">{{ cell.code }}</span>
-                        </sc-if>
-                      </div>
-                      <div style="{{ cell.anchorLine }}">MPC na {{ cell.anchorDate }} {{ cell.anchor }}</div>
-                      </div>
-                    </div>
-                    <sc-if value="{{ cardV1 }}" hint-placeholder-val="{{ true }}">
-                    <div style="display:flex;align-items:center;gap:14px;padding:6px 12px 12px">
-                      <button style="display:flex;align-items:center;gap:6px;background:none;border:none;font-family:Inter,sans-serif;font-size:14px;color:#545F71">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg>
-                        Usporedi
-                      </button>
-                      <button style="display:flex;align-items:center;gap:6px;background:none;border:none;font-family:Inter,sans-serif;font-size:14px;color:#545F71">
-                        <svg width="20" height="20" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                        Spremi
-                      </button>
-                      <button onClick="{{ cell.addCart }}" class="bbcta" style="{{ cell.cartStyle }}">
-                        <svg width="24" height="24" viewBox="0 0 30 30" fill="none"><path d="M4 4.25H6.22222L6.66667 6.47222M6.66667 6.47222L8.44444 15.3611H19.5556L24 6.47222H6.66667ZM19.5556 19.8056C18.3283 19.8056 17.3333 20.8005 17.3333 22.0278C17.3333 23.2551 18.3283 24.25 19.5556 24.25C20.7829 24.25 21.7778 23.2551 21.7778 22.0278C21.7778 20.8005 20.7829 19.8056 19.5556 19.8056ZM19.5556 19.8056H8.44444M8.44444 19.8056C7.21714 19.8056 6.22222 20.8005 6.22222 22.0278C6.22222 23.2551 7.21714 24.25 8.44444 24.25C9.67174 24.25 10.6667 23.2551 10.6667 22.0278C10.6667 20.8005 9.67174 19.8056 8.44444 19.8056Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                      </button>
-                    </div>
-                    </sc-if>
-                    <sc-if value="{{ cardV2 }}" hint-placeholder-val="{{ false }}">
-                      <div style="padding:0 12px 14px"></div>
-                    </sc-if>
-                  </div>
+                  <dc-import name="Components/ProductCard" variant="desktop" card="{{ cell.card }}" on-open="{{ cell.openCard }}" hint-size="100%,451px" style="width:100%;height:100%"></dc-import>
                 </sc-if>
               </sc-for>
             </div>
@@ -553,120 +441,9 @@
 
 
     <sc-if value="{{ isGrid }}" hint-placeholder-val="{{ true }}">
-      <div style="padding:0 12px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div style="padding:0 8px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px">
         <sc-for list="{{ products }}" as="p" hint-placeholder-count="6">
-          <div style="background:#fff;border-radius:12px;display:flex;flex-direction:column;overflow:hidden">
-            <a href="#" onClick="{{ p.open }}" style="position:relative;height:160px;display:block;padding:10px 10px 0;color:#101117">
-              <span class="pimg" style="{{ p.imgStyle }}"></span>
-              <sc-if value="{{ p.cashbackV1 }}" hint-placeholder-val="{{ false }}">
-                <span style="position:absolute;top:6px;right:6px;width:46px;height:46px;border-radius:50%;background:#0090DF;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05">
-                  <span style="font-size:4.5px;font-weight:700">POVRAT NOVCA</span>
-                  <span style="font-size:17px;font-weight:800;letter-spacing:-0.03em">{{ p.cashbackV1 }}</span>
-                  <span style="font-size:7px;font-weight:700">EUR</span>
-                </span>
-              </sc-if>
-              <sc-if value="{{ p.cashbackV2 }}" hint-placeholder-val="{{ false }}">
-                <span style="position:absolute;top:6px;left:6px;width:46px;height:46px;border-radius:50%;background:#0090DF;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.05;z-index:2">
-                  <span style="font-size:4.5px;font-weight:700">POVRAT NOVCA</span>
-                  <span style="font-size:17px;font-weight:800;letter-spacing:-0.03em">{{ p.cashbackV2 }}</span>
-                  <span style="font-size:7px;font-weight:700">EUR</span>
-                </span>
-              </sc-if>
-              <sc-if value="{{ cardV2 }}" hint-placeholder-val="{{ false }}">
-                <span style="position:absolute;top:6px;right:6px;display:flex;flex-direction:column;gap:5px;z-index:2">
-                  <button onClick="{{ p.stop }}" title="Spremi" style="width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid #E3E4E9;display:flex;align-items:center;justify-content:center;color:#545F71">
-                    <svg width="16" height="16" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                  </button>
-                  <button onClick="{{ p.stop }}" title="Usporedi" style="width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid #E3E4E9;display:flex;align-items:center;justify-content:center;color:#545F71">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg>
-                  </button>
-                </span>
-              </sc-if>
-              <span style="position:absolute;left:10px;bottom:0;display:flex;flex-direction:column;align-items:flex-start;gap:4px">
-                <sc-if value="{{ p.energy }}" hint-placeholder-val="{{ true }}">
-                  <span style="display:flex;align-items:center;gap:2px">
-                    <span style="display:flex;flex-direction:column;align-items:center;font-size:5px;font-weight:700;color:#101117;line-height:1.1;background:#fff;border:1px solid #C7C7CD;padding:1px 2px"><span>A</span><span>↑</span><span>G</span></span>
-                    <span style="background:#00A650;color:#fff;font-size:11px;font-weight:700;line-height:1;padding:4px 12px 4px 6px;clip-path:polygon(0 0,80% 0,100% 50%,80% 100%,0 100%)">{{ p.energy }}</span>
-                  </span>
-                </sc-if>
-                <sc-if value="{{ cardV1 }}" hint-placeholder-val="{{ true }}">
-                  <span style="display:flex;flex-wrap:wrap;gap:4px">
-                    <sc-for list="{{ p.pillsMob }}" as="pl" hint-placeholder-count="2">
-                      <span style="{{ pl.style }}">{{ pl.label }}</span>
-                    </sc-for>
-                  </span>
-                </sc-if>
-              </span>
-            </a>
-            <div style="padding:10px 10px 0;display:flex;flex-direction:column;flex:1">
-              <sc-if value="{{ cardV2 }}" hint-placeholder-val="{{ false }}">
-                <span style="{{ p.pillRowMob }}">
-                  <sc-for list="{{ p.pillsMob }}" as="pl" hint-placeholder-count="2">
-                    <span style="{{ pl.style }}">{{ pl.label }}</span>
-                  </sc-for>
-                </span>
-              </sc-if>
-              <div style="{{ p.titleZoneMob }}">
-                <a href="#" onClick="{{ p.open }}" style="{{ p.titleStyleMob }}">{{ p.name }}</a>
-              </div>
-              <div style="{{ p.metaZoneMob }}">
-              <sc-if value="{{ p.rated }}" hint-placeholder-val="{{ true }}">
-              <div style="display:flex;align-items:center;gap:5px;margin-top:8px">
-                <span style="display:flex;gap:1px">
-                  <sc-for list="{{ p.stars }}" as="st" hint-placeholder-count="5">
-                    <svg width="11" height="11" viewBox="0 0 24 24" fill="{{ st }}"><path d="M12 2.6l2.9 5.88 6.5.95-4.7 4.58 1.11 6.47L12 17.42 6.19 20.48 7.3 14.01 2.6 9.43l6.5-.95L12 2.6z"></path></svg>
-                  </sc-for>
-                </span>
-                <span style="font-size:11px;color:#545F71">{{ p.ratingLabel }}</span>
-              </div>
-              </sc-if>
-              <div style="display:flex;align-items:center;gap:6px;font-size:12px;{{ p.stockGapMob }}white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">
-                <span style="{{ p.availIconStyle }}"></span>
-                <span style="{{ p.availStyle }}">{{ p.avail }}</span>
-              </div>
-              <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#101117;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">
-                <span style="display:flex;flex-shrink:0"><svg width="12.5" height="12.5" viewBox="0 0 23 23" fill="none"><path d="M3.83333 9.58333V20.125H19.1667V9.58333M9.10417 20.125V11.9792H13.8958V20.125M4.3125 2.875H11.0208H18.6875L20.125 7.1875V8.14583C20.125 10.0625 17.25 10.0625 17.25 8.14583C17.25 10.0625 14.375 10.0625 14.375 8.14583C14.375 10.0625 11.5 10.0625 11.5 8.14583C11.5 10.0625 8.625 10.0625 8.625 8.14583C8.625 10.0625 5.75 10.0625 5.75 8.14583C5.75 10.0625 2.875 10.0625 2.875 8.14583V7.1875L4.3125 2.875Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
-                Prodavatelj: <span style="color:#0050A0;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">{{ p.seller }}</span>
-              </div>
-              </div>
-              <div style="{{ p.priceBlockMob }}">
-              <div style="display:flex;align-items:baseline;gap:6px;flex-wrap:wrap">
-                <span style="{{ p.priceStyleMob }}">{{ p.priceInt }}<span style="font-size:12px;font-weight:700;position:relative;top:-0.55em">{{ p.priceCents }}</span> €</span>
-                <sc-if value="{{ p.old }}" hint-placeholder-val="{{ false }}">
-                  <span style="font-size:12px;color:#8B95A5;text-decoration:line-through">{{ p.old }}</span>
-                </sc-if>
-              </div>
-              <div style="display:flex;align-items:center;gap:6px;background:rgba(0,80,160,0.06);border-radius:8px;padding:5px 9px;margin-top:2px;align-self:stretch">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0050A0" stroke-width="2" stroke-linecap="round" style="flex-shrink:0"><rect x="1" y="4" width="22" height="16" rx="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-                <span style="font-size:10px;color:#0050A0;font-weight:500;line-height:1.3">ili <strong style="font-weight:700">{{ p.instal }}</strong></span>
-              </div>
-              <div style="{{ p.codeSlotMob }}">
-                <sc-if value="{{ p.code }}" hint-placeholder-val="{{ false }}">
-                  <span style="{{ p.codeStyleMobCard }}">{{ p.code }}</span>
-                </sc-if>
-              </div>
-              <div style="font-size:9px;color:#8B95A5;margin-top:6px;line-height:1.3">MPC na {{ p.anchorDate }} {{ p.anchor }}</div>
-              </div>
-            </div>
-            <sc-if value="{{ cardV1 }}" hint-placeholder-val="{{ true }}">
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:10px">
-              <button style="display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;font-family:Inter,sans-serif;font-size:11px;color:#545F71">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg>
-                Usporedi
-              </button>
-              <button style="display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;font-family:Inter,sans-serif;font-size:11px;color:#545F71">
-                <svg width="18" height="18" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                Spremi
-              </button>
-              <button onClick="{{ p.addCart }}" class="bbcta" style="{{ p.cartStyleMob }}">
-                <svg width="18" height="18" viewBox="0 0 30 30" fill="none"><path d="M4 4.25H6.22222L6.66667 6.47222M6.66667 6.47222L8.44444 15.3611H19.5556L24 6.47222H6.66667ZM19.5556 19.8056C18.3283 19.8056 17.3333 20.8005 17.3333 22.0278C17.3333 23.2551 18.3283 24.25 19.5556 24.25C20.7829 24.25 21.7778 23.2551 21.7778 22.0278C21.7778 20.8005 20.7829 19.8056 19.5556 19.8056ZM19.5556 19.8056H8.44444M8.44444 19.8056C7.21714 19.8056 6.22222 20.8005 6.22222 22.0278C6.22222 23.2551 7.21714 24.25 8.44444 24.25C9.67174 24.25 10.6667 23.2551 10.6667 22.0278C10.6667 20.8005 9.67174 19.8056 8.44444 19.8056Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-              </button>
-            </div>
-            </sc-if>
-            <sc-if value="{{ cardV2 }}" hint-placeholder-val="{{ false }}">
-              <div style="padding:0 10px 12px"></div>
-            </sc-if>
-          </div>
+          <dc-import name="Components/ProductCard" variant="mobile" card="{{ p.card }}" on-open="{{ p.openCard }}" hint-size="100%,390px" style="width:100%;height:100%"></dc-import>
         </sc-for>
       </div>
     </sc-if>
@@ -1222,8 +999,8 @@ class Component extends DCLogic {
     const garanURI = (p) => { const g = garanOf(p); return g && window.BBEU ? window.BBEU.nestedURI(g.years) : ''; };
     const garanAlt = (p) => { const g = garanOf(p); return g && window.BBEU ? window.BBEU.alt(g.years) : ''; };
     const setImg = (row, idx) => this.setState(st => ({ imgIdx: Object.assign({}, st.imgIdx, { [row]: idx }) }));
-    const v2 = this.props.cardStyle === 'v2' || this.props.cardStyle === 'v3';
-    const v3 = this.props.cardStyle === 'v3';
+    const v2 = true;
+    const v3 = false;
     const decorate = (p, i) => {
       const gallery = [p.img, PROD[(i + 1) % PROD.length].img, PROD[(i + 2) % PROD.length].img, PROD[(i + 3) % PROD.length].img, PROD[(i + 4) % PROD.length].img];
       const gi = ((s.imgIdx[i] || 0) % gallery.length + gallery.length) % gallery.length;
@@ -1245,7 +1022,25 @@ class Component extends DCLogic {
       if (i % 4 === 1) add('UAU Klub', '#0050A0');
       if (refurb) add('Obnovljeno', '#C8D400', '#002D73');
       const code = refurb ? '-199,00 u odnosu na novi' : (i % 3 !== 2 ? 'Dodatnih 20% uz kod' : '');
+      const num = (v) => parseFloat(String(v || '').replace(/[^0-9,]/g, '').replace(',', '.')) || 0;
+      const cardPills = [];
+      if (i % 3 === 0) cardPills.push({ label: 'Sponzorirano', tone: 'navy' });
+      if (p.old) cardPills.push({ label: '-' + Math.round(num(p.old) - num(p.price)) + '€', tone: 'red' });
+      if (i % 4 === 1) cardPills.push({ label: 'UAU Klub', tone: 'blue' });
+      if (refurb) cardPills.push({ label: 'Obnovljeno', tone: 'lime' });
+      const card = {
+        img: gallery[gi], name: p.name, price: p.price, old: p.old || '', rate: '25,99 €',
+        cashback: i % 4 === 0 ? '100' : '', warranty: i % 4 === 0 ? '5' : '',
+        energy: i % 5 === 3 ? '' : 'A', pills: cardPills,
+        rating: rated ? Math.round(score) : 0, reviews: [218, 96, 47, 312, 15, 64][i % 6],
+        avail: av.text, availTone: av.out ? 'out' : (av.green ? 'in' : 'wait'),
+        seller: i % 6 === 3 ? 'Electronics Emporium HR' : 'Big Bang',
+        codePct: (!refurb && i % 3 !== 2) ? 20 : 0,
+        anchor: p.anchor || p.old || p.price, anchorDate: p.anchorDate || '10.09.2026.'
+      };
       return {
+        card: card,
+        openCard: () => openP(p),
         raw: p,
         garan: garanOf(p),
         garanURI: garanURI(p),

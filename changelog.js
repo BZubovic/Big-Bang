@@ -2,6 +2,24 @@
    Shown in the "Prototype settings" panel via "View logs". */
 window.BB_CHANGELOG = [
   {
+    date: '23.09.2026.',
+    title: 'Nova kartica proizvoda na cijelom webshopu',
+    changes: [
+      'Nova kartica proizvoda u karuselima i na kategorijskoj stranici (desktop i mobitel).',
+      'Povrat novca i naljepnica jamstva gore lijevo, spremanje i usporedba gore desno.',
+      'Energetski razred i oznake (Sponzorirano, popust, UAU Klub, Obnovljeno) slažu se od dna slike prema gore.',
+      'Fiksni raspored: kad ocjena ili promo kod nedostaju, njihovo mjesto ostaje prazno pa su kartice u redu poravnate.',
+      'Rate u plavom okviru, promo kod u zelenom okviru s cijenom uz kod, sidrena cijena (MPC) uvijek na dnu kartice.',
+      'Mobilna mreža kategorije: 2 stupca s razmakom 8 px.',
+      'Uklonjen stari prekidač "Kartica proizvoda" iz postavki prototipa.',
+      'Nove ikone za rate i promo kod; okvir promo koda ima isprekidani rub.',
+      'Decimale glavne cijene iste su veličine kao cijena, podignute u eksponent.',
+      'Kad naslov stane u jedan red, ocjena, dostupnost i prodavatelj pomiču se gore; cjenovni dio i MPC ostaju uz dno kartice.',
+      '"Dostupno za 2 – 3 radna dana" zeleno kao "Na zalihi"; "Nije na zalihi" sivim tekstom uz crvenu točku.',
+      'Dvoredni slider na naslovnici koristi isti okvir promo koda.',
+    ],
+  },
+  {
     date: '22.09.2026.',
     title: 'Sidrena cijena (MPC na) premještena ispod oznake promo koda',
     changes: [

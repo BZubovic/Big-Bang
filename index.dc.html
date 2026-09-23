@@ -608,13 +608,6 @@ class Component extends DCLogic {
           list.push(pair('Vrsta korisnika', 'Postojeći', 'Novi', !tw.newUser,
             () => this.setTweak('newUser', false), () => this.setTweak('newUser', true)));
         }
-        if (s.page === 'category' || s.page === 'search') {
-          list.push(trio('Kartica proizvoda', [
-            ['Bez gumba', tw.card === 'v2', () => this.setTweak('card', 'v2')],
-            ['Standardna', tw.card === 'v1', () => this.setTweak('card', 'v1')],
-            ['Poravnata', tw.card === 'v3', () => this.setTweak('card', 'v3')]
-          ]));
-        }
         if (s.page === 'contact') {
           list.push(pair('Odjeli', 'Bento kartice', 'Jedan blok', tw.deptBento,
             () => this.setTweak('deptBento', true), () => this.setTweak('deptBento', false)));

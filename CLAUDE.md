@@ -63,6 +63,8 @@ Components/pdp/PDPBodyMobile.jsx   PDP mobile body + sticky CTA
 Components/SiteHeader.dc.html      header bars
 Components/SiteMenu.dc.html        hamburger / mega menu + mobile drawer
 Components/SiteFooter.dc.html      footer
+Components/ProductCard.dc.html     THE product card (desktop 269×451 / mobile 194×390) — used by
+                                   ProductCarousel and the category grid; never hand-roll a card
 Components/ProductCarousel.dc.html product row (desktop + mobile)
 Components/Breadcrumbs.dc.html     global breadcrumb
 Components/CategoryTiles.dc.html   category tile grid (homepage, empty cart, empty wishlist)
@@ -207,6 +209,20 @@ Pass `items: [{ label, onClick? }]` — last item is the current page (dark, 600
 brand-blue links. Desktop starts with "Big Bang", mobile with "Početna". Never hand-roll a
 `<nav>` breadcrumb inside a page.
 
+### ProductCard
+```html
+<dc-import name="Components/ProductCard" variant="desktop" card="{{ p.card }}"
+  on-open="{{ p.onOpen }}" hint-size="100%,451px"></dc-import>
+```
+`card`: `{ img, name, price, old?, rate?, cashback?, warranty?, energy?, pills?: [{ label, tone:
+'navy'|'red'|'blue'|'lime' }], rating?, reviews?, avail, availTone?: 'in'|'wait'|'out', seller?,
+codePct?, anchor?, anchorDate? }`. Fixed anatomy — every slot keeps its height when its data
+is missing, so rows of cards line up: image zone (200 / 154px) with cashback circle + warranty
+sticker top-left, wishlist/compare top-right, energy label + pills stacked from the image
+bottom upwards (overlaying the image); then 2-line title, rating row, availability, seller,
+price, instalment box (#EBF3FE), promo-code box (#E6F5EC, border #BDDDCE, text #0B7A48) and the
+MPC line (#808080). Mobile category grid: 2 columns, 8px side padding, 8px gap.
+
 ### ProductCarousel
 ```html
 <dc-import name="Components/ProductCarousel" variant="desktop"
@@ -254,7 +270,7 @@ with the EU GARAN label.
 **Anchored price ("sidrena cijena") — legally required from 1.10.2026.** Every product
 price display (cards, PDP, cart flyout, cross-sell) shows the regular price on the reference
 day as the last line of the price block — on product cards **below the promo-code label**, on the
-PDP under the instalment line: `MPC na 10.09.2026. 1.099,00 €` — 11px, `#8B95A5`,
+PDP under the instalment line: `MPC na 10.09.2026. 1.099,00 €` — 11px (9px on mobile cards), `#808080` on cards, `#8B95A5` on the PDP,
 never struck through (strike-through stays reserved for the 30-day lowest price). Cards fall
 back to `old || price` when no explicit `anchor` is given; `anchorDate` overrides the date.
 
