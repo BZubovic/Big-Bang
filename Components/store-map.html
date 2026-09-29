@@ -24,10 +24,13 @@
 <body>
 <div id="map"></div>
 <script>
-  var STORES = (window.BB_STORES || []);
+  var QS = new URLSearchParams(location.search);
+  var SET = QS.get('set');
+  var FOCUS = QS.has('focus') ? +QS.get('focus') : -1;
+  var STORES = (SET === 'kuhinje' ? window.BB_STORES_KUHINJE : window.BB_STORES) || [];
   var map = L.map('map', { scrollWheelZoom: false, zoomControl: true, attributionControl: true });
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors', maxZoom: 18
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    attribution: '© OpenStreetMap contributors © CARTO', subdomains: 'abcd', maxZoom: 19
   }).addTo(map);
 
   function icon(on) {
@@ -54,16 +57,32 @@
     markers[i].openPopup();
   }
 
-  if (markers.length) {
-    map.fitBounds(L.featureGroup(markers).getBounds(), { padding: [34, 34] });
+  var VIS = markers.map(function (m, i) { return i; });
+  function fitVis() {
+    var g = VIS.map(function (i) { return markers[i]; }).filter(Boolean);
+    if (!g.length) { map.setView([45.3, 16.3], 7); return; }
+    if (g.length === 1) map.setView(g[0].getLatLng(), 13);
+    else map.fitBounds(L.featureGroup(g).getBounds(), { padding: [34, 34] });
+  }
+  if (FOCUS > -1 && markers[FOCUS]) {
+    markers.forEach(function (m, i) { if (i !== FOCUS) map.removeLayer(m); });
+    markers[FOCUS].setIcon(icon(true));
+    map.setView([STORES[FOCUS].lat, STORES[FOCUS].lng], 15);
   } else {
-    map.setView([45.3, 16.3], 7);
+    fitVis();
   }
 
   window.addEventListener('message', function (e) {
     var d = e.data || {};
     if (typeof d.bbSelect === 'number') select(d.bbSelect, true);
-    if (d.bbReset) { if (active > -1) markers[active].setIcon(icon(false)); active = -1; map.closePopup(); map.fitBounds(L.featureGroup(markers).getBounds(), { padding: [34, 34] }); }
+    if (d.bbReset) { if (active > -1) markers[active].setIcon(icon(false)); active = -1; map.closePopup(); fitVis(); }
+    if (Array.isArray(d.bbFilter)) {
+      if (active > -1 && markers[active]) markers[active].setIcon(icon(false));
+      active = -1; map.closePopup();
+      VIS = d.bbFilter;
+      markers.forEach(function (m, i) { if (VIS.indexOf(i) > -1) m.addTo(map); else map.removeLayer(m); });
+      fitVis();
+    }
   });
 </script>
 </body>

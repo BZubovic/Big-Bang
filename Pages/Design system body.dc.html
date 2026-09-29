@@ -375,6 +375,14 @@
         </div>
 
         <div style="border:1px solid #E3E4E9;border-radius:10px;background:#F1F1F4;overflow:hidden">
+          <div style="padding:14px 18px;background:#fff;border-bottom:1px solid #E3E4E9;font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#8B95A5">PromoCard — vertical / side (Akcije i promocije, kategorije)</div>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:24px;padding:18px">
+            <dc-import name="Components/PromoCard" variant="desktop" promo="{{ demoPromo }}" hint-size="100%,470px"></dc-import>
+            <div style="height:300px"><dc-import name="Components/PromoCard" variant="desktop" layout="side" promo="{{ demoPromo }}" hint-size="100%,100%"></dc-import></div>
+          </div>
+        </div>
+
+        <div style="border:1px solid #E3E4E9;border-radius:10px;background:#F1F1F4;overflow:hidden">
           <div style="padding:14px 18px;background:#fff;border-bottom:1px solid #E3E4E9;font-size:12px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#8B95A5">Product card — varijante</div>
           <div style="padding:20px 18px;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start">
             <div style="flex:1 1 320px;min-width:280px;max-width:346px">
@@ -768,6 +776,7 @@ class Component extends DCLogic {
       }))
     }));
     return {
+      demoPromo: { img: 'images/hero-m-1.jpg', title: 'Stigle su vruće epic deals ponude uz besplatnu dostavu', text: 'Uštedi do 50% na više od 1000 artikala uz plaćanje do 24 rate i besplatnu dostavu.', cat: 'TV i audio', date: 'Do 5. lis. 2026.', urgency: 'Još 2 dana' },
       euNotice: (e) => { if (e) e.preventDefault(); if (window.BBEU) window.BBEU.openNotice(); },
       euLabel: (e) => { if (e) e.preventDefault(); if (window.BBEU) window.BBEU.openLabel({ years: 4, brand: 'Proizvođač', model: 'Model', statement: 'Primjer izjave proizvođača: jamstvo trajnosti pokriva cijeli proizvod, bez dodatnih troškova za potrošača. Ovo komercijalno jamstvo ne utječe na vaša prava iz zakonskog jamstva usklađenosti.' }); },
       euNestedSrc: window.BBEU ? window.BBEU.nestedURI(4) : '',

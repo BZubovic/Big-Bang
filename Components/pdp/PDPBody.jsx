@@ -859,23 +859,48 @@ function BuyBox({ bundleMode, ctaRef }) {
       </div>
 
       {/* Stock box under CTA */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 6, padding: '12px 14px',
-        background: '#F3FBF5', borderRadius: 10, border: `1px solid #C3EACC`, marginBottom: 14 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#1FB549', flexShrink: 0 }}/>
-          <span style={{ fontSize: 13, fontWeight: 600, color: T.text }}>Na stanju — dostupno odmah</span>
-        </div>
-        <div style={{ fontSize: 12, color: T.sub, paddingLeft: 24 }}>
-          Preuzimanje u poslovnici: dostupno u 12 poslovnica
-        </div>
-      </div>
-
-
+      <StockBox inStock={AV.inStock} shown={AV.shown} />
 
       {/* Buy summary (marketplace banner + table) */}
       <BuyBoxSummary offer={currentOffer} condition={currentCondition} isMarketplace={isMarketplace} />
     </div>);
 
+}
+
+
+// ─── Stock / availability box under the CTA → opens BBAvail flyout ───
+function StockBox({ inStock, shown }) {
+  const [hov, setHov] = React.useState(false);
+  const inf = window.BBAvail ? window.BBAvail.info(inStock, shown) : { title: '', sub: '', tone: inStock ? 'in' : 'out', icon: 'pin' };
+  const isIn = inf.tone === 'in';
+  const icons = {
+    eye: <><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></>,
+    pin: <><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></>,
+    mail: <><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></>,
+  };
+  const tileBg = isIn ? '#DDF2E3' : inf.icon === 'eye' ? '#EBF3FE' : '#E9EAEE';
+  const tileFg = isIn ? '#0B7A48' : inf.icon === 'eye' ? '#0050A0' : '#545F71';
+  const open = () => window.BBAvail && window.BBAvail.open({ inStock, shown,
+    product: { img: pv('img', 'images/pdp/main/galaxy-s24-yellow.png'), name: pv('name', 'Samsung Galaxy S24+ 5G Dual SIM SM-S926B 12/256GB'), price: pv('price', '1.099,99'), old: pv('old', '1.299,99') } });
+  return (
+    <button onClick={open} onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+      style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', marginBottom: 14, marginTop: 0,
+        background: isIn ? '#F3FBF5' : '#F7F7F9', border: '1px solid ' + (hov ? (isIn ? '#8FD3A2' : '#C7C7CD') : (isIn ? '#C3EACC' : '#E3E4E9')),
+        borderRadius: 12, cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit', transition: 'border-color .15s' }}>
+      <span style={{ width: 38, height: 38, borderRadius: '50%', background: tileBg, color: tileFg, flexShrink: 0,
+        display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{icons[inf.icon]}</svg>
+      </span>
+      <span style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 7, fontSize: 14, fontWeight: 700, color: '#101117', letterSpacing: '-0.01em' }}>
+          <span style={{ width: 8, height: 8, borderRadius: '50%', background: isIn ? '#1FB549' : '#DA0D00', flexShrink: 0 }}/>
+          {inf.title}
+        </span>
+        <span style={{ fontSize: 12, color: '#545F71', lineHeight: 1.4 }}>{inf.sub}</span>
+      </span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0050A0" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, transform: hov ? 'translateX(2px)' : 'none', transition: 'transform .15s' }}><polyline points="9 6 15 12 9 18"/></svg>
+    </button>
+  );
 }
 
 // ─── Buy box summary table (under Add to Cart) ────────────────────
@@ -1996,8 +2021,10 @@ function DesktopStickyBar({ bundleMode, visible }) {
 }
 
 
-function PDPBody({ bundleMode = false, product = null }) {
+let AV = { inStock: true, shown: true };
+function PDPBody({ bundleMode = false, product = null, availStock = true, availShown = true }) {
   P = product && product.name ? product : null;
+  AV = { inStock: availStock !== false, shown: availShown !== false };
   const [selectedColor] = React.useState('Amber Yellow');
   const ctaRef = React.useRef(null);
   const [showStickyBar, setShowStickyBar] = React.useState(false);

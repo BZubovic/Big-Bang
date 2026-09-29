@@ -66,6 +66,10 @@ Components/SiteFooter.dc.html      footer
 Components/ProductCard.dc.html     THE product card (desktop 269×451 / mobile 194×390) — used by
                                    ProductCarousel and the category grid; never hand-roll a card
 Components/ProductCarousel.dc.html product row (desktop + mobile)
+Components/PromoCard.dc.html     THE promotion card — layout vertical | side | side-rev, size md | lg;
+                                   used on Akcije i promocije and category "Istraži promocije"
+Pages/Promotions body.dc.html  "Akcije i promocije" (header nav) — category circles filter, featured bento,
+                               full grid with sort + load more
 Components/Breadcrumbs.dc.html     global breadcrumb
 Components/CategoryTiles.dc.html   category tile grid (homepage, empty cart, empty wishlist)
 Pages/Wishlist body.dc.html        wishlist content only
@@ -77,6 +81,10 @@ Pages/Legal guarantee body.dc.html "Vaša prava na zakonsko jamstvo" — EU noti
 terms-data.js                  Uvjeti kupnje legal text as data (chapters + blocks)
 Components/InfoPageHead.dc.html    white intro block for every "Usluge i uvjeti" page
 Components/InfoAnchorNav.dc.html   left column: the page's own section anchors (sticky)
+Pages/Kitchens body.dc.html    "Kuhinje" campaign landing (header nav link) — own sticky in-page
+                               anchor bar, booking form, giveaway countdown; photos in images/kuhinje/
+Pages/Stores body.dc.html      "Prodajna mjesta" (header nav) — InfoPageHead with city filter tabs,
+                               StoreLocator (city + onShowStore props), store detail panel
 Pages/Contact body.dc.html     "Kontakt" — support block, department cards, store locator,
                                company data (one column; opened from the header nav)
 Components/StoreLocator.dc.html    GLOBAL "Prodajna mjesta" widget — Leaflet map + scrollable
@@ -200,6 +208,15 @@ STRANICI"), `note` adds a small line under the list (e.g. "Zadnja izmjena: …")
 Navigation between the footer pages lives in the footer column itself — there is no
 page-to-page side nav.
 
+### PromoCard
+```html
+&lt;dc-import name="Components/PromoCard" variant="desktop" layout="vertical" promo="{{ pr }}"
+  on-open="{{ openPromo }}" hint-size="100%,470px"&gt;&lt;/dc-import&gt;
+```
+`promo`: `{ img (960×676), title, text, cat, date, urgency? }` — `urgency` ("Još 2 dana") shows a red chip on the
+image. `layout="side"` / `"side-rev"` puts the image (58%) left / right and fills the parent height; `size="lg"`
+enlarges the title. Mobile is always vertical and clips the text. Never hand-roll a promo card.
+
 ### Breadcrumbs
 ```html
 <dc-import name="Components/Breadcrumbs" variant="desktop" items="{{ crumbs }}" hint-size="100%,18px" style="margin-bottom:12px"></dc-import>
@@ -215,8 +232,13 @@ brand-blue links. Desktop starts with "Big Bang", mobile with "Početna". Never 
   on-open="{{ p.onOpen }}" hint-size="100%,451px"></dc-import>
 ```
 `card`: `{ img, name, price, old?, rate?, cashback?, warranty?, energy?, pills?: [{ label, tone:
-'navy'|'red'|'blue'|'lime' }], rating?, reviews?, avail, availTone?: 'in'|'wait'|'out', seller?,
-codePct?, anchor?, anchorDate? }`. Fixed anatomy — every slot keeps its height when its data
+'navy'|'orange'|'lime'|'red'|'blue' }], rating?, reviews?, options?, avail, availTone?: 'in'|'wait'|'out', seller?,
+codePct?, renewedSave?, reserveCode?, lowest?, anchor?, anchorDate? }`. FINAL DESIGN (28.09.2026.): image zone 193 / 150px
+with pills (Besplatna dostava navy, UAU Cena orange #F65F04, Obnovljeno lime) overlaid at its bottom; title 14/20;
+stars + "4.0(218)"; "Dostupno još N opcija" (underlined); "Na zalihi" green bold / "Artikl nije na zalihi" red dot;
+"Prodaje: <seller>"; old price struck + red "-400 €" badge; price 22px/700 black; EU energy arrow + "Informacijski list"
+right of price; promo box "Dodatnih 20% uz promo kod" (#E6F5EC, dashed) or lime "-232,00 € u odnosu na novi" for
+refurbished; "25,99 € / 12 rata"; then "Posljednja najniža cijena" + "Cijena na <date> <anchor>" (10px #8B95A5). Fixed anatomy — every slot keeps its height when its data
 is missing, so rows of cards line up: image zone (200 / 154px) with cashback circle + warranty
 sticker top-left, wishlist/compare top-right, energy label + pills stacked from the image
 bottom upwards (overlaying the image); then 2-line title, rating row, availability, seller,
@@ -270,7 +292,7 @@ with the EU GARAN label.
 **Anchored price ("sidrena cijena") — legally required from 1.10.2026.** Every product
 price display (cards, PDP, cart flyout, cross-sell) shows the regular price on the reference
 day as the last line of the price block — on product cards **below the promo-code label**, on the
-PDP under the instalment line: `MPC na 10.09.2026. 1.099,00 €` — 11px (9px on mobile cards), `#808080` on cards, `#8B95A5` on the PDP,
+PDP under the instalment line: `MPC na 10.09.2026. 1.099,00 €` (cards: `Cijena na 10.09.2026. 749,00 €`, last line, 10px / 9px mobile, `#8B95A5`), `#8B95A5` on the PDP,
 never struck through (strike-through stays reserved for the 30-day lowest price). Cards fall
 back to `old || price` when no explicit `anchor` is given; `anchorDate` overrides the date.
 
