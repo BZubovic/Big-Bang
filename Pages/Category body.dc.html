@@ -208,7 +208,7 @@
                   </div>
 
                   <div style="flex:1;min-width:0;overflow:hidden;margin-left:clamp(12px,2.4vw,40px);display:flex;flex-direction:column;align-items:flex-start">
-                    <a href="#" onClick="{{ p.open }}" style="margin-top:12px;max-width:560px;font-size:16px;font-weight:600;line-height:23px;letter-spacing:-0.01em;color:#101117;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden">{{ p.card.name }}</a>
+                    <a href="#" onClick="{{ p.open }}" style="margin-top:12px;max-width:560px;font-size:16px;font-weight:500;line-height:23px;letter-spacing:-0.01em;color:#101117;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden">{{ p.card.name }}</a>
                     <div style="margin-top:10px;min-height:21px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
                       <sc-if value="{{ p.listRated }}" hint-placeholder-val="{{ true }}">
                         <span style="display:flex;align-items:center;gap:4px">
@@ -229,12 +229,12 @@
                     </div>
                     <p style="margin:14px 0 0;max-width:520px;font-size:12px;line-height:18px;color:#545F71;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden">{{ p.spec }}</p>
                     <div style="margin-top:12px;display:flex;align-items:center;flex-wrap:wrap;column-gap:12px;row-gap:6px;white-space:nowrap">
-                      <span style="font-size:24px;font-weight:800;line-height:30px;letter-spacing:-0.01em;color:#101117">{{ p.listPrice }}</span>
-                      <sc-if value="{{ p.old }}" hint-placeholder-val="{{ false }}">
+                      <span style="font-size:22px;font-weight:800;line-height:30px;letter-spacing:-0.01em;color:#101117">{{ p.listPrice }}</span>
+                      <sc-if value="{{ p.listOld }}" hint-placeholder-val="{{ false }}">
                         <span style="font-size:15px;line-height:20px;color:#8B95A5;text-decoration:line-through">{{ p.listOld }}</span>
-                        <span style="height:20px;padding:0 5px;border-radius:3px;background:#DA0D00;color:#fff;font-size:14px;font-weight:800;line-height:20px">-{{ p.discPct }}%</span>
+                        <span style="height:20px;padding:0 5px;border-radius:3px;background:#DA0D00;color:#fff;font-size:14px;font-weight:600;line-height:20px">-{{ p.discPct }}%</span>
                       </sc-if>
-                      <span style="margin-left:4px;font-size:14px;font-weight:600;line-height:20px;letter-spacing:-0.01em;color:#101117">25,99 € / 12 rata</span>
+                      <sc-if value="{{ p.listRate }}" hint-placeholder-val="{{ true }}"><span style="margin-left:4px;font-size:14px;font-weight:600;line-height:20px;letter-spacing:-0.01em;color:#101117">25,99 € / 12 rata</span></sc-if>
                     </div>
                     <sc-if value="{{ p.listHasCode }}" hint-placeholder-val="{{ true }}">
                       <div style="margin-top:10px;max-width:100%;height:30px;box-sizing:border-box;background:#E6F5EC;border:1px dashed #9FD0B4;border-radius:6px;padding:0 8px;display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;color:#0B7A48;font-size:14px;font-weight:700;line-height:28px">
@@ -245,11 +245,10 @@
                     <sc-if value="{{ p.listRenewed }}" hint-placeholder-val="{{ false }}">
                       <div style="margin-top:10px;max-width:100%;height:30px;box-sizing:border-box;background:#CDD700;border-radius:6px;padding:0 8px;display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;color:#002D73;font-size:14px;font-weight:500;line-height:30px">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg>
-                        <span style="overflow:hidden;text-overflow:ellipsis;min-width:0"><strong style="font-weight:700">{{ p.listRenewed }}</strong> u odnosu na novi</span>
+                        <span style="overflow:hidden;text-overflow:ellipsis;min-width:0"><strong style="font-weight:600">{{ p.listRenewed }}</strong> u odnosu na novi</span>
                       </div>
                     </sc-if>
                     <div style="margin-top:auto;padding-top:14px;max-width:100%;display:flex;flex-wrap:wrap;column-gap:24px;row-gap:2px;font-size:10px;line-height:14px;color:#8B95A5">
-                      <span>Posljednja najniža cijena: {{ p.listLowest }}</span>
                       <span>Cijena na {{ p.anchorDate }} {{ p.anchor }}</span>
                     </div>
                   </div>
@@ -261,7 +260,7 @@
                     </div>
                     <div style="margin-top:8px;height:20px;display:flex;align-items:center;gap:10px;white-space:nowrap;font-size:14px;line-height:20px;color:#545F71;min-width:0;overflow:hidden">
                       <svg width="14" height="14" viewBox="2.1 2.1 18.8 18.8" fill="none" style="flex-shrink:0;color:#7F8795"><path d="M3.83333 9.58333V20.125H19.1667V9.58333M9.10417 20.125V11.9792H13.8958V20.125M4.3125 2.875H11.0208H18.6875L20.125 7.1875V8.14583C20.125 10.0625 17.25 10.0625 17.25 8.14583C17.25 10.0625 14.375 10.0625 14.375 8.14583C14.375 10.0625 11.5 10.0625 11.5 8.14583C11.5 10.0625 8.625 10.0625 8.625 8.14583C8.625 10.0625 5.75 10.0625 5.75 8.14583C5.75 10.0625 2.875 10.0625 2.875 8.14583V7.1875L4.3125 2.875Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                      <span style="display:flex;gap:5px;min-width:0;overflow:hidden">Prodaje: <a href="#" style="color:#0050A0;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0">{{ p.card.seller }}</a></span>
+                      <span style="display:flex;gap:5px;min-width:0;overflow:hidden">Prodaje: <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0">{{ p.card.seller }}</span></span>
                     </div>
                     <sc-if value="{{ p.card.energy }}" hint-placeholder-val="{{ true }}">
                       <div style="margin-top:32px;display:flex;align-items:center;gap:12px">
@@ -503,7 +502,7 @@
             </div>
 
             <div style="flex:1;min-width:0;display:flex;flex-direction:column;align-items:stretch">
-              <a href="#" onClick="{{ p.open }}" style="font-size:14px;font-weight:600;line-height:19px;letter-spacing:-0.01em;color:#101117;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden">{{ p.card.name }}</a>
+              <a href="#" onClick="{{ p.open }}" style="font-size:14px;font-weight:500;line-height:19px;letter-spacing:-0.01em;color:#101117;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden">{{ p.card.name }}</a>
               <sc-if value="{{ p.listRated }}" hint-placeholder-val="{{ true }}">
                 <div style="margin-top:5px;height:15px;display:flex;align-items:center;gap:4px">
           <span style="display:flex;gap:1px">
@@ -523,14 +522,14 @@
               </div>
               <div style="margin-top:6px;height:17px;display:flex;align-items:center;gap:9px;white-space:nowrap;font-size:12px;line-height:17px;color:#545F71;min-width:0">
                 <svg width="12" height="12" viewBox="2.1 2.1 18.8 18.8" fill="none" style="flex-shrink:0;color:#7F8795"><path d="M3.83333 9.58333V20.125H19.1667V9.58333M9.10417 20.125V11.9792H13.8958V20.125M4.3125 2.875H11.0208H18.6875L20.125 7.1875V8.14583C20.125 10.0625 17.25 10.0625 17.25 8.14583C17.25 10.0625 14.375 10.0625 14.375 8.14583C14.375 10.0625 11.5 10.0625 11.5 8.14583C11.5 10.0625 8.625 10.0625 8.625 8.14583C8.625 10.0625 5.75 10.0625 5.75 8.14583C5.75 10.0625 2.875 10.0625 2.875 8.14583V7.1875L4.3125 2.875Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                <span style="display:flex;gap:4px;min-width:0">Prodaje: <span style="color:#0050A0;font-weight:600;overflow:hidden;text-overflow:ellipsis;min-width:0">{{ p.card.seller }}</span></span>
+                <span style="display:flex;gap:4px;min-width:0">Prodaje: <span style="overflow:hidden;text-overflow:ellipsis;min-width:0">{{ p.card.seller }}</span></span>
               </div>
               <div style="margin-top:auto;padding-top:12px;display:flex;align-items:flex-end;justify-content:space-between;gap:6px">
                 <div style="min-width:0">
                   <div style="height:17px;display:flex;align-items:center;gap:5px;white-space:nowrap">
-                    <sc-if value="{{ p.old }}" hint-placeholder-val="{{ false }}">
+                    <sc-if value="{{ p.listOld }}" hint-placeholder-val="{{ false }}">
                       <span style="font-size:12px;line-height:17px;color:#8B95A5;text-decoration:line-through">{{ p.listOld }}</span>
-                      <span style="height:17px;padding:0 4px;border-radius:3px;background:#DA0D00;color:#fff;font-size:12px;font-weight:800;line-height:17px">-{{ p.discPct }}%</span>
+                      <span style="height:17px;padding:0 4px;border-radius:3px;background:#DA0D00;color:#fff;font-size:12px;font-weight:600;line-height:17px">-{{ p.discPct }}%</span>
                     </sc-if>
                   </div>
                   <div style="margin-top:1px;font-size:19px;font-weight:800;line-height:24px;letter-spacing:-0.01em;color:#101117;white-space:nowrap">{{ p.listPrice }}</div>
@@ -554,12 +553,11 @@
               <sc-if value="{{ p.listRenewed }}" hint-placeholder-val="{{ false }}">
                 <div style="margin-top:8px;height:24px;box-sizing:border-box;background:#CDD700;border-radius:5px;padding:0 6px;display:flex;align-items:center;gap:5px;white-space:nowrap;overflow:hidden;color:#002D73;font-size:11.5px;font-weight:500;line-height:24px">
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg>
-                  <span style="overflow:hidden;text-overflow:ellipsis"><strong style="font-weight:700">{{ p.listRenewed }}</strong> u odnosu na novi</span>
+                  <span style="overflow:hidden;text-overflow:ellipsis"><strong style="font-weight:600">{{ p.listRenewed }}</strong> u odnosu na novi</span>
                 </div>
               </sc-if>
-              <div style="margin-top:8px;font-size:12.5px;font-weight:600;line-height:17px;letter-spacing:-0.01em;color:#101117;white-space:nowrap">25,99 € / 12 rata</div>
-              <div style="margin-top:4px;font-size:9.5px;line-height:13px;color:#8B95A5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Posljednja najniža cijena: {{ p.listLowest }}</div>
-              <div style="font-size:9.5px;line-height:13px;color:#8B95A5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cijena na {{ p.anchorDate }} {{ p.anchor }}</div>
+              <div style="margin-top:8px;height:17px;font-size:12.5px;font-weight:600;line-height:17px;letter-spacing:-0.01em;color:#101117;white-space:nowrap"><sc-if value="{{ p.listRate }}" hint-placeholder-val="{{ true }}">25,99 € / 12 rata</sc-if></div>
+              <div style="margin-top:4px;font-size:9.5px;line-height:13px;color:#8B95A5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cijena na {{ p.anchorDate }} {{ p.anchor }}</div>
             </div>
           </div>
         </sc-for>
@@ -1029,7 +1027,19 @@ class Component extends DCLogic {
     const setImg = (row, idx) => this.setState(st => ({ imgIdx: Object.assign({}, st.imgIdx, { [row]: idx }) }));
     const v2 = true;
     const v3 = false;
+    const L3_FIRST = [
+      { p: { img: 'images/l3-perilica-samsung.png', name: 'Perilica rublja Samsung WW90T534DAW 9kg bijela', price: '1.099,99 €', old: '1.499,99 €', anchor: '749,00 €' },
+        card: { pills: [{ label: 'Besplatna dostava', tone: 'navy' }], rating: 4, reviews: 218, options: 6, avail: 'Na zalihi', availTone: 'in', seller: 'Big Bang', warranty: '5', cashback: '', energy: 'A', codePct: 20, renewedSave: '', priceTag: '' } },
+      { p: { img: 'images/l3-hladnjak-samsung.png', name: 'Hladnjak Samsung RF65A967EB1 Family Hub crni', price: '1.099,99 €', old: '', anchor: '749,00 €' },
+        card: { pills: [{ label: 'Besplatna dostava', tone: 'navy' }, { label: 'UAU hot deals', tone: 'orange' }, { label: 'Besplatna montaža', tone: 'blue' }], rating: 0, options: 6, avail: 'Artikl nije na zalihi', availTone: 'out', seller: 'Electronics Emporium HR', warranty: '', cashback: '', energy: 'A', codePct: 20, renewedSave: '', priceTag: '' } },
+      { p: { img: 'images/l3-ploca-indukcija.png', name: 'Indukcijska ploča za kuhanje ugradbena crna', price: '1.099,99 €', old: '', anchor: '749,00 €' },
+        card: { pills: [], rating: 4, reviews: 218, options: 6, avail: 'Dostupno za 2-3 radna dana', availTone: 'wait', seller: 'Big Bang', warranty: '', cashback: '100', energy: 'A', codePct: 20, renewedSave: '', priceTag: 'UAU CENA' } }
+    ];
     const decorate = (p, i) => {
+      const first = level === 3 && !isSearch ? L3_FIRST[i] : null;
+      if (first) p = Object.assign({}, p, first.p);
+      const goodDeal = level === 3 && !isSearch && i === (mobile ? 2 : 3);
+      if (goodDeal) p = Object.assign({}, p, { old: '' });
       const gallery = [p.img, PROD[(i + 1) % PROD.length].img, PROD[(i + 2) % PROD.length].img, PROD[(i + 3) % PROD.length].img, PROD[(i + 4) % PROD.length].img];
       const gi = ((s.imgIdx[i] || 0) % gallery.length + gallery.length) % gallery.length;
       const bits = String(p.price).replace(' €', '').split(',');
@@ -1061,8 +1071,8 @@ class Component extends DCLogic {
       const cardPills = [];
       if (refurb) cardPills.push({ label: 'Obnovljeno', tone: 'lime' });
       else if (i % 5 !== 4) cardPills.push({ label: 'Besplatna dostava', tone: 'navy' });
-      if (i % 4 === 1) cardPills.push({ label: 'UAU Cena', tone: 'orange' });
-      if (i === 1) cardPills.splice(0, cardPills.length, ...[{ label: 'Besplatna dostava', tone: 'navy' }, { label: 'UAU Cena', tone: 'orange' }, { label: 'Besplatna montaža', tone: 'blue' }, { label: 'Poklon uz kupnju', tone: 'red' }, { label: 'Dostava 24 h', tone: 'navy' }]);
+      if (i % 4 === 1) cardPills.push({ label: 'Razrezana cena', tone: 'blue' });
+      if (i === 1) cardPills.splice(0, cardPills.length, ...[{ label: 'Besplatna dostava', tone: 'navy' }, { label: 'Razrezana cena', tone: 'blue' }, { label: 'Besplatna montaža', tone: 'blue' }, { label: 'Poklon uz kupnju', tone: 'red' }, { label: 'Dostava 24 h', tone: 'navy' }]);
       const card = {
         img: gallery[gi], name: p.name, price: p.price, old: p.old || '', rate: '25,99 € / 12 rata', options: i % 3 === 1 && !noRev ? 6 : 0,
         renewedSave: refurb ? '-' + Math.round(num(p.price) * 0.2) + ',00 €' : '',
@@ -1074,21 +1084,24 @@ class Component extends DCLogic {
         codePct: noCode || refurb ? 0 : 20, reserveCode: !rowNoCode,
         anchor: p.anchor || p.old || p.price, anchorDate: p.anchorDate || '10.09.2026.'
       };
+      if (first) Object.assign(card, first.card, { reserveCode: true });
+      if (goodDeal) Object.assign(card, { old: '', priceTag: 'DOBRA PONUDA', priceTagTone: 'green', rate: '', codePct: 0 });
       const PT = { navy: ['#002D73', '#fff'], orange: ['#F65F04', '#fff'], red: ['#DA0D00', '#fff'], blue: ['#0050A0', '#fff'], lime: ['#CDD700', '#002D73'] };
-      const listPills = cardPills.slice(0, 2).map(pl => ({ label: pl.label, style: { background: PT[pl.tone][0], color: PT[pl.tone][1], fontSize: 13, fontWeight: 700, height: 22, lineHeight: '22px', padding: '0 8px', borderRadius: 4, whiteSpace: 'nowrap' } }));
+      const listPills = cardPills.slice(0, 2).map(pl => ({ label: pl.label, style: { background: PT[pl.tone][0], color: PT[pl.tone][1], fontSize: 13, fontWeight: 600, height: 22, lineHeight: '22px', padding: '0 8px', borderRadius: 4, whiteSpace: 'nowrap' } }));
       const eur = (v) => (String(v).indexOf('€') > -1 ? String(v) : String(v) + ' €');
       const tone = card.availTone;
       const fmtE = (n) => { const [x, y] = n.toFixed(2).split('.'); return x.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',' + y + ' €'; };
       return {
         listPills: listPills,
-        listPillsMob: cardPills.slice(0, 3).map(pl => ({ label: pl.label, style: { background: PT[pl.tone][0], color: PT[pl.tone][1], fontSize: 11, fontWeight: 700, height: 18, lineHeight: '18px', padding: '0 6px', borderRadius: 4, whiteSpace: 'nowrap', maxWidth: '100%', overflow: 'hidden', textOverflow: 'ellipsis', boxSizing: 'border-box' } })),
-        listPrice: eur(p.price), listOld: p.old ? eur(p.old) : '',
+        listPillsMob: cardPills.slice(0, 3).map(pl => ({ label: pl.label, style: { background: PT[pl.tone][0], color: PT[pl.tone][1], fontSize: 11, fontWeight: 600, height: 18, lineHeight: '18px', padding: '0 6px', borderRadius: 4, whiteSpace: 'nowrap', maxWidth: '100%', overflow: 'hidden', textOverflow: 'ellipsis', boxSizing: 'border-box' } })),
+        listRate: !!card.rate,
+        listPrice: eur(p.price), listOld: p.old && !refurb ? eur(p.old) : '',
         listLowest: fmtE(num(p.price) * 0.92),
-        listOptions: card.options ? 'Dostupno još ' + card.options + ' opcija' : '',
+        listOptions: card.options ? 'Dostupno još ' + card.options + ' opcija →' : '',
         listRenewed: card.renewedSave ? eur(card.renewedSave) : '',
         listPriceStyleMob: { fontSize: 22, fontWeight: 700, lineHeight: '24px', letterSpacing: '-0.01em', color: p.old ? '#DA0D00' : '#101117' },
         listDotStyleMob: { width: 10, height: 10, borderRadius: '50%', display: 'block', background: tone === 'out' ? '#DA0D00' : '#0B7A48' },
-        listAvailStyleMob: { fontSize: 13, lineHeight: '17px', fontWeight: tone === 'out' ? 500 : 700, color: tone === 'out' ? '#8B95A5' : '#0B7A48' },
+        listAvailStyleMob: { fontSize: 13, lineHeight: '17px', fontWeight: tone === 'out' ? 500 : 600, color: tone === 'out' ? '#8B95A5' : '#0B7A48' },
         listDotsMob: gallery.slice(0, 4).map((g, n) => ({
           onClick: (e) => { if (e) { e.preventDefault(); e.stopPropagation(); } setImg(i, n); },
           style: { width: 11, height: 11, padding: 0, boxSizing: 'border-box', borderRadius: '50%', display: 'block', background: n === gi ? '#002D73' : '#fff', border: n === gi ? 'none' : '1px solid #8B8B8B' }
@@ -1101,7 +1114,7 @@ class Component extends DCLogic {
         listCodePrice: card.codePct ? fmtE(num(p.price) * (1 - card.codePct / 100)) : '',
         listPriceStyle: { fontSize: 24, fontWeight: 700, lineHeight: '26px', letterSpacing: '-0.01em', color: p.old ? '#DA0D00' : '#101117' },
         listDotStyle: { width: 10, height: 10, borderRadius: '50%', display: 'block', background: tone === 'out' ? '#DA0D00' : '#0B7A48' },
-        listAvailStyle: { minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: 15, lineHeight: '20px', fontWeight: tone === 'out' ? 500 : 700, color: tone === 'out' ? '#8B95A5' : '#0B7A48' },
+        listAvailStyle: { minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: 15, lineHeight: '20px', fontWeight: tone === 'out' ? 500 : 600, color: tone === 'out' ? '#8B95A5' : '#0B7A48' },
         listDots: gallery.slice(0, 4).map((g, n) => ({
           onClick: (e) => { if (e) { e.preventDefault(); e.stopPropagation(); } setImg(i, n); },
           style: { width: 11, height: 11, padding: 0, boxSizing: 'border-box', borderRadius: '50%', cursor: 'pointer', display: 'block', background: n === gi ? '#002D73' : '#fff', border: n === gi ? 'none' : '1px solid #B8B8B8' }

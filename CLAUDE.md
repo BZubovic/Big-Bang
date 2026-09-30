@@ -232,13 +232,13 @@ brand-blue links. Desktop starts with "Big Bang", mobile with "Početna". Never 
   on-open="{{ p.onOpen }}" hint-size="100%,451px"></dc-import>
 ```
 `card`: `{ img, name, price, old?, rate?, cashback?, warranty?, energy?, pills?: [{ label, tone:
-'navy'|'orange'|'lime'|'red'|'blue' }], rating?, reviews?, options?, avail, availTone?: 'in'|'wait'|'out', seller?,
+'navy'|'orange'|'lime'|'red'|'blue' }], rating?, reviews?, options?, avail, availTone?: 'in'|'wait'|'out', seller?, priceTag? ("UAU CENA" label in the old-price row, only when there is no old price; priceTagTone: 'green' → #0B7A48 e.g. "DOBRA PONUDA"),
 codePct?, renewedSave?, reserveCode?, lowest?, anchor?, anchorDate? }`. FINAL DESIGN (28.09.2026.): image zone 193 / 150px
 with pills (Besplatna dostava navy, UAU Cena orange #F65F04, Obnovljeno lime) overlaid at its bottom; title 14/20;
 stars + "4.0(218)"; "Dostupno još N opcija" (underlined); "Na zalihi" green bold / "Artikl nije na zalihi" red dot;
 "Prodaje: <seller>"; old price struck + red "-400 €" badge; price 22px/700 black; EU energy arrow + "Informacijski list"
 right of price; promo box "Dodatnih 20% uz promo kod" (#E6F5EC, dashed) or lime "-232,00 € u odnosu na novi" for
-refurbished; "25,99 € / 12 rata"; then "Posljednja najniža cijena" + "Cijena na <date> <anchor>" (10px #8B95A5). Fixed anatomy — every slot keeps its height when its data
+refurbished; "25,99 € / 12 rata"; then "Cijena na <date> <anchor>" (10px #8B95A5). No "Posljednja najniža cijena" line on cards. Fixed anatomy — every slot keeps its height when its data
 is missing, so rows of cards line up: image zone (200 / 154px) with cashback circle + warranty
 sticker top-left, wishlist/compare top-right, energy label + pills stacked from the image
 bottom upwards (overlaying the image); then 2-line title, rating row, availability, seller,

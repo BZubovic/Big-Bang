@@ -57,7 +57,7 @@
 
   <div style="padding:8px 11px 8px;display:flex;flex-direction:column;flex:1">
     <div style="{{ metaBox }}">
-    <div style="max-height:40px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:14px;font-weight:600;line-height:20px;letter-spacing:-0.01em;color:#101117">{{ c.name }}</div>
+    <div style="max-height:40px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:14px;font-weight:500;line-height:20px;letter-spacing:-0.01em;color:#101117">{{ c.name }}</div>
       <sc-if value="{{ rated }}" hint-placeholder-val="{{ true }}">
       <div style="height:17px;display:flex;align-items:center;gap:4px">
         <span style="display:flex;gap:1px">
@@ -76,19 +76,22 @@
       <span style="width:13px;display:flex;justify-content:center;flex-shrink:0"><span style="{{ dotStyle }}"></span></span>
       <span style="{{ availStyle }}">{{ availText }}</span>
     </div>
-    <div style="margin-top:1px;height:22px;padding-bottom:2px;display:flex;align-items:center;gap:8px;min-width:0;font-size:13px;line-height:20px;color:#545F71;white-space:nowrap">
+    <div style="margin-top:1px;height:24px;padding-bottom:4px;box-sizing:border-box;display:flex;align-items:center;gap:8px;min-width:0;font-size:13px;line-height:20px;color:#545F71;white-space:nowrap">
       <svg width="13" height="13" viewBox="2.1 2.1 18.8 18.8" fill="none" style="flex-shrink:0;color:#7F8795"><path d="M3.83333 9.58333V20.125H19.1667V9.58333M9.10417 20.125V11.9792H13.8958V20.125M4.3125 2.875H11.0208H18.6875L20.125 7.1875V8.14583C20.125 10.0625 17.25 10.0625 17.25 8.14583C17.25 10.0625 14.375 10.0625 14.375 8.14583C14.375 10.0625 11.5 10.0625 11.5 8.14583C11.5 10.0625 8.625 10.0625 8.625 8.14583C8.625 10.0625 5.75 10.0625 5.75 8.14583C5.75 10.0625 2.875 10.0625 2.875 8.14583V7.1875L4.3125 2.875Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      <span style="display:flex;gap:4px;min-width:0">Prodaje: <span style="color:#0050A0;font-weight:600;overflow:hidden;text-overflow:ellipsis;min-width:0">{{ seller }}</span></span>
+      <span style="display:flex;gap:4px;min-width:0">Prodaje: <span style="overflow:hidden;text-overflow:ellipsis;min-width:0">{{ seller }}</span></span>
     </div>
     <div style="margin-top:auto;padding-top:11px;display:flex;align-items:flex-end;justify-content:space-between;gap:8px">
       <div style="min-width:0">
         <div style="height:18px;display:flex;align-items:center;gap:5px;white-space:nowrap">
           <sc-if value="{{ old }}" hint-placeholder-val="{{ false }}">
             <span style="font-size:14px;line-height:18px;color:#8B95A5;text-decoration:line-through">{{ old }}</span>
-            <span style="height:18px;padding:0 4px;border-radius:3px;background:#DA0D00;color:#fff;font-size:13px;font-weight:800;line-height:18px">{{ disc }}</span>
+            <span style="height:18px;padding:0 4px;border-radius:3px;background:#DA0D00;color:#fff;font-size:12px;font-weight:600;line-height:18px">{{ disc }}</span>
+          </sc-if>
+          <sc-if value="{{ priceTag }}" hint-placeholder-val="{{ false }}">
+            <span style="{{ priceTagStyle }}">{{ priceTag }}</span>
           </sc-if>
         </div>
-        <div style="margin-top:2px;font-size:22px;font-weight:800;line-height:28px;letter-spacing:-0.01em;color:#101117;white-space:nowrap">{{ price }}</div>
+        <div style="margin-top:2px;font-size:20px;font-weight:800;line-height:28px;letter-spacing:-0.01em;color:#101117;white-space:nowrap">{{ price }}</div>
       </div>
       <sc-if value="{{ c.energy }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0">
@@ -111,14 +114,13 @@
         <sc-if value="{{ hasRenewed }}" hint-placeholder-val="{{ false }}">
           <div style="height:28px;box-sizing:border-box;background:#CDD700;border-radius:6px;padding:0 8px;display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;color:#002D73;font-size:13px;font-weight:500;line-height:28px">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg>
-            <span style="overflow:hidden;text-overflow:ellipsis"><strong style="font-weight:700">{{ renewedSave }}</strong> u odnosu na novi</span>
+            <span style="overflow:hidden;text-overflow:ellipsis"><strong style="font-weight:600">{{ renewedSave }}</strong> u odnosu na novi</span>
           </div>
         </sc-if>
       </div>
     </sc-if>
     <div style="margin-top:10px;font-size:13px;font-weight:600;line-height:18px;letter-spacing:-0.01em;color:#101117;white-space:nowrap">{{ rata }}</div>
-    <div style="margin-top:4px;font-size:10px;line-height:14px;color:#8B95A5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Posljednja najniža cijena: {{ lowest }}</div>
-    <div style="font-size:10px;line-height:14px;color:#8B95A5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cijena na {{ anchorDate }} {{ anchor }}</div>
+    <div style="margin-top:4px;font-size:10px;line-height:14px;color:#8B95A5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cijena na {{ anchorDate }} {{ anchor }}</div>
     <sc-if value="{{ wish }}" hint-placeholder-val="{{ false }}">
       <button onClick="{{ removeWish }}" style="margin-top:12px;height:40px;width:100%;border-radius:20px;background:#fff;border:1.5px solid #0050A0;color:#0050A0;font-family:Inter,sans-serif;font-size:13px;font-weight:700;letter-spacing:-0.01em;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer" style-hover="background:#EDF3FA">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"></path><path d="M19.5 12.6c1.4-1.4 1.6-3.6.4-5.2a4 4 0 0 0-6.2-.5L12 8.6l-.6-.6"></path><path d="M7.6 5.7a4 4 0 0 0-4.1 6.9l7.8 7.6c.4.4 1 .4 1.4 0l3.6-3.5"></path></svg>
@@ -171,7 +173,7 @@
 
   <div style="padding:10px 8px 8px;display:flex;flex-direction:column;flex:1">
     <div style="{{ metaBoxMob }}">
-    <div style="max-height:34px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:12.5px;font-weight:600;line-height:17px;letter-spacing:-0.01em;color:#101117">{{ c.name }}</div>
+    <div style="max-height:34px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:12.5px;font-weight:500;line-height:17px;letter-spacing:-0.01em;color:#101117">{{ c.name }}</div>
       <sc-if value="{{ rated }}" hint-placeholder-val="{{ true }}">
       <div style="height:14px;display:flex;align-items:center;gap:3px">
         <span style="display:flex;gap:1px">
@@ -190,16 +192,19 @@
       <span style="width:11px;display:flex;justify-content:center;flex-shrink:0"><span style="{{ dotStyleMob }}"></span></span>
       <span style="{{ availStyleMob }}">{{ availText }}</span>
     </div>
-    <div style="margin-top:1px;height:17px;display:flex;align-items:center;gap:6px;min-width:0;font-size:11.5px;line-height:17px;color:#545F71;white-space:nowrap">
+    <div style="margin-top:1px;height:21px;padding-bottom:4px;box-sizing:border-box;display:flex;align-items:center;gap:6px;min-width:0;font-size:11.5px;line-height:17px;color:#545F71;white-space:nowrap">
       <svg width="11" height="11" viewBox="2.1 2.1 18.8 18.8" fill="none" style="flex-shrink:0;color:#7F8795"><path d="M3.83333 9.58333V20.125H19.1667V9.58333M9.10417 20.125V11.9792H13.8958V20.125M4.3125 2.875H11.0208H18.6875L20.125 7.1875V8.14583C20.125 10.0625 17.25 10.0625 17.25 8.14583C17.25 10.0625 14.375 10.0625 14.375 8.14583C14.375 10.0625 11.5 10.0625 11.5 8.14583C11.5 10.0625 8.625 10.0625 8.625 8.14583C8.625 10.0625 5.75 10.0625 5.75 8.14583C5.75 10.0625 2.875 10.0625 2.875 8.14583V7.1875L4.3125 2.875Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      <span style="display:flex;gap:3px;min-width:0">Prodaje: <span style="color:#0050A0;font-weight:600;overflow:hidden;text-overflow:ellipsis;min-width:0">{{ seller }}</span></span>
+      <span style="display:flex;gap:3px;min-width:0">Prodaje: <span style="overflow:hidden;text-overflow:ellipsis;min-width:0">{{ seller }}</span></span>
     </div>
     <div style="margin-top:auto;padding-top:9px;display:flex;align-items:flex-end;justify-content:space-between;gap:6px">
       <div style="min-width:0">
         <div style="height:16px;display:flex;align-items:center;gap:4px;white-space:nowrap">
           <sc-if value="{{ old }}" hint-placeholder-val="{{ false }}">
             <span style="font-size:11px;line-height:16px;color:#8B95A5;text-decoration:line-through">{{ old }}</span>
-            <span style="height:15px;padding:0 3px;border-radius:3px;background:#DA0D00;color:#fff;font-size:10.5px;font-weight:700;line-height:15px">{{ disc }}</span>
+            <span style="height:15px;padding:0 3px;border-radius:3px;background:#DA0D00;color:#fff;font-size:10.5px;font-weight:600;line-height:15px">{{ disc }}</span>
+          </sc-if>
+          <sc-if value="{{ priceTag }}" hint-placeholder-val="{{ false }}">
+            <span style="{{ priceTagStyleMob }}">{{ priceTag }}</span>
           </sc-if>
         </div>
         <div style="margin-top:1px;font-size:19px;font-weight:800;line-height:24px;letter-spacing:-0.01em;color:#101117;white-space:nowrap">{{ price }}</div>
@@ -225,14 +230,13 @@
         <sc-if value="{{ hasRenewed }}" hint-placeholder-val="{{ false }}">
           <div style="height:24px;box-sizing:border-box;background:#CDD700;border-radius:5px;padding:0 6px;display:flex;align-items:center;gap:5px;white-space:nowrap;overflow:hidden;color:#002D73;font-size:11px;font-weight:500;line-height:24px">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg>
-            <span style="overflow:hidden;text-overflow:ellipsis"><strong style="font-weight:700">{{ renewedSave }}</strong> u odnosu na novi</span>
+            <span style="overflow:hidden;text-overflow:ellipsis"><strong style="font-weight:600">{{ renewedSave }}</strong> u odnosu na novi</span>
           </div>
         </sc-if>
       </div>
     </sc-if>
     <div style="margin-top:8px;font-size:11.5px;font-weight:600;line-height:16px;color:#101117;white-space:nowrap">{{ rata }}</div>
-    <div style="margin-top:3px;font-size:9px;line-height:12px;color:#8B95A5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Posljednja najniža cijena: {{ lowest }}</div>
-    <div style="font-size:9px;line-height:12px;color:#8B95A5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cijena na {{ anchorDate }} {{ anchor }}</div>
+    <div style="margin-top:3px;font-size:9px;line-height:12px;color:#8B95A5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cijena na {{ anchorDate }} {{ anchor }}</div>
     <sc-if value="{{ wish }}" hint-placeholder-val="{{ false }}">
       <button onClick="{{ removeWish }}" style="margin-top:10px;height:38px;width:100%;border-radius:19px;background:#fff;border:1.5px solid #0050A0;color:#0050A0;font-family:Inter,sans-serif;font-size:11.5px;font-weight:700;letter-spacing:-0.01em;display:flex;align-items:center;justify-content:center;gap:6px">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"></path><path d="M19.5 12.6c1.4-1.4 1.6-3.6.4-5.2a4 4 0 0 0-6.2-.5L12 8.6l-.6-.6"></path><path d="M7.6 5.7a4 4 0 0 0-4.1 6.9l7.8 7.6c.4.4 1 .4 1.4 0l3.6-3.5"></path></svg>
@@ -258,7 +262,7 @@ class Component extends DCLogic {
     const pillStyle = (pl, mob) => {
       const t = TONES[pl.tone] || TONES.navy;
       return {
-        background: t[0], color: t[1], fontSize: mob ? 10.5 : 12, fontWeight: 700,
+        background: t[0], color: t[1], fontSize: mob ? 10.5 : 12, fontWeight: 600,
         height: mob ? 17 : 19, lineHeight: (mob ? 17 : 19) + 'px', padding: '0 6px',
         borderRadius: 4, whiteSpace: 'nowrap', boxSizing: 'border-box'
       };
@@ -267,7 +271,7 @@ class Component extends DCLogic {
     const fitPills = (list, mob) => {
       const fs = mob ? 10.5 : 12, pad = 12, gap = mob ? 4 : 6, W = mob ? 178 : 247, MIN = mob ? 44 : 52;
       const cv = fitPills.cv || (fitPills.cv = document.createElement('canvas'));
-      const ctx = cv.getContext('2d'); ctx.font = '700 ' + fs + 'px Inter, sans-serif';
+      const ctx = cv.getContext('2d'); ctx.font = '600 ' + fs + 'px Inter, sans-serif';
       const w = (t) => Math.ceil(ctx.measureText(t).width) + pad;
       const n = list.length;
       let k = n;
@@ -281,6 +285,7 @@ class Component extends DCLogic {
       if (k < n) out.push({ label: '+' + (n - k), style: Object.assign(pillStyle({ tone: 'navy' }, mob), { flexShrink: 0, background: '#0050A0', color: '#fff' }) });
       return out;
     };
+    const isRefurb = !!c.renewedSave || (c.pills || []).some(pl => /obnovljeno/i.test(pl.label || ''));
     const pills = fitPills(c.pills || [], false);
     const pillsMob = fitPills(c.pills || [], true);
     const rated = !!c.rating;
@@ -288,7 +293,7 @@ class Component extends DCLogic {
     const tone = c.availTone || 'in';
     const out = tone === 'out';
     const availStyle = (mob) => ({
-      fontSize: mob ? 11.5 : 13, lineHeight: (mob ? 17 : 20) + 'px', fontWeight: out ? 400 : 700,
+      fontSize: mob ? 11.5 : 13, lineHeight: (mob ? 17 : 20) + 'px', fontWeight: out ? 400 : 600,
       color: out ? '#545F71' : '#0B7A48',
       whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0
     });
@@ -311,13 +316,16 @@ class Component extends DCLogic {
       rated: rated,
       stars: [0, 1, 2, 3, 4].map(n => (n < filled ? '#F5B82E' : '#B5B9C0')),
       ratingLabel: rated ? Number(c.rating).toFixed(1) + '(' + (c.reviews || 0) + ')' : '',
-      optionsLabel: c.options ? 'Dostupno još ' + c.options + ' opcija' : '',
+      optionsLabel: c.options ? 'Dostupno još ' + c.options + ' opcija →' : '',
       availText: out ? (c.avail && c.avail !== 'Nema na zalihi' ? c.avail : 'Artikl nije na zalihi') : (c.avail || 'Na zalihi'),
       dotStyle: dot(8), dotStyleMob: dot(7),
       availStyle: availStyle(false), availStyleMob: availStyle(true),
       seller: c.seller || 'Big Bang',
+      priceTag: c.old && !isRefurb ? '' : (c.priceTag || ''),
+      priceTagStyle: { height: 18, padding: '0 6px', borderRadius: 3, background: c.priceTagTone === 'green' ? '#0B7A48' : '#E07842', color: '#fff', fontSize: 12, fontWeight: 600, lineHeight: '18px', letterSpacing: '0.02em' },
+      priceTagStyleMob: { height: 16, padding: '0 5px', borderRadius: 3, background: c.priceTagTone === 'green' ? '#0B7A48' : '#E07842', color: '#fff', fontSize: 10, fontWeight: 600, lineHeight: '16px', letterSpacing: '0.02em' },
       price: euro(c.price || ''),
-      old: c.old ? euro(c.old) : '',
+      old: c.old && !isRefurb ? euro(c.old) : '',
       disc: discN > 0 ? '-' + discN + ' €' : '',
       hasCode: pct > 0 && !renewed,
       hasRenewed: !!renewed,
