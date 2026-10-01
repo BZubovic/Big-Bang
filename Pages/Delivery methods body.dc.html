@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</helmet>
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<div ref="{{ rootRef }}">
+<dc-import name="Components/InfoPageHead" variant="desktop" heading="Načini dostave" intro="Na adresu, na paketomat, u stan s montažom ili osobno u poslovnici — odaberite dostavu koja vam najviše odgovara." tabs="{{ tabs }}" active-tab="{{ tab }}" on-tab="{{ setTab }}" on-home="{{ onHome }}" hint-size="100%,260px"></dc-import>
+
+<div style="background:#F1F1F4;padding:28px 0 64px">
+  <div style="max-width:1480px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:224px minmax(0,1fr);gap:24px;align-items:start">
+
+    <dc-import name="Components/InfoAnchorNav" variant="desktop" items="{{ navItems }}" active="{{ sec }}" on-select="{{ selectSec }}" hint-size="100%,340px" style="position:sticky;top:72px;z-index:100"></dc-import>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <sc-if value="{{ isBB }}" hint-placeholder-val="{{ true }}">
+      <section data-sec="d1" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #0050A0;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#0050A0">01</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">PRIJE NARUDŽBE</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Opcije dostave i rok isporuke</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">Prilikom webshop narudžbe odaberete jednu od opcija dostave koje ujedno vrijede i za isporuke artikala i za kupnju u Big Bang fizičkim poslovnicama.</p>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #EFF0F3;padding:26px 30px 28px">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+            <sc-for list="{{ options }}" as="o" hint-placeholder-count="9">
+              <div style="border:1px solid #E3E4E9;border-radius:10px;padding:15px 18px">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span style="font-size:15px;font-weight:600;color:#101117">{{ o.name }}</span>
+                  <sc-if value="{{ o.novo }}" hint-placeholder-val="{{ false }}">
+                    <span style="background:#10DFBA;color:#002D73;border-radius:5px;padding:2px 7px;font-size:9px;font-weight:700;letter-spacing:0.06em">NOVO</span>
+                  </sc-if>
+                </div>
+                <div style="font-size:13px;color:#8B95A5;margin-top:4px">{{ o.sub }}</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px">
+            <div style="display:flex;gap:16px;align-items:flex-start;background:#F6F7F9;border-radius:12px;padding:20px 22px">
+              <span style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#fff;border:1px solid #E9EAEE;color:#0050A0;flex-shrink:0"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 13.5 13 21a2 2 0 0 1-2.8 0l-7.2-7.2V4h9.8z"></path><circle cx="8" cy="8" r="1.4"></circle></svg></span>
+              <div>
+                <div style="font-size:16px;font-weight:700;color:#101117;margin-bottom:4px">Dostupnost na artiklu</div>
+                <div style="font-size:14.5px;color:#545F71;line-height:1.5">Na svakom artiklu, ispod gumba „Dodaj u košaricu”, navedena je dostupnost — isporuka odmah, broj dana ili datum dolaska.</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start;background:#F6F7F9;border-radius:12px;padding:20px 22px">
+              <span style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#fff;border:1px solid #E9EAEE;color:#0050A0;flex-shrink:0"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="16" rx="2"></rect><line x1="3.5" y1="10" x2="20.5" y2="10"></line><line x1="8" y1="3" x2="8" y2="6.5"></line><line x1="16" y1="3" x2="16" y2="6.5"></line></svg></span>
+              <div>
+                <div style="font-size:16px;font-weight:700;color:#101117;margin-bottom:4px">Rok isporuke</div>
+                <div style="font-size:14.5px;color:#545F71;line-height:1.5">Ovisi o dostupnosti artikla, poštanskom broju i tipu dostave. Prikazujemo ga pri odabiru vrste dostave, nakon upisa poštanskog broja.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section data-sec="d2" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #0050A0;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#0050A0">02</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">NA ŽELJENU ADRESU</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Standardna dostava</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">Za male pakete i televizore — do ulaza u objekt ili do prve fizičke prepreke za dostavno vozilo. Dostava se najčešće obavlja uslugom Paket24 Hrvatske pošte, uz mogućnost angažiranja i drugih dostavnih službi.</p>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #EFF0F3;padding:24px 30px 28px">
+          <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:stretch;margin-bottom:20px">
+            <div style="flex:1 1 440px;display:flex;gap:13px;align-items:flex-start;background:#EEF3FA;border-radius:10px;padding:15px 17px">
+              <span style="display:flex;color:#0050A0;flex-shrink:0"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="7" width="13" height="10" rx="1.5"></rect><path d="M14.5 10h4l3 3.2V17h-7z"></path><circle cx="6" cy="18.5" r="1.8"></circle><circle cx="17.5" cy="18.5" r="1.8"></circle></svg></span>
+              <span style="font-size:14.5px;line-height:1.5;color:#101117;font-weight:600">Dostava na željenu adresu (za male pakete ili televizore do ulaza u objekt ili do prve fizičke prepreke za dostavno vozilo).</span>
+            </div>
+            <span style="display:inline-flex;align-items:center;gap:9px;background:#F6F7F9;border-radius:10px;padding:0 18px;font-size:13.5px;color:#545F71">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8B95A5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
+              Dostupnost: <strong style="color:#101117;font-weight:600">Republika Hrvatska</strong>
+            </span>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:16px;padding-left:4px">
+            <sc-for list="{{ stdBullets }}" as="b" hint-placeholder-count="5">
+              <div style="display:flex;gap:13px;align-items:flex-start;font-size:15px;line-height:1.55;color:#545F71">
+                <span style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#EEF3FA;flex-shrink:0">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0050A0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+                </span>
+                {{ b }}
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;gap:13px;align-items:flex-start;background:#F1F1F4;border-radius:10px;padding:16px 18px;margin-top:20px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#C7C7CD" style="flex-shrink:0;margin-top:1px"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"></path></svg>
+            <p style="font-size:14px;line-height:1.55;color:#545F71;margin:0">Naselja s ograničenjima mase do 2 kg pogledajte <a href="#" style="color:#0050A0;font-weight:600">ovdje</a>. Pravila preuzimanja, oštećenja i reklamacija navedena su u sekciji <a href="#" onClick="{{ goRules }}" style="color:#0050A0;font-weight:600">Pakiranje, preuzimanje i reklamacije</a>.</p>
+          </div>
+        </div>
+      </section>
+
+      <section data-sec="d3" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #E07842;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#E07842">03</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">VELIKI UREĐAJI</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Gabaritna dostava</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">Za bijelu tehniku, velike kućanske uređaje i televizore. Dostava ide do ulaza u objekt ili do prve fizičke prepreke za dostavno vozilo.</p>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #EFF0F3;padding:24px 30px 28px">
+          <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:stretch;margin-bottom:20px">
+            <div style="flex:1 1 440px;display:flex;gap:13px;align-items:flex-start;background:#FDEBDC;border-radius:10px;padding:15px 17px">
+              <span style="display:flex;color:#E07842;flex-shrink:0"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"></rect><line x1="4" y1="9.5" x2="20" y2="9.5"></line><line x1="7.5" y1="6.2" x2="7.5" y2="6.2"></line></svg></span>
+              <span style="font-size:14.5px;line-height:1.5;color:#101117;font-weight:600">Dostava na željenu adresu za gabaritnu robu (veliki kućanski uređaji i televizori) do ulaza u objekt ili do prve fizičke prepreke za dostavno vozilo.</span>
+            </div>
+            <span style="display:inline-flex;align-items:center;gap:9px;background:#F6F7F9;border-radius:10px;padding:0 18px;font-size:13.5px;color:#545F71">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8B95A5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
+              Dostupnost: <strong style="color:#101117;font-weight:600">Republika Hrvatska</strong>
+            </span>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:16px;padding-left:4px">
+            <sc-for list="{{ gabBullets }}" as="b" hint-placeholder-count="3">
+              <div style="display:flex;gap:13px;align-items:flex-start;font-size:15px;line-height:1.55;color:#545F71">
+                <span style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#FDEBDC;flex-shrink:0">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E07842" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+                </span>
+                {{ b }}
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;gap:13px;align-items:flex-start;background:#F1F1F4;border-radius:10px;padding:16px 18px;margin-top:20px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#C7C7CD" style="flex-shrink:0;margin-top:1px"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"></path></svg>
+            <p style="font-size:14px;line-height:1.55;color:#545F71;margin:0">Za unos uređaja u stan, montažu i odvoz starog uređaja odaberite uslugu <a href="#" onClick="{{ goHome2 }}" style="color:#0050A0;font-weight:600">Dostava u stan ili dostava sa montažom</a> (Zagreb, Zadar i Split s okolicom).</p>
+          </div>
+        </div>
+      </section>
+
+      <section data-sec="d4" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #10DFBA;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#009E82">04</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">PREUZIMANJE 24/7</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Dostava na paketomate</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">Preuzmite narudžbu kada vam najbolje odgovara — na paketomatu po vlastitom izboru. Dostupne su tri mreže paketomata.</p>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #EFF0F3;padding:26px 30px 28px">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+            <sc-for list="{{ lockers }}" as="l" hint-placeholder-count="3">
+              <div style="border:1px solid #E3E4E9;border-radius:12px;padding:20px 22px">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+                  <span style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:#F1FCF8;color:#009E82;flex-shrink:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"></rect><line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="16.5" y1="6" x2="16.5" y2="6"></line><line x1="16.5" y1="12" x2="16.5" y2="12"></line></svg></span>
+                  <div>
+                    <div style="display:flex;align-items:center;gap:7px">
+                      <span style="font-size:16px;font-weight:700;color:#101117">{{ l.name }}</span>
+                      <sc-if value="{{ l.novo }}" hint-placeholder-val="{{ false }}">
+                        <span style="background:#10DFBA;color:#002D73;border-radius:5px;padding:2px 7px;font-size:9px;font-weight:700;letter-spacing:0.06em">NOVO</span>
+                      </sc-if>
+                    </div>
+                    <div style="font-size:12.5px;color:#8B95A5;margin-top:1px">{{ l.sub }}</div>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:9px;margin-top:14px">
+                  <sc-for list="{{ l.items }}" as="it" hint-placeholder-count="4">
+                    <div style="display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.45;color:#545F71">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#009E82" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+                      {{ it }}
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;gap:13px;align-items:flex-start;background:#F1F1F4;border-radius:10px;padding:16px 18px;margin-top:18px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#C7C7CD" style="flex-shrink:0;margin-top:1px"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"></path></svg>
+            <p style="font-size:14px;line-height:1.55;color:#545F71;margin:0">Listu paketomata Hrvatske pošte možete pogledati <a href="#" style="color:#0050A0;font-weight:600">ovdje</a>. Maksimalna vrijednost narudžbe za dostavu na BoxNow paketomat iznosi 500 €.</p>
+          </div>
+        </div>
+      </section>
+
+      <section data-sec="d5" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #0050A0;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#0050A0">05</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">NA ŽELJENU ADRESU</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">GLS dostava</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">Dostava dostavne službe GLS na željenu adresu, do ulaza u objekt — za male pakete.</p>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #EFF0F3;padding:24px 30px 28px">
+          <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:stretch;margin-bottom:20px">
+            <div style="flex:1 1 440px;display:flex;gap:13px;align-items:flex-start;background:#EEF3FA;border-radius:10px;padding:15px 17px">
+              <span style="display:flex;color:#0050A0;flex-shrink:0"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="7" width="13" height="10" rx="1.5"></rect><path d="M14.5 10h4l3 3.2V17h-7z"></path><circle cx="6" cy="18.5" r="1.8"></circle><circle cx="17.5" cy="18.5" r="1.8"></circle></svg></span>
+              <span style="font-size:14.5px;line-height:1.5;color:#101117;font-weight:600">GLS dostava na željenu adresu (do ulaza u objekt).</span>
+            </div>
+            <span style="display:inline-flex;align-items:center;gap:9px;background:#F6F7F9;border-radius:10px;padding:0 18px;font-size:13.5px;color:#545F71">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8B95A5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
+              Dostupnost: <strong style="color:#101117;font-weight:600">Republika Hrvatska</strong>
+            </span>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:16px;padding-left:4px">
+            <sc-for list="{{ glsBullets }}" as="b" hint-placeholder-count="4">
+              <div style="display:flex;gap:13px;align-items:flex-start;font-size:15px;line-height:1.55;color:#545F71">
+                <span style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#EEF3FA;flex-shrink:0">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0050A0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+                </span>
+                {{ b }}
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;gap:14px;align-items:flex-start;background:#fff;border:1.5px solid #E07842;border-radius:12px;padding:18px 20px;margin-top:20px">
+            <span style="display:flex;color:#E07842;flex-shrink:0;margin-top:1px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.9 18.3a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path><line x1="12" y1="9" x2="12" y2="13.5"></line><line x1="12" y1="17" x2="12" y2="17"></line></svg></span>
+            <div>
+              <div style="font-size:16px;font-weight:600;color:#101117;margin-bottom:5px">Ograničenja GLS dostave</div>
+              <p style="font-size:14.5px;line-height:1.55;color:#545F71;margin:0;max-width:880px">Nije moguća za televizore, hladnjake, perilice rublja i posuđa, štednjake te ostale artikle većih gabarita ili mase preko 40 kg. Ako za takav artikl odaberete GLS dostavu, pošiljka će biti poslana alternativnom dostavnom službom.</p>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:13px;align-items:flex-start;background:#F1F1F4;border-radius:10px;padding:16px 18px;margin-top:14px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#C7C7CD" style="flex-shrink:0;margin-top:1px"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"></path></svg>
+            <p style="font-size:14px;line-height:1.55;color:#545F71;margin:0">Popis aktivnih PaketShop poslovnica, naselja s ograničenjima i raspored dostave na otoke pogledajte <a href="#" style="color:#0050A0;font-weight:600">ovdje</a>.</p>
+          </div>
+        </div>
+      </section>
+
+      <section data-sec="d6" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #002D73;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#002D73">06</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">DODATNA USLUGA</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Dostava u stan ili dostava sa montažom</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">Dostava s nošenjem artikala u stan, kuću ili poslovni prostor — neovisno o broju artikala — s opcijom montaže i odvoza starog uređaja.</p>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #EFF0F3;padding:24px 30px 28px">
+          <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:stretch;margin-bottom:20px">
+            <div style="flex:1 1 440px;display:flex;gap:13px;align-items:flex-start;background:#EEF3FA;border-radius:10px;padding:15px 17px">
+              <span style="display:flex;color:#002D73;flex-shrink:0"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.5 12 3.5l8.5 7"></path><path d="M5.5 10v10h13V10"></path><rect x="10" y="13.5" width="4" height="6.5"></rect></svg></span>
+              <span style="font-size:14.5px;line-height:1.5;color:#101117;font-weight:600">Dostava sa nošenjem artikala u stan, kuću ili poslovni prostor, neovisno o broju samih artikala, s opcijom montaže i odvoza starog uređaja.</span>
+            </div>
+            <span style="display:inline-flex;align-items:center;gap:9px;background:#F6F7F9;border-radius:10px;padding:0 18px;font-size:13.5px;color:#545F71">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8B95A5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
+              Dostupnost: <strong style="color:#101117;font-weight:600">Zagreb, Zadar i Split s okolicom</strong>
+            </span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:32px;align-items:start">
+            <div style="display:flex;flex-direction:column;gap:16px;padding-left:4px">
+              <sc-for list="{{ homeBullets }}" as="b" hint-placeholder-count="5">
+                <div style="display:flex;gap:13px;align-items:flex-start;font-size:15px;line-height:1.55;color:#545F71">
+                  <span style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#EEF3FA;flex-shrink:0">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#002D73" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+                  </span>
+                  {{ b }}
+                </div>
+              </sc-for>
+            </div>
+            <div style="background:#F1FCF8;border:1px solid #D7F5EA;border-radius:12px;padding:20px 22px">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+                <span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;background:#10DFBA;color:#002D73;flex-shrink:0"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg></span>
+                <span style="font-size:16px;font-weight:700;color:#101117">Odvoz starog uređaja</span>
+              </div>
+              <div style="font-size:20px;font-weight:700;letter-spacing:-0.02em;color:#009E82;margin-bottom:8px">Besplatno</div>
+              <p style="font-size:14px;line-height:1.5;color:#545F71;margin:0">Uređaj mora biti odspojen od instalacije struje i vode te pripremljen za odvoz, na mjestu dostupnom transportnom vozilu.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section data-sec="d7" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #1FB549;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#1FB549">07</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">U POSLOVNICI</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Osobno preuzimanje</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">Uređaj preuzimate u Big Bang poslovnici koju ste odabrali pri završetku narudžbe, po primitku SMS poruke.</p>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #EFF0F3;padding:24px 30px 28px">
+          <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:stretch;margin-bottom:20px">
+            <div style="flex:1 1 440px;display:flex;gap:13px;align-items:flex-start;background:#E9F8EE;border-radius:10px;padding:15px 17px">
+              <span style="display:flex;color:#1FB549;flex-shrink:0"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h16l-1.2 12H5.2z"></path><path d="M8.5 8V6a3.5 3.5 0 0 1 7 0v2"></path></svg></span>
+              <span style="font-size:14.5px;line-height:1.5;color:#101117;font-weight:600">Osobno preuzimate uređaj u odabranoj Big Bang poslovnici po primitku SMS poruke.</span>
+            </div>
+            <span style="display:inline-flex;align-items:center;gap:9px;background:#F6F7F9;border-radius:10px;padding:0 18px;font-size:13.5px;color:#545F71">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8B95A5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
+              Dostupnost: <strong style="color:#101117;font-weight:600">Big Bang poslovnice</strong>
+            </span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+            <sc-for list="{{ pickupSteps }}" as="st" hint-placeholder-count="3">
+              <div style="display:flex;gap:14px;align-items:flex-start;background:#F6F7F9;border-radius:12px;padding:18px 20px">
+                <span style="display:flex;align-items:center;justify-content:center;width:27px;height:27px;border-radius:50%;background:#1FB549;color:#fff;font-size:13px;font-weight:700;flex-shrink:0">{{ st.n }}</span>
+                <div style="font-size:14.5px;color:#545F71;line-height:1.5">{{ st.text }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <section data-sec="d8" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #545F71;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#545F71">08</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">VRIJEDI ZA SVE DOSTAVE</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Pakiranje, preuzimanje i reklamacije</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">Pravila koja vrijede za sve načine dostave Big Bang proizvoda (prodavatelj Sancta Domenica d.o.o.).</p>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #EFF0F3;padding:26px 30px 28px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+            <div style="border:1px solid #E3E4E9;border-radius:12px;padding:20px 22px">
+              <div style="font-size:16px;font-weight:700;color:#101117;margin-bottom:14px">Status narudžbe i račun</div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <sc-for list="{{ statusRules }}" as="r" hint-placeholder-count="2">
+                  <div style="display:flex;gap:11px;align-items:flex-start;font-size:14.5px;line-height:1.5;color:#545F71">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0050A0" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+                    {{ r }}
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="border:1px solid #E3E4E9;border-radius:12px;padding:20px 22px">
+              <div style="font-size:16px;font-weight:700;color:#101117;margin-bottom:14px">Preuzimanje i oštećenja</div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <sc-for list="{{ damageRules }}" as="r" hint-placeholder-count="4">
+                  <div style="display:flex;gap:11px;align-items:flex-start;font-size:14.5px;line-height:1.5;color:#545F71">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0050A0" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+                    {{ r }}
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:14px;align-items:flex-start;background:#fff;border:1.5px solid #E07842;border-radius:12px;padding:18px 20px;margin-top:18px">
+            <span style="display:flex;color:#E07842;flex-shrink:0;margin-top:1px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.9 18.3a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path><line x1="12" y1="9" x2="12" y2="13.5"></line><line x1="12" y1="17" x2="12" y2="17"></line></svg></span>
+            <div>
+              <div style="font-size:16px;font-weight:600;color:#101117;margin-bottom:5px">Nepreuzeta pošiljka</div>
+              <p style="font-size:14.5px;line-height:1.55;color:#545F71;margin:0;max-width:880px">Roba je osigurana od gubitka i oštećenja u dostavi. Ako kupac ne preuzme proizvod ili ga odbije preuzeti bez valjanog razloga, Sancta Domenica zadržava pravo zahtijevati nadoknadu troškova manipulacije, transporta i drugih mogućih troškova.</p>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:13px;align-items:flex-start;background:#F1F1F4;border-radius:10px;padding:16px 18px;margin-top:14px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#C7C7CD" style="flex-shrink:0;margin-top:1px"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"></path></svg>
+            <p style="font-size:14px;line-height:1.55;color:#545F71;margin:0">Ako nakon otpreme u očekivanom vremenu ne primite robu ni obavijest o isporuci, obavijestite Sancta Domenicu radi traženja pošiljke ili slanja zamjenske. U slučaju kašnjenja zbog više sile Sancta Domenica d.o.o. ne preuzima odgovornost na „prvi rizik” i obvezuje se poslati zamjenski proizvod u najkraćem mogućem roku.</p>
+          </div>
+        </div>
+      </section>
+      </sc-if>
+
+      <sc-if value="{{ isMP }}" hint-placeholder-val="{{ false }}">
+      <section data-sec="m1" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #10DFBA;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#009E82">01</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">KAKO RADI</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Dostava za narudžbe Marketplacea</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">Proizvode s Marketplacea šalje trgovac koji je zaprimio vašu narudžbu, pa se rokovi i paketi mogu razlikovati od Big Bang dostave.</p>
+          </div>
+        </div>
+        <div style="border-top:1px solid #EFF0F3;padding:26px 30px 28px">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+            <sc-for list="{{ mpFacts }}" as="f" hint-placeholder-count="3">
+              <div style="border:1px solid #E3E4E9;border-radius:12px;padding:20px 22px">
+                <div style="font-size:16px;font-weight:700;color:#101117;margin-bottom:6px">{{ f.title }}</div>
+                <div style="font-size:14.5px;line-height:1.5;color:#545F71">{{ f.text }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <section data-sec="m2" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #0050A0;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#0050A0">02</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">PRAĆENJE</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Praćenje pošiljke i rok isporuke</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">Status Marketplace pošiljke pratite iz svog Big Bang računa, a dostava je odgovornost trgovca od kojeg ste naručili proizvod.</p>
+          </div>
+        </div>
+        <div style="border-top:1px solid #EFF0F3;padding:24px 30px 28px">
+          <div style="display:flex;flex-direction:column;gap:16px;padding-left:4px">
+            <sc-for list="{{ mpBullets }}" as="b" hint-placeholder-count="4">
+              <div style="display:flex;gap:13px;align-items:flex-start;font-size:15px;line-height:1.55;color:#545F71">
+                <span style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#EEF3FA;flex-shrink:0">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0050A0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+                </span>
+                {{ b }}
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:13px;align-items:flex-start;background:#F1F1F4;border-radius:10px;padding:16px 18px;margin-top:20px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#C7C7CD" style="flex-shrink:0;margin-top:1px"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"></path></svg>
+            <p style="font-size:14px;line-height:1.55;color:#545F71;margin:0">Trgovac dostavlja narudžbu do procijenjenog datuma isporuke navedenog na stranici za naplatu, osim u slučaju događaja izvan njegove kontrole (viša sila). Ako zbog takvih okolnosti ne može isporučiti robu do procijenjenog datuma, može vas obavijestiti o novom procijenjenom datumu dostave.</p>
+          </div>
+        </div>
+      </section>
+      </sc-if>
+
+      <dc-import name="Components/SupportBand" variant="desktop" eyebrow="PITANJE O DOSTAVI?" title="Naš tim podrške je tu za vas." text="Pomoći ćemo oko rokova, statusa pošiljke, reklamacija i dodatnih usluga dostave. Dostupni smo svaki dan od 8 do 20h." hint-size="100%,190px"></dc-import>
+
+    </div>
+  </div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<div ref="{{ rootRefM }}">
+<dc-import name="Components/InfoPageHead" variant="mobile" heading="Načini dostave" intro="Na adresu, na paketomat, u stan s montažom ili osobno u poslovnici — odaberite dostavu koja vam najviše odgovara." tabs="{{ tabs }}" active-tab="{{ tab }}" on-tab="{{ setTab }}" on-home="{{ onHome }}" hint-size="100%,200px"></dc-import>
+
+<div style="background:#F1F1F4;padding:14px 0 28px;display:flex;flex-direction:column;gap:12px">
+
+  <div style="position:sticky;top:55px;z-index:310">
+    <dc-import name="Components/InfoAnchorNav" variant="mobile" items="{{ navItems }}" active="{{ sec }}" on-select="{{ selectSec }}" hint-size="100%,48px"></dc-import>
+  </div>
+
+  <sc-if value="{{ isBB }}" hint-placeholder-val="{{ true }}">
+  <section data-sec="d1" style="background:#fff;padding:20px 0 22px">
+    <div style="padding:0 16px 18px">
+      <div style="border-left:3px solid #0050A0;padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:11.5px;font-weight:700;color:#0050A0">01</span>
+          <span style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">PRIJE NARUDŽBE</span>
+        </div>
+        <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 7px">Opcije dostave i rok isporuke</h2>
+        <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0;text-wrap:pretty">Prilikom webshop narudžbe odaberete jednu od opcija dostave koje ujedno vrijede i za isporuke artikala i za kupnju u Big Bang fizičkim poslovnicama.</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #EFF0F3;padding:20px 16px 0">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <sc-for list="{{ options }}" as="o" hint-placeholder-count="9">
+          <div style="border:1px solid #E3E4E9;border-radius:10px;padding:12px 14px">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:13.5px;font-weight:600;color:#101117">{{ o.name }}</span>
+              <sc-if value="{{ o.novo }}" hint-placeholder-val="{{ false }}">
+                <span style="background:#10DFBA;color:#002D73;border-radius:5px;padding:2px 6px;font-size:8.5px;font-weight:700;letter-spacing:0.06em">NOVO</span>
+              </sc-if>
+            </div>
+            <div style="font-size:11.5px;color:#8B95A5;margin-top:3px">{{ o.sub }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
+        <div style="display:flex;gap:13px;align-items:flex-start;background:#F6F7F9;border-radius:12px;padding:15px 16px">
+          <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:#fff;border:1px solid #E9EAEE;color:#0050A0;flex-shrink:0"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 13.5 13 21a2 2 0 0 1-2.8 0l-7.2-7.2V4h9.8z"></path><circle cx="8" cy="8" r="1.4"></circle></svg></span>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:#101117;margin-bottom:3px">Dostupnost na artiklu</div>
+            <div style="font-size:12.5px;color:#545F71;line-height:1.45">Na svakom artiklu, ispod gumba „Dodaj u košaricu”, navedena je dostupnost — isporuka odmah, broj dana ili datum dolaska.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:13px;align-items:flex-start;background:#F6F7F9;border-radius:12px;padding:15px 16px">
+          <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:#fff;border:1px solid #E9EAEE;color:#0050A0;flex-shrink:0"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="16" rx="2"></rect><line x1="3.5" y1="10" x2="20.5" y2="10"></line><line x1="8" y1="3" x2="8" y2="6.5"></line><line x1="16" y1="3" x2="16" y2="6.5"></line></svg></span>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:#101117;margin-bottom:3px">Rok isporuke</div>
+            <div style="font-size:12.5px;color:#545F71;line-height:1.45">Ovisi o dostupnosti artikla, poštanskom broju i tipu dostave. Prikazujemo ga pri odabiru vrste dostave, nakon upisa poštanskog broja.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-sec="d2" style="background:#fff;padding:20px 0 22px">
+    <div style="padding:0 16px 18px">
+      <div style="border-left:3px solid #0050A0;padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:11.5px;font-weight:700;color:#0050A0">02</span>
+          <span style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">NA ŽELJENU ADRESU</span>
+        </div>
+        <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 7px">Standardna dostava</h2>
+        <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0;text-wrap:pretty">Za male pakete i televizore — do ulaza u objekt ili do prve fizičke prepreke za dostavno vozilo. Dostava se najčešće obavlja uslugom Paket24 Hrvatske pošte.</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #EFF0F3;padding:20px 16px 0">
+      <div style="display:flex;gap:11px;align-items:flex-start;background:#EEF3FA;border-radius:10px;padding:13px 15px">
+        <span style="display:flex;color:#0050A0;flex-shrink:0"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="7" width="13" height="10" rx="1.5"></rect><path d="M14.5 10h4l3 3.2V17h-7z"></path><circle cx="6" cy="18.5" r="1.8"></circle><circle cx="17.5" cy="18.5" r="1.8"></circle></svg></span>
+        <span style="font-size:13px;line-height:1.45;color:#101117;font-weight:600">Dostava na željenu adresu (za male pakete ili televizore do ulaza u objekt ili do prve fizičke prepreke za dostavno vozilo).</span>
+      </div>
+      <div style="display:inline-flex;align-items:center;gap:8px;background:#F6F7F9;border-radius:9px;padding:9px 13px;font-size:12.5px;color:#545F71;margin-top:10px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8B95A5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
+        Dostupnost: <strong style="color:#101117;font-weight:600">Republika Hrvatska</strong>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:13px;margin-top:16px">
+        <sc-for list="{{ stdBullets }}" as="b" hint-placeholder-count="5">
+          <div style="display:flex;gap:11px;align-items:flex-start;font-size:13.5px;line-height:1.5;color:#545F71">
+            <span style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#EEF3FA;flex-shrink:0">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0050A0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+            </span>
+            {{ b }}
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;gap:11px;align-items:flex-start;background:#F1F1F4;border-radius:10px;padding:13px 15px;margin-top:16px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#C7C7CD" style="flex-shrink:0;margin-top:1px"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"></path></svg>
+        <p style="font-size:12px;line-height:1.5;color:#545F71;margin:0">Naselja s ograničenjima mase do 2 kg pogledajte <a href="#" style="color:#0050A0;font-weight:600">ovdje</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section data-sec="d3" style="background:#fff;padding:20px 0 22px">
+    <div style="padding:0 16px 18px">
+      <div style="border-left:3px solid #E07842;padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:11.5px;font-weight:700;color:#E07842">03</span>
+          <span style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">VELIKI UREĐAJI</span>
+        </div>
+        <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 7px">Gabaritna dostava</h2>
+        <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0;text-wrap:pretty">Za bijelu tehniku, velike kućanske uređaje i televizore — do ulaza u objekt ili do prve fizičke prepreke za dostavno vozilo.</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #EFF0F3;padding:20px 16px 0">
+      <div style="display:inline-flex;align-items:center;gap:8px;background:#F6F7F9;border-radius:9px;padding:9px 13px;font-size:12.5px;color:#545F71">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8B95A5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
+        Dostupnost: <strong style="color:#101117;font-weight:600">Republika Hrvatska</strong>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:13px;margin-top:16px">
+        <sc-for list="{{ gabBullets }}" as="b" hint-placeholder-count="3">
+          <div style="display:flex;gap:11px;align-items:flex-start;font-size:13.5px;line-height:1.5;color:#545F71">
+            <span style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#FDEBDC;flex-shrink:0">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E07842" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+            </span>
+            {{ b }}
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section data-sec="d4" style="background:#fff;padding:20px 0 22px">
+    <div style="padding:0 16px 18px">
+      <div style="border-left:3px solid #10DFBA;padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:11.5px;font-weight:700;color:#009E82">04</span>
+          <span style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">PREUZIMANJE 24/7</span>
+        </div>
+        <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 7px">Dostava na paketomate</h2>
+        <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0;text-wrap:pretty">Preuzmite narudžbu kada vam najbolje odgovara — na paketomatu po vlastitom izboru.</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #EFF0F3;padding:20px 16px 0;display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ lockers }}" as="l" hint-placeholder-count="3">
+        <div style="border:1px solid #E3E4E9;border-radius:12px;padding:15px 16px">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;background:#F1FCF8;color:#009E82;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"></rect><line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line></svg></span>
+            <div>
+              <div style="display:flex;align-items:center;gap:6px">
+                <span style="font-size:14px;font-weight:700;color:#101117">{{ l.name }}</span>
+                <sc-if value="{{ l.novo }}" hint-placeholder-val="{{ false }}">
+                  <span style="background:#10DFBA;color:#002D73;border-radius:5px;padding:2px 6px;font-size:8.5px;font-weight:700;letter-spacing:0.06em">NOVO</span>
+                </sc-if>
+              </div>
+              <div style="font-size:11.5px;color:#8B95A5;margin-top:1px">{{ l.sub }}</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
+            <sc-for list="{{ l.items }}" as="it" hint-placeholder-count="4">
+              <div style="display:flex;gap:9px;align-items:flex-start;font-size:12.5px;line-height:1.45;color:#545F71">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#009E82" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+                {{ it }}
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-sec="d5" style="background:#fff;padding:20px 0 22px">
+    <div style="padding:0 16px 18px">
+      <div style="border-left:3px solid #0050A0;padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:11.5px;font-weight:700;color:#0050A0">05</span>
+          <span style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">NA ŽELJENU ADRESU</span>
+        </div>
+        <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 7px">GLS dostava</h2>
+        <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0;text-wrap:pretty">Dostava dostavne službe GLS na željenu adresu, do ulaza u objekt — za male pakete.</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #EFF0F3;padding:20px 16px 0">
+      <div style="display:flex;flex-direction:column;gap:13px">
+        <sc-for list="{{ glsBullets }}" as="b" hint-placeholder-count="4">
+          <div style="display:flex;gap:11px;align-items:flex-start;font-size:13.5px;line-height:1.5;color:#545F71">
+            <span style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#EEF3FA;flex-shrink:0">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0050A0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+            </span>
+            {{ b }}
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;background:#fff;border:1.5px solid #E07842;border-radius:12px;padding:14px 16px;margin-top:16px">
+        <span style="display:flex;color:#E07842;flex-shrink:0;margin-top:1px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.9 18.3a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path><line x1="12" y1="9" x2="12" y2="13.5"></line><line x1="12" y1="17" x2="12" y2="17"></line></svg></span>
+        <div>
+          <div style="font-size:14.5px;font-weight:600;color:#101117;margin-bottom:5px">Ograničenja GLS dostave</div>
+          <p style="font-size:12.5px;line-height:1.5;color:#545F71;margin:0">Nije moguća za televizore, hladnjake, perilice rublja i posuđa, štednjake te ostale artikle većih gabarita ili mase preko 40 kg. Za takve artikle pošiljka se šalje alternativnom dostavnom službom.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-sec="d6" style="background:#fff;padding:20px 0 22px">
+    <div style="padding:0 16px 18px">
+      <div style="border-left:3px solid #002D73;padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:11.5px;font-weight:700;color:#002D73">06</span>
+          <span style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">DODATNA USLUGA</span>
+        </div>
+        <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 7px">Dostava u stan ili dostava sa montažom</h2>
+        <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0;text-wrap:pretty">Dostava s nošenjem artikala u stan, kuću ili poslovni prostor, s opcijom montaže i odvoza starog uređaja.</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #EFF0F3;padding:20px 16px 0">
+      <div style="display:inline-flex;align-items:center;gap:8px;background:#F6F7F9;border-radius:9px;padding:9px 13px;font-size:12.5px;color:#545F71">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8B95A5" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
+        <strong style="color:#101117;font-weight:600">Zagreb, Zadar i Split s okolicom</strong>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:13px;margin-top:16px">
+        <sc-for list="{{ homeBullets }}" as="b" hint-placeholder-count="5">
+          <div style="display:flex;gap:11px;align-items:flex-start;font-size:13.5px;line-height:1.5;color:#545F71">
+            <span style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#EEF3FA;flex-shrink:0">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#002D73" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+            </span>
+            {{ b }}
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:#F1FCF8;border:1px solid #D7F5EA;border-radius:12px;padding:15px 16px;margin-top:16px">
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:8px">
+          <span style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:#10DFBA;color:#002D73;flex-shrink:0"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg></span>
+          <span style="font-size:14px;font-weight:700;color:#101117">Odvoz starog uređaja</span>
+        </div>
+        <div style="font-size:17px;font-weight:700;letter-spacing:-0.02em;color:#009E82;margin-bottom:6px">Besplatno</div>
+        <p style="font-size:12.5px;line-height:1.45;color:#545F71;margin:0">Uređaj mora biti odspojen od instalacije struje i vode te pripremljen za odvoz, na mjestu dostupnom transportnom vozilu.</p>
+      </div>
+    </div>
+  </section>
+
+  <section data-sec="d7" style="background:#fff;padding:20px 0 22px">
+    <div style="padding:0 16px 18px">
+      <div style="border-left:3px solid #1FB549;padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:11.5px;font-weight:700;color:#1FB549">07</span>
+          <span style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">U POSLOVNICI</span>
+        </div>
+        <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 7px">Osobno preuzimanje</h2>
+        <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0;text-wrap:pretty">Uređaj preuzimate u Big Bang poslovnici koju ste odabrali pri završetku narudžbe, po primitku SMS poruke.</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #EFF0F3;padding:20px 16px 0;display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ pickupSteps }}" as="st" hint-placeholder-count="3">
+        <div style="display:flex;gap:12px;align-items:flex-start;background:#F6F7F9;border-radius:12px;padding:14px 16px">
+          <span style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#1FB549;color:#fff;font-size:12px;font-weight:700;flex-shrink:0">{{ st.n }}</span>
+          <div style="font-size:12.5px;color:#545F71;line-height:1.45">{{ st.text }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-sec="d8" style="background:#fff;padding:20px 0 22px">
+    <div style="padding:0 16px 18px">
+      <div style="border-left:3px solid #545F71;padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:11.5px;font-weight:700;color:#545F71">08</span>
+          <span style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">VRIJEDI ZA SVE DOSTAVE</span>
+        </div>
+        <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 7px">Pakiranje, preuzimanje i reklamacije</h2>
+        <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0;text-wrap:pretty">Pravila koja vrijede za sve načine dostave Big Bang proizvoda (prodavatelj Sancta Domenica d.o.o.).</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #EFF0F3;padding:20px 16px 0">
+      <div style="border:1px solid #E3E4E9;border-radius:12px;padding:15px 16px">
+        <div style="font-size:14px;font-weight:700;color:#101117;margin-bottom:11px">Status narudžbe i račun</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ statusRules }}" as="r" hint-placeholder-count="2">
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:12.5px;line-height:1.45;color:#545F71">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0050A0" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+              {{ r }}
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="border:1px solid #E3E4E9;border-radius:12px;padding:15px 16px;margin-top:10px">
+        <div style="font-size:14px;font-weight:700;color:#101117;margin-bottom:11px">Preuzimanje i oštećenja</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ damageRules }}" as="r" hint-placeholder-count="4">
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:12.5px;line-height:1.45;color:#545F71">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0050A0" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+              {{ r }}
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;background:#fff;border:1.5px solid #E07842;border-radius:12px;padding:14px 16px;margin-top:12px">
+        <span style="display:flex;color:#E07842;flex-shrink:0;margin-top:1px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.9 18.3a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path><line x1="12" y1="9" x2="12" y2="13.5"></line><line x1="12" y1="17" x2="12" y2="17"></line></svg></span>
+        <div>
+          <div style="font-size:14.5px;font-weight:600;color:#101117;margin-bottom:5px">Nepreuzeta pošiljka</div>
+          <p style="font-size:12.5px;line-height:1.5;color:#545F71;margin:0">Roba je osigurana od gubitka i oštećenja u dostavi. Ako kupac ne preuzme proizvod ili ga odbije bez valjanog razloga, Sancta Domenica zadržava pravo zahtijevati nadoknadu troškova manipulacije i transporta.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ isMP }}" hint-placeholder-val="{{ false }}">
+  <section data-sec="m1" style="background:#fff;padding:20px 0 22px">
+    <div style="padding:0 16px 18px">
+      <div style="border-left:3px solid #10DFBA;padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:11.5px;font-weight:700;color:#009E82">01</span>
+          <span style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">KAKO RADI</span>
+        </div>
+        <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 7px">Dostava za narudžbe Marketplacea</h2>
+        <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0;text-wrap:pretty">Proizvode s Marketplacea šalje trgovac koji je zaprimio vašu narudžbu, pa se rokovi i paketi mogu razlikovati od Big Bang dostave.</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #EFF0F3;padding:20px 16px 0;display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ mpFacts }}" as="f" hint-placeholder-count="3">
+        <div style="border:1px solid #E3E4E9;border-radius:12px;padding:15px 16px">
+          <div style="font-size:14px;font-weight:700;color:#101117;margin-bottom:5px">{{ f.title }}</div>
+          <div style="font-size:12.5px;line-height:1.45;color:#545F71">{{ f.text }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-sec="m2" style="background:#fff;padding:20px 0 22px">
+    <div style="padding:0 16px 18px">
+      <div style="border-left:3px solid #0050A0;padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:11.5px;font-weight:700;color:#0050A0">02</span>
+          <span style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">PRAĆENJE</span>
+        </div>
+        <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 7px">Praćenje pošiljke i rok isporuke</h2>
+        <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0;text-wrap:pretty">Status Marketplace pošiljke pratite iz svog Big Bang računa, a dostava je odgovornost trgovca od kojeg ste naručili proizvod.</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #EFF0F3;padding:20px 16px 0">
+      <div style="display:flex;flex-direction:column;gap:13px">
+        <sc-for list="{{ mpBullets }}" as="b" hint-placeholder-count="4">
+          <div style="display:flex;gap:11px;align-items:flex-start;font-size:13.5px;line-height:1.5;color:#545F71">
+            <span style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#EEF3FA;flex-shrink:0">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0050A0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+            </span>
+            {{ b }}
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;gap:11px;align-items:flex-start;background:#F1F1F4;border-radius:10px;padding:13px 15px;margin-top:16px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#C7C7CD" style="flex-shrink:0;margin-top:1px"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"></path></svg>
+        <p style="font-size:12px;line-height:1.5;color:#545F71;margin:0">Trgovac dostavlja narudžbu do procijenjenog datuma isporuke navedenog na stranici za naplatu, osim u slučaju više sile. U tom slučaju može vas obavijestiti o novom procijenjenom datumu dostave.</p>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <dc-import name="Components/SupportBand" variant="mobile" eyebrow="PITANJE O DOSTAVI?" title="Naš tim podrške je tu za vas." text="Pomoći ćemo oko rokova, statusa pošiljke, reklamacija i dodatnih usluga dostave. Dostupni smo svaki dan od 8 do 20h." hint-size="100%,260px"></dc-import>
+
+</div>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;variant&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;desktop&quot;, &quot;mobile&quot;], &quot;default&quot;: &quot;desktop&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;onHome&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;() =&gt; void&quot; },
+  &quot;onNav&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(key: string) =&gt; void&quot; }
+}">
+const OPTIONS = [
+  { name: 'Standardna dostava', sub: 'Mali paketi i televizori na adresu' },
+  { name: 'Gabaritna dostava', sub: 'Bijela tehnika i veliki uređaji' },
+  { name: 'Paketomat Paket24 HP-a', sub: 'Mali paketi mase do 30 kg' },
+  { name: 'BoxNow paketomati', sub: 'Preuzimanje 24/7, PIN iz SMS-a', novo: true },
+  { name: 'GLS paketomati', sub: '24/7 na većini lokacija', novo: true },
+  { name: 'GLS dostava', sub: 'Mali paketi do 40 kg' },
+  { name: 'Intereuropa', sub: 'Gabaritna dostava' },
+  { name: 'Osobno preuzimanje', sub: 'U odabranoj Big Bang poslovnici' },
+  { name: 'Dostava u stan ili s montažom', sub: 'Zagreb, Zadar i Split s okolicom' }
+];
+const STD = [
+  'Hrvatska pošta šalje obavijest o isporuci SMS-om na dan isporuke.',
+  'Ako u trenutku isporuke niste na adresi, dostavljač ostavlja obavijest (bijeli papirić) u poštanskom sandučiću, a pošiljka ide u najbliži isporučni poštanski ured.',
+  'Naručeni proizvodi dostavljaju se do ulaza u stambeni objekt — kod stambene zgrade dostavljač nije obvezan nositi proizvode do kata na kojem se nalazi kupac.',
+  'Televizori većih dijagonala dostavljaju se do ulaza u objekt ili do prve prepreke za dostavno vozilo.'
+];
+const GAB = [
+  'Naručeni proizvodi dostavljaju se do ulaza u stambeni objekt; kod stambene zgrade dostavljač nije obvezan nositi proizvode do kata kupca.',
+  'Bijela tehnika, televizori i ostali uređaji velikih gabarita dostavljaju se do ulaza u objekt ili do prve prepreke za dostavno vozilo.',
+  'Dostavna služba kontaktira kupca mailom, pozivom ili SMS-om oko detalja dostave narudžbe.'
+];
+const LOCKERS = [
+  { name: 'Paket24 Hrvatske pošte', sub: 'Mreža paketomata HP-a', items: ['Za male pakete mase do 30 kg.', 'Dostava se obavlja putem usluge Paket24 Hrvatske pošte.', 'Dostupno na cijelom području Republike Hrvatske.'] },
+  { name: 'BoxNow', sub: 'Paketomati BoxNow', novo: true, items: ['Dostupni 24 sata dnevno, 7 dana u tjednu.', 'Paketi se dostavljaju u roku od 24 do 48 sati od obrade narudžbe.', 'Preuzimanje je beskontaktno — dovoljno je unijeti PIN iz SMS poruke.', 'Paketomati rade na obnovljive izvore energije putem solarnih panela.'] },
+  { name: 'GLS paketomati', sub: 'Paketomati GLS-a', novo: true, items: ['Dostupni 24 sata dnevno, 7 dana u tjednu na većini lokacija.', 'Kada paket stigne, primit ćete obavijest s uputama za preuzimanje.', 'Proces preuzimanja je brz, siguran i jednostavan.'] }
+];
+const GLS = [
+  'Obavijest o isporuci šalje se SMS-om pri izradi naljepnice paketa (priprema za dostavu) i na dan dostave, s točnim vremenskim intervalom i telefonskim kontaktom kurira.',
+  'Uz 3 pokušaja dostave na adresu imate pravo na isporuku u drugom terminu, isporuku na drugoj adresi u Hrvatskoj, ovlaštenje da se paket preda drugoj osobi ili isporuku u PaketShop poslovnicu.',
+  'Isporuka u PaketShop poslovnicu moguća je isključivo po nalogu primatelja ili pošiljatelja.'
+];
+const HOME = [
+  'Uslugu obavljaju odabrane specijalizirane dostavne službe i uključuje dostavu bilo kojeg uređaja, neovisno o broju samih artikala.',
+  'Vrijedi za webshop narudžbe i za kupnju u fizičkim poslovnicama, ISKLJUČIVO za dostavne adrese u Zagrebu, Zadru i Splitu te okolici tih gradova.',
+  'Ovisno o vrsti artikala u košarici i lokaciji dostave, sustav nudi opcije dostave i montaže te cijenu — kupac sam odabire željenu uslugu.',
+  'Za dostavu iznad 5. kata uvjet je da roba u originalnom pakiranju stane u lift.',
+  'Za dostavu u prizemlje ili do 5. kata bez lifta uvjet je dovoljna širina hodnika i svih prolaza za nesmetan unos uređaja u originalnoj ambalaži.'
+];
+const PICKUP = [
+  'Pri završetku narudžbe odaberete Big Bang poslovnicu u kojoj želite preuzeti uređaj.',
+  'Informacije o dostupnosti artikla po poslovnicama nalaze se na stranici svakog artikla.',
+  'Kada je narudžba spremna, dobivate SMS s kodom koji vam omogućava preuzimanje.'
+];
+const STATUS_RULES = [
+  'Informacije o statusu narudžbe i MP račun u elektronskom formatu dobivate e-mailom od Sancta Domenica d.o.o. nakon otpreme pošiljke.',
+  'Dostavna služba kontaktira kupca mailom, pozivom ili SMS-om oko detalja dostave; dostavnim službama dajemo telefonski broj naveden pri registraciji ili kupnji.'
+];
+const DAMAGE_RULES = [
+  'Proizvodi su zapakirani tako da se uobičajenom manipulacijom u transportu ne mogu oštetiti.',
+  'Pri preuzimanju provjerite eventualna oštećenja i odmah ih reklamirajte dostavnom radniku, odnosno odbijte preuzeti pošiljku s vidljivim vanjskim oštećenjima.',
+  'U slučaju oštećenja ili umanjenja sadržaja pošiljke podnesite prigovor odmah pri dostavi, popunjavanjem obrasca Zapisnik o šteti koji posjeduje dostavljač.',
+  'Sva druga oštećenja i nepravilnosti javite odmah nakon preuzimanja i prije upotrebe na podrska@bigbang.hr — naknadne reklamacije ne uvažavamo.'
+];
+const MP_FACTS = [
+  { title: 'Paket šalje trgovac', text: 'Pošiljku šalje trgovac koji je zaprimio vašu narudžbu, a isti trgovac izdaje i račun o kupnji.' },
+  { title: 'Više paketa u narudžbi', text: 'Jedna narudžba može sadržavati proizvode različitih trgovaca — u tom slučaju paketi dolaze odvojeno i u različitim rokovima.' },
+  { title: 'Bez osobnog preuzimanja', text: 'Osobno preuzimanje Marketplace proizvoda u poslovnicama Big Banga nije moguće.' }
+];
+const MP_BULLETS = [
+  'Nakon izvršene narudžbe dobivate e-mail s informacijama o praćenju pošiljke.',
+  'Putem svog Big Bang računa vidite koja kurirska tvrtka dostavlja paket te status i trenutnu lokaciju pošiljke.',
+  'Dostava naručenih proizvoda u potpunosti je odgovornost trgovca od kojeg ste naručili proizvod.',
+  'Naručeni proizvodi dostavljaju se na adresu koju ste naveli u narudžbi.'
+];
+const ANCHORS_BB = [
+  { num: '01', label: 'Opcije i rok isporuke', id: 'd1' },
+  { num: '02', label: 'Standardna dostava', id: 'd2' },
+  { num: '03', label: 'Gabaritna dostava', id: 'd3' },
+  { num: '04', label: 'Paketomati', id: 'd4' },
+  { num: '05', label: 'GLS dostava', id: 'd5' },
+  { num: '06', label: 'U stan i montaža', id: 'd6' },
+  { num: '07', label: 'Osobno preuzimanje', id: 'd7' },
+  { num: '08', label: 'Preuzimanje i reklamacije', id: 'd8' }
+];
+const ANCHORS_MP = [
+  { num: '01', label: 'Kako radi', id: 'm1' },
+  { num: '02', label: 'Praćenje i rok isporuke', id: 'm2' }
+];
+
+class Component extends DCLogic {
+  state = { tab: 0, sec: 'd1' };
+
+  selectSec = (id) => { this.setState({ sec: id }); this.scrollTo(id)(); };
+
+  rootRef = (el) => { if (el) this.root = el; };
+
+  scrollTo = (id) => (e) => {
+    if (e) e.preventDefault();
+    const el = this.root && this.root.querySelector('[data-sec="' + id + '"]');
+    if (!el) return;
+    let node = el.parentElement, cont = null;
+    while (node && node !== document.body && node !== document.documentElement) {
+      const oy = getComputedStyle(node).overflowY;
+      if ((oy === 'auto' || oy === 'scroll') && node.scrollHeight > node.clientHeight) { cont = node; break; }
+      node = node.parentElement;
+    }
+    const r = el.getBoundingClientRect();
+    if (cont) {
+      const cr = cont.getBoundingClientRect();
+      cont.scrollBy({ top: r.top - cr.top - 68, behavior: 'smooth' });
+    } else {
+      window.scrollBy({ top: r.top - 110, behavior: 'smooth' });
+    }
+  };
+
+  renderVals() {
+    const p = this.props, s = this.state;
+    const mobile = p.variant === 'mobile';
+    const bb = s.tab === 0;
+
+    return {
+      isDesktop: !mobile,
+      isMobile: mobile,
+      rootRef: mobile ? null : this.rootRef,
+      rootRefM: mobile ? this.rootRef : null,
+      onHome: p.onHome,
+      onNav: p.onNav,
+      tab: s.tab,
+      isBB: bb,
+      isMP: !bb,
+      setTab: (i) => this.setState({ tab: i, sec: i === 0 ? 'd1' : 'm1' }),
+      sec: s.sec,
+      selectSec: this.selectSec,
+      navItems: (bb ? ANCHORS_BB : ANCHORS_MP).map(a => ({ id: a.id, num: a.num, label: a.label })),
+      tabs: [
+        { label: 'Big Bang dostava', sub: 'bigbang.hr', icon: 'globe' },
+        { label: 'Marketplace dostava', sub: 'Drugi prodavači', icon: 'pin' }
+      ],
+      anchors: (bb ? ANCHORS_BB : ANCHORS_MP).map(a => ({
+        num: a.num, label: a.label, onClick: this.scrollTo(a.id)
+      })),
+      goRules: this.scrollTo('d8'),
+      goHome2: this.scrollTo('d6'),
+      options: OPTIONS,
+      stdBullets: STD,
+      gabBullets: GAB,
+      lockers: LOCKERS,
+      glsBullets: GLS,
+      homeBullets: HOME,
+      pickupSteps: PICKUP.map((t, i) => ({ n: i + 1, text: t })),
+      statusRules: STATUS_RULES,
+      damageRules: DAMAGE_RULES,
+      mpFacts: MP_FACTS,
+      mpBullets: MP_BULLETS
+    };
+  }
+}
+</script>
+</body>
+</html>

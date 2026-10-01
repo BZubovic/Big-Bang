@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</helmet>
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<main style="padding:28px 0 72px">
+  <div style="max-width:1480px;margin:0 auto;padding:0 20px">
+    <dc-import name="Components/Breadcrumbs" variant="desktop" items="{{ crumbs }}" hint-size="100%,44px"></dc-import>
+
+    <div style="display:flex;align-items:baseline;gap:14px;margin-bottom:20px">
+      <h1 style="font-size:36px;font-weight:700;letter-spacing:-0.02em;color:#101117">Popis želja</h1>
+      <sc-if value="{{ hasItems }}" hint-placeholder-val="{{ true }}">
+        <span style="font-size:15px;color:#545F71">{{ countLabel }}</span>
+      </sc-if>
+    </div>
+
+    <sc-if value="{{ isGuest }}" hint-placeholder-val="{{ true }}">
+      <div style="background:#fff;border-radius:12px;padding:22px 24px;display:flex;align-items:center;gap:20px">
+        <span style="display:flex;color:#0050A0;flex-shrink:0"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg></span>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:17px;font-weight:700;letter-spacing:-0.01em;color:#101117">Javit ćemo ti kad cijena padne</div>
+          <p style="font-size:14px;color:#545F71;line-height:1.55;margin-top:4px;max-width:720px">Prijavi se i uključi obavijesti o padu cijene — poslat ćemo ti e-mail čim proizvod s tvog popisa želja pojeftini.</p>
+        </div>
+        <button onClick="{{ onSignIn }}" class="bbcta" style="flex-shrink:0;height:48px;padding:0 30px;border-radius:24px;border:none;background:#002D73;color:#fff;font-family:Inter,sans-serif;font-size:15px;font-weight:700;letter-spacing:-0.01em;cursor:pointer">Prijavi se</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isSigned }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#fff;border-radius:12px;padding:22px 24px;display:flex;align-items:center;gap:20px">
+        <span style="display:flex;color:#0050A0;flex-shrink:0"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg></span>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:17px;font-weight:700;letter-spacing:-0.01em;color:#101117">Obavijesti o padu cijene</div>
+          <p style="font-size:14px;color:#545F71;line-height:1.55;margin-top:4px;max-width:720px">{{ notifyText }}</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;flex-shrink:0">
+          <span style="{{ notifyLabelStyle }}">{{ notifyLabel }}</span>
+          <button onClick="{{ toggleNotify }}" role="switch" aria-label="Obavijesti o padu cijene" style="{{ switchStyle }}">
+            <span style="{{ knobStyle }}"></span>
+          </button>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top:20px;background:#fff;border-radius:16px;padding:64px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px">
+        <span style="display:flex;color:#C7C7CD"><svg width="56" height="56" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+        <h2 style="font-size:26px;font-weight:700;letter-spacing:-0.02em;color:#101117">Tvoj popis želja je prazan</h2>
+        <p style="font-size:15px;color:#545F71;line-height:1.55;max-width:440px">Sačuvaj proizvode koje želiš pratiti ili se prijavi da ti popis ostane na svim uređajima.</p>
+        <button onClick="{{ onSignIn }}" class="bbcta" style="margin-top:6px;height:48px;padding:0 34px;border-radius:24px;border:none;background:#002D73;color:#fff;font-family:Inter,sans-serif;font-size:15px;font-weight:700;letter-spacing:-0.01em;cursor:pointer">Prijavi se</button>
+      </div>
+
+      <div style="margin-top:36px">
+        <h2 style="font-size:24px;font-weight:600;letter-spacing:-0.02em;color:#101117;margin-bottom:16px">Istraži kategorije</h2>
+        <dc-import name="Components/CategoryTiles" variant="desktop" on-open-category="{{ openCategory }}" hint-size="100%,560px"></dc-import>
+      </div>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ hasItems }}" hint-placeholder-val="{{ true }}">
+    <div style="margin-top:-12px">
+    <dc-import name="Components/ProductCarousel" variant="desktop" title="Sačuvani proizvodi" wishlist="{{ true }}" products="{{ items }}" on-remove-wish="{{ removeWish }}" on-open-product="{{ openProduct }}" hint-size="100%,620px"></dc-import>
+    </div>
+  </sc-if>
+
+  <div style="margin-top:12px">
+    <dc-import name="Components/ProductCarousel" variant="desktop" title="{{ recATitle }}" products="{{ recA }}" on-open-product="{{ openProduct }}" hint-size="100%,560px"></dc-import>
+  </div>
+  <div style="margin-top:12px">
+    <dc-import name="Components/ProductCarousel" variant="desktop" title="Preporučeno za tebe" products="{{ recB }}" on-open-product="{{ openProduct }}" hint-size="100%,560px"></dc-import>
+  </div>
+</main>
+</sc-if>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<main style="padding:14px 0 40px">
+  <div style="padding:0 12px 14px">
+    <dc-import name="Components/Breadcrumbs" variant="mobile" items="{{ crumbsMob }}" hint-size="100%,38px"></dc-import>
+    <h1 style="font-size:26px;font-weight:700;letter-spacing:-0.02em;color:#101117">Popis želja</h1>
+    <sc-if value="{{ hasItems }}" hint-placeholder-val="{{ true }}">
+      <div style="font-size:13px;color:#545F71;margin-top:4px">{{ countLabel }}</div>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ isGuest }}" hint-placeholder-val="{{ true }}">
+    <div style="margin:0 12px;background:#fff;border-radius:14px;padding:16px 14px;display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="display:flex;color:#0050A0;flex-shrink:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg></span>
+        <div style="font-size:14.5px;font-weight:700;letter-spacing:-0.01em;color:#101117">Javit ćemo ti kad cijena padne</div>
+      </div>
+      <p style="font-size:12.5px;color:#545F71;line-height:1.5">Prijavi se i uključi obavijesti o padu cijene — poslat ćemo ti e-mail čim proizvod s popisa pojeftini.</p>
+      <button onClick="{{ onSignIn }}" class="bbcta" style="height:44px;border-radius:22px;border:none;background:#002D73;color:#fff;font-family:Inter,sans-serif;font-size:14px;font-weight:700;letter-spacing:-0.01em">Prijavi se</button>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isSigned }}" hint-placeholder-val="{{ false }}">
+    <div style="margin:0 12px;background:#fff;border-radius:14px;padding:16px 14px;display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="display:flex;color:#0050A0;flex-shrink:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg></span>
+        <div style="flex:1;min-width:0;font-size:14.5px;font-weight:700;letter-spacing:-0.01em;color:#101117">Obavijesti o padu cijene</div>
+        <button onClick="{{ toggleNotify }}" role="switch" aria-label="Obavijesti o padu cijene" style="{{ switchStyle }}">
+          <span style="{{ knobStyle }}"></span>
+        </button>
+      </div>
+      <p style="font-size:12.5px;color:#545F71;line-height:1.5">{{ notifyText }}</p>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+    <div style="margin:12px 12px 0;background:#fff;border-radius:14px;padding:40px 18px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:11px">
+      <span style="display:flex;color:#C7C7CD"><svg width="44" height="44" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+      <h2 style="font-size:19px;font-weight:700;letter-spacing:-0.02em;color:#101117">Tvoj popis želja je prazan</h2>
+      <p style="font-size:13px;color:#545F71;line-height:1.5">Sačuvaj proizvode koje želiš pratiti ili se prijavi.</p>
+      <button onClick="{{ onSignIn }}" class="bbcta" style="margin-top:4px;height:44px;padding:0 28px;border-radius:22px;border:none;background:#002D73;color:#fff;font-family:Inter,sans-serif;font-size:14px;font-weight:700">Prijavi se</button>
+    </div>
+
+    <div style="margin-top:26px;padding:0 12px">
+      <h2 style="font-size:17px;font-weight:600;letter-spacing:-0.01em;color:#101117;margin-bottom:12px">Istraži kategorije</h2>
+      <dc-import name="Components/CategoryTiles" variant="mobile" on-open-category="{{ openCategory }}" hint-size="100%,160px"></dc-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ hasItems }}" hint-placeholder-val="{{ true }}">
+    <div style="margin-top:-12px">
+    <dc-import name="Components/ProductCarousel" variant="mobile" title="Sačuvani proizvodi" wishlist="{{ true }}" products="{{ items }}" on-remove-wish="{{ removeWish }}" on-open-product="{{ openProduct }}" hint-size="100%,480px"></dc-import>
+    </div>
+  </sc-if>
+
+  <dc-import name="Components/ProductCarousel" variant="mobile" title="{{ recATitle }}" products="{{ recA }}" on-open-product="{{ openProduct }}" hint-size="100%,420px"></dc-import>
+  <dc-import name="Components/ProductCarousel" variant="mobile" title="Preporučeno za tebe" products="{{ recB }}" on-open-product="{{ openProduct }}" hint-size="100%,420px"></dc-import>
+</main>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1480, &quot;height&quot;: 900 },
+  &quot;variant&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;desktop&quot;, &quot;mobile&quot;], &quot;default&quot;: &quot;desktop&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;signedIn&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot; },
+  &quot;emptyWishlist&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot; },
+  &quot;email&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;marko.horvat@gmail.com&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;onOpenProduct&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(p: any) =&gt; void&quot; },
+  &quot;onOpenCategory&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(c: string) =&gt; void&quot; },
+  &quot;onSignIn&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;() =&gt; void&quot; },
+  &quot;onHome&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;() =&gt; void&quot; }
+}">
+const WISH = [
+  { id: 'w1', img: 'images/prod-samsung-s24.webp', name: 'Mobitel SAMSUNG Galaxy S24+ 12/256GB, onyx black', price: '899,00 €', old: '1.099,00 €', rate: '74,92 € / 12 rata' },
+  { id: 'w2', img: 'images/prod-laptop-lenovo-slim5.webp', name: 'Laptop LENOVO IdeaPad Slim 5, 16" WUXGA, Ryzen 7, 16 GB', price: '799,00 €', old: '929,00 €' },
+  { id: 'w3', img: 'images/prod-bosch-perilica.webp', name: 'Perilica rublja BOSCH WAN24266BY, 8 kg', price: '519,00 €', old: '659,00 €' },
+  { id: 'w4', img: 'images/prod-huawei-watch.webp', name: 'Pametni sat HUAWEI Watch Fit 3, black', price: '129,99 €' },
+  { id: 'w5', img: 'images/prod-krups-kava.webp', name: 'Espresso aparat KRUPS EA819E Arabica Latte', price: '379,00 €', old: '449,00 €', rate: '31,58 € / 12 rata' },
+  { id: 'w6', img: 'images/prod-hisense-klima.webp', name: 'Klima uređaj HISENSE Easy Smart 3,5 kW', price: '529,00 €', old: '619,00 €' },
+  { id: 'w7', img: 'images/prod-nutribullet.webp', name: 'Blender NUTRIBULLET Pro 900 Series, 900 W', price: '109,99 €', old: '139,99 €' }
+];
+
+const REC_A = [
+  { img: 'images/prod-laptop-hp-omnibook7.webp', name: 'Laptop HP OmniBook 7, 14" 2.8K OLED, Core Ultra 7', price: '1.149,00 €', old: '1.299,00 €' },
+  { img: 'images/prod-philips-brijac.webp', name: 'Brijač PHILIPS S5588/38 Series 5000', price: '129,99 €' },
+  { img: 'images/prod-samsung-a16.webp', name: 'Mobitel SAMSUNG Galaxy A16 5G 4/128GB', price: '189,99 €', old: '229,99 €' },
+  { img: 'images/prod-gorenje-perilica.webp', name: 'Perilica posuđa GORENJE GS620E10W, 14 setova', price: '389,00 €', old: '469,00 €' },
+  { img: 'images/prod-laptop-asus-tuf.webp', name: 'Laptop ASUS TUF Gaming A15, RTX 4060, Ryzen 7, 16 GB', price: '1.049,00 €', old: '1.249,00 €' },
+  { img: 'images/prod-gaming-pc.webp', name: 'TV PHILIPS 75PUS8909/12, 189cm (75"), 4K UHD, Ambilight', price: '899,00 €', old: '1.199,00 €' },
+  { img: 'images/prod-laptop-lenovo-legion5.webp', name: 'Laptop LENOVO Legion 5, RTX 4070, Ryzen 7, 32 GB', price: '1.599,00 €', old: '1.849,00 €' }
+];
+
+const REC_B = [
+  { img: 'images/prod-laptop-acer-aspire-lite2.webp', name: 'Laptop ACER Nitro V 15, 15.6" FHD 144Hz, Ryzen 7 7735HS', price: '949,00 €', old: '1.099,00 €' },
+  { img: 'images/prod-huawei-watch.webp', name: 'Pametni sat HUAWEI Watch Fit 3, black', price: '129,99 €' },
+  { img: 'images/prod-bosch-perilica.webp', name: 'Perilica rublja BOSCH WAN24266BY, 8 kg', price: '519,00 €', old: '659,00 €' },
+  { img: 'images/prod-krups-kava.webp', name: 'Espresso aparat KRUPS EA819E Arabica Latte', price: '379,00 €', old: '449,00 €' },
+  { img: 'images/prod-hisense-klima.webp', name: 'Klima uređaj HISENSE Easy Smart 3,5 kW', price: '529,00 €', old: '619,00 €' },
+  { img: 'images/prod-nutribullet.webp', name: 'Blender NUTRIBULLET Pro 900 Series, 900 W', price: '109,99 €', old: '139,99 €' },
+  { img: 'images/prod-samsung-s24.webp', name: 'Mobitel SAMSUNG Galaxy S24+ 12/256GB, onyx black', price: '899,00 €', old: '1.099,00 €' }
+];
+
+class Component extends DCLogic {
+  state = { removed: {}, notify: true };
+
+  renderVals() {
+    const mobile = this.props.variant === 'mobile';
+    const signed = !!this.props.signedIn;
+    const live = this.props.emptyWishlist ? [] : WISH.filter(p => !this.state.removed[p.id]);
+    const notify = this.state.notify;
+    const email = this.props.email || 'marko.horvat@gmail.com';
+
+    return {
+      isDesktop: !mobile,
+      isMobile: mobile,
+      isGuest: !signed && live.length > 0,
+      isSigned: signed && live.length > 0,
+      hasItems: live.length > 0,
+      isEmpty: live.length === 0,
+      items: live,
+      countLabel: live.length === 1 ? '1 proizvod' : live.length + ' proizvoda',
+      recATitle: live.length === 0 ? 'Nedavno pregledano' : 'Kupci često dodaju',
+      crumbs: [
+        { label: 'Big Bang', onClick: this.props.onHome },
+        { label: 'Popis želja' }
+      ],
+      crumbsMob: [
+        { label: 'Početna', onClick: this.props.onHome },
+        { label: 'Popis želja' }
+      ],
+      recA: REC_A,
+      recB: REC_B,
+      notifyLabel: notify ? 'Obavijesti me' : 'Isključeno',
+      notifyLabelStyle: { fontSize: 13.5, fontWeight: 600, color: notify ? '#101117' : '#8B95A5', whiteSpace: 'nowrap' },
+      notifyText: notify
+        ? 'Obavijest o padu cijene poslat ćemo na ' + email + '.'
+        : 'Obavijesti su isključene — uključi ih da ti javimo kad proizvod s popisa pojeftini.',
+      switchStyle: {
+        width: 50, height: 28, borderRadius: 14, border: 'none', padding: 3, flexShrink: 0, cursor: 'pointer',
+        background: notify ? '#0050A0' : '#C7C7CD', display: 'flex',
+        justifyContent: notify ? 'flex-end' : 'flex-start', transition: 'background .18s'
+      },
+      knobStyle: { width: 22, height: 22, borderRadius: '50%', background: '#fff', display: 'block' },
+      toggleNotify: () => this.setState(s => ({ notify: !s.notify })),
+      removeWish: (p) => this.setState(s => ({ removed: Object.assign({}, s.removed, { [p.id]: true }) })),
+      openProduct: this.props.onOpenProduct || (() => {}),
+      openCategory: this.props.onOpenCategory || (() => {}),
+      onSignIn: (e) => { if (e && e.preventDefault) e.preventDefault(); if (this.props.onSignIn) this.props.onSignIn(); },
+      goHome: (e) => { if (e) e.preventDefault(); if (this.props.onHome) this.props.onHome(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

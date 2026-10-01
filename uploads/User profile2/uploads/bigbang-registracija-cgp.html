@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="sl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Big Bang · Ustvari račun</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#0050A0; --blue-dark:#002D73; --blue-nav:#003E7E; --blue-light:#0078B4;
+    --green:#CDD700; --coral:#E4572E; --ink:#1c2b4a; --body:#4a5a75; --muted:#8695ad;
+    --line:#e3e8f0; --field:#cfd8e6; --bg:#f5f6f8;
+    --font:'Lato',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    --display:'Montserrat','Lato',sans-serif;
+    --logo-mask:url("data:image/png;base64,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");
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:var(--font);color:var(--ink);background:var(--bg);min-height:100vh}
+  a{color:var(--blue)}
+  button{font-family:inherit;cursor:pointer}
+  input{font-family:inherit}
+
+  /* ================= HEADER ================= */
+  .hrow1{background:var(--blue)}
+  .hrow2{background:var(--blue-nav)}
+  .hwrap{max-width:1240px;margin:0 auto;padding:0 22px;display:flex;align-items:center;gap:22px}
+  .hrow1 .hwrap{height:62px}
+  .hrow2 .hwrap{height:40px;justify-content:space-between}
+  .logo{width:126px;height:26px;flex:0 0 auto;background:#fff;
+    -webkit-mask:var(--logo-mask) center/contain no-repeat;mask:var(--logo-mask) center/contain no-repeat}
+  .search{flex:1;max-width:560px;margin:0 auto;position:relative}
+  .search input{width:100%;height:38px;border-radius:999px;border:none;padding:0 44px 0 18px;font-size:13px;color:var(--ink)}
+  .search input::placeholder{color:#8b98ac}
+  .search svg{position:absolute;right:15px;top:10px;width:17px;height:17px;color:#5a6a85}
+  .hicons{display:flex;gap:20px;color:#fff;flex:0 0 auto}
+  .hicons svg{width:21px;height:21px;display:block}
+  .nav{display:flex;gap:22px;align-items:center;color:#dfe8f5;font-size:12.5px;font-weight:700}
+  .nav span{display:flex;align-items:center;gap:6px;white-space:nowrap}
+  .nav .em{color:#fff}
+  .nav svg{width:14px;height:14px}
+  @media (max-width:860px){.nav.right{display:none}.search{display:none}.hrow1 .hwrap{justify-content:space-between}}
+
+  /* ================= LAYOUT ================= */
+  .wrap{max-width:1240px;margin:0 auto;padding:42px 22px 120px;display:flex;gap:0;align-items:flex-start;justify-content:center}
+  .colL{flex:0 1 480px;min-width:0}
+  .vline{width:1px;align-self:stretch;background:var(--line);margin:8px 48px}
+  .colR{flex:0 1 440px;min-width:0;padding-top:14px}
+  @media (max-width:960px){
+    .wrap{flex-direction:column;align-items:center;gap:34px}
+    .vline{display:none}
+    .colL,.colR{flex:1 1 auto;width:100%;max-width:520px}
+  }
+
+  /* ---------- right info panel ---------- */
+  .colR h3{font-family:var(--display);font-size:17px;font-weight:700;color:var(--ink);margin:0 0 12px;line-height:1.35}
+  .colR p{font-size:13.5px;line-height:1.6;color:var(--body);margin:0 0 12px}
+  .colR ul{margin:0 0 14px;padding-left:22px;font-size:13.5px;color:var(--body);line-height:1.8}
+  .loginrow{display:flex;align-items:center;gap:26px;margin-top:16px;flex-wrap:wrap}
+  .btn-login{height:44px;padding:0 44px;border:none;border-radius:999px;background:var(--blue-dark);color:#fff;
+    font-family:var(--display);font-size:13.5px;font-weight:700;transition:.15s}
+  .btn-login:hover{filter:brightness(1.15)}
+  .forgot-wrap{font-size:12.5px;color:var(--body);line-height:1.7}
+  .forgot-wrap a{font-weight:700}
+  .colR .sep{height:1px;background:var(--line);margin:26px 0}
+
+  /* ================= CARD ================= */
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 28px rgba(16,42,90,.07);
+    padding:30px 32px 28px;display:none}
+  .card.active{display:block;animation:pop .32s ease}
+  @keyframes pop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  .back{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:var(--ink);
+    background:none;border:none;padding:0;margin:0 0 18px}
+  .back:hover{color:var(--blue)}
+
+  .steps{display:flex;gap:6px;margin:0 0 18px}
+  .steps span{height:4px;flex:1;border-radius:99px;background:#e7ebf2;transition:background .3s}
+  .steps span.done{background:var(--green)}
+  .steps span.cur{background:var(--blue)}
+  .kicker{font-family:var(--display);font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin:0 0 10px}
+  h1{font-family:var(--display);font-size:21px;font-weight:700;color:var(--ink);letter-spacing:-.01em;line-height:1.3;margin:0 0 10px}
+  .sub{font-size:13.5px;line-height:1.6;color:var(--body);margin:0 0 22px}
+  .sub b{color:var(--ink)}
+  .sub a{font-weight:700}
+
+  .field{position:relative;margin-bottom:14px}
+  .field label{display:block;font-size:12px;font-weight:700;color:var(--ink);margin-bottom:6px}
+  .field label i{font-style:normal;font-weight:400;color:var(--muted)}
+  .field input{width:100%;height:46px;border-radius:8px;border:1px solid var(--field);background:#fff;color:var(--ink);
+    padding:0 44px 0 14px;font-size:14px;transition:border-color .15s, box-shadow .15s}
+  .field input::placeholder{color:#9aa7bd}
+  .field input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,80,160,.14)}
+  .field.invalid input{border-color:var(--coral);background:#fef4f0}
+  .fielderr{display:none;font-size:12px;color:var(--coral);font-weight:700;margin:6px 2px 0}
+  .field.invalid .fielderr{display:block}
+  .field .toggle{position:absolute;right:6px;top:29px;width:36px;height:36px;border:none;background:transparent;
+    border-radius:8px;display:grid;place-items:center;font-size:14px;color:var(--muted)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .hint{font-size:12px;color:var(--muted);margin:-6px 2px 16px;line-height:1.5}
+  @media (max-width:520px){.grid2{grid-template-columns:1fr}.card{padding:24px 20px}}
+
+  .cta{width:100%;height:48px;border:none;border-radius:999px;font-family:var(--display);font-size:13.5px;font-weight:700;
+    background:var(--blue-dark);color:#fff;transition:.15s}
+  .cta:hover:not(:disabled){filter:brightness(1.18)}
+  .cta:disabled{background:#eceff4;color:#a3aec2;cursor:not-allowed}
+  .cta.green{background:var(--green);color:var(--blue-dark)}
+  .cta.green:hover:not(:disabled){filter:brightness(1.05)}
+  .cta.ghost{background:#fff;border:1.5px solid var(--field);color:var(--ink)}
+  .cta.ghost:hover{border-color:var(--blue);color:var(--blue);filter:none}
+
+  .divider{display:flex;align-items:center;gap:14px;margin:20px 0;font-size:12px;font-weight:700;color:var(--muted)}
+  .divider::before,.divider::after{content:"";height:1px;flex:1;background:var(--line)}
+  .socials{display:flex;gap:10px}
+  .soc{flex:1;height:46px;border-radius:999px;border:1px solid var(--field);background:#fff;color:var(--ink);
+    display:flex;align-items:center;justify-content:center;gap:9px;font-size:13px;font-weight:700;transition:.15s}
+  .soc:hover{background:#f6f8fb}
+  .soc svg{width:18px;height:18px}
+  @media (max-width:520px){.socials{flex-direction:column}}
+
+  .reg{text-align:center;margin-top:20px;font-size:13px;color:var(--body)}
+  .reg a{font-weight:700}
+  .legal{margin-top:16px;font-size:11px;line-height:1.6;color:var(--muted);text-align:center}
+  .legal a{font-weight:700}
+
+  /* intro perks */
+  .perks{display:flex;flex-direction:column;gap:10px;margin:0 0 22px}
+  .perk{display:flex;gap:12px;align-items:center;font-size:13px;color:var(--body);line-height:1.45}
+  .perk .ic{flex:0 0 38px;width:38px;height:38px;border-radius:10px;background:#eef3fb;display:grid;place-items:center;font-size:17px}
+  .perk b{color:var(--ink)}
+
+  /* OTP */
+  .otp{display:flex;gap:9px;margin:4px 0 6px}
+  .otp input{flex:1;min-width:0;height:54px;text-align:center;font-size:20px;font-weight:800;border-radius:8px;
+    border:1px solid var(--field);background:#fff;color:var(--ink);padding:0;transition:.15s}
+  .otp input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(0,80,160,.14)}
+  .otp.err input{border-color:var(--coral);background:#fef4f0;color:var(--coral)}
+  .otp.shake{animation:shake .4s}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+  .codeerr{display:none;align-items:flex-start;gap:9px;background:#fef4f0;border:1px solid #f3cebe;border-radius:8px;
+    padding:11px 13px;font-size:12.5px;color:#c04a26;font-weight:700;line-height:1.5;margin:12px 0 2px}
+  .codeerr.show{display:flex}
+  .resend{text-align:center;font-size:12.5px;color:var(--body);margin-top:16px}
+  .resend button{background:none;border:none;padding:0;font-size:12.5px;font-weight:700;color:var(--blue);text-decoration:underline;text-underline-offset:2px}
+  .resend button:disabled{color:var(--muted);cursor:default;text-decoration:none}
+  .sentok{display:none;text-align:center;font-size:12px;font-weight:700;color:#6a8a00;margin-top:8px}
+  .sentok.show{display:block}
+  .demo{text-align:center;font-size:10.5px;color:#b8c2d2;margin-top:14px}
+
+  /* password */
+  .meter{display:flex;gap:5px;margin:2px 0 12px}
+  .meter span{height:4px;flex:1;border-radius:99px;background:#e7ebf2;transition:background .25s}
+  .meter.s1 span:nth-child(1){background:var(--coral)}
+  .meter.s2 span:nth-child(-n+2){background:#f0b429}
+  .meter.s3 span:nth-child(-n+3){background:#9fc400}
+  .meter.s4 span{background:#6a8a00}
+  .reqs{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;margin:0 0 20px}
+  @media (max-width:520px){.reqs{grid-template-columns:1fr}}
+  .req{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);transition:color .2s}
+  .req .tick{width:16px;height:16px;flex:0 0 16px;border-radius:50%;border:1.5px solid #cdd6e4;display:grid;place-items:center;
+    font-size:9px;font-weight:900;color:transparent;transition:.2s}
+  .req.ok{color:#5a7a00;font-weight:700}
+  .req.ok .tick{background:var(--green);border-color:var(--green);color:var(--blue-dark)}
+
+  /* UAU klub box */
+  .klub{border-radius:12px;padding:20px;margin:8px 0 18px;color:#fff;position:relative;overflow:hidden;
+    background:linear-gradient(135deg,#002D73 0%,#0050A0 65%,#0069b8 100%)}
+  .klub::after{content:"";position:absolute;right:-40px;top:-40px;width:150px;height:150px;border-radius:50%;
+    background:radial-gradient(closest-side, rgba(205,215,0,.35), transparent 70%)}
+  .klub .badges{display:flex;gap:8px;margin-bottom:10px;position:relative;z-index:1}
+  .klub .badge{font-family:var(--display);font-size:9.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+    padding:5px 10px;border-radius:99px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25)}
+  .klub .badge.green{background:var(--green);color:var(--blue-dark);border:none}
+  .klub h2{font-family:var(--display);font-size:16px;font-weight:800;margin:0 0 7px;position:relative;z-index:1}
+  .klub p{font-size:12.5px;line-height:1.55;color:#d8e6f8;margin:0 0 12px;position:relative;z-index:1}
+  .kperks{display:flex;flex-direction:column;gap:7px;margin:0 0 15px;position:relative;z-index:1}
+  .kperk{display:flex;gap:9px;align-items:flex-start;font-size:12px;color:#eaf2fc;line-height:1.45}
+  .joinrow{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.28);
+    border-radius:10px;padding:12px 13px;cursor:pointer;user-select:none;transition:.15s;position:relative;z-index:1}
+  .joinrow:hover{background:rgba(255,255,255,.15)}
+  .joinrow.on{background:rgba(205,215,0,.16);border-color:var(--green)}
+  .joinrow input{position:absolute;opacity:0;pointer-events:none}
+  .sw{flex:0 0 42px;width:42px;height:24px;border-radius:99px;background:rgba(255,255,255,.25);position:relative;transition:.2s}
+  .sw::after{content:"";position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s}
+  .joinrow.on .sw{background:var(--green)}
+  .joinrow.on .sw::after{left:21px}
+  .joinrow b{font-size:12.5px;line-height:1.35}
+  .joinrow small{display:block;font-weight:400;font-size:11px;color:#c3d6ee;margin-top:2px}
+
+  /* consents */
+  .allrow{display:flex;align-items:center;gap:11px;border:1.5px solid var(--blue);background:#f2f7fd;border-radius:10px;
+    padding:13px 14px;cursor:pointer;user-select:none;margin-bottom:14px}
+  .allrow b{font-size:13.5px;color:var(--ink)}
+  .con{border-bottom:1px solid var(--line);padding:13px 2px}
+  .con:last-of-type{border-bottom:none}
+  .con .top{display:flex;align-items:flex-start;gap:11px;cursor:pointer}
+  .con .top span{font-size:13px;color:var(--ink);font-weight:700;line-height:1.45}
+  .chkbx{width:18px;height:18px;flex:0 0 18px;margin:1px 0 0;accent-color:var(--blue)}
+  .more{background:none;border:none;padding:0;margin:7px 0 0 29px;font-size:11.5px;font-weight:700;color:var(--blue);
+    text-decoration:underline;text-underline-offset:2px;display:block}
+  .moretxt{display:none;margin:8px 0 0 29px;font-size:12px;line-height:1.6;color:var(--body)}
+  .moretxt.show{display:block}
+  .connote{font-size:11.5px;color:var(--muted);line-height:1.6;margin:14px 0 18px}
+  .connote a{font-weight:700}
+
+  /* success */
+  .okwrap{width:68px;height:68px;border-radius:50%;background:var(--green);display:grid;place-items:center;
+    margin:4px auto 18px;animation:pop2 .5s cubic-bezier(.2,.8,.3,1.4)}
+  @keyframes pop2{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
+  .okwrap svg{width:32px;height:32px}
+  .center{text-align:center}
+
+  /* switcher */
+  .switcher{position:fixed;z-index:100;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;
+    background:rgba(0,23,58,.92);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.14);padding:6px;border-radius:999px;
+    box-shadow:0 12px 40px rgba(0,0,0,.4);max-width:calc(100vw - 16px);overflow-x:auto}
+  .switcher .grp{display:flex;gap:4px;padding-right:8px;margin-right:6px;border-right:1px solid rgba(255,255,255,.18)}
+  .switcher button{border:none;background:transparent;color:#c9d6ea;font-family:var(--display);font-size:11.5px;font-weight:700;
+    padding:8px 12px;border-radius:999px;transition:.18s;white-space:nowrap}
+  .switcher button:hover{color:#fff}
+  .switcher button.active{background:var(--green);color:var(--blue-dark)}
+  .switcher .grp button.active{background:#fff;color:var(--blue-dark)}
+
+  @media (prefers-reduced-motion:reduce){.card.active,.okwrap,.otp.shake{animation:none}}
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="hrow1"><div class="hwrap">
+    <div class="logo" role="img" aria-label="Big Bang"></div>
+    <div class="search"><input placeholder="Kateri izdelek iščeš? Vnesi iskalni niz ...">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></div>
+    <div class="hicons">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7.5-4.8-9.5-9C1 8.5 3 5 6.5 5c2.2 0 3.8 1.3 5.5 3.6C13.7 6.3 15.3 5 17.5 5 21 5 23 8.5 21.5 12c-2 4.2-9.5 9-9.5 9Z"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-3.8 4.5-5.5 8-5.5s6.5 1.7 8 5.5"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 7h14l-1.5 9h-11L5.5 4H3"/><circle cx="9.5" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>
+    </div>
+  </div></div>
+  <div class="hrow2"><div class="hwrap">
+    <div class="nav">
+      <span class="em"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 6h16M4 12h16M4 18h16"/></svg> Izdelki</span>
+      <span>Akcije &amp; promocije</span><span>Kuhinje</span><span>Home &amp; Cook</span><span>B2B</span>
+    </div>
+    <div class="nav right">
+      <span>Prodajna mesta</span><span>Storitve</span><span class="em">☆ UAU klub</span><span>Kontakt</span><span>···</span>
+    </div>
+  </div></div>
+</header>
+
+<div class="wrap">
+<div class="colL">
+
+  <!-- ============ UVOD ============ -->
+  <div class="card active" id="s-intro">
+    <p class="kicker">Big Bang · moj račun</p>
+    <h1>Ustvari račun in vstopi v svet UAU</h1>
+    <p class="sub">Registracija traja manj kot minuto — nakupovanje pa bo hitrejše, preglednejše in polno ugodnosti.</p>
+    <div class="perks">
+      <div class="perk"><span class="ic">⚡</span><span><b>Bliskovit nakup</b> — shranjeni podatki, hitrejši zaključek košarice.</span></div>
+      <div class="perk"><span class="ic">🧾</span><span><b>Vse na enem mestu</b> — naročila, računi, garancije in zavarovanja naprav.</span></div>
+      <div class="perk"><span class="ic">🚀</span><span><b>UAU klub</b> — VIP dostop do ekskluzivnih promocij in nagradnih iger.</span></div>
+    </div>
+    <button class="cta" onclick="go('email')">Ustvari račun</button>
+    <div class="divider">ali nadaljuj z</div>
+    <div class="socials">
+      <button type="button" class="soc"><svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.5 12.2c0-.7-.1-1.4-.2-2H12v3.9h5.9a5 5 0 0 1-2.2 3.3v2.7h3.6c2.1-2 3.2-4.8 3.2-7.9Z"/><path fill="#34A853" d="M12 23c2.9 0 5.4-1 7.2-2.6l-3.6-2.7c-1 .7-2.3 1.1-3.6 1.1-2.8 0-5.1-1.9-6-4.4H2.3v2.8A11 11 0 0 0 12 23Z"/><path fill="#FBBC05" d="M6 14.4a6.6 6.6 0 0 1 0-4.2V7.4H2.3a11 11 0 0 0 0 9.8L6 14.4Z"/><path fill="#EA4335" d="M12 5.4c1.6 0 3 .5 4.1 1.6l3.1-3.1A11 11 0 0 0 2.3 7.4L6 10.2c.9-2.6 3.2-4.8 6-4.8Z"/></svg> Google</button>
+      <button type="button" class="soc"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.7c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.8-3.5.8-.7 0-1.9-.8-3-.8-1.6 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.1 0 1.6-.7 3-.7 1.4 0 1.8.7 3 .7 1.2 0 2-1.1 2.8-2.2.9-1.3 1.2-2.5 1.2-2.6-.1 0-2.4-.9-2.4-3.8ZM14.1 6.1c.6-.8 1-1.8.9-2.9-.9 0-2 .6-2.6 1.4-.6.7-1.1 1.8-.9 2.8 1 .1 2-.5 2.6-1.3Z"/></svg> Apple</button>
+    </div>
+    <p class="reg">Že imaš račun? <a href="#">Prijavi se</a></p>
+    <p class="legal">Registracija pomeni strinjanje s <a href="https://www.bigbang.si/pogoji-poslovanja/" target="_blank" rel="noopener">pogoji uporabe</a> in <a href="https://www.bigbang.si/politika-zasebnosti/" target="_blank" rel="noopener">politiko zasebnosti</a>.</p>
+  </div>
+
+  <!-- ============ E-POŠTA ============ -->
+  <div class="card" id="s-email">
+    <button class="back" onclick="go('intro')">‹ Nazaj</button>
+    <div class="steps"><span class="cur"></span><span></span><span></span><span></span></div>
+    <p class="kicker">Korak 1 od 4 · e-pošta</p>
+    <h1>Vnesi svoj e-poštni naslov</h1>
+    <p class="sub">Nanj ti bomo poslali 6-mestno potrditveno kodo, da bo tvoj račun varen že od prvega klika. Brez neželene pošte — obljubimo.</p>
+    <div class="field" id="fEmail"><label for="email">E-poštni naslov</label>
+      <input id="email" type="email" placeholder="ime@primer.si" autocomplete="email" inputmode="email">
+      <p class="fielderr">Hmm, ta naslov ne izgleda pravilno. Preveri ga in poskusi znova.</p>
+    </div>
+    <button class="cta" onclick="sendCode()">Pošlji kodo</button>
+    <p class="reg">Že imaš račun? <a href="#">Prijavi se</a></p>
+  </div>
+
+  <!-- ============ KODA (e-pošta) ============ -->
+  <div class="card" id="s-code">
+    <button class="back" onclick="go('email')">‹ Nazaj</button>
+    <div class="steps"><span class="done"></span><span class="cur"></span><span></span><span></span></div>
+    <p class="kicker">Korak 2 od 4 · potrditev</p>
+    <h1>Preveri poštni predal</h1>
+    <p class="sub">Kodo smo poslali na <b id="sentTo">tvoj naslov</b>. <a href="#" onclick="go('email');return false">Spremeni naslov</a></p>
+    <div class="otp" id="otpMail"></div>
+    <div class="codeerr" id="errMail"><span>⚠️</span><span>Vpisana koda ni pravilna. Preveri jo še enkrat ali si <a href="#" onclick="resend('Mail');return false" style="color:inherit">pošlji novo kodo</a>.</span></div>
+    <button class="cta" id="ctaMail" style="margin-top:14px" disabled>Potrdi kodo</button>
+    <p class="resend">Nisi prejel kode? Preveri mapo z neželeno pošto ali
+      <button id="rbMail" onclick="resend('Mail')" disabled>pošlji novo kodo <span id="cdMail">(0:30)</span></button></p>
+    <p class="sentok" id="okMail">✓ Nova koda je na poti v tvoj nabiralnik.</p>
+    <p class="demo">Demo: pravilna koda je 123456</p>
+  </div>
+
+  <!-- ============ GESLO ============ -->
+  <div class="card" id="s-pass">
+    <button class="back" onclick="go('code')">‹ Nazaj</button>
+    <div class="steps"><span class="done"></span><span class="done"></span><span class="cur"></span><span></span></div>
+    <p class="kicker">Korak 3 od 4 · varnost</p>
+    <h1>Ustvari geslo</h1>
+    <p class="sub">Še hiter varnostni korak — izberi geslo, ki ga poznaš samo ti.</p>
+    <div class="field"><label for="pass">Geslo</label>
+      <input id="pass" type="password" placeholder="Vnesi geslo" autocomplete="new-password">
+      <button type="button" class="toggle" data-t="pass" aria-label="Prikaži geslo">👁</button>
+    </div>
+    <div class="meter" id="meter"><span></span><span></span><span></span><span></span></div>
+    <div class="reqs">
+      <div class="req" data-r="len"><span class="tick">✓</span> vsaj 8 znakov</div>
+      <div class="req" data-r="up"><span class="tick">✓</span> velika črka</div>
+      <div class="req" data-r="low"><span class="tick">✓</span> mala črka</div>
+      <div class="req" data-r="num"><span class="tick">✓</span> številka</div>
+    </div>
+    <button class="cta" id="passCta" onclick="afterPass()" disabled>Nadaljuj</button>
+  </div>
+
+  <!-- ============ OPCIJA 1 · PODATKI + KLUB ============ -->
+  <div class="card" id="s-data1">
+    <button class="back" onclick="go('pass')">‹ Nazaj</button>
+    <div class="steps"><span class="done"></span><span class="done"></span><span class="done"></span><span class="cur"></span></div>
+    <p class="kicker">Korak 4 od 4 · zadnji korak</p>
+    <h1>Zaupaj nam svoje podatke</h1>
+    <p class="sub">Potrebujemo jih za račune, dostavo in garancije. Pri nas so varni in nikoli jih ne delimo naprej.</p>
+    <div class="grid2">
+      <div class="field req1" data-f="ime1"><label>Ime</label><input type="text" placeholder="Ime" autocomplete="given-name"><p class="fielderr">Vpiši ime.</p></div>
+      <div class="field req1" data-f="priimek1"><label>Priimek</label><input type="text" placeholder="Priimek" autocomplete="family-name"><p class="fielderr">Vpiši priimek.</p></div>
+    </div>
+    <div class="field"><label>Telefon <i>(neobvezno)</i></label><input id="phone1" type="tel" placeholder="031 123 456" autocomplete="tel"></div>
+    <p class="hint">Številko potrdiš s kodo iz SMS sporočila — tako bodo tvoja naročila in obvestila vedno prišla do tebe.</p>
+    <div class="field"><label>Datum rojstva <i>(neobvezno)</i></label><input type="date"></div>
+    <p class="hint">🎁 Zaupaj nam datum rojstva in ob rojstnem dnevu te čaka presenečenje.</p>
+
+    <div class="klub">
+      <div class="badges"><span class="badge green">UAU klub</span><span class="badge">Brezplačno</span></div>
+      <h2>Postani član UAU kluba</h2>
+      <p>Pridobi VIP dostop v svet najnovejše tehnologije. Čakajo te ekskluzivne promocije, nagradne igre ter vsi računi, garancije in zavarovanja tvojih naprav — zbrani na enem mestu. Brezplačno, hitro, splača se.</p>
+      <div class="kperks">
+        <div class="kperk">🚀&nbsp; VIP dostop do novosti in predprodajnih akcij</div>
+        <div class="kperk">🎁&nbsp; Ekskluzivne promocije in nagradne igre samo za člane</div>
+        <div class="kperk">🧾&nbsp; Računi, garancije in zavarovanja naprav na enem mestu</div>
+      </div>
+      <label class="joinrow" id="joinRow">
+        <input type="checkbox" id="join" onchange="toggleJoin()">
+        <span class="sw"></span>
+        <span><b>Da, včlani me v UAU klub!</b><small>Brezplačno članstvo · odjava kadarkoli z enim klikom</small></span>
+      </label>
+    </div>
+
+    <button class="cta green" onclick="afterData1()">Nadaljuj</button>
+    <p class="legal">Registracija pomeni strinjanje s <a href="https://www.bigbang.si/pogoji-poslovanja/" target="_blank" rel="noopener">pogoji uporabe</a> in <a href="https://www.bigbang.si/politika-zasebnosti/" target="_blank" rel="noopener">politiko zasebnosti</a>.</p>
+  </div>
+
+  <!-- ============ OPCIJA 2 · PODATKI ============ -->
+  <div class="card" id="s-data2">
+    <button class="back" onclick="go('pass')">‹ Nazaj</button>
+    <div class="steps"><span class="done"></span><span class="done"></span><span class="done"></span><span class="cur"></span></div>
+    <p class="kicker">Korak 4 od 4 · zadnji korak</p>
+    <h1>Zaupaj nam svoje podatke</h1>
+    <p class="sub">Potrebujemo jih za račune, dostavo in garancije. Pri nas so varni in nikoli jih ne delimo naprej.</p>
+    <div class="grid2">
+      <div class="field req2" data-f="ime2"><label>Ime</label><input type="text" placeholder="Ime" autocomplete="given-name"><p class="fielderr">Vpiši ime.</p></div>
+      <div class="field req2" data-f="priimek2"><label>Priimek</label><input type="text" placeholder="Priimek" autocomplete="family-name"><p class="fielderr">Vpiši priimek.</p></div>
+    </div>
+    <div class="field"><label>Datum rojstva <i>(neobvezno)</i></label><input type="date"></div>
+    <p class="hint">🎁 Zaupaj nam datum rojstva in ob rojstnem dnevu te čaka presenečenje.</p>
+    <button class="cta green" onclick="afterData2()">Dokončaj registracijo</button>
+    <p class="legal">Registracija pomeni strinjanje s <a href="https://www.bigbang.si/pogoji-poslovanja/" target="_blank" rel="noopener">pogoji uporabe</a> in <a href="https://www.bigbang.si/politika-zasebnosti/" target="_blank" rel="noopener">politiko zasebnosti</a>.</p>
+  </div>
+
+  <!-- ============ OPCIJA 2 · RAČUN USTVARJEN + KLUB TEASER ============ -->
+  <div class="card" id="s-done2">
+    <div class="center">
+      <div class="okwrap"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 12.5 10 18 19.5 7" stroke="#002D73" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <h1 id="done2Title">Račun je ustvarjen! 🎉</h1>
+      <p class="sub">Vse je pripravljeno za tvoj prvi nakup. Preden začneš — tole te čaka samo klik stran:</p>
+    </div>
+    <div class="klub">
+      <div class="badges"><span class="badge green">UAU klub</span><span class="badge">Brezplačno</span></div>
+      <h2>Postani član UAU kluba</h2>
+      <p>Pridobi VIP dostop v svet najnovejše tehnologije. Čakajo te ekskluzivne promocije, nagradne igre ter vsi računi, garancije in zavarovanja tvojih naprav — zbrani na enem mestu. Brezplačno, hitro, splača se. Včlani se zdaj!</p>
+      <div class="kperks">
+        <div class="kperk">🚀&nbsp; VIP dostop do novosti in predprodajnih akcij</div>
+        <div class="kperk">🎁&nbsp; Ekskluzivne promocije in nagradne igre samo za člane</div>
+        <div class="kperk">🧾&nbsp; Računi, garancije in zavarovanja naprav na enem mestu</div>
+      </div>
+      <button class="cta green" onclick="go('klub')">Včlani se zdaj — brezplačno</button>
+    </div>
+    <button class="cta ghost" onclick="window.open('https://www.bigbang.si/','_blank')">Morda kasneje, začni nakupovati</button>
+    <p class="legal">Včlanitev v UAU klub je mogoča kadarkoli tudi v uporabniškem profilu.</p>
+  </div>
+
+  <!-- ============ OPCIJA 2 · KLUB (telefon) ============ -->
+  <div class="card" id="s-klub">
+    <button class="back" onclick="go('done2')">‹ Nazaj</button>
+    <p class="kicker">UAU klub · včlanitev</p>
+    <h1>Super izbira! Še telefonska številka</h1>
+    <p class="sub">Nanjo ti pošljemo potrditveno kodo — in kdaj pa kdaj tudi ugodnost, ki je ne smeš zamuditi.</p>
+    <div class="field" id="fPhone2"><label for="phone2">Telefonska številka</label>
+      <input id="phone2" type="tel" placeholder="031 123 456" autocomplete="tel" inputmode="tel">
+      <p class="fielderr">Vpiši veljavno telefonsko številko.</p>
+    </div>
+    <button class="cta" onclick="afterKlubPhone()">Nadaljuj</button>
+    <p class="legal">Članstvo je brezplačno, odjava pa mogoča kadarkoli z enim klikom.</p>
+  </div>
+
+  <!-- ============ SOGLASJA ============ -->
+  <div class="card" id="s-consents">
+    <button class="back" id="consBack" onclick="go('data1')">‹ Nazaj</button>
+    <p class="kicker">UAU klub · soglasja</p>
+    <h1>Obdelovanje osebnih podatkov</h1>
+    <p class="sub">S spodnjim izborom je mogoče izbrati način obveščanja o Big Bang akcijah, popustih, novostih in ugodnostih. Privolitve so prostovoljne in jih je mogoče kadar koli preklicati v nastavitvah uporabniškega profila, z odjavo v posameznem prejetem sporočilu ali s pisnim sporočilom na e-naslov <a href="mailto:klub@bigbang.si">klub@bigbang.si</a>. Preklic privolitve ne vpliva na zakonitost obdelave podatkov, izvedene pred preklicem.</p>
+    <p class="sub">Družba Big Bang, d.o.o. lahko kupca svojega blaga in storitev v skladu z določili Zakona o elektronskih komunikacijah (ZEKom-2) obvešča o svoji ponudbi (o podobnih izdelkih ali storitvah) po elektronski pošti in s sporočili SMS. Tovrstno obveščanje je mogoče kadar koli preklicati s pisno izjavo, poslano na e-naslov <a href="mailto:klub@bigbang.si">klub@bigbang.si</a>, ali z odjavo v posameznem prejetem sporočilu.</p>
+
+    <label class="allrow"><input type="checkbox" class="chkbx" id="allCon" onchange="toggleAll()"> <b>Strinjam se z vsem.</b></label>
+
+    <div class="con">
+      <label class="top"><input type="checkbox" class="chkbx onecon" checked> <span>Obveščanje o naših storitvah, novostih in posebnih ugodnostih</span></label>
+      <button class="more" onclick="more(this)">Prikaži več</button>
+      <p class="moretxt">Na tvoj e-poštni naslov ti bomo občasno poslali novice o izdelkih, storitvah, akcijah in posebnih ugodnostih, prilagojenih tvojim zanimanjem.</p>
+    </div>
+    <div class="con">
+      <label class="top"><input type="checkbox" class="chkbx onecon"> <span>Obveščanje o posebnih ugodnostih preko mobilnega telefona</span></label>
+      <button class="more" onclick="more(this)">Prikaži več</button>
+      <p class="moretxt">Najboljše časovno omejene akcije in tvoje osebne ugodnosti ti pošljemo tudi po SMS ali v mobilno aplikacijo — samo takrat, ko se res splača.</p>
+    </div>
+    <div class="con">
+      <label class="top"><input type="checkbox" class="chkbx onecon"> <span>Obveščanje o aktualnih nagradnih igrah</span></label>
+      <button class="more" onclick="more(this)">Prikaži več</button>
+      <p class="moretxt">Kot član UAU kluba sodeluješ v ekskluzivnih nagradnih igrah. Obvestili te bomo, ko se začne nova in ko boš med nagrajenci.</p>
+    </div>
+
+    <p class="connote">Podatke obdelujemo v skladu s <a href="https://www.bigbang.si/politika-zasebnosti/" target="_blank" rel="noopener">politiko zasebnosti</a> in <a href="https://www.bigbang.si/pogoji-poslovanja/" target="_blank" rel="noopener">pravili UAU kluba</a>.</p>
+    <button class="cta" onclick="afterConsents()">Potrdi</button>
+  </div>
+
+  <!-- ============ SMS KODA ============ -->
+  <div class="card" id="s-sms">
+    <button class="back" id="smsBack" onclick="go('consents')">‹ Nazaj</button>
+    <p class="kicker">Potrditev telefonske številke</p>
+    <h1>Preveri sporočila</h1>
+    <p class="sub">Za potrditev telefonske številke vpiši kodo iz SMS sporočila, poslanega na <b id="sentPhone">tvojo številko</b>.</p>
+    <div class="otp" id="otpSms"></div>
+    <div class="codeerr" id="errSms"><span>⚠️</span><span>Vpisana koda ni pravilna. Preveri jo še enkrat ali si <a href="#" onclick="resend('Sms');return false" style="color:inherit">pošlji novo kodo</a>.</span></div>
+    <button class="cta" id="ctaSms" style="margin-top:14px" disabled>Potrdi</button>
+    <p class="resend">Nisi prejel kode?
+      <button id="rbSms" onclick="resend('Sms')" disabled>Ponovno pošlji <span id="cdSms">(0:30)</span></button></p>
+    <p class="sentok" id="okSms">✓ Nova koda je na poti na tvoj telefon.</p>
+    <p class="demo">Demo: pravilna koda je 123456</p>
+  </div>
+
+  <!-- ============ KONEC · OPCIJA 1 ============ -->
+  <div class="card center" id="s-done1">
+    <div class="okwrap"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 12.5 10 18 19.5 7" stroke="#002D73" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <p class="kicker" style="text-align:center">Big Bang · dobrodošlica</p>
+    <h1 id="done1Title">Dobrodošel v UAU klubu! 🚀</h1>
+    <p class="sub" id="done1Sub">Tvoj račun je pripravljen, članstvo pa aktivno. V nabiralniku te že čaka dobrodošlica s prvo UAU ugodnostjo.</p>
+    <div class="perks" style="text-align:left">
+      <div class="perk"><span class="ic">🛒</span><span><b>Začni nakupovati</b> — tvoja košarica te čaka.</span></div>
+      <div class="perk"><span class="ic">📲</span><span><b>Prenesi aplikacijo</b> — ugodnosti vedno pri roki.</span></div>
+      <div class="perk"><span class="ic">👤</span><span><b>Dopolni profil</b> — še več prilagojenih ponudb.</span></div>
+    </div>
+    <button class="cta" onclick="window.open('https://www.bigbang.si/','_blank')">Začni nakupovati</button>
+    <p class="reg"><a href="#">Uredi svoj profil</a></p>
+  </div>
+
+  <!-- ============ KONEC · OPCIJA 2 (klub) ============ -->
+  <div class="card center" id="s-done3">
+    <div class="okwrap"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 12.5 10 18 19.5 7" stroke="#002D73" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <p class="kicker" style="text-align:center">UAU klub · dobrodošlica</p>
+    <h1 id="done3Title">Dobrodošel v UAU klubu! 🚀</h1>
+    <p class="sub">Članstvo je aktivno. V nabiralniku te že čaka dobrodošlica s prvo UAU ugodnostjo — in to je šele začetek.</p>
+    <div class="perks" style="text-align:left">
+      <div class="perk"><span class="ic">🚀</span><span><b>VIP dostop</b> — novosti in predprodaje vidiš prvi.</span></div>
+      <div class="perk"><span class="ic">🎁</span><span><b>Ekskluzivne promocije</b> — in nagradne igre samo za člane.</span></div>
+      <div class="perk"><span class="ic">🧾</span><span><b>Vse na enem mestu</b> — računi, garancije, zavarovanja.</span></div>
+    </div>
+    <button class="cta" onclick="window.open('https://www.bigbang.si/','_blank')">Začni nakupovati</button>
+    <p class="reg"><a href="#">Uredi svoj profil</a></p>
+  </div>
+
+</div>
+
+<div class="vline"></div>
+
+<!-- ================= RIGHT INFO PANEL ================= -->
+<aside class="colR">
+  <h3>Zakaj si je pametno ustvariti profil na bigbang.si?</h3>
+  <p>S profilom v naši spletni trgovini bo nakupovanje še prijetnejše! Nakupi bodo:</p>
+  <ul><li>hitrejši</li><li>enostavnejši</li></ul>
+  <p>Spremljaš lahko status svojih nakupov in koristiš še mnoge druge ugodnosti, ki čakajo nate.</p>
+  <div class="sep"></div>
+  <h3>Hitro nakupovanje — registrirani uporabniki</h3>
+  <div class="loginrow">
+    <button class="btn-login">Prijavi se</button>
+    <div class="forgot-wrap">Pozabljeno geslo?<br><a href="#">Zahtevaj novo geslo</a></div>
+  </div>
+</aside>
+</div>
+
+<!-- ================= DEMO SWITCHER ================= -->
+<div class="switcher" aria-label="Predogled korakov">
+  <div class="grp">
+    <button id="opt1Btn" class="active" onclick="setOpt(1)">Opcija 1 · skupaj</button>
+    <button id="opt2Btn" onclick="setOpt(2)">Opcija 2 · ločeno</button>
+  </div>
+  <div id="stepBtns" style="display:flex;gap:4px"></div>
+</div>
+
+<script>
+  /* ---------- state & flows ---------- */
+  const state={opt:1, email:'', phone:'', name:'', klub:false};
+  const STEPS={
+    1:[['intro','Uvod'],['email','E-pošta'],['code','Koda'],['err','Napaka'],['pass','Geslo'],['data1','Podatki + klub'],['consents','Soglasja'],['sms','SMS'],['done1','Konec']],
+    2:[['intro','Uvod'],['email','E-pošta'],['code','Koda'],['err','Napaka'],['pass','Geslo'],['data2','Podatki'],['done2','Račun'],['klub','Klub'],['consents','Soglasja'],['sms','SMS'],['done3','Konec']]
+  };
+  function go(id){
+    document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
+    document.getElementById('s-'+id).classList.add('active');
+    document.querySelectorAll('#stepBtns button').forEach(b=>b.classList.toggle('active',b.dataset.go===id));
+    window.scrollTo({top:0,behavior:'smooth'});
+    if(id==='code') startTimer('Mail');
+    if(id==='sms') startTimer('Sms');
+    if(id==='consents') document.getElementById('consBack').setAttribute('onclick', state.opt===1?"go('data1')":"go('klub')");
+    if(id==='sms') document.getElementById('smsBack').setAttribute('onclick',"go('consents')");
+  }
+  function renderSteps(){
+    const box=document.getElementById('stepBtns'); box.innerHTML='';
+    STEPS[state.opt].forEach(([id,label])=>{
+      const b=document.createElement('button');
+      b.textContent=label; b.dataset.go=id;
+      b.onclick=()=>{ if(id==='err'){demoError()} else go(id) };
+      box.appendChild(b);
+    });
+  }
+  function setOpt(o){
+    state.opt=o;
+    document.getElementById('opt1Btn').classList.toggle('active',o===1);
+    document.getElementById('opt2Btn').classList.toggle('active',o===2);
+    renderSteps(); go('intro');
+  }
+
+  /* ---------- e-pošta ---------- */
+  function sendCode(){
+    const f=document.getElementById('fEmail'), v=document.getElementById('email').value.trim();
+    const ok=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+    f.classList.toggle('invalid',!ok);
+    if(!ok)return;
+    state.email=v;
+    document.getElementById('sentTo').textContent=v;
+    clearOtp('Mail'); go('code');
+  }
+  document.getElementById('email').addEventListener('keydown',e=>{if(e.key==='Enter')sendCode()});
+  document.getElementById('email').addEventListener('input',()=>document.getElementById('fEmail').classList.remove('invalid'));
+
+  /* ---------- OTP komponenta (Mail + Sms) ---------- */
+  const OTP={};
+  function buildOtp(key,onOk){
+    const box=document.getElementById('otp'+key);
+    for(let i=0;i<6;i++){
+      const inp=document.createElement('input');
+      inp.type='text'; inp.inputMode='numeric'; inp.maxLength=1; inp.setAttribute('aria-label','Številka '+(i+1));
+      box.appendChild(inp);
+    }
+    const els=[...box.querySelectorAll('input')];
+    OTP[key]={els,box,onOk};
+    els.forEach((el,i)=>{
+      el.addEventListener('input',()=>{
+        el.value=el.value.replace(/\D/g,'').slice(0,1);
+        clearErr(key);
+        if(el.value&&i<5)els[i+1].focus();
+        upd(key);
+      });
+      el.addEventListener('keydown',e=>{
+        if(e.key==='Backspace'&&!el.value&&i>0)els[i-1].focus();
+        if(e.key==='Enter'&&!document.getElementById('cta'+key).disabled)verify(key);
+      });
+      el.addEventListener('paste',e=>{
+        e.preventDefault();
+        const t=(e.clipboardData.getData('text')||'').replace(/\D/g,'').slice(0,6);
+        t.split('').forEach((c,j)=>{if(els[j])els[j].value=c});
+        els[Math.min(t.length,5)].focus();
+        clearErr(key); upd(key);
+      });
+    });
+    document.getElementById('cta'+key).onclick=()=>verify(key);
+  }
+  const codeOf=k=>OTP[k].els.map(e=>e.value).join('');
+  const upd=k=>document.getElementById('cta'+k).disabled=codeOf(k).length<6;
+  function clearOtp(k){OTP[k].els.forEach(e=>e.value='');clearErr(k);upd(k)}
+  function clearErr(k){OTP[k].box.classList.remove('err');document.getElementById('err'+k).classList.remove('show')}
+  function verify(k){
+    if(codeOf(k)==='123456'){clearErr(k);OTP[k].onOk();}
+    else{
+      OTP[k].box.classList.add('err','shake');
+      document.getElementById('err'+k).classList.add('show');
+      setTimeout(()=>OTP[k].box.classList.remove('shake'),450);
+    }
+  }
+  const timers={};
+  function startTimer(k){
+    clearInterval(timers[k]);
+    let s=30;
+    const btn=document.getElementById('rb'+k), cd=document.getElementById('cd'+k);
+    btn.disabled=true; cd.textContent='(0:'+String(s).padStart(2,'0')+')';
+    timers[k]=setInterval(()=>{
+      s--; cd.textContent='(0:'+String(s).padStart(2,'0')+')';
+      if(s<=0){clearInterval(timers[k]);btn.disabled=false;cd.textContent='';}
+    },1000);
+  }
+  function resend(k){
+    clearOtp(k); startTimer(k);
+    const ok=document.getElementById('ok'+k);
+    ok.classList.add('show'); setTimeout(()=>ok.classList.remove('show'),4000);
+    OTP[k].els[0].focus();
+  }
+  buildOtp('Mail',()=>go('pass'));
+  buildOtp('Sms',()=>state.opt===1?finish1():go('done3'));
+  function demoError(){
+    go('code');
+    '253812'.split('').forEach((c,i)=>OTP.Mail.els[i].value=c);
+    upd('Mail'); verify('Mail');
+  }
+
+  /* ---------- geslo ---------- */
+  const pass=document.getElementById('pass');
+  pass.addEventListener('input',()=>{
+    const v=pass.value;
+    const r={len:v.length>=8, up:/[A-ZČŠŽ]/.test(v), low:/[a-zčšž]/.test(v), num:/\d/.test(v)};
+    let n=0;
+    for(const k in r){document.querySelector('[data-r="'+k+'"]').classList.toggle('ok',r[k]); if(r[k])n++;}
+    document.getElementById('meter').className='meter'+(n?' s'+n:'');
+    document.getElementById('passCta').disabled=n<4;
+  });
+  pass.addEventListener('keydown',e=>{if(e.key==='Enter'&&!document.getElementById('passCta').disabled)afterPass()});
+  document.querySelectorAll('.toggle').forEach(tg=>{
+    tg.addEventListener('click',()=>{
+      const i=document.getElementById(tg.dataset.t);
+      i.type=i.type==='password'?'text':'password';
+    });
+  });
+  function afterPass(){go(state.opt===1?'data1':'data2')}
+
+  /* ---------- podatki ---------- */
+  function validate(cls){
+    let ok=true, name='';
+    document.querySelectorAll('.'+cls).forEach(f=>{
+      const bad=!f.querySelector('input').value.trim();
+      f.classList.toggle('invalid',bad);
+      if(bad)ok=false;
+      if(f.dataset.f.startsWith('ime'))name=f.querySelector('input').value.trim();
+    });
+    if(ok)state.name=name;
+    return ok;
+  }
+  document.querySelectorAll('.req1 input,.req2 input').forEach(i=>
+    i.addEventListener('input',()=>i.closest('.field').classList.remove('invalid')));
+
+  function toggleJoin(){
+    state.klub=document.getElementById('join').checked;
+    document.getElementById('joinRow').classList.toggle('on',state.klub);
+  }
+
+  /* Opcija 1: podatki+klub → soglasja (če klub) → SMS (če telefon) → konec */
+  function afterData1(){
+    if(!validate('req1'))return;
+    state.phone=document.getElementById('phone1').value.trim();
+    if(state.klub){go('consents')}
+    else if(state.phone){toSms()}
+    else finish1();
+  }
+  function afterConsents(){
+    if(state.opt===1){ state.phone ? toSms() : finish1(); }
+    else{ toSms(); }
+  }
+  function toSms(){
+    document.getElementById('sentPhone').textContent=state.phone||'tvojo številko';
+    clearOtp('Sms'); go('sms');
+  }
+  function finish1(){
+    const t=document.getElementById('done1Title'), s=document.getElementById('done1Sub');
+    const n=state.name?', '+state.name:'';
+    if(state.klub){
+      t.textContent='Dobrodošel v UAU klubu'+n+'! 🚀';
+      s.textContent='Tvoj račun je pripravljen, članstvo pa aktivno. V nabiralniku te že čaka dobrodošlica s prvo UAU ugodnostjo.';
+    }else{
+      t.textContent='Račun je ustvarjen'+n+'! 🎉';
+      s.textContent='Vse je pripravljeno za tvoj prvi nakup. UAU klubu se lahko kadarkoli pridružiš v svojem profilu — ugodnosti te bodo počakale.';
+    }
+    go('done1');
+  }
+
+  /* Opcija 2: podatki → račun ustvarjen → klub → soglasja → SMS → konec */
+  function afterData2(){
+    if(!validate('req2'))return;
+    document.getElementById('done2Title').textContent='Račun je ustvarjen'+(state.name?', '+state.name:'')+'! 🎉';
+    go('done2');
+  }
+  function afterKlubPhone(){
+    const f=document.getElementById('fPhone2'), v=document.getElementById('phone2').value.trim();
+    const ok=/^[\d\s+\/-]{8,}$/.test(v);
+    f.classList.toggle('invalid',!ok);
+    if(!ok)return;
+    state.phone=v; state.klub=true;
+    go('consents');
+  }
+  document.getElementById('phone2').addEventListener('input',()=>document.getElementById('fPhone2').classList.remove('invalid'));
+
+  /* ---------- soglasja ---------- */
+  function toggleAll(){
+    const on=document.getElementById('allCon').checked;
+    document.querySelectorAll('.onecon').forEach(c=>c.checked=on);
+  }
+  document.querySelectorAll('.onecon').forEach(c=>c.addEventListener('change',()=>{
+    document.getElementById('allCon').checked=[...document.querySelectorAll('.onecon')].every(x=>x.checked);
+  }));
+  function more(btn){
+    const t=btn.nextElementSibling;
+    const open=t.classList.toggle('show');
+    btn.textContent=open?'Prikaži manj':'Prikaži več';
+  }
+
+  renderSteps();
+</script>
+</body>
+</html>

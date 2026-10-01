@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="stores-data.js"></script>
+</helmet>
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<div>
+<dc-import name="Components/InfoPageHead" variant="desktop" heading="Prodajna mjesta" intro="Naši prodavači su tu da ti pomognu savjetom prije kupnje. A ako kupuješ online, omogućeno je osobno preuzimanje narudžbe u poslovnici." tabs="{{ tabs }}" active-tab="{{ tab }}" on-tab="{{ setTab }}" on-home="{{ onHome }}" hint-size="100%,260px"></dc-import>
+
+<div style="background:#F1F1F4;padding:28px 0 64px">
+  <div style="max-width:1480px;margin:0 auto;padding:0 20px;display:flex;flex-direction:column;gap:16px">
+    <section style="background:#fff;border-radius:12px;padding:28px 32px 32px">
+      <dc-import name="Components/StoreLocator" variant="desktop" hide-head="{{ true }}" city="{{ city }}" on-show-store="{{ showStore }}" hint-size="100%,520px"></dc-import>
+    </section>
+
+    <sc-if value="{{ hasDetail }}" hint-placeholder-val="{{ false }}">
+    <section ref="{{ detRef }}" style="padding-top:28px">
+      <h2 style="font-size:24px;font-weight:600;letter-spacing:-0.02em;color:#101117;text-align:center;margin:0 0 28px">{{ d.name }}</h2>
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:stretch">
+        <div style="border-radius:12px;overflow:hidden;background:#E9EAEE;min-height:260px;position:relative">
+          <img src="images/map-placeholder.png" alt="Karta poslovnice" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div style="background:#fff;border-radius:12px;padding:24px;display:flex;flex-direction:column">
+          <h3 style="font-size:16px;font-weight:600;color:#101117;margin:0">Detalji trgovine</h3>
+          <div style="font-size:13.5px;line-height:1.5;color:#545F71;margin-top:10px">{{ d.address }}</div>
+          <a href="{{ d.tel }}" style="font-size:13.5px;color:#0050A0;margin-top:4px;text-decoration:none" style-hover="color:#002D73">{{ d.phone }}</a>
+          <h3 style="font-size:16px;font-weight:600;color:#101117;margin:22px 0 0">Dodatne informacije</h3>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
+            <sc-for list="{{ d.extras }}" as="x" hint-placeholder-count="2">
+              <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;color:#545F71">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1FB549" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12.5 10 17.5 19 7"></polyline></svg>
+                {{ x }}
+              </div>
+            </sc-for>
+          </div>
+          <div style="flex:1"></div>
+          <a href="{{ d.dir }}" target="_blank" rel="noopener" class="bbcta" style="margin-top:24px;align-self:flex-start;height:48px;padding:0 24px;border-radius:24px;display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:700">
+            Kako do nas
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg>
+          </a>
+        </div>
+        <div style="background:#fff;border-radius:12px;padding:24px">
+          <h3 style="font-size:16px;font-weight:600;color:#101117;margin:0 0 12px">Radno vrijeme</h3>
+          <div style="display:flex;flex-direction:column">
+            <sc-for list="{{ d.week }}" as="w" hint-placeholder-count="7">
+              <div style="{{ w.row }}">
+                <span>{{ w.day }}</span>
+                <span style="white-space:nowrap">{{ w.time }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+    <dc-import name="Components/SupportBand" variant="desktop" style="margin-top:32px" eyebrow="KORISNIČKA PODRŠKA" title="Tu smo svaki dan od 8 do 20h." text="Za pitanja o narudžbama, plaćanju, dostavi, reklamacijama i servisu — javite se telefonom ili e-mailom, odgovaramo u najkraćem roku." hint-size="100%,240px"></dc-import>
+  </div>
+</div>
+
+</div>
+</sc-if>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<div style="background:#F1F1F4">
+<dc-import name="Components/InfoPageHead" variant="mobile" heading="Prodajna mjesta" intro="Naši prodavači su tu da ti pomognu savjetom prije kupnje. A ako kupuješ online, omogućeno je osobno preuzimanje narudžbe u poslovnici." tabs="{{ tabs }}" active-tab="{{ tab }}" on-tab="{{ setTab }}" on-home="{{ onHome }}" hint-size="100%,240px"></dc-import>
+
+  <section style="background:#fff;padding:20px 16px 24px;margin-top:8px">
+    <dc-import name="Components/StoreLocator" variant="mobile" hide-head="{{ true }}" city="{{ city }}" on-show-store="{{ showStore }}" hint-size="100%,700px"></dc-import>
+  </section>
+
+  <sc-if value="{{ hasDetail }}" hint-placeholder-val="{{ false }}">
+  <section ref="{{ detRef }}" style="padding:24px 12px 28px;display:flex;flex-direction:column;gap:8px">
+    <h2 style="font-size:19px;font-weight:600;letter-spacing:-0.02em;color:#101117;text-align:center;margin:0 0 12px">{{ d.name }}</h2>
+    <div style="border-radius:12px;overflow:hidden;background:#E9EAEE;height:200px;position:relative">
+      <img src="images/map-placeholder.png" alt="Karta poslovnice" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+    </div>
+    <div style="background:#fff;border-radius:12px;padding:18px 16px">
+      <h3 style="font-size:15px;font-weight:600;color:#101117;margin:0">Detalji trgovine</h3>
+      <div style="font-size:13px;line-height:1.5;color:#545F71;margin-top:8px">{{ d.address }}</div>
+      <a href="{{ d.tel }}" style="display:block;font-size:13px;color:#0050A0;margin-top:3px;text-decoration:none">{{ d.phone }}</a>
+      <h3 style="font-size:15px;font-weight:600;color:#101117;margin:18px 0 0">Dodatne informacije</h3>
+      <div style="display:flex;flex-direction:column;gap:7px;margin-top:8px">
+        <sc-for list="{{ d.extras }}" as="x" hint-placeholder-count="2">
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#545F71">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1FB549" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12.5 10 17.5 19 7"></polyline></svg>
+            {{ x }}
+          </div>
+        </sc-for>
+      </div>
+      <a href="{{ d.dir }}" target="_blank" rel="noopener" class="bbcta" style="margin-top:18px;height:48px;border-radius:24px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:15px;font-weight:700">
+        Kako do nas
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"></path></svg>
+      </a>
+    </div>
+    <div style="background:#fff;border-radius:12px;padding:18px 16px">
+      <h3 style="font-size:15px;font-weight:600;color:#101117;margin:0 0 8px">Radno vrijeme</h3>
+      <sc-for list="{{ d.weekM }}" as="w" hint-placeholder-count="7">
+        <div style="{{ w.row }}">
+          <span>{{ w.day }}</span>
+          <span style="white-space:nowrap">{{ w.time }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <div style="height:24px"></div>
+  <dc-import name="Components/SupportBand" variant="mobile" eyebrow="KORISNIČKA PODRŠKA" title="Tu smo svaki dan od 8 do 20h." text="Za pitanja o narudžbama, plaćanju, dostavi, reklamacijama i servisu — javite se telefonom ili e-mailom, odgovaramo u najkraćem roku." hint-size="100%,260px"></dc-import>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;variant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;desktop&quot;,&quot;mobile&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;onHome&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;}}">
+const CITIES = ['Zagreb', 'Sveta Nedelja', 'Osijek', 'Rijeka', 'Split', 'Zadar', 'Varaždin'];
+const DAYS = ['Nedjelja', 'Ponedjeljak', 'Utorak', 'Srijeda', 'Četvrtak', 'Petak', 'Subota'];
+const MONTHS = ['siječnja', 'veljače', 'ožujka', 'travnja', 'svibnja', 'lipnja', 'srpnja', 'kolovoza', 'rujna', 'listopada', 'studenoga', 'prosinca'];
+const hh = (n) => String(n).padStart(2, '0') + ':00';
+
+function weekOf(st) {
+  const h = st.hours || '';
+  const wk = h.match(/Pon–Sub\s*(\d+)–(\d+)/);
+  const sun = h.match(/Ned\s*(\d+)–(\d+)/);
+  const wd = wk ? [+wk[1], +wk[2]] : [9, 21];
+  const sat = [wd[0], Math.min(wd[1], 20)];
+  const out = [];
+  const now = new Date();
+  for (let k = 0; k < 7; k++) {
+    const dt = new Date(now.getFullYear(), now.getMonth(), now.getDate() + k);
+    const dow = dt.getDay();
+    const span = dow === 0 ? (sun ? [+sun[1], +sun[2]] : null) : dow === 6 ? sat : wd;
+    out.push({ day: DAYS[dow] + ', ' + dt.getDate() + '. ' + MONTHS[dt.getMonth()], time: span ? hh(span[0]) + ' - ' + hh(span[1]) + ' sati' : 'Zatvoreno', today: k === 0 });
+  }
+  return out;
+}
+
+class Component extends DCLogic {
+  state = { tab: 0, show: -1, stores: window.BB_STORES || [] };
+
+  componentDidMount() { if (!window.BB_STORES) this.wait(); }
+  componentWillUnmount() { clearTimeout(this.t); clearTimeout(this.t2); }
+  wait = () => {
+    if (window.BB_STORES) { this.setState({ stores: window.BB_STORES }); return; }
+    this.t = setTimeout(this.wait, 120);
+  };
+
+  detRef = (el) => { this.det = el; };
+
+  scrollToDet = () => {
+    const el = this.det; if (!el) return;
+    let p = el.parentElement;
+    while (p && p !== document.body) {
+      const oy = getComputedStyle(p).overflowY;
+      if ((oy === 'auto' || oy === 'scroll') && p.scrollHeight > p.clientHeight) break;
+      p = p.parentElement;
+    }
+    const top = el.getBoundingClientRect().top;
+    if (p && p !== document.body) { p.scrollTop = p.scrollTop + top - p.getBoundingClientRect().top - 70; return; }
+    const y = Math.max(0, (window.scrollY || document.documentElement.scrollTop) + top - 130);
+    window.scrollTo(0, y);
+    document.documentElement.scrollTop = y;
+    document.body.scrollTop = y;
+  };
+
+  showStore = (st, i) => {
+    this.setState({ show: i }, () => { this.t2 = setTimeout(this.scrollToDet, 80); });
+  };
+
+  renderVals() {
+    const p = this.props, s = this.state;
+    const mobile = p.variant === 'mobile';
+    const st = s.show > -1 ? s.stores[s.show] : null;
+    let d = null;
+    if (st) {
+      const w = weekOf(st);
+      const row = (x, mob) => ({
+        display: 'flex', justifyContent: 'space-between', gap: 12, padding: mob ? '7px 0' : '8px 0',
+        fontSize: mob ? 12.5 : 13, color: x.today ? '#545F71' : '#8B95A5', fontWeight: x.today ? 600 : 400
+      });
+      d = {
+        name: st.name.replace(/^Big Bang\s*/, 'Big Bang '),
+        address: st.address,
+        phone: st.phone,
+        tel: 'tel:' + String(st.phone || '').replace(/\s/g, ''),
+        dir: 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(st.name + ', ' + st.address),
+        extras: st.extras || ['Parking', 'Pristup osobama s invaliditetom'],
+        mapSrc: 'Components/store-map.html?focus=' + s.show,
+        week: w.map(x => ({ day: x.day, time: x.time, row: row(x, false) })),
+        weekM: w.map(x => ({ day: x.day, time: x.time, row: row(x, true) }))
+      };
+    }
+    return {
+      isDesktop: !mobile,
+      isMobile: mobile,
+      onHome: p.onHome,
+      tabs: [{ label: 'Sve' }].concat(CITIES.map(c => ({ label: c }))),
+      tab: s.tab,
+      setTab: (i) => this.setState({ tab: i, show: -1 }),
+      city: s.tab ? CITIES[s.tab - 1] : '',
+      showStore: this.showStore,
+      detRef: this.detRef,
+      hasDetail: !!d,
+      d: d || { extras: [], week: [], weekM: [] }
+    };
+  }
+}
+</script>
+</body>
+</html>

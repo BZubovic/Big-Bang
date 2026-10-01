@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="terms-data.js"></script>
+</helmet>
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<div ref="{{ rootRef }}">
+<dc-import name="Components/InfoPageHead" variant="desktop" heading="Uvjeti kupnje" intro="Uvjeti korištenja internet trgovine Big Bang i opći uvjeti poslovanja Big Bang Marketplacea — sklapanje ugovora, cijene, plaćanje, dostava, nedostaci, jamstva i raskid ugovora." tabs="{{ tabs }}" active-tab="{{ tab }}" on-tab="{{ setTab }}" on-home="{{ onHome }}" hint-size="100%,260px"></dc-import>
+
+<div style="background:#F1F1F4;padding:28px 0 64px">
+  <div style="max-width:1480px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:224px minmax(0,1fr);gap:24px;align-items:start">
+
+    <dc-import name="Components/InfoAnchorNav" variant="desktop" heading="SADRŽAJ" items="{{ navItems }}" active="{{ sec }}" on-select="{{ selectSec }}" note="{{ updatedNote }}" hint-size="100%,520px" style="position:sticky;top:72px;z-index:100;max-height:calc(100vh - 92px);overflow-y:auto"></dc-import>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <sc-for list="{{ chapters }}" as="ch" hint-placeholder-count="6">
+        <section data-sec="{{ ch.id }}" style="background:#fff;border-radius:12px;padding:28px 34px 32px">
+          <div style="display:flex;align-items:baseline;gap:12px;padding-bottom:16px;margin-bottom:20px;border-bottom:1px solid #EFF0F3">
+            <span style="font-size:13px;font-weight:700;color:#0050A0;flex-shrink:0">{{ ch.num }}</span>
+            <h2 style="font-size:20px;font-weight:700;letter-spacing:-0.015em;color:#101117;margin:0;text-wrap:pretty">{{ ch.title }}</h2>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px;max-width:920px">
+            <sc-for list="{{ ch.blocks }}" as="b" hint-placeholder-count="5">
+              <sc-if value="{{ b.isH }}" hint-placeholder-val="{{ false }}">
+                <h3 style="font-size:16px;font-weight:700;color:#101117;margin:10px 0 0;letter-spacing:-0.01em;text-wrap:pretty">{{ b.x }}</h3>
+              </sc-if>
+              <sc-if value="{{ b.isLi }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;gap:12px;align-items:flex-start;font-size:14.5px;line-height:1.7;color:#545F71;padding-left:6px">
+                  <span style="width:5px;height:5px;border-radius:50%;background:#C7C7CD;flex-shrink:0;margin-top:11px"></span>
+                  <span style="text-wrap:pretty">{{ b.x }}</span>
+                </div>
+              </sc-if>
+              <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}">
+                <p style="font-size:14.5px;line-height:1.7;color:#545F71;margin:0;text-wrap:pretty">{{ b.x }}</p>
+              </sc-if>
+            </sc-for>
+          </div>
+        </section>
+      </sc-for>
+
+      <dc-import name="Components/SupportBand" variant="desktop" eyebrow="NEJASNOĆE U UVJETIMA?" title="Pitajte nas prije kupnje." text="Objasnit ćemo vam prava i obveze iz ovih uvjeta, postupak reklamacije ili jednostranog raskida ugovora." phone="+385 1 5809 223" hint-size="100%,190px"></dc-import>
+
+    </div>
+  </div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<div ref="{{ rootRefM }}">
+<dc-import name="Components/InfoPageHead" variant="mobile" heading="Uvjeti kupnje" intro="Uvjeti korištenja internet trgovine Big Bang i opći uvjeti poslovanja Big Bang Marketplacea." tabs="{{ tabs }}" active-tab="{{ tab }}" on-tab="{{ setTab }}" on-home="{{ onHome }}" hint-size="100%,200px"></dc-import>
+
+<div style="background:#F1F1F4;padding:14px 0 28px;display:flex;flex-direction:column;gap:12px">
+
+  <div style="position:sticky;top:55px;z-index:310">
+    <dc-import name="Components/InfoAnchorNav" variant="mobile" heading="SADRŽAJ" items="{{ navItems }}" active="{{ sec }}" on-select="{{ selectSec }}" note="{{ updatedNote }}" hint-size="100%,72px"></dc-import>
+  </div>
+
+  <sc-for list="{{ chapters }}" as="ch" hint-placeholder-count="6">
+    <section data-sec="{{ ch.id }}" style="background:#fff;padding:20px 16px 24px">
+      <div style="display:flex;align-items:baseline;gap:10px;padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid #EFF0F3">
+        <span style="font-size:11.5px;font-weight:700;color:#0050A0;flex-shrink:0">{{ ch.num }}</span>
+        <h2 style="font-size:17px;font-weight:700;letter-spacing:-0.015em;color:#101117;margin:0;text-wrap:pretty">{{ ch.title }}</h2>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <sc-for list="{{ ch.blocks }}" as="b" hint-placeholder-count="5">
+          <sc-if value="{{ b.isH }}" hint-placeholder-val="{{ false }}">
+            <h3 style="font-size:14.5px;font-weight:700;color:#101117;margin:8px 0 0;text-wrap:pretty">{{ b.x }}</h3>
+          </sc-if>
+          <sc-if value="{{ b.isLi }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.65;color:#545F71;padding-left:4px">
+              <span style="width:4px;height:4px;border-radius:50%;background:#C7C7CD;flex-shrink:0;margin-top:9px"></span>
+              <span style="text-wrap:pretty">{{ b.x }}</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}">
+            <p style="font-size:13px;line-height:1.65;color:#545F71;margin:0;text-wrap:pretty">{{ b.x }}</p>
+          </sc-if>
+        </sc-for>
+      </div>
+    </section>
+  </sc-for>
+
+  <dc-import name="Components/SupportBand" variant="mobile" eyebrow="NEJASNOĆE U UVJETIMA?" title="Pitajte nas prije kupnje." text="Objasnit ćemo vam prava i obveze iz ovih uvjeta, postupak reklamacije ili jednostranog raskida ugovora." phone="+385 1 5809 223" hint-size="100%,260px"></dc-import>
+
+</div>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;variant&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;desktop&quot;, &quot;mobile&quot;], &quot;default&quot;: &quot;desktop&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;onHome&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;() =&gt; void&quot; },
+  &quot;onNav&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(key: string) =&gt; void&quot; }
+}">
+class Component extends DCLogic {
+  state = { tab: 0, ready: !!window.BB_TERMS, sec: 'c1' };
+
+  selectSec = (id) => { this.setState({ sec: id }); this.scrollTo(id)(); };
+
+  componentDidMount() {
+    if (!this.state.ready) this.waitData();
+  }
+  componentWillUnmount() { clearTimeout(this.t); }
+
+  waitData = () => {
+    if (window.BB_TERMS) { this.setState({ ready: true }); return; }
+    this.t = setTimeout(this.waitData, 120);
+  };
+
+  rootRef = (el) => { if (el) this.root = el; };
+
+  scrollTo = (id) => (e) => {
+    if (e) e.preventDefault();
+    const el = this.root && this.root.querySelector('[data-sec="' + id + '"]');
+    if (!el) return;
+    let node = el.parentElement, cont = null;
+    while (node && node !== document.body && node !== document.documentElement) {
+      const oy = getComputedStyle(node).overflowY;
+      if ((oy === 'auto' || oy === 'scroll') && node.scrollHeight > node.clientHeight) { cont = node; break; }
+      node = node.parentElement;
+    }
+    const r = el.getBoundingClientRect();
+    if (cont) {
+      const cr = cont.getBoundingClientRect();
+      cont.scrollBy({ top: r.top - cr.top - 68, behavior: 'smooth' });
+    } else {
+      window.scrollBy({ top: r.top - 110, behavior: 'smooth' });
+    }
+  };
+
+  // chip labels: drop the leading "N." from the Marketplace chapter titles and
+  // shorten the very long ones so the contents row stays readable
+  chipLabel(title) {
+    let t = title.replace(/^\d{1,2}\.\s*/, '');
+    if (t === t.toUpperCase()) t = t.charAt(0) + t.slice(1).toLowerCase();
+    if (t.length > 42) t = t.slice(0, 40).replace(/[\s,]+$/, '') + '…';
+    return t;
+  }
+
+  renderVals() {
+    const p = this.props, s = this.state;
+    const mobile = p.variant === 'mobile';
+    const data = window.BB_TERMS || { updated: '', bb: [], mp: [] };
+    const list = s.tab === 0 ? (data.bb || []) : (data.mp || []);
+
+    const chapters = list.map((c, i) => ({
+      id: c.id,
+      num: String(i + 1).padStart(2, '0'),
+      title: c.title.replace(/^\d{1,2}\.\s*/, ''),
+      blocks: (c.blocks || []).map(b => ({
+        x: b.x,
+        isP: b.t === 'p',
+        isH: b.t === 'h',
+        isLi: b.t === 'li'
+      }))
+    }));
+
+    return {
+      isDesktop: !mobile,
+      isMobile: mobile,
+      rootRef: mobile ? null : this.rootRef,
+      rootRefM: mobile ? this.rootRef : null,
+      onHome: p.onHome,
+      onNav: p.onNav,
+      tab: s.tab,
+      setTab: (i) => this.setState({ tab: i, sec: 'c1' }),
+      sec: s.sec,
+      selectSec: this.selectSec,
+      updatedNote: data.updated ? 'Zadnja izmjena: ' + data.updated : '',
+      navItems: chapters.map(c => ({ id: c.id, num: c.num, label: this.chipLabel(c.title) })),
+      tabs: [
+        { label: 'Big Bang uvjeti', sub: 'bigbang.hr', icon: 'globe' },
+        { label: 'Marketplace uvjeti', sub: 'Drugi prodavači', icon: 'pin' }
+      ],
+      updated: data.updated,
+      chapters,
+      anchors: chapters.map(c => ({
+        num: c.num,
+        label: this.chipLabel(c.title),
+        onClick: this.scrollTo(c.id)
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</helmet>
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<div ref="{{ rootRef }}">
+<dc-import name="Components/InfoPageHead" variant="desktop" heading="Načini plaćanja" intro="Online u webshopu, gotovinom po dostavi ili u jednoj od naših poslovnica — odaberite način plaćanja koji vam najviše odgovara." tabs="{{ tabs }}" active-tab="{{ tab }}" on-tab="{{ setTab }}" on-home="{{ onHome }}" hint-size="100%,260px"></dc-import>
+
+<div style="background:#F1F1F4;padding:28px 0 64px">
+  <div style="max-width:1480px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:224px minmax(0,1fr);gap:24px;align-items:start">
+
+    <dc-import name="Components/InfoAnchorNav" variant="desktop" items="{{ navItems }}" active="{{ sec }}" on-select="{{ selectSec }}" hint-size="100%,340px" style="position:sticky;top:72px;z-index:100"></dc-import>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <sc-if value="{{ isWeb }}" hint-placeholder-val="{{ true }}">
+      <section data-sec="w1" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #0050A0;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#0050A0">01</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">VAŽNO ZA NARUDŽBE</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Big Bang prodaja i Marketplace prodavatelji</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">Košarica u jednoj kupnji može sadržavati proizvode Big Banga (trgovačkog društva Sancta Domenica d.o.o.) i proizvode drugih prodavača na Marketplaceu. Načini plaćanja za ove dvije skupine se razlikuju, pa se po potrebi narudžba dijeli u dvije odvojene uplate.</p>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #EFF0F3;padding:30px 30px 28px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch">
+            <div style="position:relative;border:1.5px solid #0050A0;border-radius:12px;padding:30px 26px 26px">
+              <span style="position:absolute;top:-13px;left:22px;padding:5px 12px;border-radius:6px;background:#0050A0;color:#fff;font-size:11.5px;font-weight:700;letter-spacing:0.06em">BIG BANG</span>
+              <div style="font-size:20px;font-weight:700;letter-spacing:-0.015em;color:#101117">Proizvodi koje prodaje Big Bang</div>
+              <div style="font-size:14.5px;color:#8B95A5;margin-top:5px">Trgovac: Big Bang</div>
+              <div style="font-size:13px;font-weight:700;letter-spacing:0.05em;color:#0050A0;margin:18px 0 18px">DOSTUPNI NAČINI PLAĆANJA</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px 20px">
+                <sc-for list="{{ bbMethods }}" as="m" hint-placeholder-count="6">
+                  <div style="display:flex;align-items:center;gap:11px;font-size:15px;color:#101117">
+                    <svg width="21" height="21" viewBox="0 0 24 24" fill="#0050A0" style="flex-shrink:0"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm5 7.6-6.1 6.1a1 1 0 0 1-1.42 0L7 13.2a1 1 0 0 1 1.42-1.41l1.77 1.77 5.4-5.39A1 1 0 0 1 17 9.6z"></path></svg>
+                    {{ m }}
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="position:relative;border:1.5px dashed #C7C7CD;border-radius:12px;padding:30px 26px 26px">
+              <span style="position:absolute;top:-13px;left:22px;padding:5px 12px;border-radius:6px;background:#10DFBA;color:#002D73;font-size:11.5px;font-weight:700;letter-spacing:0.06em">MARKETPLACE</span>
+              <div style="font-size:20px;font-weight:700;letter-spacing:-0.015em;color:#101117">Proizvodi koje prodaju drugi prodavači</div>
+              <div style="font-size:14.5px;color:#8B95A5;margin-top:5px">Treća strana — prikazana pod imenom prodavatelja</div>
+              <div style="font-size:13px;font-weight:700;letter-spacing:0.05em;color:#009E82;margin:18px 0 14px">DOSTUPAN JEDAN NAČIN PLAĆANJA</div>
+              <div style="display:flex;gap:16px;align-items:center;background:#F1FCF8;border:1px solid #D7F5EA;border-radius:12px;padding:18px 20px">
+                <span style="display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:11px;background:#10DFBA;color:#002D73;flex-shrink:0">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5"></rect><line x1="2.5" y1="10" x2="21.5" y2="10"></line><line x1="6" y1="14.5" x2="10" y2="14.5"></line></svg>
+                </span>
+                <div>
+                  <div style="font-size:16px;font-weight:700;color:#101117">Plaćanje karticama online</div>
+                  <div style="font-size:14.5px;color:#545F71;line-height:1.45;margin-top:2px">Jednokratno, putem Monri Payments sustava.</div>
+                </div>
+              </div>
+              <p style="font-size:14px;line-height:1.55;color:#8B95A5;margin:16px 0 0">Rate, virman, pouzeće, HT bon i promo kodovi <strong style="color:#101117;font-weight:700">nisu primjenjivi</strong> za Marketplace prodavatelje.</p>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:18px;align-items:flex-start;background:#fff;border:1.5px solid #E07842;border-radius:12px;padding:22px 26px;margin-top:22px">
+            <span style="display:flex;color:#E07842;flex-shrink:0;margin-top:2px">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.9 18.3a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path><line x1="12" y1="9" x2="12" y2="13.5"></line><line x1="12" y1="17" x2="12" y2="17"></line></svg>
+            </span>
+            <div>
+              <div style="font-size:19px;font-weight:600;letter-spacing:-0.015em;color:#101117;margin-bottom:8px">Miješana košarica</div>
+              <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:900px">Ako narudžba sadrži i Big Bang i Marketplace proizvode, izvršavate dvije odvojene uplate. U prvom koraku dovršit ćete uplatu za Big Bang proizvode (s bilo kojim od navedenih načina plaćanja), a zatim odvojeno uplatu Marketplace prodavateljima — karticama online.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section data-sec="w2" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #0050A0;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#0050A0">02</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">ONLINE · JEDNOKRATNO</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Plaćanje karticama</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">Pri plaćanju na našoj web trgovini koristite Monri Payments — napredni sustav za siguran prihvat platnih kartica putem interneta. Vaši kartični podaci ostaju potpuno tajni od trenutka kada ih upišete u Monri Payments platni formular.</p>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #EFF0F3;padding:26px 30px 28px">
+          <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:16px">
+            <div style="height:66px;border-radius:10px;background:#221E62;display:flex;align-items:center;justify-content:center;font-size:21px;font-weight:700;font-style:italic;letter-spacing:0.02em;color:#fff">VISA</div>
+            <div style="height:66px;border:1px solid #E3E4E9;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:14px 20px"><img src="images/pay-mastercard.png" alt="Mastercard" style="max-height:100%;max-width:100%;object-fit:contain"></div>
+            <div style="height:66px;border:1px solid #E3E4E9;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:14px 20px"><img src="images/pay-maestro.png" alt="Maestro" style="max-height:100%;max-width:100%;object-fit:contain"></div>
+            <div style="height:66px;border-radius:10px;background:#0079C1;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;letter-spacing:-0.01em;color:#fff">Diners Club</div>
+            <div style="height:66px;border-radius:10px;background:#0A5CD6;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;letter-spacing:0.02em;color:#fff;text-align:center;line-height:1.3">AMERICAN<br>EXPRESS</div>
+            <div style="height:66px;border:1px solid #E3E4E9;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:700;font-style:italic;letter-spacing:-0.02em"><span style="color:#002D73">Pay</span><span style="color:#0079C1">Pal</span></div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px">
+            <div style="display:flex;gap:16px;align-items:flex-start;background:#F6F7F9;border-radius:12px;padding:20px 22px">
+              <span style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#fff;border:1px solid #E9EAEE;color:#0050A0;flex-shrink:0"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"></rect><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"></path></svg></span>
+              <div>
+                <div style="font-size:16px;font-weight:700;color:#101117;margin-bottom:4px">3-D Secure</div>
+                <div style="font-size:14.5px;color:#545F71;line-height:1.5">Mastercard SecureCode i Verified by Visa štite svaku transakciju.</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start;background:#F6F7F9;border-radius:12px;padding:20px 22px">
+              <span style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#fff;border:1px solid #E9EAEE;color:#0050A0;flex-shrink:0"><svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4.5 13.4h6.1L9.4 22l8.6-11.6h-6.2z"></path></svg></span>
+              <div>
+                <div style="font-size:16px;font-weight:700;color:#101117;margin-bottom:4px">Trenutna obrada</div>
+                <div style="font-size:14.5px;color:#545F71;line-height:1.5">Šifrirani prijenos od preglednika do banke koja je izdala karticu.</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start;background:#F6F7F9;border-radius:12px;padding:20px 22px">
+              <span style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#fff;border:1px solid #E9EAEE;color:#0050A0;flex-shrink:0"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v6c0 4.6 3.1 8.1 7.5 9.5 4.4-1.4 7.5-4.9 7.5-9.5V6L12 3z"></path><polyline points="9 12 11.4 14.4 15.4 10.4"></polyline></svg></span>
+              <div>
+                <div style="font-size:16px;font-weight:700;color:#101117;margin-bottom:4px">Bez pohrane podataka</div>
+                <div style="font-size:14.5px;color:#545F71;line-height:1.5">Podaci o kartici ne pohranjuju se na našim poslužiteljima.</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:13px;align-items:flex-start;background:#F1F1F4;border-radius:10px;padding:16px 18px;margin-top:18px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#C7C7CD" style="flex-shrink:0;margin-top:1px"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"></path></svg>
+            <p style="font-size:14px;line-height:1.55;color:#545F71;margin:0"><strong style="color:#101117;font-weight:600">Sigurnost online plaćanja:</strong> Mastercard® SecureCode™ · Verified by Visa. Platni podaci prosljeđuju se šifrirano od vašeg web preglednika do banke koja je izdala vašu karticu.</p>
+          </div>
+        </div>
+      </section>
+
+      <section data-sec="w3" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #E07842;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#E07842">03</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">ONLINE · OBROČNO</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Plaćanje na rate</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">Plaćanje na rate dostupno je karticama većine domaćih banaka. Bez kamata i naknada — iznos rate prikazujemo na svakoj proizvodnoj stranici.</p>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #EFF0F3;padding:26px 30px 28px">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+            <sc-for list="{{ rateBanks }}" as="b" hint-placeholder-count="6">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid #E3E4E9;border-radius:10px;padding:15px 18px">
+                <div>
+                  <div style="font-size:15px;font-weight:600;color:#101117">{{ b.name }}</div>
+                  <div style="font-size:13px;color:#8B95A5;margin-top:3px">{{ b.sub }}</div>
+                </div>
+                <div style="text-align:center;background:#FDECDD;border-radius:7px;padding:5px 10px;flex-shrink:0">
+                  <div style="font-size:15px;font-weight:700;color:#E07842;line-height:1">12</div>
+                  <div style="font-size:8.5px;font-weight:700;letter-spacing:0.06em;color:#E07842">RATA</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:24px;background:#FDEBDC;border-radius:12px;padding:22px 26px;margin-top:16px">
+            <div style="min-width:0">
+              <div style="font-size:12px;font-weight:700;letter-spacing:0.09em;color:#E07842;margin-bottom:7px">PRIMJER</div>
+              <div style="font-size:15px;color:#545F71">Samsung Galaxy A55 5G · PBZ 12 rata</div>
+              <div style="font-size:25px;font-weight:700;letter-spacing:-0.025em;color:#101117;margin-top:3px">349,99 €</div>
+            </div>
+            <span style="display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;background:#fff;color:#F07A25;flex-shrink:0;margin:0 auto">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="18" y2="12"></line><polyline points="13 7 18 12 13 17"></polyline></svg>
+            </span>
+            <div style="text-align:right;flex-shrink:0;min-width:0">
+              <div style="font-size:12px;font-weight:700;letter-spacing:0.09em;color:#E07842;margin-bottom:4px">MJESEČNA RATA</div>
+              <div style="font-size:34px;font-weight:700;letter-spacing:-0.03em;color:#F07A25;line-height:1">9,72 €</div>
+              <div style="font-size:13px;color:#8B95A5;margin-top:6px">0% kamate · bez naknade</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:13px;align-items:flex-start;background:#F1F1F4;border-radius:10px;padding:16px 18px;margin-top:16px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#C7C7CD" style="flex-shrink:0;margin-top:1px"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"></path></svg>
+            <p style="font-size:14px;line-height:1.55;color:#545F71;margin:0">Prilikom korištenja promo kod popusta moguće je ograničenje plaćanja na manji broj obroka ili na jednokratno plaćanje. Detaljni uvjeti navedeni su u opisu pogodnosti na promo kod popustu na stranici proizvoda.</p>
+          </div>
+        </div>
+      </section>
+      </sc-if>
+
+      <sc-if value="{{ isStores }}" hint-placeholder-val="{{ false }}">
+      <section data-sec="s1" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #0050A0;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#0050A0">01</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">U TRGOVINI</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Plaćanje karticama i obročno</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">U fizičkim trgovinama prihvaćamo Mastercard, Maestro, Visa, Visa Electron i Diners. Kupnju je moguće obročno platiti karticama većine domaćih banaka — bez kamata i naknada.</p>
+          </div>
+        </div>
+        <div style="border-top:1px solid #EFF0F3;padding:26px 30px 28px">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+            <sc-for list="{{ rateBanks }}" as="b" hint-placeholder-count="6">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid #E3E4E9;border-radius:10px;padding:15px 18px">
+                <div>
+                  <div style="font-size:15px;font-weight:600;color:#101117">{{ b.name }}</div>
+                  <div style="font-size:13px;color:#8B95A5;margin-top:3px">{{ b.sub }}</div>
+                </div>
+                <div style="text-align:center;background:#FDECDD;border-radius:7px;padding:5px 10px;flex-shrink:0">
+                  <div style="font-size:15px;font-weight:700;color:#E07842;line-height:1">12</div>
+                  <div style="font-size:8.5px;font-weight:700;letter-spacing:0.06em;color:#E07842">RATA</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:13px;align-items:flex-start;background:#F1F1F4;border-radius:10px;padding:16px 18px;margin-top:16px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#C7C7CD" style="flex-shrink:0;margin-top:1px"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"></path></svg>
+            <p style="font-size:14px;line-height:1.55;color:#545F71;margin:0">Prilikom korištenja promo kod popusta moguće je ograničenje plaćanja na manji broj obroka ili na jednokratno plaćanje. Detaljni uvjeti navedeni su u opisu pogodnosti na promo kod popustu na stranici proizvoda.</p>
+          </div>
+        </div>
+      </section>
+
+      <section data-sec="s2" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #DA0D00;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#DA0D00">02</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">U TRGOVINI</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Voucheri i loyalty bodovi</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">Plaćanje u poslovnicama moguće je i naprednim opcijama Mobilnih Wallet plaćanja, vrijednosnim bonovima i bodovima iz raznih loyalty programa.</p>
+          </div>
+        </div>
+        <div style="border-top:1px solid #EFF0F3;padding:26px 30px 28px">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+            <sc-for list="{{ vouchers }}" as="v" hint-placeholder-count="6">
+              <div style="border:1px solid #E3E4E9;border-radius:10px;padding:15px 18px;display:flex;gap:11px;align-items:flex-start">
+                <span style="width:8px;height:8px;border-radius:50%;background:#DA0D00;flex-shrink:0;margin-top:6px"></span>
+                <div>
+                  <div style="font-size:15px;font-weight:600;color:#101117">{{ v.name }}</div>
+                  <div style="font-size:13px;color:#8B95A5;margin-top:3px">{{ v.sub }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:13px;align-items:flex-start;background:#F1F1F4;border-radius:10px;padding:16px 18px;margin-top:16px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#C7C7CD" style="flex-shrink:0;margin-top:1px"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"></path></svg>
+            <p style="font-size:14px;line-height:1.55;color:#545F71;margin:0">PBZ Premium Membership rewards i RBA Rbica nije moguće koristiti u slučaju promo popusta s ograničenim načinima plaćanja (npr. za jednokratno plaćanje ili do 12 rata) osim ako izričito nije navedeno da se isti može koristiti.</p>
+          </div>
+        </div>
+      </section>
+
+      <section data-sec="s3" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #10DFBA;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#009E82">03</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">U TRGOVINI</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Plaćanje gotovinom</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">U svim Big Bang poslovnicama prihvaćamo plaćanje gotovinom u eurima na blagajni. Plaćanje je moguće kombinirati s karticama, voucherima ili loyalty bodovima u istoj transakciji.</p>
+          </div>
+        </div>
+        <div style="border-top:1px solid #EFF0F3;padding:26px 30px 28px">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px">
+            <div style="display:flex;gap:16px;align-items:flex-start;background:#F6F7F9;border-radius:12px;padding:20px 22px">
+              <span style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#fff;border:1px solid #E9EAEE;color:#009E82;flex-shrink:0"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="6" width="19" height="12" rx="2"></rect><circle cx="12" cy="12" r="2.6"></circle></svg></span>
+              <div>
+                <div style="font-size:16px;font-weight:700;color:#101117;margin-bottom:4px">Bez limita iznosa</div>
+                <div style="font-size:14.5px;color:#545F71;line-height:1.5">Gotovinom je moguće platiti narudžbu bilo koje vrijednosti.</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start;background:#F6F7F9;border-radius:12px;padding:20px 22px">
+              <span style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#fff;border:1px solid #E9EAEE;color:#009E82;flex-shrink:0"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"></path><polyline points="14 3 14 7 18 7"></polyline></svg></span>
+              <div>
+                <div style="font-size:16px;font-weight:700;color:#101117;margin-bottom:4px">R-1 račun na zahtjev</div>
+                <div style="font-size:14.5px;color:#545F71;line-height:1.5">Za pravne osobe izdajemo R-1 račun izravno na blagajni.</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:flex-start;background:#F6F7F9;border-radius:12px;padding:20px 22px">
+              <span style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#fff;border:1px solid #E9EAEE;color:#009E82;flex-shrink:0"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 7 14 7 11 4"></polyline><polyline points="21 17 10 17 13 20"></polyline></svg></span>
+              <div>
+                <div style="font-size:16px;font-weight:700;color:#101117;margin-bottom:4px">Kombiniranje plaćanja</div>
+                <div style="font-size:14.5px;color:#545F71;line-height:1.5">Moguće je kombinirati gotovinu s karticom, bonom ili bodovima.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      </sc-if>
+
+      <section data-sec="pay4" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #0050A0;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#0050A0">04</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">UPLATA PO PONUDI</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Općom uplatnicom, virmanom ili internet bankarstvom</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">Po primitku narudžbe poslat ćemo vam ponudu s našim bankovnim podacima. Uplatu možete izvršiti u najbližoj banci ili putem internet bankarstva na jedan od naših žiro računa.</p>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #EFF0F3;padding:26px 30px 28px">
+          <div style="background:#141B33;border-radius:12px;padding:26px 28px">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+              <div>
+                <div style="font-size:12px;font-weight:600;letter-spacing:0.09em;color:rgba(255,255,255,0.5);margin-bottom:7px">PRIMATELJ</div>
+                <div style="font-size:16px;font-weight:600;color:#fff">Sancta Domenica d.o.o.</div>
+                <div style="font-size:15px;color:rgba(255,255,255,0.85);margin-top:3px">Dr. Franje Tuđmana 69, 10431 Sveta Nedelja</div>
+              </div>
+              <div>
+                <div style="font-size:12px;font-weight:600;letter-spacing:0.09em;color:rgba(255,255,255,0.5);margin-bottom:7px">POZIV NA BROJ ODOBRENJA</div>
+                <div style="font-size:16px;font-weight:600;color:#fff">broj web narudžbe</div>
+              </div>
+            </div>
+            <div style="font-size:12px;font-weight:600;letter-spacing:0.09em;color:rgba(255,255,255,0.5);margin:22px 0 12px">ŽIRO RAČUNI</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 20px">
+              <sc-for list="{{ ibans }}" as="ib" hint-placeholder-count="6">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;background:#1E2540;border-radius:8px;padding:13px 18px">
+                  <span style="font-size:15px;font-weight:700;color:#fff">{{ ib.bank }}</span>
+                  <button onClick="{{ ib.onCopy }}" style="display:flex;align-items:center;gap:10px;background:none;border:none;padding:0;cursor:pointer;font-family:Inter,sans-serif">
+                    <span style="font-size:15px;color:#10DFBA;letter-spacing:0.01em">{{ ib.iban }}</span>
+                    <sc-if value="{{ ib.copied }}" hint-placeholder-val="{{ false }}">
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#10DFBA" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+                    </sc-if>
+                    <sc-if value="{{ ib.idle }}" hint-placeholder-val="{{ true }}">
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="12" rx="2"></rect><path d="M15 6H6a2 2 0 0 0-2 2v9"></path></svg>
+                    </sc-if>
+                  </button>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px">
+            <sc-for list="{{ steps }}" as="st" hint-placeholder-count="3">
+              <div style="display:flex;gap:14px;align-items:flex-start;background:#F6F7F9;border-radius:12px;padding:18px 20px">
+                <span style="display:flex;align-items:center;justify-content:center;width:27px;height:27px;border-radius:50%;background:#0050A0;color:#fff;font-size:13px;font-weight:700;flex-shrink:0">{{ st.n }}</span>
+                <div style="font-size:14.5px;color:#545F71;line-height:1.5">{{ st.text }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <sc-if value="{{ isWeb }}" hint-placeholder-val="{{ true }}">
+      <section data-sec="w5" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #10DFBA;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#009E82">05</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">PO DOSTAVI · GOTOVINA</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Plaćanje pouzećem</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">Plaćanje pouzećem omogućuje da iznos narudžbe platite prilikom dostave na adresu koju ste naveli. Uplatu možete izvršiti isključivo u gotovini, dostavljaču prilikom same isporuke.</p>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #EFF0F3;padding:30px 30px 32px">
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:40px;align-items:start;padding-left:30px">
+            <div style="display:flex;flex-direction:column;gap:20px">
+              <sc-for list="{{ cashChecks }}" as="c" hint-placeholder-count="4">
+                <div style="display:flex;gap:14px;align-items:flex-start;font-size:15px;line-height:1.55;color:#545F71">
+                  <span style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#E6F9F1;flex-shrink:0">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#009E82" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+                  </span>
+                  {{ c }}
+                </div>
+              </sc-for>
+            </div>
+            <div style="background:#F6F7F9;border-radius:12px;padding:22px 24px">
+              <div style="font-size:12.5px;font-weight:700;letter-spacing:0.09em;color:#009E82;margin-bottom:10px">LIMIT NARUDŽBE</div>
+              <div style="display:flex;align-items:baseline;gap:9px">
+                <span style="font-size:44px;font-weight:800;letter-spacing:-0.035em;color:#101117;line-height:1">800</span>
+                <span style="font-size:22px;font-weight:700;color:#101117">€</span>
+                <span style="font-size:15px;color:#545F71">maksimalno po narudžbi</span>
+              </div>
+              <div style="height:6px;border-radius:3px;background:linear-gradient(90deg,#10DFBA,#0050A0);margin:18px 0 8px"></div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;color:#8B95A5"><span>0 €</span><span>800 €</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section data-sec="w6" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #DA0D00;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#DA0D00">06</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">VRIJEDNOSNI BONOVI</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">HT vrijednosni bon (voucher)</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">HT vrijednosne bonove možete iskoristiti za kupnju u webshopu. Iskorišteni iznos prikazuje se u sažetku narudžbe.</p>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #EFF0F3;padding:30px 30px 32px">
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:40px;align-items:start;padding-left:30px">
+            <div style="display:flex;flex-direction:column;gap:20px">
+              <sc-for list="{{ bonChecks }}" as="c" hint-placeholder-count="3">
+                <div style="display:flex;gap:14px;align-items:flex-start;font-size:15px;line-height:1.55;color:#545F71">
+                  <span style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:#E6F9F1;flex-shrink:0">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#009E82" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+                  </span>
+                  {{ c }}
+                </div>
+              </sc-for>
+            </div>
+            <div style="background:#F6F7F9;border-radius:12px;padding:20px 22px">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+                <span style="font-size:12px;font-weight:700;letter-spacing:0.09em;color:#DA0D00">HT BON</span>
+                <span style="font-size:12.5px;color:#8B95A5">16-znamenkasti kod</span>
+              </div>
+              <div style="background:#fff;border-radius:8px;padding:14px 16px;font-size:16px;font-weight:600;letter-spacing:0.05em;color:#101117;text-align:center">HT04 ··· 8821 ··· 3344 ··· 5566</div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:14px;border-top:1px dashed #D8DAE0">
+                <span style="font-size:13.5px;color:#8B95A5">Vrijednost</span>
+                <span style="font-size:19px;font-weight:700;color:#101117">50,00 €</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section data-sec="w7" style="background:#fff;border-radius:12px;overflow:hidden">
+        <div style="padding:24px 30px 20px">
+          <div style="border-left:3px solid #1FB549;padding-left:18px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:700;color:#1FB549">07</span>
+              <span style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">PROMOTIVNI POPUSTI</span>
+            </div>
+            <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Promo kodovi</h2>
+            <p style="font-size:15px;line-height:1.6;color:#545F71;margin:0;max-width:860px;text-wrap:pretty">Promo kod unesite u predviđeno polje u koraku narudžbe. Vrijedi do isteka roka navedenog uz kampanju.</p>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid #EFF0F3;padding:26px 30px 28px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <sc-for list="{{ promos }}" as="p" hint-placeholder-count="2">
+              <div style="display:flex;align-items:stretch;border:1px solid #E3E4E9;border-radius:10px;overflow:hidden">
+                <div style="width:86px;flex-shrink:0;background:#1FB549;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px">
+                  <span style="font-size:20px;font-weight:700;letter-spacing:-0.02em;line-height:1">{{ p.amount }}</span>
+                  <span style="font-size:9px;font-weight:700;letter-spacing:0.08em">POPUST</span>
+                </div>
+                <div style="flex:1 1 0;min-width:0;padding:15px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px">
+                  <div>
+                    <div style="font-size:15px;font-weight:600;color:#101117;margin-bottom:8px">{{ p.title }}</div>
+                    <span style="display:inline-block;background:#E9F8EE;color:#1FB549;border-radius:6px;padding:5px 10px;font-size:12px;font-weight:700;letter-spacing:0.06em">{{ p.code }}</span>
+                  </div>
+                  <span style="font-size:12.5px;color:#8B95A5;flex-shrink:0">{{ p.until }}</span>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;gap:13px;align-items:flex-start;background:#F1F1F4;border-radius:10px;padding:16px 18px;margin-top:16px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#C7C7CD" style="flex-shrink:0;margin-top:1px"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"></path></svg>
+            <p style="font-size:14px;line-height:1.55;color:#545F71;margin:0">Promo kod za popust može se koristiti za jednokratno plaćanje ili za plaćanje u drugom broju obroka od standardnih 12, ovisno o uvjetima prodaje koji primjenjujemo. Detalji i uvjeti korištenja promo koda nalaze se na stranici proizvoda. Na jednu narudžbu moguće je iskoristiti samo jedan promo kod.</p>
+          </div>
+        </div>
+      </section>
+      </sc-if>
+
+      <section style="background:#fff;border-radius:12px;padding:26px 30px 28px">
+        <div style="font-size:11.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5;margin-bottom:7px">NAJČEŠĆA PITANJA</div>
+        <h2 style="font-size:23px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 18px">Niste sigurni? Možda smo odgovorili.</h2>
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
+            <div style="border-top:1px solid #EFF0F3">
+              <button onClick="{{ f.toggle }}" style="width:100%;background:none;border:none;padding:18px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:Inter,sans-serif;font-size:15px;font-weight:600;color:#101117;text-align:left;cursor:pointer">
+                {{ f.q }}
+                <span style="{{ f.chevStyle }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#545F71" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+              </button>
+              <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+                <p style="font-size:14.5px;line-height:1.6;color:#545F71;margin:0 0 20px;max-width:900px;text-wrap:pretty">{{ f.a }}</p>
+              </sc-if>
+            </div>
+          </sc-for>
+          <div style="border-top:1px solid #EFF0F3"></div>
+        </div>
+      </section>
+
+      <dc-import name="Components/SupportBand" variant="desktop" eyebrow="NISTE PRONAŠLI ODGOVOR?" title="Naš tim podrške je tu za vas." text="Pomoći ćemo oko narudžbi, plaćanja, dostave ili tehničkih pitanja. Dostupni smo svaki dan od 8 do 20h." mail-label="Pošalji upit" hint-size="100%,190px"></dc-import>
+
+    </div>
+  </div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<div ref="{{ rootRefM }}">
+<dc-import name="Components/InfoPageHead" variant="mobile" heading="Načini plaćanja" intro="Online u webshopu, gotovinom po dostavi ili u jednoj od naših poslovnica — odaberite način plaćanja koji vam najviše odgovara." tabs="{{ tabs }}" active-tab="{{ tab }}" on-tab="{{ setTab }}" on-home="{{ onHome }}" hint-size="100%,200px"></dc-import>
+
+<div style="background:#F1F1F4;padding:14px 0 28px;display:flex;flex-direction:column;gap:12px">
+
+  <div style="position:sticky;top:55px;z-index:310">
+    <dc-import name="Components/InfoAnchorNav" variant="mobile" items="{{ navItems }}" active="{{ sec }}" on-select="{{ selectSec }}" hint-size="100%,48px"></dc-import>
+  </div>
+
+  <sc-if value="{{ isWeb }}" hint-placeholder-val="{{ true }}">
+  <section data-sec="w1" style="background:#fff;padding:20px 0 22px">
+    <div style="padding:0 16px 18px">
+      <div style="border-left:3px solid #0050A0;padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:11.5px;font-weight:700;color:#0050A0">01</span>
+          <span style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">VAŽNO ZA NARUDŽBE</span>
+        </div>
+        <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 7px">Big Bang prodaja i Marketplace prodavatelji</h2>
+        <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0;text-wrap:pretty">Košarica u jednoj kupnji može sadržavati proizvode Big Banga (trgovačkog društva Sancta Domenica d.o.o.) i proizvode drugih prodavača na Marketplaceu. Načini plaćanja za ove dvije skupine se razlikuju, pa se po potrebi narudžba dijeli u dvije odvojene uplate.</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #EFF0F3;padding:22px 16px 0;display:flex;flex-direction:column;gap:18px">
+      <div style="position:relative;border:1.5px solid #0050A0;border-radius:12px;padding:24px 16px 18px">
+        <span style="position:absolute;top:-11px;left:16px;padding:4px 10px;border-radius:6px;background:#0050A0;color:#fff;font-size:10px;font-weight:700;letter-spacing:0.06em">BIG BANG</span>
+        <div style="font-size:16px;font-weight:700;letter-spacing:-0.015em;color:#101117">Proizvodi koje prodaje Big Bang</div>
+        <div style="font-size:13px;color:#8B95A5;margin-top:4px">Trgovac: Big Bang</div>
+        <div style="font-size:11.5px;font-weight:700;letter-spacing:0.05em;color:#0050A0;margin:14px 0 12px">DOSTUPNI NAČINI PLAĆANJA</div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <sc-for list="{{ bbMethods }}" as="m" hint-placeholder-count="6">
+            <div style="display:flex;align-items:center;gap:10px;font-size:13.5px;color:#101117">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="#0050A0" style="flex-shrink:0"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm5 7.6-6.1 6.1a1 1 0 0 1-1.42 0L7 13.2a1 1 0 0 1 1.42-1.41l1.77 1.77 5.4-5.39A1 1 0 0 1 17 9.6z"></path></svg>
+              {{ m }}
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="position:relative;border:1.5px dashed #C7C7CD;border-radius:12px;padding:24px 16px 18px">
+        <span style="position:absolute;top:-11px;left:16px;padding:4px 10px;border-radius:6px;background:#10DFBA;color:#002D73;font-size:10px;font-weight:700;letter-spacing:0.06em">MARKETPLACE</span>
+        <div style="font-size:16px;font-weight:700;letter-spacing:-0.015em;color:#101117">Proizvodi koje prodaju drugi prodavači</div>
+        <div style="font-size:13px;color:#8B95A5;margin-top:4px">Treća strana — prikazana pod imenom prodavatelja</div>
+        <div style="font-size:11.5px;font-weight:700;letter-spacing:0.05em;color:#009E82;margin:14px 0 10px">DOSTUPAN JEDAN NAČIN PLAĆANJA</div>
+        <div style="display:flex;gap:12px;align-items:center;background:#F1FCF8;border:1px solid #D7F5EA;border-radius:12px;padding:14px 16px">
+          <span style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#10DFBA;color:#002D73;flex-shrink:0"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5"></rect><line x1="2.5" y1="10" x2="21.5" y2="10"></line><line x1="6" y1="14.5" x2="10" y2="14.5"></line></svg></span>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:#101117">Plaćanje karticama online</div>
+            <div style="font-size:12.5px;color:#545F71;line-height:1.4;margin-top:2px">Jednokratno, putem Monri Payments sustava.</div>
+          </div>
+        </div>
+        <p style="font-size:12.5px;line-height:1.5;color:#8B95A5;margin:12px 0 0">Rate, virman, pouzeće, HT bon i promo kodovi <strong style="color:#101117;font-weight:700">nisu primjenjivi</strong> za Marketplace prodavatelje.</p>
+      </div>
+      <div style="display:flex;gap:13px;align-items:flex-start;background:#fff;border:1.5px solid #E07842;border-radius:12px;padding:16px 18px">
+        <span style="display:flex;color:#E07842;flex-shrink:0;margin-top:1px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.9 18.3a2 2 0 0 0 1.7 3h16.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path><line x1="12" y1="9" x2="12" y2="13.5"></line><line x1="12" y1="17" x2="12" y2="17"></line></svg></span>
+        <div>
+          <div style="font-size:15.5px;font-weight:600;color:#101117;margin-bottom:6px">Miješana košarica</div>
+          <p style="font-size:13px;line-height:1.55;color:#545F71;margin:0">Ako narudžba sadrži i Big Bang i Marketplace proizvode, izvršavate dvije odvojene uplate. U prvom koraku dovršit ćete uplatu za Big Bang proizvode (s bilo kojim od navedenih načina plaćanja), a zatim odvojeno uplatu Marketplace prodavateljima — karticama online.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-sec="w2" style="background:#fff;padding:20px 0 22px">
+    <div style="padding:0 16px 18px">
+      <div style="border-left:3px solid #0050A0;padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:11.5px;font-weight:700;color:#0050A0">02</span>
+          <span style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">ONLINE · JEDNOKRATNO</span>
+        </div>
+        <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 7px">Plaćanje karticama</h2>
+        <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0;text-wrap:pretty">Pri plaćanju na našoj web trgovini koristite Monri Payments — napredni sustav za siguran prihvat platnih kartica putem interneta. Vaši kartični podaci ostaju potpuno tajni od trenutka kada ih upišete u Monri Payments platni formular.</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #EFF0F3;padding:20px 16px 0">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+        <div style="height:54px;border-radius:10px;background:#221E62;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;font-style:italic;color:#fff">VISA</div>
+        <div style="height:54px;border:1px solid #E3E4E9;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:11px 14px"><img src="images/pay-mastercard.png" alt="Mastercard" style="max-height:100%;max-width:100%;object-fit:contain"></div>
+        <div style="height:54px;border:1px solid #E3E4E9;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:11px 14px"><img src="images/pay-maestro.png" alt="Maestro" style="max-height:100%;max-width:100%;object-fit:contain"></div>
+        <div style="height:54px;border-radius:10px;background:#0079C1;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700;color:#fff">Diners Club</div>
+        <div style="height:54px;border-radius:10px;background:#0A5CD6;display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:800;letter-spacing:0.02em;color:#fff;text-align:center;line-height:1.3">AMERICAN<br>EXPRESS</div>
+        <div style="height:54px;border:1px solid #E3E4E9;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;font-style:italic;letter-spacing:-0.02em"><span style="color:#002D73">Pay</span><span style="color:#0079C1">Pal</span></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
+        <div style="display:flex;gap:13px;align-items:flex-start;background:#F6F7F9;border-radius:12px;padding:15px 16px">
+          <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:#fff;border:1px solid #E9EAEE;color:#0050A0;flex-shrink:0"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"></rect><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"></path></svg></span>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:#101117;margin-bottom:3px">3-D Secure</div>
+            <div style="font-size:12.5px;color:#545F71;line-height:1.45">Mastercard SecureCode i Verified by Visa štite svaku transakciju.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:13px;align-items:flex-start;background:#F6F7F9;border-radius:12px;padding:15px 16px">
+          <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:#fff;border:1px solid #E9EAEE;color:#0050A0;flex-shrink:0"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4.5 13.4h6.1L9.4 22l8.6-11.6h-6.2z"></path></svg></span>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:#101117;margin-bottom:3px">Trenutna obrada</div>
+            <div style="font-size:12.5px;color:#545F71;line-height:1.45">Šifrirani prijenos od preglednika do banke koja je izdala karticu.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:13px;align-items:flex-start;background:#F6F7F9;border-radius:12px;padding:15px 16px">
+          <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:#fff;border:1px solid #E9EAEE;color:#0050A0;flex-shrink:0"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4.5 6v6c0 4.6 3.1 8.1 7.5 9.5 4.4-1.4 7.5-4.9 7.5-9.5V6L12 3z"></path><polyline points="9 12 11.4 14.4 15.4 10.4"></polyline></svg></span>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:#101117;margin-bottom:3px">Bez pohrane podataka</div>
+            <div style="font-size:12.5px;color:#545F71;line-height:1.45">Podaci o kartici ne pohranjuju se na našim poslužiteljima.</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:11px;align-items:flex-start;background:#F1F1F4;border-radius:10px;padding:13px 15px;margin-top:14px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#C7C7CD" style="flex-shrink:0;margin-top:1px"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"></path></svg>
+        <p style="font-size:12px;line-height:1.5;color:#545F71;margin:0"><strong style="color:#101117;font-weight:600">Sigurnost online plaćanja:</strong> Mastercard® SecureCode™ · Verified by Visa. Platni podaci prosljeđuju se šifrirano od vašeg web preglednika do banke koja je izdala vašu karticu.</p>
+      </div>
+    </div>
+  </section>
+
+  <section data-sec="w3" style="background:#fff;padding:20px 0 22px">
+    <div style="padding:0 16px 18px">
+      <div style="border-left:3px solid #E07842;padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:11.5px;font-weight:700;color:#E07842">03</span>
+          <span style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">ONLINE · OBROČNO</span>
+        </div>
+        <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 7px">Plaćanje na rate</h2>
+        <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0;text-wrap:pretty">Plaćanje na rate dostupno je karticama većine domaćih banaka. Bez kamata i naknada — iznos rate prikazujemo na svakoj proizvodnoj stranici.</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #EFF0F3;padding:20px 16px 0">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <sc-for list="{{ rateBanks }}" as="b" hint-placeholder-count="6">
+          <div style="border:1px solid #E3E4E9;border-radius:10px;padding:12px 13px">
+            <div style="font-size:13px;font-weight:600;color:#101117;line-height:1.3">{{ b.name }}</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:7px">
+              <span style="font-size:11.5px;color:#8B95A5">{{ b.sub }}</span>
+              <span style="background:#FDECDD;border-radius:6px;padding:3px 8px;font-size:10px;font-weight:700;color:#E07842;flex-shrink:0">12 RATA</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:#FDEBDC;border-radius:12px;padding:16px 18px;margin-top:12px">
+        <div style="font-size:10.5px;font-weight:700;letter-spacing:0.09em;color:#E07842;margin-bottom:6px">PRIMJER</div>
+        <div style="font-size:13px;color:#545F71">Samsung Galaxy A55 5G · PBZ 12 rata</div>
+        <div style="font-size:21px;font-weight:700;letter-spacing:-0.025em;color:#101117;margin-top:3px">349,99 €</div>
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:14px;padding-top:14px;border-top:1px solid #F5D3B4">
+          <span style="font-size:10.5px;font-weight:700;letter-spacing:0.09em;color:#E07842">MJESEČNA RATA</span>
+          <div style="text-align:right">
+            <div style="font-size:26px;font-weight:700;letter-spacing:-0.03em;color:#F07A25;line-height:1">9,72 €</div>
+            <div style="font-size:11.5px;color:#8B95A5;margin-top:4px">0% kamate · bez naknade</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:11px;align-items:flex-start;background:#F1F1F4;border-radius:10px;padding:13px 15px;margin-top:12px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#C7C7CD" style="flex-shrink:0;margin-top:1px"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z"></path></svg>
+        <p style="font-size:12px;line-height:1.5;color:#545F71;margin:0">Prilikom korištenja promo kod popusta moguće je ograničenje plaćanja na manji broj obroka ili na jednokratno plaćanje. Detaljni uvjeti navedeni su na stranici proizvoda.</p>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ isStores }}" hint-placeholder-val="{{ false }}">
+  <section data-sec="s1" style="background:#fff;padding:20px 0 22px">
+    <div style="padding:0 16px 18px">
+      <div style="border-left:3px solid #0050A0;padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:11.5px;font-weight:700;color:#0050A0">01</span>
+          <span style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">U TRGOVINI</span>
+        </div>
+        <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 7px">Plaćanje karticama i obročno</h2>
+        <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0;text-wrap:pretty">U fizičkim trgovinama prihvaćamo Mastercard, Maestro, Visa, Visa Electron i Diners. Kupnju je moguće obročno platiti karticama većine domaćih banaka — bez kamata i naknada.</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #EFF0F3;padding:20px 16px 0">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <sc-for list="{{ rateBanks }}" as="b" hint-placeholder-count="6">
+          <div style="border:1px solid #E3E4E9;border-radius:10px;padding:12px 13px">
+            <div style="font-size:13px;font-weight:600;color:#101117;line-height:1.3">{{ b.name }}</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:7px">
+              <span style="font-size:11.5px;color:#8B95A5">{{ b.sub }}</span>
+              <span style="background:#FDECDD;border-radius:6px;padding:3px 8px;font-size:10px;font-weight:700;color:#E07842;flex-shrink:0">12 RATA</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section data-sec="s2" style="background:#fff;padding:20px 0 22px">
+    <div style="padding:0 16px 18px">
+      <div style="border-left:3px solid #DA0D00;padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:11.5px;font-weight:700;color:#DA0D00">02</span>
+          <span style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">U TRGOVINI</span>
+        </div>
+        <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 7px">Voucheri i loyalty bodovi</h2>
+        <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0;text-wrap:pretty">Plaćanje u poslovnicama moguće je i naprednim opcijama Mobilnih Wallet plaćanja, vrijednosnim bonovima i bodovima iz raznih loyalty programa.</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #EFF0F3;padding:20px 16px 0;display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ vouchers }}" as="v" hint-placeholder-count="6">
+        <div style="border:1px solid #E3E4E9;border-radius:10px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start">
+          <span style="width:8px;height:8px;border-radius:50%;background:#DA0D00;flex-shrink:0;margin-top:5px"></span>
+          <div>
+            <div style="font-size:13.5px;font-weight:600;color:#101117">{{ v.name }}</div>
+            <div style="font-size:11.5px;color:#8B95A5;margin-top:2px">{{ v.sub }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-sec="s3" style="background:#fff;padding:20px 0 22px">
+    <div style="padding:0 16px 18px">
+      <div style="border-left:3px solid #10DFBA;padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:11.5px;font-weight:700;color:#009E82">03</span>
+          <span style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">U TRGOVINI</span>
+        </div>
+        <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 7px">Plaćanje gotovinom</h2>
+        <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0;text-wrap:pretty">U svim Big Bang poslovnicama prihvaćamo plaćanje gotovinom u eurima na blagajni. Plaćanje je moguće kombinirati s karticama, voucherima ili loyalty bodovima u istoj transakciji.</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #EFF0F3;padding:20px 16px 0;display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;gap:13px;align-items:flex-start;background:#F6F7F9;border-radius:12px;padding:15px 16px">
+        <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:#fff;border:1px solid #E9EAEE;color:#009E82;flex-shrink:0"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="6" width="19" height="12" rx="2"></rect><circle cx="12" cy="12" r="2.6"></circle></svg></span>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:#101117;margin-bottom:3px">Bez limita iznosa</div>
+          <div style="font-size:12.5px;color:#545F71;line-height:1.45">Gotovinom je moguće platiti narudžbu bilo koje vrijednosti.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:13px;align-items:flex-start;background:#F6F7F9;border-radius:12px;padding:15px 16px">
+        <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:#fff;border:1px solid #E9EAEE;color:#009E82;flex-shrink:0"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"></path><polyline points="14 3 14 7 18 7"></polyline></svg></span>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:#101117;margin-bottom:3px">R-1 račun na zahtjev</div>
+          <div style="font-size:12.5px;color:#545F71;line-height:1.45">Za pravne osobe izdajemo R-1 račun izravno na blagajni.</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:13px;align-items:flex-start;background:#F6F7F9;border-radius:12px;padding:15px 16px">
+        <span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:#fff;border:1px solid #E9EAEE;color:#009E82;flex-shrink:0"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 7 14 7 11 4"></polyline><polyline points="21 17 10 17 13 20"></polyline></svg></span>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:#101117;margin-bottom:3px">Kombiniranje plaćanja</div>
+          <div style="font-size:12.5px;color:#545F71;line-height:1.45">Moguće je kombinirati gotovinu s karticom, bonom ili bodovima.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </sc-if>
+
+  <section data-sec="pay4" style="background:#fff;padding:20px 0 22px">
+    <div style="padding:0 16px 18px">
+      <div style="border-left:3px solid #0050A0;padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:11.5px;font-weight:700;color:#0050A0">04</span>
+          <span style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">UPLATA PO PONUDI</span>
+        </div>
+        <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 7px">Općom uplatnicom, virmanom ili internet bankarstvom</h2>
+        <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0;text-wrap:pretty">Po primitku narudžbe poslat ćemo vam ponudu s našim bankovnim podacima. Uplatu možete izvršiti u najbližoj banci ili putem internet bankarstva na jedan od naših žiro računa.</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #EFF0F3;padding:20px 16px 0">
+      <div style="background:#141B33;border-radius:12px;padding:18px 18px 20px">
+        <div style="padding-bottom:16px">
+          <div style="font-size:10px;font-weight:600;letter-spacing:0.09em;color:rgba(255,255,255,0.5);margin-bottom:5px">PRIMATELJ</div>
+          <div style="font-size:14px;font-weight:600;color:#fff">Sancta Domenica d.o.o.</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.85);margin-top:2px">Dr. Franje Tuđmana 69, 10431 Sveta Nedelja</div>
+          <div style="font-size:10px;font-weight:600;letter-spacing:0.09em;color:rgba(255,255,255,0.5);margin:14px 0 5px">POZIV NA BROJ ODOBRENJA</div>
+          <div style="font-size:14px;font-weight:600;color:#fff">broj web narudžbe</div>
+        </div>
+        <div style="font-size:10px;font-weight:600;letter-spacing:0.09em;color:rgba(255,255,255,0.5);margin:0 0 9px">ŽIRO RAČUNI</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ ibans }}" as="ib" hint-placeholder-count="6">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;background:#1E2540;border-radius:8px;padding:10px 13px">
+              <span style="font-size:12.5px;font-weight:700;color:#fff;flex-shrink:0">{{ ib.bank }}</span>
+              <button onClick="{{ ib.onCopy }}" style="display:flex;align-items:center;gap:8px;background:none;border:none;padding:0;cursor:pointer;font-family:Inter,sans-serif;min-width:0">
+                <span style="font-size:12px;color:#10DFBA">{{ ib.iban }}</span>
+                <sc-if value="{{ ib.copied }}" hint-placeholder-val="{{ false }}">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#10DFBA" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+                </sc-if>
+                <sc-if value="{{ ib.idle }}" hint-placeholder-val="{{ true }}">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="12" rx="2"></rect><path d="M15 6H6a2 2 0 0 0-2 2v9"></path></svg>
+                </sc-if>
+              </button>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:12px">
+        <sc-for list="{{ steps }}" as="st" hint-placeholder-count="3">
+          <div style="display:flex;gap:12px;align-items:flex-start;background:#F6F7F9;border-radius:12px;padding:14px 16px">
+            <span style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#0050A0;color:#fff;font-size:12px;font-weight:700;flex-shrink:0">{{ st.n }}</span>
+            <div style="font-size:12.5px;color:#545F71;line-height:1.45">{{ st.text }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <sc-if value="{{ isWeb }}" hint-placeholder-val="{{ true }}">
+  <section data-sec="w5" style="background:#fff;padding:20px 0 22px">
+    <div style="padding:0 16px 18px">
+      <div style="border-left:3px solid #10DFBA;padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:11.5px;font-weight:700;color:#009E82">05</span>
+          <span style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">PO DOSTAVI · GOTOVINA</span>
+        </div>
+        <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 7px">Plaćanje pouzećem</h2>
+        <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0;text-wrap:pretty">Plaćanje pouzećem omogućuje da iznos narudžbe platite prilikom dostave na adresu koju ste naveli. Uplatu možete izvršiti isključivo u gotovini, dostavljaču prilikom same isporuke.</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #EFF0F3;padding:20px 16px 0">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <sc-for list="{{ cashChecks }}" as="c" hint-placeholder-count="4">
+          <div style="display:flex;gap:11px;align-items:flex-start;font-size:13.5px;line-height:1.5;color:#545F71">
+            <span style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#E6F9F1;flex-shrink:0">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#009E82" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+            </span>
+            {{ c }}
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:#F6F7F9;border-radius:12px;padding:16px 18px;margin-top:14px">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.09em;color:#009E82;margin-bottom:8px">LIMIT NARUDŽBE</div>
+        <div style="display:flex;align-items:baseline;gap:7px;flex-wrap:wrap">
+          <span style="font-size:34px;font-weight:800;letter-spacing:-0.035em;color:#101117;line-height:1">800</span>
+          <span style="font-size:18px;font-weight:700;color:#101117">€</span>
+          <span style="font-size:13px;color:#545F71">maksimalno po narudžbi</span>
+        </div>
+        <div style="height:6px;border-radius:3px;background:linear-gradient(90deg,#10DFBA,#0050A0);margin:14px 0 7px"></div>
+        <div style="display:flex;justify-content:space-between;font-size:11.5px;color:#8B95A5"><span>0 €</span><span>800 €</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section data-sec="w6" style="background:#fff;padding:20px 0 22px">
+    <div style="padding:0 16px 18px">
+      <div style="border-left:3px solid #DA0D00;padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:11.5px;font-weight:700;color:#DA0D00">06</span>
+          <span style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">VRIJEDNOSNI BONOVI</span>
+        </div>
+        <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 7px">HT vrijednosni bon (voucher)</h2>
+        <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0;text-wrap:pretty">HT vrijednosne bonove možete iskoristiti za kupnju u webshopu. Iskorišteni iznos prikazuje se u sažetku narudžbe.</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #EFF0F3;padding:20px 16px 0">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <sc-for list="{{ bonChecks }}" as="c" hint-placeholder-count="3">
+          <div style="display:flex;gap:11px;align-items:flex-start;font-size:13.5px;line-height:1.5;color:#545F71">
+            <span style="display:flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:#E6F9F1;flex-shrink:0">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#009E82" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+            </span>
+            {{ c }}
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:#F6F7F9;border-radius:12px;padding:16px 18px;margin-top:14px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <span style="font-size:11px;font-weight:700;letter-spacing:0.09em;color:#DA0D00">HT BON</span>
+          <span style="font-size:11.5px;color:#8B95A5">16-znamenkasti kod</span>
+        </div>
+        <div style="background:#fff;border-radius:8px;padding:12px 14px;font-size:13.5px;font-weight:600;letter-spacing:0.04em;color:#101117;text-align:center">HT04 ··· 8821 ··· 3344 ··· 5566</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:12px;border-top:1px dashed #D8DAE0">
+          <span style="font-size:12.5px;color:#8B95A5">Vrijednost</span>
+          <span style="font-size:17px;font-weight:700;color:#101117">50,00 €</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-sec="w7" style="background:#fff;padding:20px 0 22px">
+    <div style="padding:0 16px 18px">
+      <div style="border-left:3px solid #1FB549;padding-left:14px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:11.5px;font-weight:700;color:#1FB549">07</span>
+          <span style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5">PROMOTIVNI POPUSTI</span>
+        </div>
+        <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 7px">Promo kodovi</h2>
+        <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:0;text-wrap:pretty">Promo kod unesite u predviđeno polje u koraku narudžbe. Vrijedi do isteka roka navedenog uz kampanju.</p>
+      </div>
+    </div>
+    <div style="border-top:1px solid #EFF0F3;padding:20px 16px 0;display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ promos }}" as="p" hint-placeholder-count="2">
+        <div style="display:flex;align-items:stretch;border:1px solid #E3E4E9;border-radius:10px;overflow:hidden">
+          <div style="width:72px;flex-shrink:0;background:#1FB549;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px">
+            <span style="font-size:17px;font-weight:700;letter-spacing:-0.02em;line-height:1">{{ p.amount }}</span>
+            <span style="font-size:8.5px;font-weight:700;letter-spacing:0.08em">POPUST</span>
+          </div>
+          <div style="flex:1 1 0;min-width:0;padding:12px 14px">
+            <div style="font-size:13px;font-weight:600;color:#101117;margin-bottom:7px">{{ p.title }}</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+              <span style="background:#E9F8EE;color:#1FB549;border-radius:6px;padding:4px 9px;font-size:11px;font-weight:700;letter-spacing:0.06em">{{ p.code }}</span>
+              <span style="font-size:11px;color:#8B95A5;flex-shrink:0">{{ p.until }}</span>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <section style="background:#fff;padding:20px 16px 22px">
+    <div style="font-size:10.5px;font-weight:600;letter-spacing:0.08em;color:#8B95A5;margin-bottom:6px">NAJČEŠĆA PITANJA</div>
+    <h2 style="font-size:18px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0 0 10px">Niste sigurni? Možda smo odgovorili.</h2>
+    <div style="display:flex;flex-direction:column">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
+        <div style="border-top:1px solid #EFF0F3">
+          <button onClick="{{ f.toggle }}" style="width:100%;background:none;border:none;padding:14px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;font-family:Inter,sans-serif;font-size:13.5px;font-weight:600;color:#101117;text-align:left;cursor:pointer;line-height:1.4">
+            {{ f.q }}
+            <span style="{{ f.chevStyle }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#545F71" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+          </button>
+          <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+            <p style="font-size:12.5px;line-height:1.55;color:#545F71;margin:0 0 14px;text-wrap:pretty">{{ f.a }}</p>
+          </sc-if>
+        </div>
+      </sc-for>
+      <div style="border-top:1px solid #EFF0F3"></div>
+    </div>
+  </section>
+
+  <dc-import name="Components/SupportBand" variant="mobile" eyebrow="NISTE PRONAŠLI ODGOVOR?" title="Naš tim podrške je tu za vas." text="Pomoći ćemo oko narudžbi, plaćanja, dostave ili tehničkih pitanja. Dostupni smo svaki dan od 8 do 20h." mail-label="Pošalji upit" hint-size="100%,260px"></dc-import>
+
+</div>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;variant&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;desktop&quot;, &quot;mobile&quot;], &quot;default&quot;: &quot;desktop&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;onHome&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;() =&gt; void&quot; },
+  &quot;onNav&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(key: string) =&gt; void&quot; }
+}">
+const RATE_BANKS = [
+  { name: 'PBZ Card Premium Visa', sub: 'do 36 rata' },
+  { name: 'Diners Card Club', sub: 'do 36 rata' },
+  { name: 'PBZ Visa i Maestro', sub: 'do 36 rata' },
+  { name: 'ZABA Mastercard krd.', sub: 'do 36 rata' },
+  { name: 'ZABA Visa kreditna', sub: 'do 24 rate' },
+  { name: 'ZABA Visa debitna', sub: 'do 24 rate' }
+];
+const VOUCHERS = [
+  { name: 'HT vrijednosni bonovi', sub: '26,54 € – 79,63 €' },
+  { name: 'SD Poklon bonovi', sub: '13,27 € – 132,72 €' },
+  { name: 'Shopping centar voucheri', sub: 'CCC · Arena · Westgate · Supernova' },
+  { name: 'PBZ Premium Membership rewards', sub: 'Bodovi PBZ kartica' },
+  { name: 'RBA Rbica', sub: 'Bodovi RBA' },
+  { name: 'Mobilni Wallet', sub: 'Apple Pay · Google Pay' }
+];
+const IBANS = [
+  { bank: 'Erste', iban: 'HR2724020061100016402' },
+  { bank: 'PBZ', iban: 'HR5223400091100224412' },
+  { bank: 'ZABA', iban: 'HR9323600001101354835' },
+  { bank: 'ZABA', iban: 'HR9323600001101354836' },
+  { bank: 'ZABA', iban: 'HR9323600001101354837' },
+  { bank: 'OTP', iban: 'HR6524070001100480761' }
+];
+const STEPS = [
+  'Naručite proizvode i odaberite "Virman" pri završetku narudžbe.',
+  'Primit ćete ponudu na email s točnim podacima za uplatu i pozivom na broj.',
+  'Po primljenoj uplati paket šaljemo u roku 24h (radnim danom).'
+];
+const CASH_CHECKS = [
+  'Dostupno za narudžbe do 800,00 € (uključuje dostavu).',
+  'Plaćanje isključivo u gotovini, u eurima.',
+  'Nije moguće osobno preuzeti narudžbu na skladištu i tamo izvršiti uplatu.',
+  'Ako primatelj nije bio u mogućnosti primiti pošiljku, dostavljač ostavlja obavijest o prispijeću.'
+];
+const BON_CHECKS = [
+  'Vrijednost bona kombinira se s ostalim načinima plaćanja unutar iste narudžbe.',
+  'U poslovnicama prihvaćamo HT bonove od 26,54 € do 79,63 €.',
+  'Bon ne istječe dok se ne iskoristi puni iznos.'
+];
+const PROMOS = [
+  { amount: '15%', title: 'Dodatnih 15% na odabrane mobitele', code: 'GRANO15', until: 'do 31.12.' },
+  { amount: '50€', title: 'Ušteda na gaming asortimanu', code: 'GAMING50', until: 'do 31.12.' }
+];
+const FAQS = [
+  { q: 'Mogu li kombinirati više načina plaćanja za jednu narudžbu?', a: 'U webshopu je moguće odabrati jedan od navedenih načina plaćanja. Kupnjom u poslovnicama možete kombinirati više načina plaćanja u istoj transakciji.' },
+  { q: 'Vrijede li svi načini plaćanja i za Marketplace prodavatelje?', a: 'Ne. Proizvode drugih prodavača na Marketplaceu moguće je platiti isključivo karticom online, jednokratno. Rate, virman, pouzeće, HT bon i promo kodovi vrijede samo za Big Bang proizvode.' },
+  { q: 'Jesu li moji podaci o kartici sigurni?', a: 'Jesu. Plaćanje se obavlja u Monri Payments platnom formularu uz 3-D Secure zaštitu, a podatke o kartici ne pohranjujemo na našim poslužiteljima.' },
+  { q: 'Mogu li narudžbu platiti karticom prilikom dostave?', a: 'Ne. Plaćanje prilikom dostave moguće je isključivo u gotovini, u eurima, dostavljaču pri isporuci.' },
+  { q: 'Što ako pouzeće prelazi 800 €?', a: 'Narudžbe iznad 800,00 € platite jednim od ostalih načina — karticom online, na rate, virmanom ili HT bonom.' }
+];
+const ANCHORS_WEB = [
+  { num: '01', label: 'Big Bang i Marketplace', id: 'w1' },
+  { num: '02', label: 'Karticama online', id: 'w2' },
+  { num: '03', label: 'Plaćanje na rate', id: 'w3' },
+  { num: '04', label: 'Virman / internet bankarstvo', id: 'pay4' },
+  { num: '05', label: 'Pouzećem', id: 'w5' },
+  { num: '06', label: 'HT vrijednosni bon', id: 'w6' },
+  { num: '07', label: 'Promo kodovi', id: 'w7' }
+];
+const ANCHORS_STORES = [
+  { num: '01', label: 'Karticama i obročno', id: 's1' },
+  { num: '02', label: 'Voucheri i loyalty', id: 's2' },
+  { num: '03', label: 'Gotovinom', id: 's3' },
+  { num: '04', label: 'Općom uplatnicom / virmanom', id: 'pay4' }
+];
+
+class Component extends DCLogic {
+  state = { tab: 0, faq: 0, copied: null, sec: 'w1' };
+
+  selectSec = (id) => { this.setState({ sec: id }); this.scrollTo(id)(); };
+
+  rootRef = (el) => { if (el) this.root = el; };
+
+  componentWillUnmount() { clearTimeout(this.ct); }
+
+  scrollTo = (id) => (e) => {
+    if (e) e.preventDefault();
+    const el = this.root && this.root.querySelector('[data-sec="' + id + '"]');
+    if (!el) return;
+    let node = el.parentElement, cont = null;
+    while (node && node !== document.body && node !== document.documentElement) {
+      const oy = getComputedStyle(node).overflowY;
+      if ((oy === 'auto' || oy === 'scroll') && node.scrollHeight > node.clientHeight) { cont = node; break; }
+      node = node.parentElement;
+    }
+    const r = el.getBoundingClientRect();
+    if (cont) {
+      const cr = cont.getBoundingClientRect();
+      cont.scrollBy({ top: r.top - cr.top - 68, behavior: 'smooth' });
+    } else {
+      window.scrollBy({ top: r.top - 110, behavior: 'smooth' });
+    }
+  };
+
+  copy = (iban) => () => {
+    try { if (navigator.clipboard) navigator.clipboard.writeText(iban); } catch (err) {}
+    this.setState({ copied: iban });
+    clearTimeout(this.ct);
+    this.ct = setTimeout(() => this.setState({ copied: null }), 1500);
+  };
+
+  renderVals() {
+    const p = this.props, s = this.state;
+    const mobile = p.variant === 'mobile';
+    const web = s.tab === 0;
+
+    return {
+      isDesktop: !mobile,
+      isMobile: mobile,
+      rootRef: mobile ? null : this.rootRef,
+      rootRefM: mobile ? this.rootRef : null,
+      onHome: p.onHome,
+      onNav: p.onNav,
+      tab: s.tab,
+      isWeb: web,
+      isStores: !web,
+      setTab: (i) => this.setState({ tab: i, faq: 0, sec: i === 0 ? 'w1' : 's1' }),
+      sec: s.sec,
+      selectSec: this.selectSec,
+      navItems: (web ? ANCHORS_WEB : ANCHORS_STORES).map(a => ({ id: a.id, num: a.num, label: a.label })),
+      tabs: [
+        { label: 'Web trgovina', sub: 'bigbang.hr', icon: 'globe' },
+        { label: 'Poslovnice', sub: 'Big Bang', icon: 'pin' }
+      ],
+      anchors: (web ? ANCHORS_WEB : ANCHORS_STORES).map(a => ({
+        num: a.num, label: a.label, onClick: this.scrollTo(a.id)
+      })),
+      bbMethods: ['Karticama online (jednokratno)', 'Karticama na rate (do 12)', 'Virman / internet bankarstvo', 'Pouzeće (do 800 €)', 'HT vrijednosni bon', 'Promo kod popust'],
+      rateBanks: RATE_BANKS,
+      vouchers: VOUCHERS,
+      cashChecks: CASH_CHECKS,
+      bonChecks: BON_CHECKS,
+      promos: PROMOS,
+      steps: STEPS.map((t, i) => ({ n: i + 1, text: t })),
+      ibans: IBANS.map(ib => ({
+        bank: ib.bank, iban: ib.iban,
+        copied: s.copied === ib.iban,
+        idle: s.copied !== ib.iban,
+        onCopy: this.copy(ib.iban)
+      })),
+      faqs: FAQS.map((f, i) => ({
+        q: f.q, a: f.a,
+        open: s.faq === i,
+        toggle: () => this.setState(st => ({ faq: st.faq === i ? -1 : i })),
+        chevStyle: { display: 'flex', flexShrink: 0, transform: s.faq === i ? 'rotate(180deg)' : 'none', transition: 'transform .2s' }
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

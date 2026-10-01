@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</helmet>
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<div>
+<dc-import name="Components/InfoPageHead" variant="desktop" heading="Kontakt" intro="Sancta Domenica d.o.o., Dr. Franje Tuđmana 69, 10431 Sveta Nedelja · OIB: 15721232640 · MBS: 080011754 · Obveznik PDV-a: Da" on-home="{{ onHome }}" hint-size="100%,200px"></dc-import>
+
+<div style="background:#F1F1F4;padding:28px 0 64px">
+  <div style="max-width:1480px;margin:0 auto;padding:0 20px;display:flex;flex-direction:column;gap:16px">
+
+
+    <sc-if value="{{ isCards }}" hint-placeholder-val="{{ true }}">
+    <section style="background:#fff;border-radius:12px;padding:28px 32px 32px">
+      <h2 style="font-size:20px;font-weight:700;letter-spacing:-0.015em;color:#101117;margin:0 0 4px">Odjeli i kontakti</h2>
+      <p style="font-size:14px;color:#545F71;margin:0 0 22px">Obratite se izravno odjelu koji vam je potreban.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+        <sc-for list="{{ depts }}" as="d" hint-placeholder-count="8">
+          <div style="border:1px solid #E3E4E9;border-radius:12px;padding:20px 22px;display:flex;flex-direction:column;gap:14px;transition:border-color .15s,box-shadow .15s" style-hover="border-color:#0050A0;box-shadow:0 2px 12px rgba(0,45,115,0.08)">
+            <div>
+              <div style="font-size:16.5px;font-weight:700;letter-spacing:-0.015em;color:#101117">{{ d.name }}</div>
+              <div style="font-size:13px;color:#8B95A5;margin-top:2px">{{ d.sub }}</div>
+            </div>
+            <div style="height:1px;background:#EFF0F3"></div>
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <a href="{{ d.tel }}" style="display:flex;align-items:center;gap:10px;font-size:14px;color:#101117;text-decoration:none" style-hover="color:#0050A0">
+                <span style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:#EEF3FA;color:#0050A0;flex-shrink:0">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L17 13l4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4 5.2 2 2 0 0 1 6 3z"></path></svg>
+                </span>
+                {{ d.phone }}
+              </a>
+              <a href="{{ d.mailto }}" style="display:flex;align-items:center;gap:10px;font-size:14px;color:#101117;text-decoration:none;min-width:0" style-hover="color:#0050A0">
+                <span style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:#EEF3FA;color:#0050A0;flex-shrink:0">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><polyline points="3.5 6.5 12 13 20.5 6.5"></polyline></svg>
+                </span>
+                <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ d.email }}</span>
+              </a>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+    </sc-if>
+
+    <sc-if value="{{ isBento }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <h2 style="font-size:20px;font-weight:700;letter-spacing:-0.015em;color:#101117;margin:0 0 4px">Odjeli i kontakti</h2>
+      <p style="font-size:14px;color:#545F71;margin:0 0 16px">Obratite se izravno odjelu koji vam je potreban.</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+        <sc-for list="{{ depts }}" as="d" hint-placeholder-count="8">
+          <div style="background:#fff;border-radius:12px;padding:22px 24px;display:flex;flex-direction:column;gap:16px;transition:box-shadow .2s,transform .2s" style-hover="box-shadow:0 6px 20px rgba(16,17,23,0.10);transform:translateY(-2px)">
+            <span style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:#EEF3FA;color:#0050A0">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L17 13l4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4 5.2 2 2 0 0 1 6 3z"></path></svg>
+            </span>
+            <div style="flex:1 1 0">
+              <div style="font-size:16.5px;font-weight:700;letter-spacing:-0.015em;color:#101117;line-height:1.3">{{ d.name }}</div>
+              <div style="font-size:13px;color:#8B95A5;margin-top:3px">{{ d.sub }}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:7px">
+              <a href="{{ d.tel }}" style="font-size:14.5px;font-weight:600;color:#101117;text-decoration:none" style-hover="color:#0050A0">{{ d.phone }}</a>
+              <a href="{{ d.mailto }}" style="font-size:13.5px;color:#0050A0;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" style-hover="color:#002D73">{{ d.email }}</a>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <section style="background:#fff;border-radius:12px;padding:28px 32px 32px">
+      <dc-import name="Components/StoreLocator" variant="desktop" hint-size="100%,620px"></dc-import>
+    </section>
+
+    <section style="background:#fff;border-radius:12px;padding:28px 32px 32px">
+      <h2 style="font-size:20px;font-weight:700;letter-spacing:-0.015em;color:#101117;margin:0 0 4px">Podaci o društvu</h2>
+      <p style="font-size:14px;color:#545F71;margin:0 0 20px">Sancta Domenica d.o.o. za trgovinu i usluge — trgovačko društvo koje posluje pod robnom markom Big Bang.</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+        <sc-for list="{{ company }}" as="c" hint-placeholder-count="8">
+          <div style="background:#F6F7F9;border-radius:10px;padding:16px 18px">
+            <div style="font-size:10px;font-weight:700;letter-spacing:0.09em;color:#8B95A5;margin-bottom:6px">{{ c.k }}</div>
+            <div style="font-size:14.5px;font-weight:600;color:#101117;line-height:1.4">{{ c.v }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <dc-import name="Components/SupportBand" variant="desktop" eyebrow="KORISNIČKA PODRŠKA" title="Tu smo svaki dan od 8 do 20h." text="Za pitanja o narudžbama, plaćanju, dostavi, reklamacijama i servisu — javite se telefonom ili e-mailom, odgovaramo u najkraćem roku." hint-size="100%,190px"></dc-import>
+
+  </div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<div>
+<dc-import name="Components/InfoPageHead" variant="mobile" heading="Kontakt" intro="Sancta Domenica d.o.o., Dr. Franje Tuđmana 69, 10431 Sveta Nedelja · OIB: 15721232640" on-home="{{ onHome }}" hint-size="100%,170px"></dc-import>
+
+<div style="background:#F1F1F4;padding:14px 0 28px;display:flex;flex-direction:column;gap:12px">
+
+
+  <sc-if value="{{ isCards }}" hint-placeholder-val="{{ true }}">
+  <section style="background:#fff;padding:20px 16px 24px">
+    <h2 style="font-size:17px;font-weight:700;letter-spacing:-0.015em;color:#101117;margin:0 0 3px">Odjeli i kontakti</h2>
+    <p style="font-size:13px;color:#545F71;margin:0 0 16px">Obratite se izravno odjelu koji vam je potreban.</p>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ depts }}" as="d" hint-placeholder-count="8">
+        <div style="border:1px solid #E3E4E9;border-radius:12px;padding:15px 16px">
+          <div style="font-size:15px;font-weight:700;letter-spacing:-0.015em;color:#101117">{{ d.name }}</div>
+          <div style="font-size:12px;color:#8B95A5;margin-top:2px">{{ d.sub }}</div>
+          <div style="height:1px;background:#EFF0F3;margin:12px 0"></div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <a href="{{ d.tel }}" style="display:flex;align-items:center;gap:9px;font-size:13.5px;color:#101117;text-decoration:none">
+              <span style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;background:#EEF3FA;color:#0050A0;flex-shrink:0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L17 13l4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4 5.2 2 2 0 0 1 6 3z"></path></svg>
+              </span>
+              {{ d.phone }}
+            </a>
+            <a href="{{ d.mailto }}" style="display:flex;align-items:center;gap:9px;font-size:13.5px;color:#101117;text-decoration:none;min-width:0">
+              <span style="display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;background:#EEF3FA;color:#0050A0;flex-shrink:0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"></rect><polyline points="3.5 6.5 12 13 20.5 6.5"></polyline></svg>
+              </span>
+              <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ d.email }}</span>
+            </a>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  </sc-if>
+
+  <sc-if value="{{ isBento }}" hint-placeholder-val="{{ false }}">
+  <div style="padding:0 16px">
+    <h2 style="font-size:17px;font-weight:700;letter-spacing:-0.015em;color:#101117;margin:0 0 3px">Odjeli i kontakti</h2>
+    <p style="font-size:13px;color:#545F71;margin:0 0 12px">Obratite se izravno odjelu koji vam je potreban.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <sc-for list="{{ depts }}" as="d" hint-placeholder-count="8">
+        <div style="background:#fff;border-radius:12px;padding:15px 16px;display:flex;flex-direction:column;gap:12px">
+          <span style="display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:9px;background:#EEF3FA;color:#0050A0">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L17 13l4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4 5.2 2 2 0 0 1 6 3z"></path></svg>
+          </span>
+          <div style="flex:1 1 0">
+            <div style="font-size:14px;font-weight:700;letter-spacing:-0.015em;color:#101117;line-height:1.3">{{ d.name }}</div>
+            <div style="font-size:11.5px;color:#8B95A5;margin-top:2px">{{ d.sub }}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:5px;min-width:0">
+            <a href="{{ d.tel }}" style="font-size:13.5px;font-weight:600;color:#101117;text-decoration:none">{{ d.phone }}</a>
+            <a href="{{ d.mailto }}" style="font-size:12px;color:#0050A0;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ d.email }}</a>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  </sc-if>
+
+  <section style="background:#fff;padding:20px 16px 24px">
+    <dc-import name="Components/StoreLocator" variant="mobile" hint-size="100%,760px"></dc-import>
+  </section>
+
+  <section style="background:#fff;padding:20px 16px 24px">
+    <h2 style="font-size:17px;font-weight:700;letter-spacing:-0.015em;color:#101117;margin:0 0 3px">Podaci o društvu</h2>
+    <p style="font-size:13px;color:#545F71;margin:0 0 14px">Sancta Domenica d.o.o. za trgovinu i usluge — društvo koje posluje pod robnom markom Big Bang.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <sc-for list="{{ company }}" as="c" hint-placeholder-count="8">
+        <div style="background:#F6F7F9;border-radius:10px;padding:13px 14px">
+          <div style="font-size:9.5px;font-weight:700;letter-spacing:0.09em;color:#8B95A5;margin-bottom:5px">{{ c.k }}</div>
+          <div style="font-size:13px;font-weight:600;color:#101117;line-height:1.35">{{ c.v }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <dc-import name="Components/SupportBand" variant="mobile" eyebrow="KORISNIČKA PODRŠKA" title="Tu smo svaki dan od 8 do 20h." text="Za pitanja o narudžbama, plaćanju, dostavi, reklamacijama i servisu — javite se telefonom ili e-mailom, odgovaramo u najkraćem roku." hint-size="100%,260px"></dc-import>
+
+</div>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;variant&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;desktop&quot;, &quot;mobile&quot;], &quot;default&quot;: &quot;desktop&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;deptLayout&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;cards&quot;, &quot;bento&quot;], &quot;default&quot;: &quot;cards&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Kontakt&quot; },
+  &quot;onHome&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;() =&gt; void&quot; }
+}">
+const DEPTS = [
+  { name: 'Skrb za potrošače', sub: 'Customer Care', phone: '01 6655 555', email: 'podrska@bigbang.hr' },
+  { name: 'Reklamacije', sub: 'Customer Care Center', phone: '01 6655 556', email: 'reklamacije@bigbang.hr' },
+  { name: 'Big Partner — Distribucija', sub: 'Regionalna distribucija', phone: '01 3093 700', email: 'info@bigpartner.hr' },
+  { name: 'Marketplace', sub: 'Partneri i prodavatelji', phone: '01 3093 710', email: 'marketplace@bigbang.hr' },
+  { name: 'Financije', sub: 'Financijski odjel', phone: '01 3093 720', email: 'financije@bigbang.hr' },
+  { name: 'Marketing', sub: 'Marketing odjel', phone: '01 3093 730', email: 'marketing@bigbang.hr' },
+  { name: 'Odnosi s javnošću', sub: 'Public relations', phone: '01 3093 740', email: 'pr@bigbang.hr' },
+  { name: 'Ljudski resursi', sub: 'HR i razvoj zaposlenih', phone: '01 3093 750', email: 'hr@bigbang.hr' }
+];
+
+const COMPANY = [
+  { k: 'NAZIV DRUŠTVA', v: 'Sancta Domenica d.o.o.' },
+  { k: 'SJEDIŠTE', v: 'Dr. Franje Tuđmana 69, 10431 Sveta Nedelja' },
+  { k: 'OIB', v: '15721232640' },
+  { k: 'MBS', v: '080011754' },
+  { k: 'OBVEZNIK PDV-A', v: 'Da' },
+  { k: 'REGISTARSKI SUD', v: 'Trgovački sud u Zagrebu' },
+  { k: 'OSNOVNI KAPITAL', v: '2.654.456,00 € — uplaćen u cijelosti' },
+  { k: 'E-MAIL', v: 'podrska@bigbang.hr' }
+];
+
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props;
+    const mobile = p.variant === 'mobile';
+    const bento = p.deptLayout === 'bento';
+    return {
+      isDesktop: !mobile,
+      isMobile: mobile,
+      isBento: bento,
+      isCards: !bento,
+      onHome: p.onHome,
+      depts: DEPTS.map(d => ({
+        name: d.name, sub: d.sub, phone: d.phone, email: d.email,
+        tel: 'tel:' + d.phone.replace(/\s/g, ''),
+        mailto: 'mailto:' + d.email
+      })),
+      company: COMPANY
+    };
+  }
+}
+</script>
+</body>
+</html>

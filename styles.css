@@ -1,0 +1,75 @@
+/* ============================================================
+   Big Bang — global stylesheet
+   Shared by every page and every component in this project.
+   Only rules that CANNOT be inline live here: resets, font,
+   scrollbar treatments, and the hover/utility classes that
+   need descendant or state selectors.
+   ============================================================ */
+
+/* --- brand tokens ------------------------------------------ */
+:root{
+  --bb-blue:#0050A0;         /* primary — CTAs, links */
+  --bb-blue-dark:#002D73;    /* hover on primary */
+  --bb-navy:#002D73;         /* nav bar, dark chips */
+  --bb-footer:#00337A;       /* footer background */
+  --bb-turquoise:#10DFBA;    /* accents, submit buttons */
+  --bb-orange:#F65F04;       /* "Bang Cijena" */
+  --bb-red:#DA0D00;          /* discounts, errors */
+  --bb-green:#1FB549;        /* promo codes, in stock */
+  --bb-page:#F4F4F8;         /* page background */
+  --bb-card:#FFFFFF;
+  --bb-ink:#101117;          /* primary text */
+  --bb-ink-2:#545F71;        /* secondary text */
+  --bb-ink-3:#8B95A5;        /* muted text */
+  --bb-line:#E4E4EA;         /* hairlines */
+  --bb-radius-card:12px;
+  --bb-radius-pill:24px;
+  --bb-content:1480px;       /* max content width (1440 + padding) */
+}
+
+/* --- reset + base ------------------------------------------ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bb-page);
+  color:var(--bb-ink);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{text-decoration:none;color:var(--bb-blue)}
+a:hover{color:var(--bb-blue-dark)}
+button{font-family:'Inter',sans-serif;cursor:pointer}
+
+/* --- scrollbars -------------------------------------------- */
+.nsb::-webkit-scrollbar{display:none}                 /* hidden (carousels) */
+.nsb{-ms-overflow-style:none;scrollbar-width:none}
+.bbsb::-webkit-scrollbar{width:4px}                   /* thin brand scrollbar */
+.bbsb::-webkit-scrollbar-track{background:transparent}
+.bbsb::-webkit-scrollbar-thumb{background:var(--bb-blue);border-radius:2px}
+
+/* --- hover behaviours -------------------------------------- */
+/* .imz — image zoom on card hover (default) */
+.imz img,.imz .pimg{transition:transform .3s cubic-bezier(0,0,.5,1)}
+.imz:hover img,.imz:hover .pimg{transform:scale(1.03)}
+.imz{transition:transform .25s cubic-bezier(0,0,.5,1)}
+/* body[data-cardhover="card"] — whole card scales instead */
+body[data-cardhover="card"] .imz:hover img,
+body[data-cardhover="card"] .imz:hover .pimg{transform:none}
+body[data-cardhover="card"] .imz:hover{transform:scale(1.02)}
+
+/* .arw — nudges the arrow inside "Prikaži sve" style links */
+.arw svg{transition:transform .2s cubic-bezier(0,0,.5,1)}
+.arw:hover svg{transform:translateX(2px)}
+
+html { scrollbar-gutter: stable }
+
+/* page switch inside the app shell */
+@keyframes bbpg { from { opacity: 0 } to { opacity: 1 } }
+.pgin { animation: bbpg .2s ease backwards }
+
+/* --- filled CTA buttons ------------------------------------ */
+/* navy fill, brand blue on hover — site-wide rule for every primary CTA */
+.bbcta{background:var(--bb-navy-cta,#002D73)!important;color:#fff!important;border:none}
+.bbcta:hover{background:#0050A0!important;color:#fff!important}
+
+@keyframes bbfade{from{opacity:0}to{opacity:1}}

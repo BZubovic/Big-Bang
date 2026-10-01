@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="profile.css">
+<script src="image-slot.js"></script>
+<script src="profile-app.js"></script>
+</helmet>
+
+<x-import component="AccountApp" from="./Components/account/AccountApp.jsx" variant="{{ variant }}" mode="{{ mode }}" klub-member="{{ klubMember }}" new-user="{{ newUser }}" on-auth-done="{{ authDone }}" on-logout="{{ logout }}" hint-size="100%,1400px"></x-import>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;variant&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;desktop&quot;, &quot;mobile&quot;], &quot;default&quot;: &quot;desktop&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;mode&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;profile&quot;, &quot;auth&quot;], &quot;default&quot;: &quot;profile&quot;, &quot;tsType&quot;: &quot;string&quot; },
+  &quot;klubMember&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; },
+  &quot;newUser&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot; },
+  &quot;onAuthDone&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(where: string) =&gt; void&quot; },
+  &quot;onLogout&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;() =&gt; void&quot; }
+}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      variant: this.props.variant === 'mobile' ? 'mobile' : 'desktop',
+      mode: this.props.mode === 'auth' ? 'auth' : 'profile',
+      klubMember: this.props.klubMember !== false,
+      newUser: !!this.props.newUser,
+      authDone: this.props.onAuthDone || (() => {}),
+      logout: this.props.onLogout || (() => {})
+    };
+  }
+}
+
+</script>
+</body>
+</html>
