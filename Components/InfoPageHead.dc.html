@@ -104,9 +104,9 @@ class Component extends DCLogic {
     const map = (mob) => tabs.map((t, i) => ({
       label: t.label, sub: t.sub,
       globe: t.icon === 'globe', pin: t.icon === 'pin',
-      style: btn(i === active, mob),
-      iconStyle: { display: 'flex', color: i === active ? 'rgba(255,255,255,0.85)' : '#0050A0' },
-      subStyle: { fontSize: mob ? 10.5 : 11, fontWeight: 500, color: i === active ? 'rgba(255,255,255,0.7)' : '#8B95A5' },
+      style: Object.assign(btn(i === active, mob), t.icon || t.sub ? {} : { justifyContent: 'center', gap: 0, padding: mob ? '9px 16px' : '10px 20px' }),
+      iconStyle: { display: t.icon ? 'flex' : 'none', color: i === active ? 'rgba(255,255,255,0.85)' : '#0050A0' },
+      subStyle: { display: t.sub ? 'block' : 'none', fontSize: mob ? 10.5 : 11, fontWeight: 500, color: i === active ? 'rgba(255,255,255,0.7)' : '#8B95A5' },
       onClick: () => { if (p.onTab) p.onTab(i); }
     }));
 

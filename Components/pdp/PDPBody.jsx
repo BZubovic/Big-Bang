@@ -147,7 +147,7 @@ const navBtn = { background: 'none', border: 'none', cursor: 'pointer', color: '
 function Breadcrumb() {
   const crumbs = ['Početna', 'Mobiteli', 'Samsung', pv('name', 'Samsung Galaxy S24+')];
   return (
-    <div style={{ maxWidth: 1480, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: T.sub, padding: '14px 20px', width: '100%', boxSizing: 'border-box' }}>
+    <div style={{ maxWidth: 1480, margin: '0 auto', display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: T.sub, padding: '22px 20px', width: '100%', boxSizing: 'border-box' }}>
       {crumbs.map((c, i) =>
       <React.Fragment key={c}>
           {i > 0 && <Icon.Chevron dir="right" size={12} />}
@@ -165,7 +165,7 @@ const COLORS = [
 { name: 'Amber Yellow', hex: '#F4C430' },
 { name: 'Cobalt Violet', hex: '#7B5EA7' },
 { name: 'Onyx Black', hex: '#2A2A2A' },
-{ name: 'Marble Gray', hex: '#8A8A8A' }];
+{ name: 'Marble Gray', hex: '#8A8A8A', na: true }];
 
 
 function Gallery({ selectedColor, bundleMode }) {
@@ -203,8 +203,7 @@ function Gallery({ selectedColor, bundleMode }) {
 
         {/* Badges */}
         <div style={{ position: 'absolute', top: 16, left: 16, display: 'flex', flexDirection: 'column', gap: 6 }}>
-          <span style={{ background: T.red, color: '#fff', fontSize: 11, fontWeight: 700, padding: '4px 10px', borderRadius: 6 }}>-14%</span>
-          <span style={{ background: T.orange, color: '#fff', fontSize: 10, fontWeight: 700, padding: '3px 9px', borderRadius: 6 }}>UAU Cijena</span>
+          <span style={{ background: '#002D73', color: '#fff', fontSize: 12, fontWeight: 600, padding: '4px 10px', borderRadius: 6 }}>Besplatna dostava</span>
         </div>
 
         {/* Wishlist */}
@@ -671,6 +670,59 @@ function ConditionFlyout({ condition: initialCondition, selectedIndex, onSelect,
   return ReactDOM.createPortal(flyoutNode, document.body);
 }
 
+
+// ─── Extra offers (price block) ───────────────────────────────────
+const OFFERS = [
+  { title: 'Dodatnih 15% popusta na ovaj proizvod uz kod SAMSUNG15 u košarici.', code: 'SAMSUNG15' },
+  { title: 'Uz kupnju dobivate Samsung Galaxy Buds FE slušalice gratis.' },
+  { title: 'Samsung Care+ – 2 godine potpune zaštite uz 50% popusta.' },
+  { title: 'Trade-in: predajte stari mobitel i dobijte do 200 € popusta.' }
+];
+function OffersBox() {
+  const [open, setOpen] = React.useState(false);
+  const [top, ...rest] = OFFERS;
+  const tag = (sz) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>;
+  return (
+    <div style={{ marginTop: 12, borderRadius: 12, background: '#E6F5EC', overflow: 'hidden' }}>
+      <button onClick={() => setOpen((o) => !o)} aria-expanded={open} style={{ width: '100%', display: 'flex', alignItems: 'flex-start', gap: 12, padding: '14px', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit' }}>
+        <span style={{ flex: 1, minWidth: 0, fontSize: 14, fontWeight: 500, lineHeight: '22px', color: '#101117', display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2, overflow: 'hidden', maxHeight: 44 }}>
+          <span style={{ fontWeight: 700, color: '#0B7A48' }}>Dodatnih 15% popusta</span> na ovaj proizvod uz kod <span style={{ fontWeight: 700 }}>{top.code}</span> u košarici.<span style={{ marginLeft: 4, whiteSpace: 'nowrap', fontSize: 13, fontWeight: 600, color: '#0050A0' }}>{open ? 'Sakrij ponude' : '+' + rest.length + ' dodatne ponude'}</span>
+        </span>
+        <span style={{ color: '#545F71', display: 'flex', alignSelf: 'center', transform: open ? 'rotate(90deg)' : 'none', transition: 'transform .2s' }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></span>
+      </button>
+      {open && (
+        <div style={{ borderTop: '1px solid #BDDDCE' }}>
+          {rest.map((o, i) => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', borderTop: i ? '1px solid #BDDDCE' : 'none' }}>
+              <span style={{ flex: 1, fontSize: 13, lineHeight: 1.4, color: '#101117', textWrap: 'pretty' }}>{o.title}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ProductHead({ bundleMode }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 16 }}>
+      {/* Title */}
+      <h1 style={{ fontSize: 22, fontWeight: 600, color: T.text, lineHeight: 1.25, letterSpacing: '-0.02em', marginBottom: 10, margin: "0px" }}>
+        {bundleMode ? BUNDLE_TITLE : pv('name', 'Samsung Galaxy S24+ 5G, 12/256 GB, Amber Yellow')}
+      </h1>
+
+      {/* Rating row */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16, margin: "0px" }}>
+        <Stars rating={4.3} />
+        <span style={{ fontSize: 13, fontWeight: 600, color: T.text }}>4.3</span>
+        <a href="#reviews" style={{ fontSize: 13, color: T.blue, textDecoration: 'none' }}>384 recenzija</a>
+        <span style={{ width: 4, height: 4, borderRadius: '50%', background: T.borderSub }} />
+        <span style={{ fontSize: 12, color: T.sub }}>287 pitanja</span>
+      </div>
+    </div>
+  );
+}
+
 function BuyBox({ bundleMode, ctaRef }) {
   const [selectedColor, setSelectedColor] = React.useState('Amber Yellow');
   const [selectedStorage, setSelectedStorage] = React.useState('256GB');
@@ -688,7 +740,7 @@ function BuyBox({ bundleMode, ctaRef }) {
   const BUNDLE_PRICE = '549,99';
   const BUNDLE_INSTALMENT = '12 × 45,83 €';
 
-  const prices = { '256GB': { price: pv('price', '1.099,99'), old: pv('old', '1.279,99') }, '512GB': { price: '1.249,99', old: '1.429,99' }, '1TB': { price: '1.449,99', old: '1.649,99' } };
+  const prices = { '256GB': { price: pv('price', '1.299,00'), old: pv('old', '1.479,00') }, '512GB': { price: '1.249,99', old: '1.429,99' }, '1TB': { price: '1.449,99', old: '1.649,99' } };
   const p = prices[selectedStorage];
   const isNovo = selectedCondition === 'novo';
   const displayPrice = bundleMode ? BUNDLE_PRICE : (isNovo ? p.price : (currentOffer?.price || p.price));
@@ -701,35 +753,13 @@ function BuyBox({ bundleMode, ctaRef }) {
     setTimeout(() => setAddedToCart(false), 2200);
     if (window.BBCart) window.BBCart.open({
       img: bundleMode ? 'images/pdp/main/ps5-bundle.png' : pv('img', 'images/pdp/main/galaxy-s24-yellow.png'),
-      name: bundleMode ? 'PlayStation 5 Digital Chassis + dodatni Dual Sense Wireless Controller' : pv('name', 'Samsung Galaxy S24+ 5G Dual SIM SM-S926B 12/256GB'),
+      name: bundleMode ? 'PlayStation 5 Digital Chassis + dodatni Dual Sense Wireless Controller' : pv('name', 'Samsung Galaxy S24+ 5G, 12/256 GB, Amber Yellow'),
       price: displayPrice, old: displayOld
     });
   }
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: "12px" }}>
-      {/* Seller + breadcrumb mini */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8, margin: "0px" }}>
-        <span style={{ fontSize: 12, color: T.sub }}>Prodavač:</span>
-        <span style={{ fontSize: 12, fontWeight: 600, color: T.blue }}>Big Bang</span>
-        <span style={{ width: 4, height: 4, borderRadius: '50%', background: T.borderSub }} />
-        <span style={{ fontSize: 12, color: T.sub }}>Šifra: SM-S926B/DS</span>
-      </div>
-
-      {/* Title */}
-      <h1 style={{ fontSize: 22, fontWeight: 700, color: T.text, lineHeight: 1.25, letterSpacing: '-0.02em', marginBottom: 10, margin: "0px" }}>
-        {bundleMode ? BUNDLE_TITLE : pv('name', 'Samsung Galaxy S24+ 5G Dual SIM SM-S926B 12/256GB')}
-      </h1>
-
-      {/* Rating row */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16, margin: "0px 0px 12px" }}>
-        <Stars rating={4.3} />
-        <span style={{ fontSize: 13, fontWeight: 600, color: T.text }}>4.3</span>
-        <a href="#reviews" style={{ fontSize: 13, color: T.blue, textDecoration: 'none' }}>384 recenzija</a>
-        <span style={{ width: 4, height: 4, borderRadius: '50%', background: T.borderSub }} />
-        <span style={{ fontSize: 12, color: T.sub }}>287 pitanja</span>
-      </div>
-
       {/* Price block */}
       {bundleMode ? (
         <div style={{ borderRadius: 12, padding: '16px 18px', marginBottom: 16, border: `1px solid ${T.border}`, background: '#fff', margin: "0px 0px 12px" }}>
@@ -744,53 +774,34 @@ function BuyBox({ bundleMode, ctaRef }) {
           </div>
         </div>
       ) : (
-      <div style={{ background: 'linear-gradient(135deg,#FFF8F0 0%,#FFF3E8 100%)', borderRadius: 12,
-        padding: '16px 18px', marginBottom: 16, border: `1px solid #FFE4CC`, margin: "0px 0px 12px" }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4, flexWrap: 'wrap' }}>
-          {isNovo && (
-            <span style={{ display: 'flex', alignItems: 'center', gap: 4, color: T.green, fontWeight: 800, flexShrink: 0, fontSize: 22, lineHeight: 1 }}>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={T.green} strokeWidth="3.2" strokeLinecap="round">
-                <line x1="12" y1="5" x2="12" y2="19" /><polyline points="19 12 12 19 5 12" />
-              </svg>
-              {discPct}%
+      <div style={{ margin: "0px 0px 14px" }}>
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 12 }}>
+          <div style={{ minWidth: 0 }}>
+            {isNovo && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, whiteSpace: 'nowrap' }}>
+                <span style={{ fontSize: 16, lineHeight: '20px', color: '#8B95A5', textDecoration: 'line-through' }}>{displayOld} €</span>
+                <span style={{ height: 20, padding: '0 5px', borderRadius: 3, background: '#DA0D00', color: '#fff', fontSize: 13, fontWeight: 700, lineHeight: '20px' }}>-{(_toNum(displayOld) - _toNum(displayPrice)).toFixed(2).replace('.', ',')} €</span>
+              </div>
+            )}
+            <div style={{ marginTop: 2, fontSize: 32, fontWeight: 700, lineHeight: '38px', letterSpacing: '-0.02em', color: '#101117', whiteSpace: 'nowrap' }}>{displayPrice} €</div>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 5, flexShrink: 0 }}>
+            <span style={{ display: 'flex', height: 32 }}>
+              <span style={{ width: 42, background: '#00A651', color: '#fff', fontSize: 19, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', paddingLeft: 11, boxSizing: 'border-box', clipPath: 'polygon(30% 0,100% 0,100% 100%,30% 100%,0 50%)' }}>A</span>
+              <span style={{ width: 14, boxSizing: 'border-box', border: '1px solid #101117', borderLeft: 'none', background: '#fff', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', fontSize: 8, fontWeight: 700, lineHeight: 1.05, color: '#101117' }}><span>A</span><span>↑</span><span>G</span></span>
             </span>
-          )}
-          <span style={{ color: isNovo ? T.red : T.text, letterSpacing: '-0.03em', lineHeight: 1, fontSize: "30px", fontWeight: "700" }}>
-            {displayPrice} €
-          </span>
-          {isNovo && (
-            <span style={{ fontSize: 14, color: T.sub, textDecoration: 'line-through', lineHeight: 1, alignSelf: 'center' }}>
-              {displayOld} €
-            </span>
-          )}
+            <span style={{ fontSize: 12, lineHeight: 1.25, color: '#545F71', textDecoration: 'underline', textUnderlineOffset: 2, whiteSpace: 'nowrap', cursor: 'pointer' }}>Informacijski list</span>
+          </div>
         </div>
-        <div style={{ fontSize: 11.5, color: T.sub, marginTop: 6 }}>
-          MPC na 10.09.2026. {displayOld || displayPrice} €
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 10, margin: "6px 0px 10px", flexWrap: 'wrap' }}>
-          {isNovo ? (
-            <React.Fragment>
-              <span style={{ background: T.orange, color: '#fff', fontSize: 11, fontWeight: 700, padding: '3px 9px', borderRadius: 5 }}>UAU Cijena</span>
-              <span style={{ background: T.green, color: '#fff', fontSize: 11, fontWeight: 700, padding: '3px 9px', borderRadius: 5 }}>Dodatnih 5% uz kod</span>
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              {currentCondition && (
-                <span style={{ background: currentCondition.badgeBg, color: currentCondition.badgeColor,
-                  fontSize: 11, fontWeight: 700, padding: '3px 9px', borderRadius: 5 }}>{currentCondition.label}</span>
-              )}
-              <span style={{ background: '#E8F221', color: T.text, fontSize: 11, fontWeight: 700, padding: '3px 9px', borderRadius: 5 }}>
-                −{(_toNum(prices['256GB'].price) - _toNum(displayPrice)).toFixed(2).replace('.', ',')} € u odnosu na novi
-              </span>
-            </React.Fragment>
-          )}
-        </div>
-        {/* Instalment info */}
-        <div style={{ background: 'rgba(0,80,160,0.06)', borderRadius: 8, padding: '8px 12px', display: 'flex', alignItems: 'center', gap: 8 }}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={T.blue} strokeWidth="2" strokeLinecap="round"><rect x="1" y="4" width="22" height="16" rx="2" /><line x1="1" y1="10" x2="23" y2="10" /></svg>
-          <span style={{ fontSize: 12, color: T.blue, fontWeight: 500 }}>ili <strong>12 × 91,67 €</strong> bez kamata</span>
-          <button style={{ marginLeft: 'auto', fontSize: 11, color: T.blue, background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}>Detalji</button>
-        </div>
+        {!isNovo && (
+          <div style={{ marginTop: 12, height: 32, boxSizing: 'border-box', background: '#CDD700', borderRadius: 6, padding: '0 10px', display: 'inline-flex', alignItems: 'center', gap: 6, whiteSpace: 'nowrap', color: '#002D73', fontSize: 14, fontWeight: 700 }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+            −{(_toNum(prices['256GB'].price) - _toNum(displayPrice)).toFixed(2).replace('.', ',')} € u odnosu na novi
+          </div>
+        )}
+        <div style={{ marginTop: 12, fontSize: 15, fontWeight: 600, lineHeight: 1.35, letterSpacing: '-0.01em', color: '#101117' }}>91,67 € / 12 rata <span style={{ marginLeft: 6, fontSize: 13, fontWeight: 600, color: '#0050A0', textDecoration: 'underline', textUnderlineOffset: 2, cursor: 'pointer' }}>Saznaj više</span></div>
+        <div style={{ marginTop: 4, fontSize: 12, lineHeight: 1.4, color: '#8B95A5' }}>MPC na 10.09.2026. {displayOld || displayPrice} €</div>
+        <OffersBox />
       </div>
       )}
 
@@ -800,16 +811,25 @@ function BuyBox({ bundleMode, ctaRef }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 10 }}>
           <span style={{ fontSize: 13, fontWeight: 600, color: T.text }}>Boja:</span>
           <span style={{ fontSize: 13, color: T.sub }}>{selectedColor}</span>
+          {COLORS.some((c) => c.na && c.name === selectedColor) && <span style={{ fontSize: 13, fontWeight: 600, color: '#DA0D00' }}>· Nije dostupno</span>}
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
-          {COLORS.map(({ name, hex }) =>
-          <button key={name} onClick={() => setSelectedColor(name)} title={name}
-          style={{ width: 32, height: 32, borderRadius: '50%', background: hex, border: 'none',
-            cursor: 'pointer', outline: selectedColor === name ? `3px solid ${T.blue}` : '3px solid transparent',
-            outlineOffset: 2, transition: 'outline 0.15s', boxShadow: '0 1px 4px rgba(0,0,0,0.15)' }}>
+          {COLORS.map(({ name, hex, na }) =>
+          <button key={name} onClick={() => setSelectedColor(name)} title={na ? name + ' – nije dostupno' : name} aria-label={na ? name + ', nije dostupno' : name}
+          style={{ position: 'relative', width: 32, height: 32, borderRadius: '50%', background: na ? '#fff' : hex, border: na ? '1px solid #D5D9E0' : 'none', padding: 0, overflow: 'hidden',
+            cursor: 'pointer', outline: selectedColor === name ? `3px solid ${na ? '#8B95A5' : T.blue}` : '3px solid transparent',
+            outlineOffset: 2, transition: 'outline 0.15s', boxShadow: na ? 'none' : '0 1px 4px rgba(0,0,0,0.15)' }}>
+            {na && <span style={{ position: 'absolute', inset: 3, borderRadius: '50%', background: hex, opacity: 0.35 }}></span>}
+            {na && <span style={{ position: 'absolute', left: '50%', top: -4, bottom: -4, width: 2, marginLeft: -1, background: '#545F71', transform: 'rotate(45deg)' }}></span>}
             </button>
           )}
         </div>
+        {COLORS.some((c) => c.na && c.name === selectedColor) &&
+        <div style={{ marginTop: 10, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', padding: '8px 12px', borderRadius: 8, background: '#F1F1F4', fontSize: 13, color: '#101117' }}>
+          <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#DA0D00', flex: 'none' }}></span>
+          <span>Ova boja trenutno nije dostupna.</span>
+          <button style={{ marginLeft: 'auto', background: 'none', border: 'none', padding: 0, color: '#0050A0', fontSize: 13, fontWeight: 600, textDecoration: 'underline', cursor: 'pointer', fontFamily: 'inherit' }}>Obavijesti me kad stigne</button>
+        </div>}
       </div>
       )}
 
@@ -859,23 +879,48 @@ function BuyBox({ bundleMode, ctaRef }) {
       </div>
 
       {/* Stock box under CTA */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 6, padding: '12px 14px',
-        background: '#F3FBF5', borderRadius: 10, border: `1px solid #C3EACC`, marginBottom: 14 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#1FB549', flexShrink: 0 }}/>
-          <span style={{ fontSize: 13, fontWeight: 600, color: T.text }}>Na stanju — dostupno odmah</span>
-        </div>
-        <div style={{ fontSize: 12, color: T.sub, paddingLeft: 24 }}>
-          Preuzimanje u poslovnici: dostupno u 12 poslovnica
-        </div>
-      </div>
-
-
+      <StockBox inStock={AV.inStock} shown={AV.shown} />
 
       {/* Buy summary (marketplace banner + table) */}
       <BuyBoxSummary offer={currentOffer} condition={currentCondition} isMarketplace={isMarketplace} />
     </div>);
 
+}
+
+
+// ─── Stock / availability box under the CTA → opens BBAvail flyout ───
+function StockBox({ inStock, shown }) {
+  const [hov, setHov] = React.useState(false);
+  const inf = window.BBAvail ? window.BBAvail.info(inStock, shown) : { title: '', sub: '', tone: inStock ? 'in' : 'out', icon: 'pin' };
+  const isIn = inf.tone === 'in';
+  const icons = {
+    eye: <><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></>,
+    pin: <><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></>,
+    mail: <><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></>,
+  };
+  const tileBg = isIn ? '#DDF2E3' : inf.icon === 'eye' ? '#EBF3FE' : '#E9EAEE';
+  const tileFg = isIn ? '#0B7A48' : inf.icon === 'eye' ? '#0050A0' : '#545F71';
+  const open = () => window.BBAvail && window.BBAvail.open({ inStock, shown,
+    product: { img: pv('img', 'images/pdp/main/galaxy-s24-yellow.png'), name: pv('name', 'Samsung Galaxy S24+ 5G, 12/256 GB, Amber Yellow'), price: pv('price', '1.299,00'), old: pv('old', '1.299,99') } });
+  return (
+    <button onClick={open} onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+      style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', marginBottom: 14, marginTop: 0,
+        background: isIn ? '#F3FBF5' : '#F7F7F9', border: '1px solid ' + (hov ? (isIn ? '#8FD3A2' : '#C7C7CD') : (isIn ? '#C3EACC' : '#E3E4E9')),
+        borderRadius: 12, cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit', transition: 'border-color .15s' }}>
+      <span style={{ width: 38, height: 38, borderRadius: '50%', background: tileBg, color: tileFg, flexShrink: 0,
+        display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{icons[inf.icon]}</svg>
+      </span>
+      <span style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 7, fontSize: 14, fontWeight: 700, color: '#101117', letterSpacing: '-0.01em' }}>
+          <span style={{ width: 8, height: 8, borderRadius: '50%', background: isIn ? '#1FB549' : '#DA0D00', flexShrink: 0 }}/>
+          {inf.title}
+        </span>
+        <span style={{ fontSize: 12, color: '#545F71', lineHeight: 1.4 }}>{inf.sub}</span>
+      </span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0050A0" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, transform: hov ? 'translateX(2px)' : 'none', transition: 'transform .15s' }}><polyline points="9 6 15 12 9 18"/></svg>
+    </button>
+  );
 }
 
 // ─── Buy box summary table (under Add to Cart) ────────────────────
@@ -1963,8 +2008,8 @@ function MoreOffers() {
 
 // ─── Main App ─────────────────────────────────────────────────────
 function DesktopStickyBar({ bundleMode, visible }) {
-  const title = bundleMode ? 'PlayStation 5 Digital Chassis + dodatni Dual Sense Wireless Controller' : pv('name', 'Samsung Galaxy S24+ 5G Dual SIM SM-S926B 12/256GB');
-  const price = bundleMode ? '549,99' : pv('price', '1.099,99');
+  const title = bundleMode ? 'PlayStation 5 Digital Chassis + dodatni Dual Sense Wireless Controller' : pv('name', 'Samsung Galaxy S24+ 5G, 12/256 GB, Amber Yellow');
+  const price = bundleMode ? '549,99' : pv('price', '1.299,00');
   const img = bundleMode ? 'images/pdp/main/ps5-bundle.png' : pv('img', 'images/pdp/main/galaxy-s24-yellow.png');
   // the collapsed header bar (56px, fixed) takes over past 130px of scroll —
   // the bar docks straight under whichever header is on screen
@@ -1996,8 +2041,10 @@ function DesktopStickyBar({ bundleMode, visible }) {
 }
 
 
-function PDPBody({ bundleMode = false, product = null }) {
+let AV = { inStock: true, shown: true };
+function PDPBody({ bundleMode = false, product = null, availStock = true, availShown = true, stickyCta = true }) {
   P = product && product.name ? product : null;
+  AV = { inStock: availStock !== false, shown: availShown !== false };
   const [selectedColor] = React.useState('Amber Yellow');
   const ctaRef = React.useRef(null);
   const [showStickyBar, setShowStickyBar] = React.useState(false);
@@ -2011,14 +2058,14 @@ function PDPBody({ bundleMode = false, product = null }) {
 
   return (
     <div style={{ background: T.bg }}>
-      <DesktopStickyBar bundleMode={bundleMode} visible={showStickyBar} />
+      {stickyCta !== false && <DesktopStickyBar bundleMode={bundleMode} visible={showStickyBar} />}
       <Breadcrumb />
       <div style={{ maxWidth: 1480, margin: '0 auto', boxSizing: 'border-box', padding: '0px 20px 32px', width: '100%' }}>
+        <ProductHead bundleMode={bundleMode} />
         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 20, alignItems: 'start' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 24, minWidth: 0 }}>
             <Gallery selectedColor={selectedColor} bundleMode={bundleMode} />
             <InfoTabs />
-            <SpecialDeals />
             <Accessories />
             <Bundle />
           </div>

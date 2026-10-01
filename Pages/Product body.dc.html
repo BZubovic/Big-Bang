@@ -16,7 +16,7 @@
 
 <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
 <div style="padding-bottom:56px">
-  <x-import component="PDPBody" from="./Components/pdp/PDPBody.jsx" bundle-mode="{{ bundleMode }}" product="{{ product }}" hint-size="100%,1800px"></x-import>
+  <x-import component="PDPBody" from="./Components/pdp/PDPBody.jsx" bundle-mode="{{ bundleMode }}" sticky-cta="{{ stickyCta }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" product="{{ product }}" hint-size="100%,1800px"></x-import>
 
   <div style="display:flex;flex-direction:column;gap:16px;margin-top:8px">
     <dc-import name="Components/ProductCarousel" variant="desktop" title="Slični proizvodi" products="{{ similar }}" on-open-product="{{ openProduct }}" hint-size="100%,560px"></dc-import>
@@ -27,7 +27,7 @@
 
 <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
 <div>
-  <x-import component="PDPBodyMobile" from="./Components/pdp/PDPBodyMobile.jsx" bundle-mode="{{ bundleMode }}" product="{{ product }}" hint-size="100%,2400px"></x-import>
+  <x-import component="PDPBodyMobile" from="./Components/pdp/PDPBodyMobile.jsx" bundle-mode="{{ bundleMode }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" product="{{ product }}" hint-size="100%,2400px"></x-import>
 
   <div style="background:#fff;margin-top:10px;padding:16px 0">
     <dc-import name="Components/ProductCarousel" variant="mobile" title="Slični proizvodi" products="{{ similar }}" on-open-product="{{ openProduct }}" hint-size="100%,300px"></dc-import>
@@ -36,7 +36,9 @@
     <dc-import name="Components/ProductCarousel" variant="mobile" title="Sponzorirani artikli" products="{{ sponsored }}" on-open-product="{{ openProduct }}" hint-size="100%,300px"></dc-import>
   </div>
 
+  <sc-if value="{{ stickyCta }}" hint-placeholder-val="{{ true }}">
   <x-import component="MobStickyCTA" from="./Components/pdp/PDPBodyMobile.jsx" bundle-mode="{{ bundleMode }}" hint-size="100%,64px"></x-import>
+  </sc-if>
 </div>
 </sc-if>
 
@@ -44,6 +46,9 @@
 <script type="text/x-dc" data-dc-script data-props="{
   &quot;variant&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;desktop&quot;, &quot;mobile&quot;], &quot;default&quot;: &quot;desktop&quot;, &quot;tsType&quot;: &quot;string&quot; },
   &quot;bundleMode&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot; },
+  &quot;availStock&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; },
+  &quot;availShown&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; },
+  &quot;stickyCta&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; },
   &quot;product&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;any&quot; },
   &quot;onOpenProduct&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(p: any) =&gt; void&quot; }
 }">
@@ -73,6 +78,9 @@ class Component extends DCLogic {
       isDesktop: !mobile,
       isMobile: mobile,
       bundleMode: !!this.props.bundleMode,
+      availStock: this.props.availStock !== false,
+      availShown: this.props.availShown !== false,
+      stickyCta: this.props.stickyCta !== false,
       product: this.props.product || null,
       openProduct: this.props.onOpenProduct || (() => {}),
       similar: SIMILAR,

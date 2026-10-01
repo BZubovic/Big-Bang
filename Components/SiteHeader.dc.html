@@ -74,11 +74,11 @@
         </span>
         Proizvodi
       </button>
-      <button style="background:none;border:none;color:rgba(255,255,255,0.88);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:background .15s,color .15s" style-hover="color:#fff;background:rgba(255,255,255,0.08)">
+      <button onClick="{{ onPromos }}" style="background:none;border:none;color:rgba(255,255,255,0.88);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:background .15s,color .15s" style-hover="color:#fff;background:rgba(255,255,255,0.08)">
         <span style="display:flex;opacity:0.85"><svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M13.2426 13.9926C10.8995 16.3358 7.1005 16.3358 4.75736 13.9926C3.58579 12.8211 3 11.2855 3 9.75C3 8.21446 3.58578 6.67893 4.75736 5.50735C4.75736 5.50735 5.25003 6.74997 6.75003 7.49997C6.75003 5.99997 7.12503 3.74997 8.98941 2.25C10.5 3.75 12.0684 4.33308 13.2426 5.50735C14.4142 6.67893 15 8.21446 15 9.75C15 11.2855 14.4142 12.8211 13.2426 13.9926Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7.40901 12.091C8.28769 12.9696 9.71231 12.9696 10.591 12.091C11.0303 11.6516 11.25 11.0758 11.25 10.5C11.25 9.92416 11.0303 9.34832 10.591 8.90897C10.1544 8.47241 9.5831 8.25275 9.01092 8.24999L8.24996 10.5L6.75 10.5C6.75001 11.0758 6.96968 11.6516 7.40901 12.091Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
         Akcije i promocije
       </button>
-      <button style="background:none;border:none;color:rgba(255,255,255,0.88);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:background .15s,color .15s" style-hover="color:#fff;background:rgba(255,255,255,0.08)">
+      <button onClick="{{ onKitchens }}" style="background:none;border:none;color:rgba(255,255,255,0.88);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:background .15s,color .15s" style-hover="color:#fff;background:rgba(255,255,255,0.08)">
         <span style="display:flex;opacity:0.85"><svg width="17" height="17" viewBox="0 0 17 17" fill="none"><path d="M14.6018 2.90032C14.6018 2.20032 10.0018 2.00032 8.4018 2.10032C6.5018 2.10032 2.4018 3.30032 2.5018 4.00032" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2.29922 8.19922H1.29922C0.999219 8.19922 0.699219 8.49922 0.699219 8.79922V9.49922" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16.2016 9.49922V8.79922C16.2016 8.49922 15.9016 8.19922 15.6016 8.19922H14.6016" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2.39844 13.5004C2.39844 14.2004 2.99844 14.9004 3.79844 14.9004H13.2984C13.9984 14.9004 14.6984 14.3004 14.6984 13.5004V6.40039H2.39844V13.5004Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
         Kuhinje
       </button>
@@ -87,7 +87,7 @@
         B2B
       </button>
       <div style="margin-left:auto;display:flex;align-items:center;flex-shrink:0">
-        <button style="background:none;border:none;color:rgba(255,255,255,0.88);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:background .15s,color .15s" style-hover="color:#fff;background:rgba(255,255,255,0.08)">
+        <button onClick="{{ onStores }}" style="background:none;border:none;color:rgba(255,255,255,0.88);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:background .15s,color .15s" style-hover="color:#fff;background:rgba(255,255,255,0.08)">
           <span style="display:flex;opacity:0.85"><svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M13.2426 12.4926C12.5621 13.1731 11.1623 14.573 10.1564 15.5788C9.5174 16.2179 8.4823 16.2176 7.84326 15.5785C6.85524 14.5905 5.48222 13.2175 4.75736 12.4926C2.41421 10.1495 2.41421 6.35051 4.75736 4.00736C7.10051 1.66421 10.8995 1.66421 13.2426 4.00736C15.5858 6.35051 15.5858 10.1495 13.2426 12.4926Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path><path d="M11.25 8.25C11.25 9.49264 10.2426 10.5 9 10.5C7.75736 10.5 6.75 9.49264 6.75 8.25C6.75 7.00736 7.75736 6 9 6C10.2426 6 11.25 7.00736 11.25 8.25Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
           Prodajna mjesta
         </button>
@@ -230,11 +230,11 @@
           </sc-if>
   </div>
   <div class="nsb" style="margin:12px -16px -12px;background:#002D73;height:44px;display:flex;align-items:center;overflow-x:auto;padding:0 16px">
-    <button onClick="{{ onContact }}" style="background:none;border:none;color:rgba(255,255,255,0.9);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px 0 0;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0">
+    <button onClick="{{ onPromos }}" style="background:none;border:none;color:rgba(255,255,255,0.9);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px 0 0;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0">
       <span style="display:flex;opacity:0.85"><svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M13.2426 13.9926C10.8995 16.3358 7.1005 16.3358 4.75736 13.9926C3.58579 12.8211 3 11.2855 3 9.75C3 8.21446 3.58578 6.67893 4.75736 5.50735C4.75736 5.50735 5.25003 6.74997 6.75003 7.49997C6.75003 5.99997 7.12503 3.74997 8.98941 2.25C10.5 3.75 12.0684 4.33308 13.2426 5.50735C14.4142 6.67893 15 8.21446 15 9.75C15 11.2855 14.4142 12.8211 13.2426 13.9926Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path><path d="M7.40901 12.091C8.28769 12.9696 9.71231 12.9696 10.591 12.091C11.0303 11.6516 11.25 11.0758 11.25 10.5C11.25 9.92416 11.0303 9.34832 10.591 8.90897C10.1544 8.47241 9.5831 8.25275 9.01092 8.24999L8.24996 10.5L6.75 10.5C6.75001 11.0758 6.96968 11.6516 7.40901 12.091Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
       Akcije i promocije
     </button>
-    <button onClick="{{ onContact }}" style="background:none;border:none;color:rgba(255,255,255,0.9);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px 0 0;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0">
+    <button onClick="{{ onKitchens }}" style="background:none;border:none;color:rgba(255,255,255,0.9);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px 0 0;height:44px;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0">
       <span style="display:flex;opacity:0.85"><svg width="17" height="17" viewBox="0 0 17 17" fill="none"><path d="M14.6018 2.90032C14.6018 2.20032 10.0018 2.00032 8.4018 2.10032C6.5018 2.10032 2.4018 3.30032 2.5018 4.00032" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2.29922 8.19922H1.29922C0.999219 8.19922 0.699219 8.49922 0.699219 8.79922V9.49922" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path><path d="M16.2016 9.49922V8.79922C16.2016 8.49922 15.9016 8.19922 15.6016 8.19922H14.6016" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path><path d="M2.39844 13.5004C2.39844 14.2004 2.99844 14.9004 3.79844 14.9004H13.2984C13.9984 14.9004 14.6984 14.3004 14.6984 13.5004V6.40039H2.39844V13.5004Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
       Kuhinje
     </button>
@@ -463,6 +463,9 @@ class Component extends DCLogic {
       onCart: (e) => { if (e && e.preventDefault) e.preventDefault(); if (this.props.onCart) this.props.onCart(); },
       onWish: (e) => { if (e && e.preventDefault) e.preventDefault(); if (this.props.onWish) this.props.onWish(); },
       onContact: (e) => { if (e && e.preventDefault) e.preventDefault(); if (this.props.onContact) this.props.onContact(); },
+      onStores: (e) => { if (e && e.preventDefault) e.preventDefault(); if (this.props.onStores) this.props.onStores(); },
+      onPromos: (e) => { if (e && e.preventDefault) e.preventDefault(); if (this.props.onPromos) this.props.onPromos(); },
+      onKitchens: (e) => { if (e && e.preventDefault) e.preventDefault(); if (this.props.onKitchens) this.props.onKitchens(); },
       openNotice: (e) => { if (e && e.preventDefault) e.preventDefault(); if (window.BBEU) window.BBEU.openNotice(); },
       trigStyle: {
         background: open ? 'rgba(255,255,255,0.10)' : 'transparent',

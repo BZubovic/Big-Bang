@@ -34,7 +34,7 @@
   <div ref="{{ trackRef }}" onScroll="{{ onTrackScroll }}" class="nsb" style="display:flex;gap:24px;overflow-x:auto;padding:8px 0 12px max(20px,calc((100% - 1480px) / 2 + 20px))">
     <sc-for list="{{ products }}" as="p" hint-placeholder-count="0">
       <div style="width:269px;flex-shrink:0;display:flex">
-        <dc-import name="Components/ProductCard" variant="desktop" card="{{ p.card }}" wish="{{ p.wish }}" on-open="{{ p.onOpen }}" on-remove-wish="{{ p.onRemoveWish }}" hint-size="269px,451px" style="width:100%"></dc-import>
+        <dc-import name="Components/ProductCard" variant="desktop" card="{{ p.card }}" wish="{{ p.wish }}" on-open="{{ p.onOpen }}" on-remove-wish="{{ p.onRemoveWish }}" hint-size="269px,500px" style="width:100%"></dc-import>
       </div>
     </sc-for>
   </div>
@@ -119,22 +119,24 @@ class Component extends DCLogic {
         const num = (v) => parseFloat(String(v || '').replace(/[^0-9,]/g, '').replace(',', '.')) || 0;
         const decorate = (p, i) => {
           const pills = [];
-          if (i % 3 === 0) pills.push({ label: 'Sponzorirano', tone: 'navy' });
-          if (p.old) pills.push({ label: '-' + Math.round(num(p.old) - num(p.price)) + '€', tone: 'red' });
-          if (i % 2 === 1) pills.push({ label: 'UAU Klub', tone: 'blue' });
-          if (i % 7 === 5) pills.push({ label: 'Obnovljeno', tone: 'lime' });
+          const refurb = i % 7 === 5;
+          if (refurb) pills.push({ label: 'Obnovljeno', tone: 'lime' });
+          else if (i % 4 !== 3) pills.push({ label: 'Besplatna dostava', tone: 'navy' });
+          if (i % 5 === 1) pills.push({ label: 'Razrezana cena', tone: 'blue' });
           const rated = i % 7 === 0 || i % 7 === 4 || i % 7 === 2;
           const av = AVAIL[i % 4];
           return {
             card: {
               img: p.img, name: p.name, price: p.price, old: p.old || '',
-              rate: p.rate || '25,99 €',
+              rate: p.rate && String(p.rate).indexOf('rata') > -1 ? p.rate : '25,99 € / 12 rata',
+              options: this.props.noReviews ? 0 : (i % 4 === 1 ? 6 : 0),
+              renewedSave: refurb ? '-' + (Math.round(num(p.price) * 0.2)) + ',00 €' : '',
               cashback: i % 5 === 0 ? '100' : '', warranty: i % 5 === 0 ? '5' : '',
               energy: i % 4 === 2 ? '' : 'A',
-              pills: pills,
-              rating: rated ? 4 : 0, reviews: [218, 96, 47, 312, 15, 64][i % 6],
+              pills: i === 1 ? [{ label: 'Besplatna dostava', tone: 'navy' }, { label: 'Razrezana cena', tone: 'blue' }, { label: 'Besplatna montaža', tone: 'blue' }, { label: 'Poklon uz kupnju', tone: 'red' }, { label: 'Dostava 24 h', tone: 'navy' }] : pills,
+              rating: rated && !this.props.noReviews ? 4 : 0, reviews: [218, 96, 47, 312, 15, 64][i % 6],
               avail: av.text, availTone: av.tone, seller: 'Big Bang',
-              codePct: i % 4 === 3 ? 0 : 20,
+              codePct: refurb || i % 4 === 3 ? 0 : 20,
               anchor: p.anchor || p.old || p.price, anchorDate: p.anchorDate || '10.09.2026.'
             },
             wish: !!this.props.wishlist,
@@ -147,7 +149,7 @@ class Component extends DCLogic {
       isMobile: mobile,
       title: this.props.title || '',
       showAll: this.props.showAll !== false && !this.props.wishlist,
-      products: list.map(decorate),
+      products: (() => { const ps = list.map(decorate); const rr = ps.some(p => p.card.rating), ro = ps.some(p => p.card.options), rp = ps.some(p => { const c = p.card; return (c.codePct > 0 || !!c.renewedSave); }); ps.forEach(p => { p.card.rowRating = rr; p.card.rowOptions = ro; p.card.rowPromo = rp; }); return ps; })(),
       trackRef: this.trackRef,
       scrollPrev: () => this.scrollBy(-1),
       scrollNext: () => this.scrollBy(1),
