@@ -106,7 +106,14 @@
     <sc-if value="{{ promoSlot }}" hint-placeholder-val="{{ true }}">
       <div style="margin-top:10px;height:28px;flex-shrink:0">
         <sc-if value="{{ hasCode }}" hint-placeholder-val="{{ true }}">
+<<<<<<< HEAD
           <div style="height:28px;box-sizing:border-box;background:#E6F5EC;border-radius:8px;padding:0 10px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#0B7A48;font-size:12px;font-weight:800;line-height:28px"><span style="overflow:hidden;text-overflow:ellipsis;min-width:0">Dodatnih <b style="font-weight:800;color:#0B7A48">{{ promoPct }} popusta</b> u košarici</span></div>
+=======
+          <div style="height:28px;box-sizing:border-box;background:#E6F5EC;border:1px dashed #9FD0B4;border-radius:6px;padding:0 8px;display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;color:#0B7A48;font-size:14px;font-weight:700;line-height:28px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>
+            <span style="overflow:hidden;text-overflow:ellipsis">{{ promoText }}</span>
+          </div>
+>>>>>>> bae2b3f2250bc7a4c2251eabf00f29cbf2af2bb8
         </sc-if>
         <sc-if value="{{ hasRenewed }}" hint-placeholder-val="{{ false }}">
           <div style="height:28px;box-sizing:border-box;background:#CDD700;border-radius:6px;padding:0 8px;display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;color:#002D73;font-size:13px;font-weight:500;line-height:28px">
@@ -219,7 +226,14 @@
     <sc-if value="{{ promoSlot }}" hint-placeholder-val="{{ true }}">
       <div style="margin-top:8px;height:24px;flex-shrink:0">
         <sc-if value="{{ hasCode }}" hint-placeholder-val="{{ true }}">
+<<<<<<< HEAD
           <div style="height:24px;box-sizing:border-box;background:#E6F5EC;border-radius:8px;padding:0 10px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#0B7A48;font-size:11px;font-weight:800;line-height:24px"><span style="overflow:hidden;text-overflow:ellipsis;min-width:0">Dodatnih <b style="font-weight:800;color:#0B7A48">{{ promoPct }} popusta</b> u košarici</span></div>
+=======
+          <div style="height:24px;box-sizing:border-box;background:#E6F5EC;border:1px dashed #9FD0B4;border-radius:5px;padding:0 6px;display:flex;align-items:center;gap:5px;white-space:nowrap;overflow:hidden;color:#0B7A48;font-size:11px;font-weight:700;line-height:24px">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>
+            <span style="overflow:hidden;text-overflow:ellipsis">{{ promoText }}</span>
+          </div>
+>>>>>>> bae2b3f2250bc7a4c2251eabf00f29cbf2af2bb8
         </sc-if>
         <sc-if value="{{ hasRenewed }}" hint-placeholder-val="{{ false }}">
           <div style="height:24px;box-sizing:border-box;background:#CDD700;border-radius:5px;padding:0 6px;display:flex;align-items:center;gap:5px;white-space:nowrap;overflow:hidden;color:#002D73;font-size:11px;font-weight:500;line-height:24px">
@@ -325,8 +339,12 @@ class Component extends DCLogic {
       hasRenewed: !!renewed,
       renewedSave: renewed,
       promoSlot: pct > 0 || !!renewed || (c.rowPromo !== undefined ? !!c.rowPromo : c.reserveCode !== false),
+<<<<<<< HEAD
       promoText: 'Dodatnih ' + pct + '% popusta u košarici',
       promoPct: pct + '%',
+=======
+      promoText: 'Dodatnih ' + pct + '% uz promo kod',
+>>>>>>> bae2b3f2250bc7a4c2251eabf00f29cbf2af2bb8
       rata: rata,
       lowest: euro(c.lowest || fmt(num(c.price) * 0.92)),
       anchor: euro(c.anchor || c.old || c.price || ''),

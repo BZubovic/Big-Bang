@@ -99,7 +99,14 @@
                   </sc-if>
                 </div>
                 <sc-if value="{{ p.code }}" hint-placeholder-val="{{ false }}">
+<<<<<<< HEAD
                   <div style="height:26px;box-sizing:border-box;background:#E6F5EC;border-radius:8px;padding:0 10px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#0B7A48;font-size:12px;font-weight:800"><span style="overflow:hidden;text-overflow:ellipsis;min-width:0">Dodatnih <b style="font-weight:800;color:#0B7A48">{{ p.codePct }} popusta</b> u košarici</span></div>
+=======
+                  <div style="height:26px;box-sizing:border-box;background:#E6F5EC;border:1px dashed #BDDDCE;border-radius:6px;padding:0 7px;display:flex;align-items:center;gap:5px;white-space:nowrap;overflow:hidden;color:#0B7A48;font-size:13px;font-weight:700">
+                    <img src="images/icon-code.svg" alt="" width="18" height="18" style="flex-shrink:0;display:block">
+                    <span>{{ p.codePct }} uz promo kod</span>
+                  </div>
+>>>>>>> bae2b3f2250bc7a4c2251eabf00f29cbf2af2bb8
                 </sc-if>
                 <div style="font-size:10px;color:#8B95A5;line-height:13px;white-space:nowrap">MPC na {{ p.anchorDate }} {{ p.anchor }}</div>
               </div>
@@ -237,7 +244,14 @@
                     </sc-if>
                   </div>
                   <sc-if value="{{ p.code }}" hint-placeholder-val="{{ false }}">
+<<<<<<< HEAD
                     <div style="height:21px;box-sizing:border-box;background:#E6F5EC;border-radius:8px;padding:0 10px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#0B7A48;font-size:10.5px;font-weight:800"><span style="overflow:hidden;text-overflow:ellipsis;min-width:0">Dodatnih <b style="font-weight:800;color:#0B7A48">{{ p.codePct }} popusta</b> u košarici</span></div>
+=======
+                    <div style="height:21px;box-sizing:border-box;background:#E6F5EC;border:1px dashed #BDDDCE;border-radius:5px;padding:0 5px;display:flex;align-items:center;gap:4px;white-space:nowrap;overflow:hidden;color:#0B7A48;font-size:10.5px;font-weight:700">
+                      <img src="images/icon-code.svg" alt="" width="14" height="14" style="flex-shrink:0;display:block">
+                      <span>{{ p.codePct }} uz promo kod</span>
+                    </div>
+>>>>>>> bae2b3f2250bc7a4c2251eabf00f29cbf2af2bb8
                   </sc-if>
                   <div style="font-size:9px;color:#8B95A5;line-height:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">MPC na {{ p.anchorDate }} {{ p.anchor }}</div>
                 </div>
@@ -512,7 +526,11 @@ class Component extends DCLogic {
           priceStyle: { fontSize: 18, fontWeight: 800, lineHeight: '22px', letterSpacing: '-0.02em', color: '#101117' },
           priceStyleMob: { fontSize: 16, fontWeight: 800, lineHeight: '19px', letterSpacing: '-0.02em', color: '#101117' },
           code: i % 3 === 0 ? 'y' : '',
+<<<<<<< HEAD
           codePct: '20%', price: p.price,
+=======
+          codePct: '-20%', price: p.price,
+>>>>>>> bae2b3f2250bc7a4c2251eabf00f29cbf2af2bb8
           codePrice: (() => { const n = (parseFloat(String(p.price).replace(/[^0-9,]/g, '').replace(',', '.')) || 0) * 0.95; const [a, b] = n.toFixed(2).split('.'); return a.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',' + b + ' €'; })(),
           stop: (e) => { if (e) { e.preventDefault(); e.stopPropagation(); } },
           discLabel: p.old ? (() => { const n = v => parseFloat(String(v).replace(/[^0-9,]/g,'').replace(',','.')) || 0; const d = Math.round(n(p.old) - n(p.price)); return '-' + String(d).replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' €'; })() : '',

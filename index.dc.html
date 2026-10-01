@@ -56,7 +56,11 @@
 
   <sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
     <div class="pgin">
+<<<<<<< HEAD
       <dc-import name="Pages/Product body" variant="desktop" product="{{ product }}" bundle-mode="{{ bundleMode }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" sticky-cta="{{ stickyCta }}" on-open-product="{{ openProduct }}" hint-size="100%,3200px"></dc-import>
+=======
+      <dc-import name="Pages/Product body" variant="desktop" product="{{ product }}" bundle-mode="{{ bundleMode }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" on-open-product="{{ openProduct }}" hint-size="100%,3200px"></dc-import>
+>>>>>>> bae2b3f2250bc7a4c2251eabf00f29cbf2af2bb8
     </div>
   </sc-if>
 
@@ -159,7 +163,11 @@
 
       <sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
         <div class="pgin">
+<<<<<<< HEAD
           <dc-import name="Pages/Product body" variant="mobile" product="{{ product }}" bundle-mode="{{ bundleMode }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" sticky-cta="{{ stickyCta }}" on-open-product="{{ openProduct }}" hint-size="100%,4000px"></dc-import>
+=======
+          <dc-import name="Pages/Product body" variant="mobile" product="{{ product }}" bundle-mode="{{ bundleMode }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" on-open-product="{{ openProduct }}" hint-size="100%,4000px"></dc-import>
+>>>>>>> bae2b3f2250bc7a4c2251eabf00f29cbf2af2bb8
         </div>
       </sc-if>
 
@@ -354,7 +362,10 @@ class Component extends DCLogic {
       cartUnavailable: false,
       availStock: true,
       availShown: true,
+<<<<<<< HEAD
       stickyCta: true,
+=======
+>>>>>>> bae2b3f2250bc7a4c2251eabf00f29cbf2af2bb8
       cartEmpty: false,
       wishEmpty: false,
       kitBenefits: '1',
@@ -623,7 +634,10 @@ class Component extends DCLogic {
       bundleMode: tw.bundle,
       availStock: tw.availStock,
       availShown: tw.availShown,
+<<<<<<< HEAD
       stickyCta: tw.stickyCta !== false,
+=======
+>>>>>>> bae2b3f2250bc7a4c2251eabf00f29cbf2af2bb8
       cartUnavailable: tw.cartUnavailable,
       cartEmpty: tw.cartEmpty,
 
@@ -685,8 +699,11 @@ class Component extends DCLogic {
             () => this.setTweak('availStock', true), () => this.setTweak('availStock', false)));
           list.push(pair('Izloženi primjerak', 'Da', 'Ne', tw.availShown,
             () => this.setTweak('availShown', true), () => this.setTweak('availShown', false)));
+<<<<<<< HEAD
           list.push(pair('Sticky košarica', 'Prikaži', 'Sakrij', tw.stickyCta !== false,
             () => this.setTweak('stickyCta', true), () => this.setTweak('stickyCta', false)));
+=======
+>>>>>>> bae2b3f2250bc7a4c2251eabf00f29cbf2af2bb8
         }
         if (s.page === 'profile' || s.page === 'auth') {
           list.push(pair('Status članstva', 'UAU klub član', 'Nije član', tw.klub,

@@ -16,7 +16,11 @@
 
 <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
 <div style="padding-bottom:56px">
+<<<<<<< HEAD
   <x-import component="PDPBody" from="./Components/pdp/PDPBody.jsx" bundle-mode="{{ bundleMode }}" sticky-cta="{{ stickyCta }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" product="{{ product }}" hint-size="100%,1800px"></x-import>
+=======
+  <x-import component="PDPBody" from="./Components/pdp/PDPBody.jsx" bundle-mode="{{ bundleMode }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" product="{{ product }}" hint-size="100%,1800px"></x-import>
+>>>>>>> bae2b3f2250bc7a4c2251eabf00f29cbf2af2bb8
 
   <div style="display:flex;flex-direction:column;gap:16px;margin-top:8px">
     <dc-import name="Components/ProductCarousel" variant="desktop" title="Slični proizvodi" products="{{ similar }}" on-open-product="{{ openProduct }}" hint-size="100%,560px"></dc-import>
@@ -48,7 +52,10 @@
   &quot;bundleMode&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot; },
   &quot;availStock&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; },
   &quot;availShown&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; },
+<<<<<<< HEAD
   &quot;stickyCta&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; },
+=======
+>>>>>>> bae2b3f2250bc7a4c2251eabf00f29cbf2af2bb8
   &quot;product&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;any&quot; },
   &quot;onOpenProduct&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(p: any) =&gt; void&quot; }
 }">
@@ -80,7 +87,10 @@ class Component extends DCLogic {
       bundleMode: !!this.props.bundleMode,
       availStock: this.props.availStock !== false,
       availShown: this.props.availShown !== false,
+<<<<<<< HEAD
       stickyCta: this.props.stickyCta !== false,
+=======
+>>>>>>> bae2b3f2250bc7a4c2251eabf00f29cbf2af2bb8
       product: this.props.product || null,
       openProduct: this.props.onOpenProduct || (() => {}),
       similar: SIMILAR,

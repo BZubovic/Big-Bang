@@ -522,13 +522,20 @@ function BuyBox({ bundleMode, onOpenSheet, onOpenCondition }) {
         Dodaj u košaricu
       </button>
 
+<<<<<<< HEAD
 
       <BuyBoxExtras seller={currentOffer.seller} offerCount={CONDITIONS.reduce((n, c) => n + c.offers.length, 0) - 1} fromPrice={condPrice('popravljeno')} onAllOffers={() => onOpenSheet('alloffers')} onNotice={() => window.BBEU && window.BBEU.openNotice()} />
+=======
+      <StockBox inStock={AV.inStock} shown={AV.shown} />
+
+      <BuyBoxSummary offer={currentOffer} condition={currentCond} isMarketplace={isMarketplace}/>
+>>>>>>> bae2b3f2250bc7a4c2251eabf00f29cbf2af2bb8
     </div>
   );
 }
 
 
+<<<<<<< HEAD
 
 // ─── Under the CTA: seller line, USP strip, services & warranty ───
 function BuyBoxExtras({ seller, offerCount, fromPrice, onAllOffers, onNotice }) {
@@ -625,6 +632,8 @@ function BuyBoxExtras({ seller, offerCount, fromPrice, onAllOffers, onNotice }) 
   );
 }
 
+=======
+>>>>>>> bae2b3f2250bc7a4c2251eabf00f29cbf2af2bb8
 // ─── Stock / availability box under the CTA → opens BBAvail flyout ───
 function StockBox({ inStock, shown }) {
   const [hov, setHov] = React.useState(false);
@@ -638,7 +647,11 @@ function StockBox({ inStock, shown }) {
   const tileBg = isIn ? '#DDF2E3' : inf.icon === 'eye' ? '#EBF3FE' : '#E9EAEE';
   const tileFg = isIn ? '#0B7A48' : inf.icon === 'eye' ? '#0050A0' : '#545F71';
   const open = () => window.BBAvail && window.BBAvail.open({ inStock, shown,
+<<<<<<< HEAD
     product: { img: pv('img', 'images/pdp/main/galaxy-s24-yellow.png'), name: pv('name', 'Samsung Galaxy S24+ 5G, 12/256 GB, Amber Yellow'), price: pv('price', '1.299,00'), old: pv('old', '1.299,99') } });
+=======
+    product: { img: pv('img', 'images/pdp/main/galaxy-s24-yellow.png'), name: pv('name', 'Samsung Galaxy S24+ 5G Dual SIM SM-S926B 12/256GB'), price: pv('price', '1.099,99'), old: pv('old', '1.299,99') } });
+>>>>>>> bae2b3f2250bc7a4c2251eabf00f29cbf2af2bb8
   return (
     <button onClick={open} onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
       style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', marginBottom: 0, marginTop: 10,

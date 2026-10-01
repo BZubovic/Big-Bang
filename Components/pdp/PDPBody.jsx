@@ -901,7 +901,11 @@ function StockBox({ inStock, shown }) {
   const tileBg = isIn ? '#DDF2E3' : inf.icon === 'eye' ? '#EBF3FE' : '#E9EAEE';
   const tileFg = isIn ? '#0B7A48' : inf.icon === 'eye' ? '#0050A0' : '#545F71';
   const open = () => window.BBAvail && window.BBAvail.open({ inStock, shown,
+<<<<<<< HEAD
     product: { img: pv('img', 'images/pdp/main/galaxy-s24-yellow.png'), name: pv('name', 'Samsung Galaxy S24+ 5G, 12/256 GB, Amber Yellow'), price: pv('price', '1.299,00'), old: pv('old', '1.299,99') } });
+=======
+    product: { img: pv('img', 'images/pdp/main/galaxy-s24-yellow.png'), name: pv('name', 'Samsung Galaxy S24+ 5G Dual SIM SM-S926B 12/256GB'), price: pv('price', '1.099,99'), old: pv('old', '1.299,99') } });
+>>>>>>> bae2b3f2250bc7a4c2251eabf00f29cbf2af2bb8
   return (
     <button onClick={open} onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
       style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', marginBottom: 14, marginTop: 0,
@@ -2042,7 +2046,11 @@ function DesktopStickyBar({ bundleMode, visible }) {
 
 
 let AV = { inStock: true, shown: true };
+<<<<<<< HEAD
 function PDPBody({ bundleMode = false, product = null, availStock = true, availShown = true, stickyCta = true }) {
+=======
+function PDPBody({ bundleMode = false, product = null, availStock = true, availShown = true }) {
+>>>>>>> bae2b3f2250bc7a4c2251eabf00f29cbf2af2bb8
   P = product && product.name ? product : null;
   AV = { inStock: availStock !== false, shown: availShown !== false };
   const [selectedColor] = React.useState('Amber Yellow');
