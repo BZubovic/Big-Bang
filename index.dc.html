@@ -56,7 +56,7 @@
 
   <sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
     <div class="pgin">
-      <dc-import name="Pages/Product body" variant="desktop" product="{{ product }}" bundle-mode="{{ bundleMode }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" sticky-cta="{{ stickyCta }}" on-open-product="{{ openProduct }}" hint-size="100%,3200px"></dc-import>
+      <dc-import name="Pages/Product body" variant="desktop" product="{{ product }}" bundle-mode="{{ bundleMode }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" sticky-cta="{{ stickyCta }}" product-type="{{ pdpType }}" on-open-product="{{ openProduct }}" hint-size="100%,3200px"></dc-import>
     </div>
   </sc-if>
 
@@ -159,7 +159,7 @@
 
       <sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
         <div class="pgin">
-          <dc-import name="Pages/Product body" variant="mobile" product="{{ product }}" bundle-mode="{{ bundleMode }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" sticky-cta="{{ stickyCta }}" on-open-product="{{ openProduct }}" hint-size="100%,4000px"></dc-import>
+          <dc-import name="Pages/Product body" variant="mobile" product="{{ product }}" bundle-mode="{{ bundleMode }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" sticky-cta="{{ stickyCta }}" product-type="{{ pdpType }}" on-open-product="{{ openProduct }}" hint-size="100%,4000px"></dc-import>
         </div>
       </sc-if>
 
@@ -355,6 +355,7 @@ class Component extends DCLogic {
       availStock: true,
       availShown: true,
       stickyCta: true,
+      pdpType: 'default',
       cartEmpty: false,
       wishEmpty: false,
       kitBenefits: '1',
@@ -620,10 +621,11 @@ class Component extends DCLogic {
       mobScroll: this.mobScroll,
       scrollerRef: this.scrollerRef,
       cardHover: this.props.cardHover || 'Image scales',
-      bundleMode: tw.bundle,
+      bundleMode: tw.pdpType === 'bundle',
       availStock: tw.availStock,
       availShown: tw.availShown,
-      stickyCta: tw.stickyCta !== false,
+      stickyCta: true,
+      pdpType: tw.pdpType || 'default',
       cartUnavailable: tw.cartUnavailable,
       cartEmpty: tw.cartEmpty,
 
@@ -679,14 +681,15 @@ class Component extends DCLogic {
             () => this.setState(st => ({ loggedIn: false, page: st.page === 'profile' ? 'home' : st.page })))
         ];
         if (s.page === 'product') {
-          list.push(pair('Bundle', 'Uključen', 'Isključen', tw.bundle,
-            () => this.setTweak('bundle', true), () => this.setTweak('bundle', false)));
           list.push(pair('Zaliha', 'Ima', 'Nema', tw.availStock,
             () => this.setTweak('availStock', true), () => this.setTweak('availStock', false)));
           list.push(pair('Izloženi primjerak', 'Da', 'Ne', tw.availShown,
             () => this.setTweak('availShown', true), () => this.setTweak('availShown', false)));
-          list.push(pair('Sticky košarica', 'Prikaži', 'Sakrij', tw.stickyCta !== false,
-            () => this.setTweak('stickyCta', true), () => this.setTweak('stickyCta', false)));
+          list.push({
+            label: 'Proizvod', seg: false, sel: true, value: tw.pdpType || 'default',
+            onChange: (e) => this.setTweak('pdpType', e.target.value),
+            options: [['default', 'Otvoreni proizvod'], ['klima', 'Klima uređaj (montaža)'], ['minimal', 'Minimalni proizvod'], ['marketplace', 'Marketplace – madrac'], ['bundle', 'Bundle – PS5 + DualSense']].map(o => ({ value: o[0], label: o[1] }))
+          });
         }
         if (s.page === 'profile' || s.page === 'auth') {
           list.push(pair('Status članstva', 'UAU klub član', 'Nije član', tw.klub,

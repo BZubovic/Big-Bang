@@ -240,9 +240,9 @@
                       <div style="margin-top:10px;max-width:100%;height:30px;box-sizing:border-box;background:#E6F5EC;border-radius:8px;padding:0 10px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#0B7A48;font-size:12px;font-weight:800;line-height:28px"><span style="overflow:hidden;text-overflow:ellipsis;min-width:0">Dodatnih <b style="font-weight:800;color:#0B7A48">{{ p.card.codePct }}% popusta</b> u košarici</span></div>
                     </sc-if>
                     <sc-if value="{{ p.listRenewed }}" hint-placeholder-val="{{ false }}">
-                      <div style="margin-top:10px;max-width:100%;height:30px;box-sizing:border-box;background:#CDD700;border-radius:6px;padding:0 8px;display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;color:#002D73;font-size:14px;font-weight:500;line-height:30px">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg>
-                        <span style="overflow:hidden;text-overflow:ellipsis;min-width:0"><strong style="font-weight:600">{{ p.listRenewed }}</strong> u odnosu na novi</span>
+                      <div style="margin-top:10px;max-width:100%;height:30px;box-sizing:border-box;background:#CDD700;border-radius:8px;padding:0 10px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#002D73;font-size:12px;font-weight:800;line-height:28px">
+
+                        <span style="overflow:hidden;text-overflow:ellipsis;min-width:0">{{ p.listRenewed }} u odnosu na novi</span>
                       </div>
                     </sc-if>
                     <div style="margin-top:auto;padding-top:14px;max-width:100%;display:flex;flex-wrap:wrap;column-gap:24px;row-gap:2px;font-size:10px;line-height:14px;color:#8B95A5">
@@ -514,7 +514,7 @@
                 <div style="margin-top:8px;height:15px;font-size:11px;line-height:15px;color:#101117;text-decoration:underline;text-underline-offset:2px;white-space:nowrap">{{ p.listOptions }}</div>
               </sc-if>
               <div style="margin-top:10px;height:17px;display:flex;align-items:center;gap:9px;white-space:nowrap">
-                <span style="width:11px;display:flex;justify-content:center;flex-shrink:0"><span style="{{ p.listDotStyleMob }}"></span></span>
+                <span style="width:12px;display:flex;justify-content:center;flex-shrink:0"><span style="{{ p.listDotStyleMob }}"></span></span>
                 <span style="{{ p.listAvailStyleMob }}">{{ p.card.avail }}</span>
               </div>
               <div style="margin-top:6px;height:17px;display:flex;align-items:center;gap:9px;white-space:nowrap;font-size:12px;line-height:17px;color:#545F71;min-width:0">
@@ -545,9 +545,9 @@
                 <div style="margin-top:8px;height:24px;box-sizing:border-box;background:#E6F5EC;border-radius:8px;padding:0 10px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#0B7A48;font-size:12px;font-weight:800;line-height:22px"><span style="overflow:hidden;text-overflow:ellipsis;min-width:0">Dodatnih <b style="font-weight:800;color:#0B7A48">{{ p.card.codePct }}% popusta</b> u košarici</span></div>
               </sc-if>
               <sc-if value="{{ p.listRenewed }}" hint-placeholder-val="{{ false }}">
-                <div style="margin-top:8px;height:24px;box-sizing:border-box;background:#CDD700;border-radius:5px;padding:0 6px;display:flex;align-items:center;gap:5px;white-space:nowrap;overflow:hidden;color:#002D73;font-size:11.5px;font-weight:500;line-height:24px">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg>
-                  <span style="overflow:hidden;text-overflow:ellipsis"><strong style="font-weight:600">{{ p.listRenewed }}</strong> u odnosu na novi</span>
+                <div style="margin-top:8px;height:24px;box-sizing:border-box;background:#CDD700;border-radius:8px;padding:0 10px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#002D73;font-size:12px;font-weight:800;line-height:22px">
+
+                  <span style="overflow:hidden;text-overflow:ellipsis">{{ p.listRenewed }} u odnosu na novi</span>
                 </div>
               </sc-if>
               <div style="margin-top:8px;height:17px;font-size:12.5px;font-weight:600;line-height:17px;letter-spacing:-0.01em;color:#101117;white-space:nowrap"><sc-if value="{{ p.listRate }}" hint-placeholder-val="{{ true }}">25,99 € / 12 rata</sc-if></div>
@@ -1094,8 +1094,8 @@ class Component extends DCLogic {
         listOptions: card.options ? 'Dostupno još ' + card.options + ' opcija →' : '',
         listRenewed: card.renewedSave ? eur(card.renewedSave) : '',
         listPriceStyleMob: { fontSize: 22, fontWeight: 700, lineHeight: '24px', letterSpacing: '-0.01em', color: p.old ? '#DA0D00' : '#101117' },
-        listDotStyleMob: { width: 10, height: 10, borderRadius: '50%', display: 'block', background: tone === 'out' ? '#DA0D00' : '#0B7A48' },
-        listAvailStyleMob: { fontSize: 13, lineHeight: '17px', fontWeight: tone === 'out' ? 500 : 600, color: tone === 'out' ? '#8B95A5' : '#0B7A48' },
+        listDotStyleMob: { width: 8, height: 8, borderRadius: '50%', display: 'block', background: tone === 'out' ? '#DA0D00' : '#0B7A48' },
+        listAvailStyleMob: { fontSize: 12, lineHeight: '17px', fontWeight: tone === 'out' ? 400 : 600, color: tone === 'out' ? '#8B95A5' : '#0B7A48' },
         listDotsMob: gallery.slice(0, 4).map((g, n) => ({
           onClick: (e) => { if (e) { e.preventDefault(); e.stopPropagation(); } setImg(i, n); },
           style: { width: 11, height: 11, padding: 0, boxSizing: 'border-box', borderRadius: '50%', display: 'block', background: n === gi ? '#002D73' : '#fff', border: n === gi ? 'none' : '1px solid #8B8B8B' }
@@ -1108,7 +1108,7 @@ class Component extends DCLogic {
         listCodePrice: card.codePct ? fmtE(num(p.price) * (1 - card.codePct / 100)) : '',
         listPriceStyle: { fontSize: 24, fontWeight: 700, lineHeight: '26px', letterSpacing: '-0.01em', color: p.old ? '#DA0D00' : '#101117' },
         listDotStyle: { width: 10, height: 10, borderRadius: '50%', display: 'block', background: tone === 'out' ? '#DA0D00' : '#0B7A48' },
-        listAvailStyle: { minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: 15, lineHeight: '20px', fontWeight: tone === 'out' ? 500 : 600, color: tone === 'out' ? '#8B95A5' : '#0B7A48' },
+        listAvailStyle: { minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', fontSize: 15, lineHeight: '20px', fontWeight: tone === 'out' ? 400 : 600, color: tone === 'out' ? '#8B95A5' : '#0B7A48' },
         listDots: gallery.slice(0, 4).map((g, n) => ({
           onClick: (e) => { if (e) { e.preventDefault(); e.stopPropagation(); } setImg(i, n); },
           style: { width: 11, height: 11, padding: 0, boxSizing: 'border-box', borderRadius: '50%', cursor: 'pointer', display: 'block', background: n === gi ? '#002D73' : '#fff', border: n === gi ? 'none' : '1px solid #B8B8B8' }

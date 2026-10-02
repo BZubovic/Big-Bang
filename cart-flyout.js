@@ -13,12 +13,36 @@
   /* anchored-price reference date (HR price-control decree, from 1.10.2026) */
   var ANCHOR_DATE = '10.09.2026.';
 
-  var SERVICES = [
-    { id: 'jamstvo', name: 'Big Bang produženo jamstvo +3 godine', desc: 'Naša usluga koja se dokupljuje — pokriva kvarove nakon zakonskog jamstva. Nije jamstvo proizvođača i ne utječe na vaša zakonska prava.', price: 79.99 },
-    { id: 'osiguranje', name: 'Osiguranje od pada i loma', desc: 'Zamjena ili popravak u slučaju mehaničkog oštećenja, 24 mjeseca.', price: 49.99 },
-    { id: 'zastita', name: 'Zaštitno staklo + montaža u poslovnici', desc: 'Naši tehničari postavljaju zaštitu bez zračnih mjehurića.', price: 24.99 },
-    { id: 'prijenos', name: 'Prijenos podataka i postavljanje', desc: 'Prijenos kontakata, fotografija i aplikacija sa starog uređaja.', price: 19.99 }
+  var PROTS = [
+    { id: 'asist1', title: 'Big Bang Asistenca 1 godina', sub: 'Prioritetna podrška + dvogodišnje održavanje', price: 13.99 },
+    { id: 'asist2', title: 'Big Bang Asistenca 2 godine', sub: 'Sve značajke 1 godine + zamjenski uređaj', price: 20.99 },
+    { id: 'plus', title: 'Big Bang Zaštita Plus', badge: 'Najpotpunije', sub: 'Pokriva slučajna oštećenja, tekućinu i kvar', price: 113.99 },
+    { id: 'none', title: 'Ne želim dodatnu sigurnost', price: 0 }
   ];
+  var SERVICES = [
+    { id: 'zastita', name: 'Zaštitno staklo + montaža u poslovnici', desc: 'Naši tehničari postavljaju zaštitu bez zračnih mjehurića', price: 24.99 },
+    { id: 'prijenos', name: 'Postavljanje i prijenos podataka', desc: 'Kontakti, fotografije i aplikacije sa starog uređaja', price: 19.99 }
+  ];
+  var NAVY = '#002D73';
+  var TRUCK = '<svg width="22" height="15" viewBox="0 0 23 15" fill="none"><path d="M4.14491 0.666992L14.1411 0.666992C14.6212 0.666992 15.0104 1.07562 15.0104 1.57969V10.7067M15.0104 10.7067C15.0104 11.2107 14.6212 11.6194 14.1411 11.6194H9.36033M15.0104 10.7067L15.0104 3.40509C15.0104 2.90102 15.3995 2.49239 15.8796 2.49239H18.1273C18.3578 2.49239 18.5789 2.58855 18.7419 2.75971L21.7097 5.87586C21.8727 6.04702 21.9643 6.27917 21.9643 6.52123V10.7067C21.9643 11.2107 21.5751 11.6194 21.095 11.6194H20.2258M15.0104 10.7067C15.0104 11.2107 15.3995 11.6194 15.8796 11.6194H16.7488M5.88339 11.6194H4.14491M5.88339 11.6194C5.88339 12.6275 6.66173 13.4448 7.62186 13.4448C8.58199 13.4448 9.36033 12.6275 9.36033 11.6194M5.88339 11.6194C5.88339 10.6112 6.66173 9.79398 7.62186 9.79398C8.58199 9.79398 9.36033 10.6112 9.36033 11.6194M16.7488 11.6194C16.7488 12.6275 17.5272 13.4448 18.4873 13.4448C19.4474 13.4448 20.2258 12.6275 20.2258 11.6194M16.7488 11.6194C16.7488 10.6112 17.5272 9.79398 18.4873 9.79398C19.4474 9.79398 20.2258 10.6112 20.2258 11.6194M6.75262 4.31779H0.667969M5.01415 7.96858H2.40644" stroke="#002D73" stroke-width="1.33333" stroke-linecap="round"/></svg>';
+
+  /* price block in the shared PDP / card design */
+  function priceBlock(price, old, anchor, size, mobile) {
+    var w = el('div', 'display:flex;flex-direction:column;gap:2px');
+    var r = el('div', 'display:flex;align-items:center;gap:8px;flex-wrap:wrap');
+    r.appendChild(el('span', 'font-size:' + size + 'px;font-weight:700;letter-spacing:-0.02em;line-height:1.15;color:#101117;white-space:nowrap', fmt(price)));
+    if (old && old > price) r.appendChild(el('span', 'display:inline-block;padding:2px 6px;border-radius:3px;background:#DA0D00;color:#fff;font-size:' + (size > 18 ? '12.5' : '11') + 'px;font-weight:700;line-height:1.35', '-' + fmt(old - price)));
+    w.appendChild(r);
+    var fs = size > 18 ? '12px' : (mobile ? '9px' : '10px');
+    if (old && old > price) {
+      var lo = el('div', 'font-size:' + fs + ';line-height:1.35;color:#8B95A5');
+      lo.appendChild(document.createTextNode('Najniža cijena u zadnjih 30 dana: '));
+      lo.appendChild(el('span', 'text-decoration:line-through', fmt(old)));
+      w.appendChild(lo);
+    }
+    w.appendChild(el('div', 'font-size:' + fs + ';line-height:1.35;color:#8B95A5', 'Cijena na ' + ANCHOR_DATE + ' ' + fmt(anchor || old || price)));
+    return w;
+  }
 
   var CROSS = [
     { img: 'images/pdp/similar/s24-fe.png', brand: 'SAMSUNG', name: 'Galaxy Buds3 Pro bežične slušalice', price: 179.99, old: 219.99 },
@@ -59,7 +83,7 @@
     truck: '<rect x="1" y="6" width="14" height="11" rx="1"/><path d="M15 9h4l3 3v5h-7z"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="19" r="2"/>'
   };
 
-  var st = { open: false, product: null, services: {}, added: {}, root: null, host: null };
+  var st = { open: false, product: null, prot: 'none', services: {}, added: {}, root: null, host: null };
 
   function ensureKeyframes() {
     if (document.getElementById('bbcart-kf')) return;
@@ -88,13 +112,14 @@
   function onKey(e) { if (e.key === 'Escape') close(); }
 
   function servicesTotal() {
-    return SERVICES.reduce(function (t, s) { return t + (st.services[s.id] ? s.price : 0); }, 0);
+    var pr = PROTS.filter(function (p) { return p.id === st.prot; })[0];
+    return (pr ? pr.price : 0) + SERVICES.reduce(function (t, s) { return t + (st.services[s.id] ? s.price : 0); }, 0);
   }
   function addedTotal() {
     return CROSS.reduce(function (t, c, i) { return t + (st.added[i] ? c.price : 0); }, 0);
   }
   function itemCount() {
-    var n = 1;
+    var n = 1 + (st.prot !== 'none' ? 1 : 0);
     SERVICES.forEach(function (s) { if (st.services[s.id]) n++; });
     CROSS.forEach(function (c, i) { if (st.added[i]) n++; });
     return n;
@@ -151,20 +176,24 @@
     sumTxt.appendChild(el('div', 'font-size:' + (mobile ? '13.5px' : '15px') + ';font-weight:600;line-height:1.35;letter-spacing:-0.01em;color:' + T.text +
       ';display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden', p.name || 'Proizvod'));
     sumTxt.appendChild(el('div', 'font-size:12.5px;color:' + T.sub, 'Količina: ' + (p.qty || 1)));
-    var prow = el('div', 'display:flex;align-items:baseline;gap:10px');
-    prow.appendChild(el('span', 'font-size:' + (mobile ? '19px' : '22px') + ';font-weight:700;letter-spacing:-0.02em;color:' + (p.old ? T.red : T.text), fmt(base)));
-    if (p.old) prow.appendChild(el('span', 'font-size:13px;color:' + T.sub + ';text-decoration:line-through', fmt(toNum(p.old))));
-    sumTxt.appendChild(prow);
-    sumTxt.appendChild(el('div', 'font-size:11px;color:' + T.sub + ';margin-top:3px',
-      'MPC na ' + ANCHOR_DATE + ' ' + fmt(toNum(p.anchor || p.old || p.price))));
+    sumTxt.appendChild(priceBlock(base, toNum(p.old), toNum(p.anchor), mobile ? 20 : 22, mobile));
     sum.appendChild(sumTxt);
     body.appendChild(sum);
 
 
-    /* delivery reassurance */
-    var deliv = el('div', 'display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:10px;background:#EFF7F1');
-    deliv.appendChild(svg(ICO.truck, 18, T.green, 1.8));
-    deliv.appendChild(el('span', 'font-size:12.5px;font-weight:600;color:#14803A;line-height:1.4', 'Besplatna dostava — isporuka do 2 radna dana'));
+    /* delivery — same row as the PDP delivery block */
+    var deliv = el('div', 'display:flex;gap:14px;align-items:flex-start;border:1px solid ' + T.border + ';border-radius:12px;padding:14px 16px;background:#fff');
+    var tw = el('span', 'width:24px;display:flex;justify-content:center;flex-shrink:0;margin-top:3px'); tw.innerHTML = TRUCK;
+    deliv.appendChild(tw);
+    var dt = el('div', 'font-size:13px;line-height:1.5;color:#101117;min-width:0');
+    var d1 = el('div', 'font-size:14px;font-weight:700', 'Dostava na adresu · ');
+    d1.appendChild(el('span', 'color:#0B7A48', 'besplatno'));
+    dt.appendChild(d1);
+    var d2 = el('div', '', 'Stiže ');
+    d2.appendChild(el('b', '', 'u ponedjeljak, 5.10.'));
+    d2.appendChild(document.createTextNode(' ako naručiš u sljedećih 2 h 35 min'));
+    dt.appendChild(d2);
+    deliv.appendChild(dt);
     body.appendChild(deliv);
 
     /* ── services & protection ── */
@@ -176,30 +205,49 @@
     };
 
     var svcSec = el('div', '');
-    var svcHead = el('div', 'display:flex;align-items:flex-start;gap:10px;margin-bottom:12px');
-    svcHead.appendChild(svg(ICO.shield, 20, T.blue, 1.8));
-    svcHead.appendChild(secTitle('Zaštiti svoj uređaj', 'Big Bang usluge koje se dokupljuju uz proizvod — kasnije ih nije moguće naknadno kupiti.'));
-    svcSec.appendChild(svcHead);
-
+    var sh = el('div', 'display:flex;align-items:baseline;justify-content:space-between;gap:8px');
+    sh.appendChild(el('span', 'font-size:17px;font-weight:700;color:#101117', 'Usluge i jamstvo'));
+    sh.appendChild(el('span', 'font-size:12px;color:' + T.sub, 'dodaje se uz uređaj'));
+    svcSec.appendChild(sh);
+    var headS = 'font-size:13px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:' + T.sub + ';margin:22px 0 10px';
+    var cardS = function (on) {
+      return 'width:100%;display:flex;align-items:center;gap:14px;padding:16px 14px;border-radius:12px;text-align:left;cursor:pointer;font-family:Inter,sans-serif;box-sizing:border-box;' +
+        'border:' + (on ? '2px solid ' + NAVY : '1px solid #E3E4E9') + ';background:' + (on ? '#EEF2FB' : '#fff') + ';margin:' + (on ? '0' : '1px');
+    };
+    var txtCol = function (title, sub, badge) {
+      var t = el('span', 'flex:1;min-width:0;display:flex;flex-direction:column;gap:4px');
+      t.appendChild(el('span', 'font-size:14px;font-weight:700;color:#101117;line-height:1.3', title));
+      if (badge) t.appendChild(el('span', 'align-self:flex-start;background:' + NAVY + ';color:#fff;font-size:11px;font-weight:600;padding:2px 7px;border-radius:4px', badge));
+      if (sub) t.appendChild(el('span', 'font-size:12px;color:' + T.sub + ';line-height:1.45', sub));
+      return t;
+    };
+    svcSec.appendChild(el('div', headS, 'Sigurnost'));
+    var protList = el('div', 'display:flex;flex-direction:column;gap:10px');
+    PROTS.forEach(function (pr) {
+      var on = st.prot === pr.id;
+      var row = el('button', cardS(on));
+      row.setAttribute('role', 'radio'); row.setAttribute('aria-checked', on);
+      var rd = el('span', 'width:22px;height:22px;border-radius:50%;box-sizing:border-box;border:' + (on ? '2px solid ' + NAVY : '1.5px solid #8B95A5') + ';display:flex;align-items:center;justify-content:center;flex-shrink:0;background:#fff');
+      if (on) rd.appendChild(el('span', 'width:12px;height:12px;border-radius:50%;background:' + NAVY));
+      row.appendChild(rd);
+      row.appendChild(txtCol(pr.title, pr.sub, pr.badge));
+      if (pr.price) row.appendChild(el('span', 'font-size:14px;font-weight:700;color:#101117;white-space:nowrap;flex-shrink:0', fmt(pr.price)));
+      row.addEventListener('click', function () { st.prot = pr.id; rerender(); });
+      protList.appendChild(row);
+    });
+    svcSec.appendChild(protList);
+    svcSec.appendChild(el('div', headS, 'Usluge'));
     var svcList = el('div', 'display:flex;flex-direction:column;gap:10px');
-    SERVICES.forEach(function (s) {
-      var on = !!st.services[s.id];
-      var row = el('button', 'text-align:left;display:flex;gap:12px;align-items:flex-start;width:100%;padding:' + (mobile ? '12px' : '14px') +
-        ';border-radius:10px;border:1.5px solid ' + (on ? T.blue : T.border) + ';background:' + (on ? '#F2F7FC' : '#fff') +
-        ';cursor:pointer;font-family:Inter,sans-serif');
-      var box = el('span', 'width:20px;height:20px;border-radius:4px;flex-shrink:0;margin-top:1px;border:1.5px solid ' + (on ? T.blue : '#C7C7CD') +
-        ';background:' + (on ? T.blue : '#fff') + ';display:flex;align-items:center;justify-content:center');
-      if (on) box.appendChild(svg(ICO.check, 13, '#fff', 3));
+    SERVICES.forEach(function (sv) {
+      var on = !!st.services[sv.id];
+      var row = el('button', cardS(on));
+      row.setAttribute('role', 'checkbox'); row.setAttribute('aria-checked', on);
+      var box = el('span', 'width:22px;height:22px;border-radius:4px;box-sizing:border-box;border:' + (on ? 'none' : '1.5px solid #8B95A5') + ';background:' + (on ? NAVY : '#fff') + ';display:flex;align-items:center;justify-content:center;flex-shrink:0');
+      if (on) box.appendChild(svg(ICO.check, 14, '#fff', 3));
       row.appendChild(box);
-      var txt = el('div', 'flex:1;min-width:0;display:flex;flex-direction:column;gap:3px');
-      txt.appendChild(el('div', 'font-size:13.5px;font-weight:600;color:' + T.text + ';letter-spacing:-0.01em;line-height:1.3', s.name));
-      txt.appendChild(el('div', 'font-size:12px;color:' + T.sub + ';line-height:1.45', s.desc));
-      row.appendChild(txt);
-      row.appendChild(el('div', 'font-size:14px;font-weight:700;color:' + T.text + ';flex-shrink:0;white-space:nowrap', fmt(s.price)));
-      row.addEventListener('click', function () {
-        st.services[s.id] = !st.services[s.id];
-        rerender();
-      });
+      row.appendChild(txtCol(sv.name, sv.desc));
+      row.appendChild(el('span', 'font-size:14px;font-weight:700;color:#101117;white-space:nowrap;flex-shrink:0', fmt(sv.price)));
+      row.addEventListener('click', function () { st.services[sv.id] = !st.services[sv.id]; rerender(); });
       svcList.appendChild(row);
     });
     svcSec.appendChild(svcList);
@@ -207,7 +255,22 @@
 
     /* ── cross-sell ── */
     var crossSec = el('div', '');
-    crossSec.appendChild(secTitle('Kupci često dodaju', 'Preporučeni dodaci za odabrani proizvod.'));
+    var ch = el('div', 'display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px');
+    var cht = secTitle('Kupci često dodaju', 'Preporučeni dodaci za odabrani proizvod.');
+    cht.style.marginBottom = '0'; cht.style.minWidth = '0';
+    ch.appendChild(cht);
+    var arrows = el('div', 'display:flex;align-items:center;gap:10px;flex-shrink:0');
+    [['15 18 9 12 15 6', -1, 'Prethodno'], ['9 18 15 12 9 6', 1, 'Sljedeće']].forEach(function (a) {
+      var ab = el('button', 'width:40px;height:40px;border-radius:50%;background:#F1F1F4;border:none;display:flex;align-items:center;justify-content:center;color:#101117;cursor:pointer;transition:background .15s');
+      ab.setAttribute('aria-label', a[2]);
+      ab.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="' + a[0] + '"/></svg>';
+      ab.addEventListener('mouseenter', function () { ab.style.background = '#E7E7EE'; });
+      ab.addEventListener('mouseleave', function () { ab.style.background = '#F1F1F4'; });
+      ab.addEventListener('click', function () { track.scrollBy({ left: a[1] * 170, behavior: 'smooth' }); });
+      arrows.appendChild(ab);
+    });
+    ch.appendChild(arrows);
+    crossSec.appendChild(ch);
     var track = el('div', 'display:flex;gap:12px;overflow-x:auto;padding-bottom:4px;margin:0 -' + (mobile ? '16px' : '28px') +
       ';padding-left:' + (mobile ? '16px' : '28px') + ';padding-right:' + (mobile ? '16px' : '28px'));
     track.className = 'bbc-nsb';
@@ -222,12 +285,7 @@
       card.appendChild(el('div', 'font-size:10px;font-weight:700;letter-spacing:0.04em;color:' + T.sub, c.brand));
       card.appendChild(el('div', 'font-size:12.5px;font-weight:600;line-height:1.3;color:' + T.text +
         ';display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;min-height:32px', c.name));
-      var cp = el('div', 'display:flex;align-items:baseline;gap:6px');
-      cp.appendChild(el('span', 'font-size:15px;font-weight:700;letter-spacing:-0.02em;color:' + (c.old ? T.red : T.text), fmt(c.price)));
-      if (c.old) cp.appendChild(el('span', 'font-size:11px;color:' + T.sub + ';text-decoration:line-through', fmt(c.old)));
-      card.appendChild(cp);
-      card.appendChild(el('div', 'font-size:10px;color:' + T.sub + ';margin-top:2px;line-height:1.3',
-        'MPC na ' + ANCHOR_DATE + ' ' + fmt(c.old || c.price)));
+      card.appendChild(priceBlock(c.price, c.old, 0, 16, mobile));
       var b = el('button', 'margin-top:auto;height:34px;border-radius:17px;border:1.5px solid ' + (on ? T.green : T.blue) +
         ';background:' + (on ? T.green : '#fff') + ';color:' + (on ? '#fff' : T.blue) +
         ';font-family:Inter,sans-serif;font-size:12.5px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px');
@@ -302,6 +360,7 @@
       close();
       st.product = p || {};
       st.services = {};
+      st.prot = 'none';
       st.added = {};
       st.host = host();
       st.open = true;

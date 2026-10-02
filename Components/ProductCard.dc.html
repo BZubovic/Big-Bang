@@ -39,9 +39,14 @@
       </div>
     </sc-if>
     <div style="position:absolute;top:10px;right:9px;display:flex;flex-direction:column;gap:8px;z-index:3">
+      <sc-if value="{{ notWish }}" hint-placeholder-val="{{ true }}">
       <button onClick="{{ stop }}" title="Spremi" style="width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid #D9DCE1;display:flex;align-items:center;justify-content:center;color:#545F71;cursor:pointer;padding:0;transition:border-color .15s,color .15s" style-hover="border-color:#0050A0;color:#0050A0">
         <svg width="18" height="18" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
       </button>
+      </sc-if>
+      <sc-if value="{{ wish }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ removeWish }}" title="Ukloni s popisa želja" aria-label="Ukloni s popisa želja" style="width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid #D9DCE1;display:flex;align-items:center;justify-content:center;color:#545F71;cursor:pointer;padding:0;transition:border-color .15s,color .15s" style-hover="border-color:#0050A0;color:#0050A0"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M15.8335 5.83333L15.1107 15.9521C15.0484 16.8243 14.3227 17.5 13.4483 17.5H6.55203C5.67763 17.5 4.9519 16.8243 4.8896 15.9521L4.16683 5.83333M8.3335 9.16667V14.1667M11.6668 9.16667V14.1667M12.5002 5.83333V3.33333C12.5002 2.8731 12.1271 2.5 11.6668 2.5H8.3335C7.87326 2.5 7.50016 2.8731 7.50016 3.33333V5.83333M3.3335 5.83333H16.6668" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+      </sc-if>
       <button onClick="{{ stop }}" title="Usporedi" style="width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid #D9DCE1;display:flex;align-items:center;justify-content:center;color:#545F71;cursor:pointer;padding:0;transition:border-color .15s,color .15s" style-hover="border-color:#0050A0;color:#0050A0">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg>
       </button>
@@ -80,7 +85,7 @@
       <svg width="13" height="13" viewBox="2.1 2.1 18.8 18.8" fill="none" style="flex-shrink:0;color:#7F8795"><path d="M3.83333 9.58333V20.125H19.1667V9.58333M9.10417 20.125V11.9792H13.8958V20.125M4.3125 2.875H11.0208H18.6875L20.125 7.1875V8.14583C20.125 10.0625 17.25 10.0625 17.25 8.14583C17.25 10.0625 14.375 10.0625 14.375 8.14583C14.375 10.0625 11.5 10.0625 11.5 8.14583C11.5 10.0625 8.625 10.0625 8.625 8.14583C8.625 10.0625 5.75 10.0625 5.75 8.14583C5.75 10.0625 2.875 10.0625 2.875 8.14583V7.1875L4.3125 2.875Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
       <span style="display:flex;gap:4px;min-width:0">Prodaje: <span style="overflow:hidden;text-overflow:ellipsis;min-width:0">{{ seller }}</span></span>
     </div>
-    <div style="margin-top:auto;padding-top:11px;display:flex;align-items:flex-end;justify-content:space-between;gap:8px">
+    <div style="margin-top:auto;padding-top:11px;display:flex;align-items:last baseline;justify-content:space-between;gap:8px">
       <div style="min-width:0">
         <div style="height:18px;display:flex;align-items:center;gap:5px;white-space:nowrap">
           <sc-if value="{{ old }}" hint-placeholder-val="{{ false }}">
@@ -109,21 +114,15 @@
           <div style="height:28px;box-sizing:border-box;background:#E6F5EC;border-radius:8px;padding:0 10px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#0B7A48;font-size:12px;font-weight:800;line-height:28px"><span style="overflow:hidden;text-overflow:ellipsis;min-width:0">Dodatnih <b style="font-weight:800;color:#0B7A48">{{ promoPct }} popusta</b> u košarici</span></div>
         </sc-if>
         <sc-if value="{{ hasRenewed }}" hint-placeholder-val="{{ false }}">
-          <div style="height:28px;box-sizing:border-box;background:#CDD700;border-radius:6px;padding:0 8px;display:flex;align-items:center;gap:6px;white-space:nowrap;overflow:hidden;color:#002D73;font-size:13px;font-weight:500;line-height:28px">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg>
-            <span style="overflow:hidden;text-overflow:ellipsis"><strong style="font-weight:600">{{ renewedSave }}</strong> u odnosu na novi</span>
+          <div style="height:28px;box-sizing:border-box;background:#CDD700;border-radius:8px;padding:0 10px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#002D73;font-size:12px;font-weight:800;line-height:28px">
+
+            <span style="overflow:hidden;text-overflow:ellipsis">{{ renewedSave }} u odnosu na novi</span>
           </div>
         </sc-if>
       </div>
     </sc-if>
     <div style="margin-top:10px;font-size:13px;font-weight:600;line-height:18px;letter-spacing:-0.01em;color:#101117;white-space:nowrap">{{ rata }}</div>
     <div style="margin-top:4px;font-size:10px;line-height:14px;color:#8B95A5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cijena na {{ anchorDate }} {{ anchor }}</div>
-    <sc-if value="{{ wish }}" hint-placeholder-val="{{ false }}">
-      <button onClick="{{ removeWish }}" style="margin-top:12px;height:40px;width:100%;border-radius:20px;background:#fff;border:1.5px solid #0050A0;color:#0050A0;font-family:Inter,sans-serif;font-size:13px;font-weight:700;letter-spacing:-0.01em;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer" style-hover="background:#EDF3FA">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"></path><path d="M19.5 12.6c1.4-1.4 1.6-3.6.4-5.2a4 4 0 0 0-6.2-.5L12 8.6l-.6-.6"></path><path d="M7.6 5.7a4 4 0 0 0-4.1 6.9l7.8 7.6c.4.4 1 .4 1.4 0l3.6-3.5"></path></svg>
-        Ukloni s popisa želja
-      </button>
-    </sc-if>
   </div>
 </a>
 </sc-if>
@@ -152,9 +151,14 @@
       </div>
     </sc-if>
     <div style="position:absolute;top:8px;right:8px;display:flex;flex-direction:column;gap:6px;z-index:3">
+      <sc-if value="{{ notWish }}" hint-placeholder-val="{{ true }}">
       <button onClick="{{ stop }}" title="Spremi" style="width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid #D9DCE1;display:flex;align-items:center;justify-content:center;color:#545F71;padding:0">
         <svg width="16" height="16" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
       </button>
+      </sc-if>
+      <sc-if value="{{ wish }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ removeWish }}" title="Ukloni s popisa želja" aria-label="Ukloni s popisa želja" style="width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid #D9DCE1;display:flex;align-items:center;justify-content:center;color:#545F71;padding:0"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M15.8335 5.83333L15.1107 15.9521C15.0484 16.8243 14.3227 17.5 13.4483 17.5H6.55203C5.67763 17.5 4.9519 16.8243 4.8896 15.9521L4.16683 5.83333M8.3335 9.16667V14.1667M11.6668 9.16667V14.1667M12.5002 5.83333V3.33333C12.5002 2.8731 12.1271 2.5 11.6668 2.5H8.3335C7.87326 2.5 7.50016 2.8731 7.50016 3.33333V5.83333M3.3335 5.83333H16.6668" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+      </sc-if>
       <button onClick="{{ stop }}" title="Usporedi" style="width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid #D9DCE1;display:flex;align-items:center;justify-content:center;color:#545F71;padding:0">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg>
       </button>
@@ -193,7 +197,7 @@
       <svg width="11" height="11" viewBox="2.1 2.1 18.8 18.8" fill="none" style="flex-shrink:0;color:#7F8795"><path d="M3.83333 9.58333V20.125H19.1667V9.58333M9.10417 20.125V11.9792H13.8958V20.125M4.3125 2.875H11.0208H18.6875L20.125 7.1875V8.14583C20.125 10.0625 17.25 10.0625 17.25 8.14583C17.25 10.0625 14.375 10.0625 14.375 8.14583C14.375 10.0625 11.5 10.0625 11.5 8.14583C11.5 10.0625 8.625 10.0625 8.625 8.14583C8.625 10.0625 5.75 10.0625 5.75 8.14583C5.75 10.0625 2.875 10.0625 2.875 8.14583V7.1875L4.3125 2.875Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
       <span style="display:flex;gap:3px;min-width:0">Prodaje: <span style="overflow:hidden;text-overflow:ellipsis;min-width:0">{{ seller }}</span></span>
     </div>
-    <div style="margin-top:auto;padding-top:9px;display:flex;align-items:flex-end;justify-content:space-between;gap:6px">
+    <div style="margin-top:auto;padding-top:9px;display:flex;align-items:last baseline;justify-content:space-between;gap:6px">
       <div style="min-width:0">
         <div style="height:16px;display:flex;align-items:center;gap:4px;white-space:nowrap">
           <sc-if value="{{ old }}" hint-placeholder-val="{{ false }}">
@@ -204,7 +208,7 @@
             <span style="{{ priceTagStyleMob }}">{{ priceTag }}</span>
           </sc-if>
         </div>
-        <div style="margin-top:1px;font-size:19px;font-weight:800;line-height:24px;letter-spacing:-0.01em;color:#101117;white-space:nowrap">{{ price }}</div>
+        <div style="margin-top:4px;font-size:19px;font-weight:800;line-height:24px;letter-spacing:-0.01em;color:#101117;white-space:nowrap">{{ price }}</div>
       </div>
       <sc-if value="{{ c.energy }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">
@@ -222,21 +226,15 @@
           <div style="height:24px;box-sizing:border-box;background:#E6F5EC;border-radius:8px;padding:0 10px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#0B7A48;font-size:11px;font-weight:800;line-height:24px"><span style="overflow:hidden;text-overflow:ellipsis;min-width:0">Dodatnih <b style="font-weight:800;color:#0B7A48">{{ promoPct }} popusta</b> u košarici</span></div>
         </sc-if>
         <sc-if value="{{ hasRenewed }}" hint-placeholder-val="{{ false }}">
-          <div style="height:24px;box-sizing:border-box;background:#CDD700;border-radius:5px;padding:0 6px;display:flex;align-items:center;gap:5px;white-space:nowrap;overflow:hidden;color:#002D73;font-size:11px;font-weight:500;line-height:24px">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg>
-            <span style="overflow:hidden;text-overflow:ellipsis"><strong style="font-weight:600">{{ renewedSave }}</strong> u odnosu na novi</span>
+          <div style="height:24px;box-sizing:border-box;background:#CDD700;border-radius:8px;padding:0 10px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#002D73;font-size:11px;font-weight:800;line-height:24px">
+
+            <span style="overflow:hidden;text-overflow:ellipsis">{{ renewedSave }} u odnosu na novi</span>
           </div>
         </sc-if>
       </div>
     </sc-if>
     <div style="margin-top:8px;font-size:11.5px;font-weight:600;line-height:16px;color:#101117;white-space:nowrap">{{ rata }}</div>
     <div style="margin-top:3px;font-size:9px;line-height:12px;color:#8B95A5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cijena na {{ anchorDate }} {{ anchor }}</div>
-    <sc-if value="{{ wish }}" hint-placeholder-val="{{ false }}">
-      <button onClick="{{ removeWish }}" style="margin-top:10px;height:38px;width:100%;border-radius:19px;background:#fff;border:1.5px solid #0050A0;color:#0050A0;font-family:Inter,sans-serif;font-size:11.5px;font-weight:700;letter-spacing:-0.01em;display:flex;align-items:center;justify-content:center;gap:6px">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"></path><path d="M19.5 12.6c1.4-1.4 1.6-3.6.4-5.2a4 4 0 0 0-6.2-.5L12 8.6l-.6-.6"></path><path d="M7.6 5.7a4 4 0 0 0-4.1 6.9l7.8 7.6c.4.4 1 .4 1.4 0l3.6-3.5"></path></svg>
-        Ukloni
-      </button>
-    </sc-if>
   </div>
 </a>
 </sc-if>
@@ -334,6 +332,7 @@ class Component extends DCLogic {
       wish: !!this.props.wish,
       open: (e) => { if (e) e.preventDefault(); if (this.props.onOpen) this.props.onOpen(c); },
       stop: stop,
+      notWish: !this.props.wish,
       removeWish: (e) => { stop(e); if (this.props.onRemoveWish) this.props.onRemoveWish(c); }
     };
   }

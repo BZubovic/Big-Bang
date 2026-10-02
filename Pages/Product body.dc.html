@@ -16,7 +16,7 @@
 
 <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
 <div style="padding-bottom:56px">
-  <x-import component="PDPBody" from="./Components/pdp/PDPBody.jsx" bundle-mode="{{ bundleMode }}" sticky-cta="{{ stickyCta }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" product="{{ product }}" hint-size="100%,1800px"></x-import>
+  <x-import component="PDPBody" from="./Components/pdp/PDPBody.jsx" bundle-mode="{{ bundleMode }}" sticky-cta="{{ stickyCta }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" product="{{ product }}" product-type="{{ productType }}" hint-size="100%,1800px"></x-import>
 
   <div style="display:flex;flex-direction:column;gap:16px;margin-top:8px">
     <dc-import name="Components/ProductCarousel" variant="desktop" title="Slični proizvodi" products="{{ similar }}" on-open-product="{{ openProduct }}" hint-size="100%,560px"></dc-import>
@@ -27,7 +27,7 @@
 
 <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
 <div>
-  <x-import component="PDPBodyMobile" from="./Components/pdp/PDPBodyMobile.jsx" bundle-mode="{{ bundleMode }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" product="{{ product }}" hint-size="100%,2400px"></x-import>
+  <x-import component="PDPBodyMobile" from="./Components/pdp/PDPBodyMobile.jsx" bundle-mode="{{ bundleMode }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" product="{{ product }}" product-type="{{ productType }}" hint-size="100%,2400px"></x-import>
 
   <div style="background:#fff;margin-top:10px;padding:16px 0">
     <dc-import name="Components/ProductCarousel" variant="mobile" title="Slični proizvodi" products="{{ similar }}" on-open-product="{{ openProduct }}" hint-size="100%,300px"></dc-import>
@@ -50,6 +50,7 @@
   &quot;availShown&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; },
   &quot;stickyCta&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; },
   &quot;product&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;any&quot; },
+  &quot;productType&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;default&quot;, &quot;klima&quot;, &quot;minimal&quot;, &quot;marketplace&quot;, &quot;bundle&quot;], &quot;default&quot;: &quot;default&quot;, &quot;tsType&quot;: &quot;string&quot; },
   &quot;onOpenProduct&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(p: any) =&gt; void&quot; }
 }">
 const SIMILAR = [
@@ -60,6 +61,13 @@ const SIMILAR = [
   { img: 'images/pdp/similar/xiaomi-14-pro.png', name: 'Xiaomi 14 Pro 5G 12/512GB', price: '899,00 €', old: '1.099,00 €', disc: '200,00 €', rate: '74,92 € / 12 rata' },
   { img: 'images/pdp/similar/oneplus-13.png', name: 'OnePlus 13 5G 16/512GB', price: '1.049,00 €', old: '1.149,00 €', disc: '100,00 €' },
   { img: 'images/pdp/similar/sony-xperia-1-vi.png', name: 'Sony Xperia 1 VI 5G 12/256GB', price: '1.199,00 €', old: '1.399,00 €', disc: '200,00 €' }
+];
+const CROSS_SELL = [
+  { img: 'images/pdp/similar/s24-fe.png', name: 'Bežične slušalice SAMSUNG Galaxy Buds3 Pro', price: '179,99 €', old: '219,99 €', disc: '40,00 €' },
+  { img: 'images/pdp/similar/s24-ultra.png', name: 'Brzi punjač SAMSUNG 45W USB-C', price: '39,99 €', old: '49,99 €', disc: '10,00 €' },
+  { img: 'images/pdp/similar/pixel-9-pro.png', name: 'Zaštitna maskica silikonska, crna', price: '24,99 €' },
+  { img: 'images/pdp/similar/oneplus-13.png', name: 'Memorijska kartica SANDISK microSD Extreme 256GB', price: '29,99 €', old: '42,99 €', disc: '13,00 €' },
+  { img: 'images/prod-huawei-watch.webp', name: 'Pametni sat HUAWEI Watch Fit 3, black', price: '129,99 €' }
 ];
 const SPONSORED = [
   { img: 'images/pdp/similar/s24-ultra.png', name: 'Samsung Galaxy S24 Ultra 5G 12/512GB', price: '1.449,99 €', old: '1.649,99 €', disc: '200,00 €', rate: '120,83 € / 12 rata' },
@@ -77,14 +85,16 @@ class Component extends DCLogic {
     return {
       isDesktop: !mobile,
       isMobile: mobile,
-      bundleMode: !!this.props.bundleMode,
+      bundleMode: !!this.props.bundleMode || this.props.productType === 'bundle',
       availStock: this.props.availStock !== false,
       availShown: this.props.availShown !== false,
       stickyCta: this.props.stickyCta !== false,
+      productType: this.props.productType || 'default',
       product: this.props.product || null,
       openProduct: this.props.onOpenProduct || (() => {}),
       similar: SIMILAR,
-      sponsored: SPONSORED
+      sponsored: SPONSORED,
+      crossSell: CROSS_SELL
     };
   }
 }

@@ -1,6 +1,18 @@
 let P = null;
 const pv = (key, fallback) => (P && P[key]) || fallback;
 
+// ─── Prototype product types (shell "Proizvod" setting) ───
+let PT = 'default';
+const BUNDLE_TITLE = 'PlayStation 5 Digital Chassis + dodatni Dual Sense Wireless Controller';
+const TYPE_P = {
+  klima: { name: 'Klima uređaj HISENSE Easy Smart 3,5 kW', img: 'images/prod-hisense-klima.webp', price: '529,00', old: '619,00' },
+  minimal: { name: 'Brijač PHILIPS S5588/38 Series 5000', img: 'images/prod-philips-brijac.webp', price: '129,99', old: '149,99' },
+  marketplace: { name: 'Madrac DORMEO Memosan Classic, srednje tvrdi', img: 'images/c/i-madraci.webp', price: '389,00', old: '459,00' },
+  bundle: { name: 'PlayStation 5 Digital Chassis + dodatni Dual Sense Wireless Controller', img: 'images/pdp/main/ps5-bundle.png', price: '549,99', old: '619,99' }
+};
+const DIMS = [['80 × 200', -80], ['90 × 200', 0], ['140 × 200', 140], ['160 × 200', 190], ['180 × 200', 240]];
+
+
 // ─── Tokens ───────────────────────────────────────────────────────
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "bundleMode": false
@@ -52,7 +64,7 @@ const COLORS = [
   { name: 'Onyx Black', hex: '#2A2A2A' },
   { name: 'Marble Gray', hex: '#8A8A8A', na: true },
 ];
-const STORAGE = ['256GB', '512GB', '1TB'];
+const STORAGE = ['128GB', '256GB', '512GB', '1TB'];
 const STORAGE_NA = ['1TB'];
 const COLOR_HR = { 'Amber Yellow': 'žuta', 'Cobalt Violet': 'ljubičasta', 'Onyx Black': 'crna', 'Marble Gray': 'siva' };
 const COND_UI = { novo: { label: 'Novo', sub: 'Originalno pakiranje' }, otvoreno: { label: 'Otvorena ambalaža', sub: 'Oštećena kutija' }, obnovljeno: { label: 'Kao novo', save: true }, popravljeno: { label: 'Dobro stanje', sub: 'Vidljivi tragovi' } };
@@ -275,6 +287,20 @@ function EUGuaranteeBox({ mt = 14 }) {
 }
 
 // ─── EU GARAN nested label only (opens the full label) ───
+
+// ─── EU common-charger pictogram (Directive (EU) 2022/2380) ───
+function ChargerBox({ included = false }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 14, border: '1px solid #E3E4E9', borderRadius: 12, padding: '12px 14px', background: '#fff' }}>
+      <img src={included ? 'images/eu/charger-included.svg' : 'images/eu/charger-not-included.svg'} alt={included ? 'Punjač uključen' : 'Punjač nije uključen'} style={{ height: 34, width: 'auto', flexShrink: 0, display: 'block' }} />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 2, minWidth: 0 }}>
+        <span style={{ fontSize: 14, fontWeight: 700, color: '#101117' }}>{included ? 'Punjač je uključen u pakiranje' : 'Punjač nije uključen u pakiranje'}</span>
+        <span style={{ fontSize: 12, color: '#545F71', lineHeight: 1.45 }}>Punjenje preko USB-C · podržava USB PD brzo punjenje 15–45 W</span>
+      </div>
+    </div>
+  );
+}
+
 function GaranBadge() {
   const garan = window.BB_GARAN ? window.BB_GARAN.forProduct(P || { name: 'Galaxy S24+' }) : null;
   if (!garan || !window.BBEU) return null;
@@ -300,21 +326,12 @@ function OffersBox() {
   const tag = (sz) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>;
   return (
     <div style={{ marginTop: 10, borderRadius: 12, background: '#E6F5EC', overflow: 'hidden' }}>
-      <button onClick={() => setOpen((o) => !o)} aria-expanded={open} style={{ width: '100%', display: 'flex', alignItems: 'flex-start', gap: 10, padding: '12px', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit' }}>
+      <button onClick={() => window.dispatchEvent(new CustomEvent('bb-open-promo'))} aria-haspopup="dialog" style={{ width: '100%', display: 'flex', alignItems: 'flex-start', gap: 10, padding: '12px', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit' }}>
         <span style={{ flex: 1, minWidth: 0, fontSize: 13, fontWeight: 500, lineHeight: '20px', color: '#101117', display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2, overflow: 'hidden', maxHeight: 40 }}>
-          <span style={{ fontWeight: 700, color: '#0B7A48' }}>Dodatnih 15% popusta</span> na ovaj proizvod uz kod <span style={{ fontWeight: 700 }}>{top.code}</span> u košarici.<span style={{ marginLeft: 4, whiteSpace: 'nowrap', fontSize: 12, fontWeight: 600, color: '#0050A0' }}>{open ? 'Sakrij ponude' : '+' + rest.length + ' dodatne ponude'}</span>
+          <span style={{ fontWeight: 700, color: '#0B7A48' }}>Dodatnih 15% popusta</span> na ovaj proizvod uz kod <span style={{ fontWeight: 700 }}>{top.code}</span> u košarici.<span style={{ marginLeft: 4, whiteSpace: 'nowrap', fontSize: 12, fontWeight: 600, color: '#0050A0' }}>{'+' + rest.length + ' dodatne ponude'}</span>
         </span>
-        <span style={{ color: '#545F71', display: 'flex', alignSelf: 'center', transform: open ? 'rotate(90deg)' : 'none', transition: 'transform .2s' }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></span>
+        <span style={{ color: '#545F71', display: 'flex', alignSelf: 'center', transition: 'transform .2s' }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></span>
       </button>
-      {open && (
-        <div style={{ borderTop: '1px solid #BDDDCE' }}>
-          {rest.map((o, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderTop: i ? '1px solid #BDDDCE' : 'none' }}>
-              <span style={{ flex: 1, fontSize: 12, lineHeight: 1.4, color: '#101117', textWrap: 'pretty' }}>{o.title}</span>
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   );
 }
@@ -330,6 +347,8 @@ function ProductHead({ bundleMode }) {
         <Stars rating={4.3}/>
         <span style={{ fontSize: 12, fontWeight: 600 }}>4.3</span>
         <a href="#reviews" style={{ fontSize: 12, color: T.blue, textDecoration: 'none' }}>384 recenzija</a>
+        <span style={{ width: 3, height: 3, borderRadius: '50%', background: T.borderSub }}></span>
+        <span style={{ fontSize: 12, color: T.sub }}>ID: 500000342</span>
       </div>
       {!bundleMode && (
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
@@ -341,15 +360,35 @@ function ProductHead({ bundleMode }) {
   );
 }
 
+
+function OptionsFlyout({ title, onClose, children }) {
+  React.useEffect(() => { const k = (e) => { if (e.key === 'Escape') onClose(); }; window.addEventListener('keydown', k); return () => window.removeEventListener('keydown', k); }, []);
+  return (
+    <div style={{ position: 'fixed', inset: 0, zIndex: 1200 }}>
+      <div onClick={onClose} style={{ position: 'absolute', inset: 0, background: 'rgba(16,17,23,0.45)' }}></div>
+      <div role="dialog" aria-label={title} style={{ position: 'absolute', left: 0, right: 0, bottom: 0, maxHeight: '85%', borderRadius: '18px 18px 0 0', background: '#fff', display: 'flex', flexDirection: 'column', boxShadow: '0 8px 32px rgba(0,0,0,0.2)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 16px', borderBottom: '1px solid #E3E4E9' }}>
+          <span style={{ fontSize: 17, fontWeight: 700, color: '#101117' }}>{title}</span>
+          <button onClick={onClose} aria-label="Zatvori" style={{ width: 36, height: 36, borderRadius: '50%', border: 'none', background: '#F1F1F4', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#101117' }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+        </div>
+        <div style={{ overflowY: 'auto', padding: '14px 16px 24px', display: 'flex', flexDirection: 'column', gap: 10 }}>{children}</div>
+      </div>
+    </div>
+  );
+}
+
 function BuyBox({ bundleMode, onOpenSheet, onOpenCondition }) {
   const [color, setColor] = React.useState('Amber Yellow');
   const [storage, setStorage] = React.useState('256GB');
   const [cond, setCond] = React.useState('novo');
   const [qty, setQty] = React.useState(1);
 
-  const BUNDLE_TITLE = 'PlayStation 5 Digital Chassis + dodatni Dual Sense Wireless Controller';
-  const visibleIds = bundleMode ? ['novo', 'otvoreno'] : ['novo', 'obnovljeno', 'popravljeno'];
-  const visible = CONDITIONS.filter(c => visibleIds.includes(c.id));
+  const visibleIds = bundleMode ? ['novo', 'otvoreno'] : ['novo', 'otvoreno', 'obnovljeno', 'popravljeno'];
+  const allConds = CONDITIONS.filter(c => visibleIds.includes(c.id));
+  const top3 = (list, sel, key) => { const t = list.slice(0, 3); if (!t.some(x => key(x) === sel)) { const s = list.find(x => key(x) === sel); if (s) t[2] = s; } return t; };
+  const [optFly, setOptFly] = React.useState(null);
+  const [mont, setMont] = React.useState(false);
+  const [dim, setDim] = React.useState(1);
   const currentCond = CONDITIONS.find(c => c.id === cond) || CONDITIONS[0];
   const currentOffer = currentCond.offers[0];
   const isMarketplace = currentOffer.seller !== 'Big Bang';
@@ -358,12 +397,13 @@ function BuyBox({ bundleMode, onOpenSheet, onOpenCondition }) {
   const _n = (s) => parseFloat(String(s).replace(/\./g,'').replace(',','.')) || 0;
   const _f = (n) => n.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const _bp = _n(pv('price', '1.299,00')), _bo = _n(pv('old', '1.479,00')) || _bp;
-  const prices = { '256GB': { p: _f(_bp), o: _f(_bo) }, '512GB': { p: _f(_bp + 120), o: _f(_bo + 120) }, '1TB': { p: _f(_bp + 300), o: _f(_bo + 300) } };
+  const prices = { '128GB': { p: _f(_bp - 100), o: _f(_bo - 100) }, '256GB': { p: _f(_bp), o: _f(_bo) }, '512GB': { p: _f(_bp + 120), o: _f(_bo + 120) }, '1TB': { p: _f(_bp + 300), o: _f(_bo + 300) } };
   const condPrice = (id) => id === 'novo' ? pr.p : _f(Math.max(1, Math.round(_n(pr.p) * (id === 'obnovljeno' ? 0.77 : id === 'popravljeno' ? 0.68 : 0.92)) - 0.01));
   const pr = prices[storage];
   const isNovo = cond === 'novo';
-  const displayPrice = bundleMode ? '549,99' : condPrice(cond);
-  const displayOld = pr.o;
+  const extra = PT === 'klima' && mont ? 149 : PT === 'marketplace' ? DIMS[dim][1] : 0;
+  const displayPrice = bundleMode ? '549,99' : _f(_n(condPrice(cond)) + extra);
+  const displayOld = bundleMode ? '619,99' : _f(_n(pr.o) + extra);
   const _toNum = (s) => parseFloat(String(s).replace(/\./g,'').replace(',','.'));
   const discPct = Math.max(1, Math.round((1 - _toNum(displayPrice) / _toNum(displayOld)) * 100));
   const instalment = bundleMode ? '12 × 45,83 €' : '12 × 91,67 €';
@@ -371,16 +411,6 @@ function BuyBox({ bundleMode, onOpenSheet, onOpenCondition }) {
   return (
     <div style={{ background: '#fff', padding: '14px 14px 24px', display: 'flex', flexDirection: 'column', gap: 28 }}>
       {/* Price */}
-      {bundleMode ? (
-        <div style={{ border: `1px solid ${T.border}`, borderRadius: 12, padding: '14px 14px' }}>
-          <div style={{ fontSize: 28, fontWeight: 700, color: T.text, letterSpacing: '-0.03em', lineHeight: 1, marginBottom: 10 }}>{displayPrice} €</div>
-          <div style={{ background: 'rgba(0,80,160,0.06)', borderRadius: 8, padding: '7px 10px', display:'flex', alignItems:'center', gap: 6 }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={T.blue} strokeWidth="2" strokeLinecap="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-            <span style={{ fontSize: 11, color: T.blue, fontWeight: 500 }}>ili <strong>{instalment}</strong> bez kamata</span>
-            <button style={{ marginLeft:'auto', fontSize: 10, color: T.blue, background:'none', border:'none', textDecoration:'underline' }}>Detalji</button>
-          </div>
-        </div>
-      ) : (
         <div style={{ margin: "0px 0px 0px" }}>
         <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 12 }}>
           <div style={{ minWidth: 0 }}>
@@ -401,18 +431,15 @@ function BuyBox({ bundleMode, onOpenSheet, onOpenCondition }) {
             <span style={{ fontSize: 10.5, lineHeight: 1.25, color: '#545F71', textDecoration: 'underline', textUnderlineOffset: 2, whiteSpace: 'nowrap', cursor: 'pointer' }}>Informacijski list</span>
           </div>
         </div>
-        {!isNovo && (
-          <div style={{ marginTop: 10, height: 28, boxSizing: 'border-box', background: '#CDD700', borderRadius: 6, padding: '0 10px', display: 'inline-flex', alignItems: 'center', gap: 6, whiteSpace: 'nowrap', color: '#002D73', fontSize: 12.5, fontWeight: 700 }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+        {PT !== 'marketplace' && <div style={{ marginTop: 10, fontSize: 13, fontWeight: 600, lineHeight: 1.35, letterSpacing: '-0.01em', color: '#101117' }}>{String(instalment).replace(/^(\d+)\s*[×x]\s*(.+)$/, '$2 / $1 rata')} <span style={{ marginLeft: 6, fontSize: 12, fontWeight: 600, color: '#0050A0', textDecoration: 'underline', textUnderlineOffset: 2, cursor: 'pointer' }}>Saznaj više</span></div>}
+        {PT !== 'marketplace' && (isNovo ? <OffersBox /> : (
+          <div style={{ marginTop: 12, alignSelf: 'flex-start', display: 'inline-flex', alignItems: 'center', height: 32, boxSizing: 'border-box', padding: '0 12px', borderRadius: 8, background: '#CDD700', color: '#002D73', fontSize: 14, fontWeight: 800, whiteSpace: 'nowrap' }}>
             −{(_toNum(prices['256GB'].p) - _toNum(displayPrice)).toFixed(2).replace('.', ',')} € u odnosu na novi
           </div>
-        )}
-        <div style={{ marginTop: 10, fontSize: 13, fontWeight: 600, lineHeight: 1.35, letterSpacing: '-0.01em', color: '#101117' }}>{String(instalment).replace(/^(\d+)\s*[×x]\s*(.+)$/, '$2 / $1 rata')} <span style={{ marginLeft: 6, fontSize: 12, fontWeight: 600, color: '#0050A0', textDecoration: 'underline', textUnderlineOffset: 2, cursor: 'pointer' }}>Saznaj više</span></div>
-        <OffersBox />
+        ))}
       </div>
-      )}
 
-      {!bundleMode && (
+      {!bundleMode && PT === 'default' && (
         <div>
           <div style={{ fontSize: 14, color: '#545F71', marginBottom: 10 }}>Boja: <span style={{ fontWeight: 700, color: '#101117' }}>{color}{COLOR_HR[color] ? ' (' + COLOR_HR[color] + ')' : ''}</span>
             {COLORS.some((c) => c.na && c.name === color) && <span style={{ fontWeight: 600, color: '#DA0D00' }}> · Nije dostupno</span>}
@@ -436,11 +463,14 @@ function BuyBox({ bundleMode, onOpenSheet, onOpenCondition }) {
         </div>
       )}
 
-      {!bundleMode && (
+      {!bundleMode && PT === 'default' && (
         <div>
-          <div style={{ fontSize: 14, color: '#545F71', marginBottom: 10 }}>Memorija: <span style={{ fontWeight: 700, color: '#101117' }}>{storage.replace(/(\d)(GB|TB)/, '$1 $2')}</span></div>
+          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 8, marginBottom: 10 }}>
+            <div style={{ fontSize: 14, color: '#545F71' }}>Memorija: <span style={{ fontWeight: 700, color: '#101117' }}>{storage.replace(/(\d)(GB|TB)/, '$1 $2')}</span></div>
+            {STORAGE.length > 3 && <button onClick={() => setOptFly('storage')} style={{ background: 'none', border: 'none', padding: 0, fontSize: 13, fontWeight: 600, color: '#0050A0', textDecoration: 'underline', textUnderlineOffset: 2, cursor: 'pointer', fontFamily: 'inherit' }}>Prikaži sve ({STORAGE.length})</button>}
+          </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 10 }}>
-            {STORAGE.map(s => {
+            {top3(STORAGE, storage, x => x).map(s => {
               const na = STORAGE_NA.includes(s);
               const on = storage === s;
               const diff = _toNum(prices[s].p) - _toNum(pr.p);
@@ -460,13 +490,15 @@ function BuyBox({ bundleMode, onOpenSheet, onOpenCondition }) {
         </div>
       )}
 
-      <div>
+      {PT === 'default' && <div>
         <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 8, marginBottom: 10 }}>
           <div style={{ fontSize: 14, color: '#545F71' }}>Stanje: <span style={{ fontWeight: 700, color: '#101117' }}>{(COND_UI[cond] || {}).label || currentCond.label}</span></div>
-          <button onClick={onOpenCondition} style={{ background: 'none', border: 'none', padding: 0, fontSize: 13, color: '#0050A0', textDecoration: 'underline', textUnderlineOffset: 2, cursor: 'pointer', fontFamily: 'inherit' }}>Što znače stanja?</button>
+          <span style={{ display: 'flex', gap: 14 }}>
+            {allConds.length > 3 && <button onClick={() => setOptFly('cond')} style={{ background: 'none', border: 'none', padding: 0, fontSize: 13, fontWeight: 600, color: '#0050A0', textDecoration: 'underline', textUnderlineOffset: 2, cursor: 'pointer', fontFamily: 'inherit' }}>Prikaži sve ({allConds.length})</button>}
+            </span>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 10 }}>
-          {visible.map(c => {
+          {top3(allConds, cond, x => x.id).map(c => {
             const on = cond === c.id;
             const ui = COND_UI[c.id] || { label: c.label, sub: c.sub };
             const price = condPrice(c.id);
@@ -485,18 +517,48 @@ function BuyBox({ bundleMode, onOpenSheet, onOpenCondition }) {
             );
           })}
         </div>
-      </div>
+      </div>}
+
+      {PT === 'klima' && (
+        <div>
+          <div style={{ fontSize: 14, color: '#545F71', marginBottom: 10 }}>Montaža: <span style={{ fontWeight: 700, color: '#101117' }}>{mont ? 'S montažom' : 'Bez montaže'}</span></div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 10 }}>
+            {[[false, 'Bez montaže', 'Samo dostava uređaja'], [true, 'S montažom', '+149,00 € · ovlašteni serviser']].map(([v, l, sub]) => (
+              <button key={l} onClick={() => setMont(v)} style={{ minHeight: 64, borderRadius: 10, padding: '10px 12px', textAlign: 'left', cursor: 'pointer', fontFamily: 'inherit', border: mont === v ? '2px solid #002D73' : '1px solid #D5D9E0', background: mont === v ? '#EEF2FB' : '#fff', margin: mont === v ? 0 : 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 2 }}>
+                <span style={{ fontSize: 14, fontWeight: 700, color: '#101117' }}>{l}</span>
+                <span style={{ fontSize: 12, color: '#545F71', lineHeight: 1.35 }}>{sub}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+      {PT === 'marketplace' && (
+        <div>
+          <div style={{ fontSize: 14, color: '#545F71', marginBottom: 10 }}>Dimenzije: <span style={{ fontWeight: 700, color: '#101117' }}>{DIMS[dim][0]} cm</span></div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 10 }}>
+            {DIMS.map(([l, add], i) => {
+              const d = add - DIMS[dim][1];
+              return (
+                <button key={l} onClick={() => setDim(i)} style={{ height: 64, borderRadius: 10, padding: '0 6px', cursor: 'pointer', fontFamily: 'inherit', border: dim === i ? '2px solid #002D73' : '1px solid #D5D9E0', background: dim === i ? '#EEF2FB' : '#fff', margin: dim === i ? 0 : 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 2 }}>
+                  <span style={{ fontSize: 15, fontWeight: 700, color: '#101117' }}>{l}</span>
+                  <span style={{ fontSize: 12, color: '#545F71' }}>{dim === i ? displayPrice + ' €' : (d >= 0 ? '+' : '−') + _f(Math.abs(d)) + ' €'}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       <div style={{ border: '1px solid #E3E4E9', borderRadius: 12, padding: '4px 16px', background: '#fff' }}>
-        <div role="button" onClick={() => onOpenSheet('delivery')} style={{ display: 'flex', gap: 14, padding: '14px 0', borderBottom: '1px solid #E3E4E9', cursor: 'pointer' }}>
+        <div role="button" onClick={() => onOpenSheet('delivery')} style={{ display: 'flex', gap: 14, padding: '14px 0', borderBottom: PT === 'marketplace' ? 'none' : '1px solid #E3E4E9', cursor: 'pointer' }}>
           <span style={{ width: 24, display: 'flex', justifyContent: 'center', flexShrink: 0, marginTop: 3 }}><svg width="22" height="15" viewBox="0 0 23 15" fill="none"><path d="M4.14491 0.666992L14.1411 0.666992C14.6212 0.666992 15.0104 1.07562 15.0104 1.57969V10.7067M15.0104 10.7067C15.0104 11.2107 14.6212 11.6194 14.1411 11.6194H9.36033M15.0104 10.7067L15.0104 3.40509C15.0104 2.90102 15.3995 2.49239 15.8796 2.49239H18.1273C18.3578 2.49239 18.5789 2.58855 18.7419 2.75971L21.7097 5.87586C21.8727 6.04702 21.9643 6.27917 21.9643 6.52123V10.7067C21.9643 11.2107 21.5751 11.6194 21.095 11.6194H20.2258M15.0104 10.7067C15.0104 11.2107 15.3995 11.6194 15.8796 11.6194H16.7488M5.88339 11.6194H4.14491M5.88339 11.6194C5.88339 12.6275 6.66173 13.4448 7.62186 13.4448C8.58199 13.4448 9.36033 12.6275 9.36033 11.6194M5.88339 11.6194C5.88339 10.6112 6.66173 9.79398 7.62186 9.79398C8.58199 9.79398 9.36033 10.6112 9.36033 11.6194M16.7488 11.6194C16.7488 12.6275 17.5272 13.4448 18.4873 13.4448C19.4474 13.4448 20.2258 12.6275 20.2258 11.6194M16.7488 11.6194C16.7488 10.6112 17.5272 9.79398 18.4873 9.79398C19.4474 9.79398 20.2258 10.6112 20.2258 11.6194M6.75262 4.31779H0.667969M5.01415 7.96858H2.40644" stroke="#002D73" strokeWidth="1.33333" strokeLinecap="round"></path></svg></span>
           <div style={{ fontSize: 13, lineHeight: 1.5, color: '#101117' }}>
             <div style={{ fontSize: 14, fontWeight: 700 }}>Dostava na adresu · <span style={{ color: '#0B7A48' }}>besplatno</span></div>
-            <div>Stiže <b>u ponedjeljak, 5.10.</b> ako naručiš u sljedećih 2 h 35 min</div>
+            {PT === 'marketplace' ? <div>Šalje prodavatelj · stiže za <b>5–7 radnih dana</b></div> : <div>Stiže <b>u ponedjeljak, 5.10.</b> ako naručiš u sljedećih 2 h 35 min</div>}
           </div>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#545F71" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, alignSelf: 'center', marginLeft: 'auto' }}><polyline points="9 6 15 12 9 18"></polyline></svg>
         </div>
-        <div role="button" onClick={() => window.BBAvail && window.BBAvail.open({ inStock: AV.inStock, shown: AV.shown, product: { img: pv('img', 'images/pdp/main/galaxy-s24-yellow.png'), name: pv('name', 'Samsung Galaxy S24+ 5G, 12/256 GB, Amber Yellow'), price: pv('price', '1.299,00'), old: pv('old', '1.479,00') } })} style={{ display: 'flex', gap: 14, padding: '14px 0', cursor: 'pointer' }}>
+        {PT !== 'marketplace' && <div role="button" onClick={() => window.BBAvail && window.BBAvail.open({ inStock: AV.inStock, shown: AV.shown, product: { img: pv('img', 'images/pdp/main/galaxy-s24-yellow.png'), name: pv('name', 'Samsung Galaxy S24+ 5G, 12/256 GB, Amber Yellow'), price: pv('price', '1.299,00'), old: pv('old', '1.479,00') } })} style={{ display: 'flex', gap: 14, padding: '14px 0', cursor: 'pointer' }}>
           <span style={{ width: 24, display: 'flex', justifyContent: 'center', flexShrink: 0, marginTop: 0 }}><svg width="20" height="19" viewBox="0 0 24 23" fill="none"><path d="M4.33333 9.58333V20.125H19.6667V9.58333M9.60417 20.125V11.9792H14.3958V20.125M4.8125 2.875H11.5208H19.1875L20.625 7.1875V8.14583C20.625 10.0625 17.75 10.0625 17.75 8.14583C17.75 10.0625 14.875 10.0625 14.875 8.14583C14.875 10.0625 12 10.0625 12 8.14583C12 10.0625 9.125 10.0625 9.125 8.14583C9.125 10.0625 6.25 10.0625 6.25 8.14583C6.25 10.0625 3.375 10.0625 3.375 8.14583V7.1875L4.8125 2.875Z" stroke="#002D73" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
           {(() => {
             const inf = window.BBAvail ? window.BBAvail.info(AV.inStock, AV.shown) : { title: '', sub: '', tone: AV.inStock ? 'in' : 'out', icon: 'pin' };
@@ -512,10 +574,46 @@ function BuyBox({ bundleMode, onOpenSheet, onOpenCondition }) {
             );
           })()}
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#545F71" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0, alignSelf: 'center', marginLeft: 'auto' }}><polyline points="9 6 15 12 9 18"></polyline></svg>
-        </div>
+        </div>}
       </div>
 
+      {optFly && (
+        <OptionsFlyout title={optFly === 'storage' ? 'Odaberi memoriju' : 'Odaberi stanje'} onClose={() => setOptFly(null)}>
+          {optFly === 'storage' ? STORAGE.map(s => {
+            const na = STORAGE_NA.includes(s), on = storage === s;
+            return (
+              <button key={s} disabled={na} onClick={() => { setStorage(s); setOptFly(null); }} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: '16px', borderRadius: 12, textAlign: 'left', fontFamily: 'inherit', cursor: na ? 'default' : 'pointer',
+                border: on ? '2px solid #002D73' : na ? '1px dashed #C7C7CD' : '1px solid #E3E4E9', background: on ? '#EEF2FB' : na ? '#F6F6F8' : '#fff', margin: on ? 0 : 1 }}>
+                <span style={{ fontSize: 15, fontWeight: 700, color: na ? '#8B95A5' : '#101117', textDecoration: na ? 'line-through' : 'none' }}>{s.replace(/(\d)(GB|TB)/, '$1 $2')}</span>
+                <span style={{ fontSize: 14, fontWeight: na ? 400 : 700, color: na ? '#545F71' : '#101117' }}>{na ? 'Obavijesti me' : prices[s].p + ' €'}</span>
+              </button>
+            );
+          }) : allConds.map(c => {
+            const on = cond === c.id, ui = COND_UI[c.id] || { label: c.label, sub: c.sub }, price = condPrice(c.id), save = _toNum(pr.p) - _toNum(price);
+            return (
+              <button key={c.id} onClick={() => { setCond(c.id); setOptFly(null); }} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, padding: '16px', borderRadius: 12, textAlign: 'left', fontFamily: 'inherit', cursor: 'pointer',
+                border: on ? '2px solid #002D73' : '1px solid #E3E4E9', background: on ? '#EEF2FB' : '#fff', margin: on ? 0 : 1 }}>
+                <span style={{ display: 'flex', flexDirection: 'column', gap: 3, minWidth: 0 }}>
+                  <span style={{ fontSize: 15, fontWeight: 600, color: '#101117' }}>{ui.label}</span>
+                  {ui.save && save > 0 ? <span style={{ fontSize: 13, fontWeight: 600, color: '#0B7A48' }}>Ušteda {_f(save)} €</span> : <span style={{ fontSize: 13, color: '#545F71' }}>{ui.sub || c.sub}</span>}
+                </span>
+                <span style={{ fontSize: 15, fontWeight: 700, color: '#101117', whiteSpace: 'nowrap' }}>{price} €</span>
+              </button>
+            );
+          })}
+        </OptionsFlyout>
+      )}
+
       {/* Qty + CTA (blue) */}
+      {PT === 'marketplace' && (
+        <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start', background: '#EBF3FE', borderRadius: 12, padding: '12px 14px' }}>
+          <svg width="22" height="22" viewBox="0 0 18 18" fill="none" style={{ flexShrink: 0 }}><path d="M3 7.5V15.75H15V7.5M7.125 15.75V9.375H10.875V15.75M3.375 2.25H8.625H14.625L15.75 5.625V6.375C15.75 7.875 13.5 7.875 13.5 6.375C13.5 7.875 11.25 7.875 11.25 6.375C11.25 7.875 9 7.875 9 6.375C9 7.875 6.75 7.875 6.75 6.375C6.75 7.875 4.5 7.875 4.5 6.375C4.5 7.875 2.25 7.875 2.25 6.375V5.625L3.375 2.25Z" stroke="#0050A0" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4, minWidth: 0 }}>
+            <span style={{ fontSize: 14, fontWeight: 700, color: '#101117' }}>Marketplace ponuda</span>
+            <span style={{ fontSize: 12, color: '#101117', lineHeight: 1.5 }}>Ovaj proizvod prodaje i šalje partner prodavatelj putem Big Bang Marketplacea. Dostupan je <b>samo za kupnju u webshopu</b> — nije ga moguće preuzeti ni kupiti u poslovnicama. Narudžba, dostava i povrat idu preko prodavatelja.</span>
+          </div>
+        </div>
+      )}
       <button onClick={() => window.BBCart && window.BBCart.open({ img: pv('img', 'images/pdp/main/galaxy-s24-yellow.png'), name: pv('name', 'Samsung Galaxy S24+ 5G, 12/256 GB, Amber Yellow'), price: pv('price', '1.299,00'), old: pv('old', '1.299,99') })}
         className="bbcta" style={{ width: '100%', height: 54, color: '#fff', border: 'none', borderRadius: 27, fontSize: 16, fontWeight: 600, letterSpacing: '-0.01em', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, cursor: 'pointer', fontFamily: 'inherit' }}>
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 4h2l2.4 10.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.76L20 8H6.2"></path><circle cx="9" cy="19" r="1.5"></circle><circle cx="17" cy="19" r="1.5"></circle></svg>
@@ -523,7 +621,7 @@ function BuyBox({ bundleMode, onOpenSheet, onOpenCondition }) {
       </button>
 
 
-      <BuyBoxExtras seller={currentOffer.seller} offerCount={CONDITIONS.reduce((n, c) => n + c.offers.length, 0) - 1} fromPrice={condPrice('popravljeno')} onAllOffers={() => onOpenSheet('alloffers')} onNotice={() => window.BBEU && window.BBEU.openNotice()} />
+      <BuyBoxExtras type={PT} seller={PT === 'marketplace' ? 'Dormeo Partner d.o.o.' : currentOffer.seller} offerCount={PT !== 'default' ? 0 : CONDITIONS.reduce((n, c) => n + c.offers.length, 0) - 1} fromPrice={condPrice('popravljeno')} onAllOffers={() => onOpenSheet('alloffers')} onNotice={() => window.BBEU && window.BBEU.openNotice()} />
     </div>
   );
 }
@@ -531,13 +629,13 @@ function BuyBox({ bundleMode, onOpenSheet, onOpenCondition }) {
 
 
 // ─── Under the CTA: seller line, USP strip, services & warranty ───
-function BuyBoxExtras({ seller, offerCount, fromPrice, onAllOffers, onNotice }) {
-  const [prot, setProt] = React.useState('none');
+function BuyBoxExtras({ type = 'default', seller, offerCount, fromPrice, onAllOffers, onNotice }) {
+  const [protMap, setProtMap] = React.useState({});
   const [svc, setSvc] = React.useState({});
   const navy = '#002D73';
   const ic = (d) => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={navy} strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">{d}</svg>;
   const usps = [
-    { icon: ic(<><path d="M9 14 4 9l5-5"></path><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"></path></>), t: '30 dana', s: 'besplatan povrat' },
+    { icon: ic(<><path d="M9 14 4 9l5-5"></path><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"></path></>), t: type === 'marketplace' ? '14 dana' : '30 dana', s: 'besplatan povrat' },
     { icon: ic(<><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></>), t: '2 godine', s: 'zakonsko jamstvo' },
     { icon: ic(<><rect x="2" y="5" width="20" height="14" rx="2"></rect><path d="M2 10h20"></path></>), t: 'Kartice, rate', s: 'ili pouzećem' },
   ];
@@ -570,17 +668,25 @@ function BuyBoxExtras({ seller, offerCount, fromPrice, onAllOffers, onNotice }) 
         ))}
       </div>
       <GaranBadge />
-      <div style={{ background: '#F1F1F4', margin: '0 -14px -24px', padding: '22px 14px 24px' }}>
+      {type === 'default' && <ChargerBox included={false} />}
+      {(type === 'default' || type === 'bundle') && <div style={{ background: '#F1F1F4', margin: '0 -14px -24px', padding: '22px 14px 24px' }}>
         <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 8 }}>
           <span style={{ fontSize: 17, fontWeight: 700, color: '#101117' }}>Usluge i jamstvo</span>
           <span style={{ fontSize: 12, color: '#545F71' }}>dodaje se uz uređaj</span>
         </div>
         <div style={head}>Sigurnost</div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {prots.map(p => {
-            const on = prot === p.id;
+        <div style={{ display: 'flex', flexDirection: 'column', gap: type === 'bundle' ? 18 : 10 }}>
+          {(type === 'bundle' ? [
+            { id: 'ps5', name: 'PlayStation 5 Digital Chassis', prices: ['13,99 €', '20,99 €', '89,99 €'] },
+            { id: 'ds', name: 'DualSense bežični kontroler', prices: ['4,99 €', '7,99 €', '24,99 €'] }
+          ] : [{ id: 'main', name: '', prices: null }]).map(g => (
+          <div key={g.id} style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {g.name && <div style={{ fontSize: 14, fontWeight: 700, color: '#101117' }}>Za: {g.name}</div>}
+          {prots.map((p, pi) => {
+            const on = (protMap[g.id] || 'none') === p.id;
+            const price = g.prices && p.id !== 'none' ? g.prices[pi] : p.price;
             return (
-              <div key={p.id} role="radio" aria-checked={on} onClick={() => setProt(p.id)} style={card(on)}>
+              <div key={p.id} role="radio" aria-checked={on} onClick={() => setProtMap(mm => ({ ...mm, [g.id]: p.id }))} style={card(on)}>
                 <span style={{ width: 22, height: 22, borderRadius: '50%', border: on ? '2px solid ' + navy : '1.5px solid #8B95A5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, background: '#fff' }}>
                   {on && <span style={{ width: 12, height: 12, borderRadius: '50%', background: navy }}></span>}
                 </span>
@@ -589,11 +695,14 @@ function BuyBoxExtras({ seller, offerCount, fromPrice, onAllOffers, onNotice }) 
                   {p.badge && <span style={{ alignSelf: 'flex-start', background: navy, color: '#fff', fontSize: 11, fontWeight: 600, padding: '2px 7px', borderRadius: 4 }}>{p.badge}</span>}
                   {p.sub && <span style={{ fontSize: 12, color: '#545F71', lineHeight: 1.45 }}>{p.sub}</span>}
                 </span>
-                <span style={{ fontSize: 14, fontWeight: 700, color: p.free ? '#0B7A48' : '#101117', whiteSpace: 'nowrap', flexShrink: 0 }}>{p.price}</span>
+                <span style={{ fontSize: 14, fontWeight: 700, color: p.free ? '#0B7A48' : '#101117', whiteSpace: 'nowrap', flexShrink: 0 }}>{price}</span>
               </div>
             );
           })}
+          </div>
+          ))}
         </div>
+        {type !== 'bundle' && <>
         <div style={head}>Usluge</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
           {svcs.map(s => {
@@ -620,7 +729,8 @@ function BuyBoxExtras({ seller, offerCount, fromPrice, onAllOffers, onNotice }) 
             <span style={{ fontSize: 14, fontWeight: 700, color: '#0B7A48', whiteSpace: 'nowrap', flexShrink: 0 }}>Procijeni ›</span>
           </div>
         </div>
-      </div>
+        </>}
+      </div>}
     </div>
   );
 }
@@ -691,9 +801,9 @@ function Accordion({ title, defaultOpen = false, children }) {
   return (
     <div style={{ borderBottom: `1px solid ${T.border}` }}>
       <button onClick={() => setOpen(o => !o)} style={{
-        width: '100%', padding: '14px 14px', background:'none', border:'none',
+        width: '100%', padding: '16px 14px', background:'none', border:'none',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        fontSize: 13, fontWeight: 600, color: T.text }}>
+        fontSize: 17, fontWeight: 700, color: T.text, fontFamily: 'inherit', textAlign: 'left' }}>
         {title}
         <span style={{ color: T.sub, transform: open ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s', display:'flex' }}>
           <Icon.Chevron dir="down" s={14}/>
@@ -718,7 +828,7 @@ function InfoSection({ bundleMode }) {
         )}
       </Accordion>
       <Accordion title="Specifikacije">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px 12px', fontSize: 12 }}>
+        <div style={{ border: `1px solid ${T.border}`, borderRadius: 8, overflow: 'hidden', fontSize: 12 }}>
           {(bundleMode ? [
             ['Konzola', 'PS5 Digital'], ['Memorija', '825 GB SSD'], ['Razlučivost', '4K @ 120Hz'],
             ['HDR', 'HDR10'], ['Kontroleri', '2× DualSense'], ['Težina', '3.4 kg'],
@@ -726,11 +836,11 @@ function InfoSection({ bundleMode }) {
             ['Zaslon', '6.7" Dynamic AMOLED 2X'], ['Rezolucija', '3120 × 1440'], ['Procesor', 'Exynos 2400'],
             ['RAM', '12 GB'], ['Pohrana', '256 GB'], ['Glavna kamera', '50 MP + OIS'],
             ['Baterija', '4900 mAh'], ['OS', 'Android 14, One UI 6.1'],
-          ]).map(([k,v]) => (
-            <React.Fragment key={k}>
-              <span style={{ color: T.sub }}>{k}</span>
-              <span style={{ fontWeight: 500 }}>{v}</span>
-            </React.Fragment>
+          ]).map(([k,v], i, arr) => (
+            <div key={k} style={{ display: 'grid', gridTemplateColumns: '42% 1fr', background: i % 2 === 0 ? '#fff' : '#F8F8FC', borderBottom: i < arr.length - 1 ? `1px solid ${T.border}` : 'none' }}>
+              <span style={{ padding: '10px 12px', fontWeight: 600, color: T.sub }}>{k}</span>
+              <span style={{ padding: '10px 12px', color: T.text, lineHeight: 1.45 }}>{v}</span>
+            </div>
           ))}
         </div>
       </Accordion>
@@ -804,23 +914,27 @@ function BundleStrip() {
   ];
   const total = items.filter((_, i) => sel.includes(i)).reduce((s, x) => s + x.price, 0);
   return (
-    <div style={{ background: '#fff', marginTop: 10, padding: '16px 14px' }}>
-      <h2 style={{ fontSize: 14, fontWeight: 700, marginBottom: 12 }}>Često kupljeno zajedno</h2>
-      <div style={{ display:'flex', flexDirection:'column', gap: 10, marginBottom: 14 }}>
+    <div style={{ background: T.bg, padding: '8px 14px 24px' }}>
+      <h2 style={{ fontSize: 17, fontWeight: 700, marginBottom: 12 }}>Često kupljeno zajedno</h2>
+      <div style={{ display:'flex', flexDirection:'column', gap: 10, marginBottom: 10 }}>
         {items.map((it, i) => (
-          <label key={i} style={{ display:'flex', alignItems:'center', gap: 10, cursor: i === 0 ? 'default' : 'pointer' }}>
+          <label key={i} style={{ position: 'relative', display:'flex', alignItems:'center', gap: 12, padding: 12, background: '#fff', borderRadius: 12, cursor: i === 0 ? 'default' : 'pointer' }}>
             <input type="checkbox" checked={sel.includes(i)} disabled={i === 0}
               onChange={() => setSel(s => s.includes(i) ? s.filter(x => x !== i) : [...s, i])}
-              style={{ width: 16, height: 16 }}/>
+              style={{ position: 'absolute', opacity: 0, width: 0, height: 0 }}/>
+            <span style={{ width: 22, height: 22, borderRadius: 4, border: sel.includes(i) ? 'none' : '1.5px solid #8B95A5', background: sel.includes(i) ? (i === 0 ? '#8B95A5' : '#002D73') : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxSizing: 'border-box' }}>
+              {sel.includes(i) && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>}
+            </span>
             <div style={{ width: 44, height: 44, borderRadius: 8, background: '#F3F3F7', flexShrink: 0 }}/>
             <div style={{ flex: 1, fontSize: 12 }}>
+              {i === 0 && <div style={{ fontSize: 11, fontWeight: 600, color: T.sub, textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: 2 }}>Ovaj proizvod</div>}
               <div style={{ fontWeight: 500, lineHeight: 1.3 }}>{it.name}</div>
               <div style={{ color: T.red, fontWeight: 700, marginTop: 2 }}>{it.price.toFixed(2).replace('.',',')} €</div>
             </div>
           </label>
         ))}
       </div>
-      <div style={{ background: T.bg, borderRadius: 8, padding: 12, display:'flex', alignItems:'center', justifyContent:'space-between' }}>
+      <div style={{ background: '#fff', borderRadius: 12, padding: '12px 12px 12px 14px', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
         <div>
           <div style={{ fontSize: 11, color: T.sub }}>Ukupno ({sel.length})</div>
           <div style={{ fontSize: 18, fontWeight: 700, color: T.text, letterSpacing: '-0.02em' }}>{total.toFixed(2).replace('.',',')} €</div>
@@ -1187,7 +1301,36 @@ function AllOffersBody({ bundleMode }) {
 }
 
 // ─── App ──────────────────────────────────────────────────────────
+
+function DealsBody() {
+  const [copied, setCopied] = React.useState(false);
+  const deals = [
+    { tag: 'Promo kod', tone: ['#E6F5EC', '#0B7A48'], title: 'Dodatnih 15% popusta na ovaj proizvod', text: 'Upišite kod u košarici. Vrijedi do 31.10.2026. ili do isteka zaliha.', code: 'SAMSUNG15' },
+    { tag: 'Poklon', tone: ['#EBF3FE', '#0050A0'], title: 'Samsung Galaxy Buds FE slušalice gratis', text: 'Poklon se automatski dodaje u košaricu uz kupnju uređaja.' },
+    { tag: 'Zaštita', tone: ['#EBF3FE', '#0050A0'], title: 'Samsung Care+ 2 godine uz 50% popusta', text: 'Kvar, slučajni pad, voda i razbijen zaslon. Aktivacija unutar 60 dana od kupnje.' },
+    { tag: 'Otkup', tone: ['#EBF3FE', '#0050A0'], title: 'Trade-in: do 200 € za stari mobitel', text: 'Procijenite vrijednost online, a iznos se umanjuje od cijene novog uređaja.' }
+  ];
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      {deals.map((d, i) => (
+        <div key={i} style={{ border: '1px solid #E3E4E9', borderRadius: 12, padding: 16, display: 'flex', flexDirection: 'column', gap: 8, background: '#fff' }}>
+          <span style={{ alignSelf: 'flex-start', background: d.tone[0], color: d.tone[1], fontSize: 11, fontWeight: 700, padding: '3px 8px', borderRadius: 4, letterSpacing: '0.02em' }}>{d.tag}</span>
+          <div style={{ fontSize: 14, fontWeight: 700, color: '#101117', lineHeight: 1.35 }}>{d.title}</div>
+          <div style={{ fontSize: 12, color: '#545F71', lineHeight: 1.5 }}>{d.text}</div>
+          {d.code && (
+            <div style={{ marginTop: 4, display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+              <span style={{ border: '1px dashed #9FD0B4', background: '#E6F5EC', color: '#0B7A48', fontSize: 13, fontWeight: 800, letterSpacing: '0.06em', padding: '6px 12px', borderRadius: 6 }}>{d.code}</span>
+              <button onClick={() => { try { navigator.clipboard && navigator.clipboard.writeText(d.code); } catch (e) {} setCopied(true); setTimeout(() => setCopied(false), 1600); }} style={{ background: 'none', border: 'none', padding: 0, fontSize: 12, fontWeight: 600, color: '#0050A0', textDecoration: 'underline', textUnderlineOffset: 2, cursor: 'pointer', fontFamily: 'inherit' }}>{copied ? 'Kopirano' : 'Kopiraj kod'}</button>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 const SHEETS = {
+  deals: { title: 'Posebne pogodnosti', icon: <Icon.Tag s={20}/>, Body: DealsBody },
   promo: { title: 'Dostupni promo kodovi', icon: <Icon.Tag s={20}/>, Body: PromoBody },
   delivery: { title: 'Dostava', icon: <Icon.Truck s={20}/>, Body: DeliveryBody },
   pickup: { title: 'Raspoloživost u poslovnicama', icon: <Icon.Pin s={20}/>, Body: PickupBody },
@@ -1200,10 +1343,14 @@ const SHEETS = {
 
 
 let AV = { inStock: true, shown: true };
-function PDPBodyMobile({ bundleMode = false, product = null, availStock = true, availShown = true }) {
+function PDPBodyMobile({ bundleMode = false, product = null, availStock = true, availShown = true, productType = 'default' }) {
   P = product && product.name ? product : null;
+  PT = productType === 'bundle' ? 'bundle' : TYPE_P[productType] ? productType : 'default';
+  if (PT !== 'default') P = TYPE_P[PT];
+  if (PT === 'bundle') bundleMode = true;
   AV = { inStock: availStock !== false, shown: availShown !== false };
   const [sheet, setSheet] = React.useState(null);
+  React.useEffect(() => { const h = () => setSheet('deals'); window.addEventListener('bb-open-promo', h); return () => window.removeEventListener('bb-open-promo', h); }, []);
   const SheetCfg = sheet ? SHEETS[sheet] : null;
   return (
     <div style={{ width: '100%', background: T.bg }}>
@@ -1211,11 +1358,8 @@ function PDPBodyMobile({ bundleMode = false, product = null, availStock = true, 
       <ProductHead bundleMode={bundleMode}/>
       <Gallery bundleMode={bundleMode}/>
       <BuyBox bundleMode={bundleMode} onOpenSheet={setSheet} onOpenCondition={() => setSheet('alloffers')}/>
-      <InfoList onOpenSheet={setSheet}/>
+      {PT === 'default' && <BundleStrip/>}
       <InfoSection bundleMode={bundleMode}/>
-      <Accessories/>
-      <BundleStrip/>
-      <ExtraServicesSection/>
       <MoreOffers onOpenAll={() => setSheet('alloffers')}/>
       {SheetCfg && (
         <BottomSheet title={SheetCfg.title} icon={SheetCfg.icon} onClose={() => setSheet(null)}>
