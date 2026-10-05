@@ -16,7 +16,7 @@
 
 <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
 <div style="padding-bottom:56px">
-  <x-import component="PDPBody" from="./Components/pdp/PDPBody.jsx" bundle-mode="{{ bundleMode }}" sticky-cta="{{ stickyCta }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" product="{{ product }}" product-type="{{ productType }}" hint-size="100%,1800px"></x-import>
+  <x-import component="PDPBody" from="./Components/pdp/PDPBody.jsx" bundle-mode="{{ bundleMode }}" sticky-cta="{{ stickyCta }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" product="{{ product }}" product-type="{{ productType }}" on-open-brand="{{ openBrand }}" hint-size="100%,1800px"></x-import>
 
   <div style="display:flex;flex-direction:column;gap:16px;margin-top:8px">
     <dc-import name="Components/ProductCarousel" variant="desktop" title="Slični proizvodi" products="{{ similar }}" on-open-product="{{ openProduct }}" hint-size="100%,560px"></dc-import>
@@ -27,7 +27,7 @@
 
 <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
 <div>
-  <x-import component="PDPBodyMobile" from="./Components/pdp/PDPBodyMobile.jsx" bundle-mode="{{ bundleMode }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" product="{{ product }}" product-type="{{ productType }}" hint-size="100%,2400px"></x-import>
+  <x-import component="PDPBodyMobile" from="./Components/pdp/PDPBodyMobile.jsx" bundle-mode="{{ bundleMode }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" product="{{ product }}" product-type="{{ productType }}" on-open-brand="{{ openBrand }}" hint-size="100%,2400px"></x-import>
 
   <div style="background:#fff;margin-top:10px;padding:16px 0">
     <dc-import name="Components/ProductCarousel" variant="mobile" title="Slični proizvodi" products="{{ similar }}" on-open-product="{{ openProduct }}" hint-size="100%,300px"></dc-import>
@@ -51,7 +51,8 @@
   &quot;stickyCta&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; },
   &quot;product&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;any&quot; },
   &quot;productType&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;default&quot;, &quot;klima&quot;, &quot;minimal&quot;, &quot;marketplace&quot;, &quot;bundle&quot;], &quot;default&quot;: &quot;default&quot;, &quot;tsType&quot;: &quot;string&quot; },
-  &quot;onOpenProduct&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(p: any) =&gt; void&quot; }
+  &quot;onOpenProduct&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(p: any) =&gt; void&quot; },
+  &quot;onOpenBrand&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(brand: string) =&gt; void&quot; }
 }">
 const SIMILAR = [
   { img: 'images/pdp/similar/s24-fe.png', name: 'Samsung Galaxy S24 FE 5G 8/256GB', price: '749,99 €', old: '879,99 €', disc: '130,00 €', rate: '62,49 € / 12 rata' },
@@ -92,6 +93,7 @@ class Component extends DCLogic {
       productType: this.props.productType || 'default',
       product: this.props.product || null,
       openProduct: this.props.onOpenProduct || (() => {}),
+      openBrand: this.props.onOpenBrand || (() => {}),
       similar: SIMILAR,
       sponsored: SPONSORED,
       crossSell: CROSS_SELL

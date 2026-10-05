@@ -44,7 +44,7 @@
 
   <sc-if value="{{ isCategory }}" hint-placeholder-val="{{ false }}">
     <div class="pgin">
-      <dc-import name="Pages/Category body" variant="desktop" on-promos="{{ goPromos }}" card-style="{{ cardStyle }}" level="{{ catLevel }}" cat="{{ category }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,3200px"></dc-import>
+      <dc-import name="Pages/Category body" variant="desktop" on-promos="{{ goPromos }}" card-style="{{ cardStyle }}" level="{{ catLevel }}" minimal="{{ catMinimal }}" cat="{{ category }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,3200px"></dc-import>
     </div>
   </sc-if>
 
@@ -54,9 +54,15 @@
     </div>
   </sc-if>
 
+  <sc-if value="{{ isBrand }}" hint-placeholder-val="{{ false }}">
+    <div class="pgin">
+      <dc-import name="Pages/Category body" variant="desktop" on-promos="{{ goPromos }}" card-style="{{ cardStyle }}" brand="{{ brand }}" many-cats="{{ brandMany }}" tile-style="{{ brandTiles }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,3200px"></dc-import>
+    </div>
+  </sc-if>
+
   <sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
     <div class="pgin">
-      <dc-import name="Pages/Product body" variant="desktop" product="{{ product }}" bundle-mode="{{ bundleMode }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" sticky-cta="{{ stickyCta }}" product-type="{{ pdpType }}" on-open-product="{{ openProduct }}" hint-size="100%,3200px"></dc-import>
+      <dc-import name="Pages/Product body" variant="desktop" product="{{ product }}" bundle-mode="{{ bundleMode }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" sticky-cta="{{ stickyCta }}" product-type="{{ pdpType }}" on-open-product="{{ openProduct }}" on-open-brand="{{ openBrand }}" hint-size="100%,3200px"></dc-import>
     </div>
   </sc-if>
 
@@ -147,7 +153,7 @@
 
       <sc-if value="{{ isCategory }}" hint-placeholder-val="{{ false }}">
         <div class="pgin">
-          <dc-import name="Pages/Category body" variant="mobile" on-promos="{{ goPromos }}" card-style="{{ cardStyle }}" on-overlay="{{ setOverlay }}" level="{{ catLevel }}" cat="{{ category }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,4000px"></dc-import>
+          <dc-import name="Pages/Category body" variant="mobile" on-promos="{{ goPromos }}" card-style="{{ cardStyle }}" on-overlay="{{ setOverlay }}" level="{{ catLevel }}" minimal="{{ catMinimal }}" cat="{{ category }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,4000px"></dc-import>
         </div>
       </sc-if>
 
@@ -157,9 +163,15 @@
         </div>
       </sc-if>
 
+      <sc-if value="{{ isBrand }}" hint-placeholder-val="{{ false }}">
+        <div class="pgin">
+          <dc-import name="Pages/Category body" variant="mobile" on-promos="{{ goPromos }}" card-style="{{ cardStyle }}" on-overlay="{{ setOverlay }}" brand="{{ brand }}" many-cats="{{ brandMany }}" tile-style="{{ brandTiles }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,4000px"></dc-import>
+        </div>
+      </sc-if>
+
       <sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
         <div class="pgin">
-          <dc-import name="Pages/Product body" variant="mobile" product="{{ product }}" bundle-mode="{{ bundleMode }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" sticky-cta="{{ stickyCta }}" product-type="{{ pdpType }}" on-open-product="{{ openProduct }}" hint-size="100%,4000px"></dc-import>
+          <dc-import name="Pages/Product body" variant="mobile" product="{{ product }}" bundle-mode="{{ bundleMode }}" avail-stock="{{ availStock }}" avail-shown="{{ availShown }}" sticky-cta="{{ stickyCta }}" product-type="{{ pdpType }}" on-open-product="{{ openProduct }}" on-open-brand="{{ openBrand }}" hint-size="100%,4000px"></dc-import>
         </div>
       </sc-if>
 
@@ -356,6 +368,9 @@ class Component extends DCLogic {
       availShown: true,
       stickyCta: true,
       pdpType: 'default',
+      brandMany: true,
+      brandTiles: 'pills',
+      catMinimal: false,
       cartEmpty: false,
       wishEmpty: false,
       kitBenefits: '1',
@@ -466,6 +481,10 @@ class Component extends DCLogic {
     this.setState({ menuOpen: false, page: 'contact' }, this.toTop);
   };
 
+  openBrand = (name) => {
+    this.setState({ menuOpen: false, page: 'brand', brand: name || 'Samsung' }, this.toTop);
+  };
+
   goPromos = (e) => {
     if (e && e.preventDefault) e.preventDefault();
     this.setState({ menuOpen: false, page: 'promos' }, this.toTop);
@@ -567,6 +586,9 @@ class Component extends DCLogic {
       isProduct: s.page === 'product',
       isCategory: s.page === 'category',
       isSearch: s.page === 'search',
+      isBrand: s.page === 'brand',
+      brand: s.brand || 'Samsung',
+      openBrand: this.openBrand,
       isCart: s.page === 'cart',
       isPay: s.page === 'pay',
       isContact: s.page === 'contact',
@@ -626,6 +648,9 @@ class Component extends DCLogic {
       availShown: tw.availShown,
       stickyCta: true,
       pdpType: tw.pdpType || 'default',
+      brandMany: tw.brandMany !== false,
+      brandTiles: tw.brandTiles === 'tiles' ? 'tiles' : 'pills',
+      catMinimal: !!tw.catMinimal,
       cartUnavailable: tw.cartUnavailable,
       cartEmpty: tw.cartEmpty,
 
@@ -690,6 +715,16 @@ class Component extends DCLogic {
             onChange: (e) => this.setTweak('pdpType', e.target.value),
             options: [['default', 'Otvoreni proizvod'], ['klima', 'Klima uređaj (montaža)'], ['minimal', 'Minimalni proizvod'], ['marketplace', 'Marketplace – madrac'], ['bundle', 'Bundle – PS5 + DualSense']].map(o => ({ value: o[0], label: o[1] }))
           });
+        }
+        if (s.page === 'category' && ((s.category && s.category.level) || 1) === 3) {
+          list.push(pair('Prikaz proizvoda', 'Uobičajeno', 'Minimalno', !tw.catMinimal,
+            () => this.setTweak('catMinimal', false), () => this.setTweak('catMinimal', true)));
+        }
+        if (s.page === 'brand') {
+          list.push(pair('Kategorije brenda', 'Uobičajeno', 'Puno (60+)', tw.brandMany === false,
+            () => this.setTweak('brandMany', false), () => this.setTweak('brandMany', true)));
+          list.push(pair('Prikaz kategorija', 'Pilule', 'Pločice', tw.brandTiles !== 'tiles',
+            () => this.setTweak('brandTiles', 'pills'), () => this.setTweak('brandTiles', 'tiles')));
         }
         if (s.page === 'profile' || s.page === 'auth') {
           list.push(pair('Status članstva', 'UAU klub član', 'Nije član', tw.klub,

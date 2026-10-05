@@ -52,6 +52,7 @@ button{font-family:'Inter',sans-serif;cursor:pointer}
 .imz img,.imz .pimg{transition:transform .3s cubic-bezier(0,0,.5,1)}
 .imz:hover img,.imz:hover .pimg{transform:scale(1.03)}
 .imz{transition:transform .25s cubic-bezier(0,0,.5,1)}
+.imz:hover img.nozm{transform:none}
 /* body[data-cardhover="card"] — whole card scales instead */
 body[data-cardhover="card"] .imz:hover img,
 body[data-cardhover="card"] .imz:hover .pimg{transform:none}

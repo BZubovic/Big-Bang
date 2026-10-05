@@ -4,6 +4,23 @@ const pv = (key, fallback) => (P && P[key]) || fallback;
 // ─── Prototype product types (shell "Proizvod" setting) ───
 let PT = 'default';
 const BUNDLE_TITLE = 'PlayStation 5 Digital Chassis + dodatni Dual Sense Wireless Controller';
+
+const BRAND_BY_TYPE = { default: 'Samsung', klima: 'Hisense', minimal: 'Philips', marketplace: 'Dormeo', bundle: 'Sony PlayStation' };
+const BRANDS = ['Samsung','Apple','Xiaomi','Huawei','Honor','Motorola','Nokia','Oppo','Realme','OnePlus','Google','Sony','LG','Philips','Hisense','Gorenje','Bosch','Siemens','Beko','Electrolux','AEG','Whirlpool','Candy','Haier','Tesla','Vivax','TCL','Panasonic','Dyson','Rowenta','Tefal','Braun','DeLonghi','Krups','Lenovo','HP','Dell','Asus','Acer','MSI','Microsoft','Nintendo','PlayStation','JBL','Bose','Dormeo','Garmin','Canon','Nikon','Gopro'];
+let OPEN_BRAND = null;
+function productBrand() {
+  if (P && P.brand) return P.brand;
+  if (PT !== 'default' || !P) return BRAND_BY_TYPE[PT] || 'Samsung';
+  const w = String(P.name || '').split(/[\s,/]+/).map(x => x.toLowerCase());
+  const hit = BRANDS.find(b => w.includes(b.toLowerCase()));
+  return hit || 'Samsung';
+}
+function BrandLink({ size = 13 }) {
+  return (
+    <span style={{ fontSize: size, color: '#545F71', whiteSpace: 'nowrap' }}>Brend: <a href="#" onClick={e => { e.preventDefault(); OPEN_BRAND && OPEN_BRAND(productBrand()); }} className="bb-brand"
+      style={{ fontWeight: 600, color: '#0050A0', textDecoration: 'underline', textUnderlineOffset: 2 }}>{productBrand()}</a></span>
+  );
+}
 const TYPE_P = {
   klima: { name: 'Klima uređaj HISENSE Easy Smart 3,5 kW', img: 'images/prod-hisense-klima.webp', price: '529,00', old: '619,00' },
   minimal: { name: 'Brijač PHILIPS S5588/38 Series 5000', img: 'images/prod-philips-brijac.webp', price: '129,99', old: '149,99' },
@@ -706,7 +723,7 @@ function ProductHead({ bundleMode }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
       {/* Title */}
-      <h1 style={{ fontSize: 22, fontWeight: 600, color: T.text, lineHeight: 1.25, letterSpacing: '-0.02em', marginBottom: 10, margin: "0px" }}>
+      <h1 style={{ fontSize: 22, fontWeight: 600, color: T.text, lineHeight: 1.25, letterSpacing: '-0.02em', margin: 0 }}>
         {bundleMode ? BUNDLE_TITLE : pv('name', 'Samsung Galaxy S24+ 5G, 12/256 GB, Amber Yellow')}
       </h1>
 
@@ -715,6 +732,8 @@ function ProductHead({ bundleMode }) {
         <Stars rating={4.3} />
         <span style={{ fontSize: 13, fontWeight: 600, color: T.text }}>4.3</span>
         <a href="#reviews" style={{ fontSize: 13, color: T.blue, textDecoration: 'none' }}>384 recenzija</a>
+        <span style={{ width: 4, height: 4, borderRadius: '50%', background: T.borderSub }} />
+        <BrandLink size={13}/>
         <span style={{ width: 4, height: 4, borderRadius: '50%', background: T.borderSub }} />
         <span style={{ fontSize: 12, color: T.sub }}>ID: 500000342</span>
       </div>
@@ -2311,7 +2330,8 @@ function DesktopStickyBar({ bundleMode, visible }) {
 
 
 let AV = { inStock: true, shown: true };
-function PDPBody({ bundleMode = false, product = null, availStock = true, availShown = true, stickyCta = true, productType = 'default' }) {
+function PDPBody({ bundleMode = false, product = null, availStock = true, availShown = true, stickyCta = true, productType = 'default', onOpenBrand = null }) {
+  OPEN_BRAND = onOpenBrand;
   P = product && product.name ? product : null;
   PT = productType === 'bundle' ? 'bundle' : TYPE_P[productType] ? productType : 'default';
   if (PT !== 'default') P = TYPE_P[PT];

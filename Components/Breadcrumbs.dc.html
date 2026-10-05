@@ -26,11 +26,11 @@
 </sc-if>
 
 <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
-<nav style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12px;color:#545F71;padding-bottom:22px">
+<nav ref="{{ mobRef }}" class="nsb" style="display:flex;align-items:center;gap:6px;flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;font-size:12px;color:#545F71;margin-bottom:22px;min-height:20px">
   <sc-for list="{{ crumbs }}" as="c" hint-placeholder-count="2">
     <a href="#" onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</a>
     <sc-if value="{{ c.sep }}" hint-placeholder-val="{{ true }}">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8B95A5" stroke-width="2.2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8B95A5" stroke-width="2.2" stroke-linecap="round" style="flex-shrink:0"><polyline points="9 18 15 12 9 6"></polyline></svg>
     </sc-if>
   </sc-for>
 </nav>
@@ -42,17 +42,22 @@
   &quot;items&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;{label: string, onClick?: () =&gt; void}[]&quot; }
 }">
 class Component extends DCLogic {
+  mobRef = React.createRef();
+  toEnd() { const el = this.mobRef.current; if (el) el.scrollLeft = el.scrollWidth; }
+  componentDidMount() { this.toEnd(); setTimeout(() => this.toEnd(), 60); }
+  componentDidUpdate() { this.toEnd(); }
   renderVals() {
     const mobile = this.props.variant === 'mobile';
     const items = this.props.items || [];
     return {
       isDesktop: !mobile,
       isMobile: mobile,
+      mobRef: this.mobRef,
       crumbs: items.map((c, i) => ({
         label: c.label,
         sep: i < items.length - 1,
         onClick: (e) => { if (e) e.preventDefault(); if (c.onClick) c.onClick(e); },
-        style: { color: i === items.length - 1 ? '#101117' : '#0050A0', fontWeight: i === items.length - 1 ? 600 : 400, textDecoration: 'none' }
+        style: { color: i === items.length - 1 ? '#101117' : '#0050A0', fontWeight: i === items.length - 1 ? 600 : 400, textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0 }
       }))
     };
   }

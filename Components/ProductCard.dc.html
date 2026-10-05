@@ -83,7 +83,7 @@
     </div>
     <div style="margin-top:1px;height:24px;padding-bottom:4px;box-sizing:border-box;display:flex;align-items:center;gap:8px;min-width:0;font-size:13px;line-height:20px;color:#545F71;white-space:nowrap">
       <svg width="13" height="13" viewBox="2.1 2.1 18.8 18.8" fill="none" style="flex-shrink:0;color:#7F8795"><path d="M3.83333 9.58333V20.125H19.1667V9.58333M9.10417 20.125V11.9792H13.8958V20.125M4.3125 2.875H11.0208H18.6875L20.125 7.1875V8.14583C20.125 10.0625 17.25 10.0625 17.25 8.14583C17.25 10.0625 14.375 10.0625 14.375 8.14583C14.375 10.0625 11.5 10.0625 11.5 8.14583C11.5 10.0625 8.625 10.0625 8.625 8.14583C8.625 10.0625 5.75 10.0625 5.75 8.14583C5.75 10.0625 2.875 10.0625 2.875 8.14583V7.1875L4.3125 2.875Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      <span style="display:flex;gap:4px;min-width:0">Prodaje: <span style="overflow:hidden;text-overflow:ellipsis;min-width:0">{{ seller }}</span></span>
+      <span style="display:flex;gap:4px;min-width:0;flex:1">Prodaje: <span style="overflow:hidden;text-overflow:ellipsis;min-width:0">{{ seller }}</span></span>
     </div>
     <div style="margin-top:auto;padding-top:11px;display:flex;align-items:last baseline;justify-content:space-between;gap:8px">
       <div style="min-width:0">
@@ -98,15 +98,6 @@
         </div>
         <div style="margin-top:2px;font-size:20px;font-weight:800;line-height:28px;letter-spacing:-0.01em;color:#101117;white-space:nowrap">{{ price }}</div>
       </div>
-      <sc-if value="{{ c.energy }}" hint-placeholder-val="{{ true }}">
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0">
-          <span style="display:flex;height:28px">
-            <span style="width:36px;background:#00A651;color:#fff;font-size:17px;font-weight:700;display:flex;align-items:center;justify-content:center;padding-left:9px;box-sizing:border-box;clip-path:polygon(30% 0,100% 0,100% 100%,30% 100%,0 50%)">{{ c.energy }}</span>
-            <span style="width:12px;box-sizing:border-box;border:1px solid #101117;border-left:none;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:7px;font-weight:700;line-height:1.05;color:#101117"><span>A</span><span>↑</span><span>G</span></span>
-          </span>
-          <span onClick="{{ stop }}" style="font-size:10.5px;line-height:13px;color:#545F71;text-decoration:underline;text-underline-offset:2px;white-space:nowrap;cursor:pointer">Informacijski list</span>
-        </div>
-      </sc-if>
     </div>
     <sc-if value="{{ promoSlot }}" hint-placeholder-val="{{ true }}">
       <div style="margin-top:10px;height:28px;flex-shrink:0">
@@ -122,7 +113,15 @@
       </div>
     </sc-if>
     <div style="margin-top:10px;font-size:13px;font-weight:600;line-height:18px;letter-spacing:-0.01em;color:#101117;white-space:nowrap">{{ rata }}</div>
-    <div style="margin-top:4px;font-size:10px;line-height:14px;color:#8B95A5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cijena na {{ anchorDate }} {{ anchor }}</div>
+    <sc-if value="{{ showAnchor }}" hint-placeholder-val="{{ true }}"><div style="margin-top:4px;font-size:10px;line-height:14px;color:#8B95A5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cijena na {{ anchorDate }} {{ anchor }}</div></sc-if>
+    <div style="margin-top:10px;height:22px;flex-shrink:0">
+      <sc-if value="{{ c.energy }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+          <img class="nozm" src="{{ energyImg }}" alt="Energetski razred {{ c.energy }}" style="height:22px;width:auto;display:block">
+          <span onClick="{{ stop }}" style="font-size:10.5px;line-height:13px;color:#545F71;text-decoration:underline;text-underline-offset:2px;white-space:nowrap;cursor:pointer">Informacijski list</span>
+        </div>
+      </sc-if>
+    </div>
   </div>
 </a>
 </sc-if>
@@ -195,7 +194,7 @@
     </div>
     <div style="margin-top:1px;height:21px;padding-bottom:4px;box-sizing:border-box;display:flex;align-items:center;gap:6px;min-width:0;font-size:11.5px;line-height:17px;color:#545F71;white-space:nowrap">
       <svg width="11" height="11" viewBox="2.1 2.1 18.8 18.8" fill="none" style="flex-shrink:0;color:#7F8795"><path d="M3.83333 9.58333V20.125H19.1667V9.58333M9.10417 20.125V11.9792H13.8958V20.125M4.3125 2.875H11.0208H18.6875L20.125 7.1875V8.14583C20.125 10.0625 17.25 10.0625 17.25 8.14583C17.25 10.0625 14.375 10.0625 14.375 8.14583C14.375 10.0625 11.5 10.0625 11.5 8.14583C11.5 10.0625 8.625 10.0625 8.625 8.14583C8.625 10.0625 5.75 10.0625 5.75 8.14583C5.75 10.0625 2.875 10.0625 2.875 8.14583V7.1875L4.3125 2.875Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      <span style="display:flex;gap:3px;min-width:0">Prodaje: <span style="overflow:hidden;text-overflow:ellipsis;min-width:0">{{ seller }}</span></span>
+      <span style="display:flex;gap:3px;min-width:0;flex:1">Prodaje: <span style="overflow:hidden;text-overflow:ellipsis;min-width:0">{{ seller }}</span></span>
     </div>
     <div style="margin-top:auto;padding-top:9px;display:flex;align-items:last baseline;justify-content:space-between;gap:6px">
       <div style="min-width:0">
@@ -210,15 +209,6 @@
         </div>
         <div style="margin-top:4px;font-size:19px;font-weight:800;line-height:24px;letter-spacing:-0.01em;color:#101117;white-space:nowrap">{{ price }}</div>
       </div>
-      <sc-if value="{{ c.energy }}" hint-placeholder-val="{{ true }}">
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">
-          <span style="display:flex;height:23px">
-            <span style="width:30px;background:#00A651;color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;padding-left:8px;box-sizing:border-box;clip-path:polygon(30% 0,100% 0,100% 100%,30% 100%,0 50%)">{{ c.energy }}</span>
-            <span style="width:10px;box-sizing:border-box;border:1px solid #101117;border-left:none;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:6px;font-weight:700;line-height:1.05;color:#101117"><span>A</span><span>↑</span><span>G</span></span>
-          </span>
-          <span onClick="{{ stop }}" style="font-size:9.5px;line-height:12px;color:#545F71;text-decoration:underline;text-underline-offset:2px;white-space:nowrap">Informacijski list</span>
-        </div>
-      </sc-if>
     </div>
     <sc-if value="{{ promoSlot }}" hint-placeholder-val="{{ true }}">
       <div style="margin-top:8px;height:24px;flex-shrink:0">
@@ -234,7 +224,15 @@
       </div>
     </sc-if>
     <div style="margin-top:8px;font-size:11.5px;font-weight:600;line-height:16px;color:#101117;white-space:nowrap">{{ rata }}</div>
-    <div style="margin-top:3px;font-size:9px;line-height:12px;color:#8B95A5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cijena na {{ anchorDate }} {{ anchor }}</div>
+    <sc-if value="{{ showAnchor }}" hint-placeholder-val="{{ true }}"><div style="margin-top:3px;font-size:9px;line-height:12px;color:#8B95A5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cijena na {{ anchorDate }} {{ anchor }}</div></sc-if>
+    <div style="margin-top:8px;height:19px;flex-shrink:0">
+      <sc-if value="{{ c.energy }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;gap:5px;flex-shrink:0">
+          <img class="nozm" src="{{ energyImg }}" alt="Energetski razred {{ c.energy }}" style="height:19px;width:auto;display:block">
+          <span onClick="{{ stop }}" style="font-size:9.5px;line-height:12px;color:#545F71;text-decoration:underline;text-underline-offset:2px;white-space:nowrap;cursor:pointer">Informacijski list</span>
+        </div>
+      </sc-if>
+    </div>
   </div>
 </a>
 </sc-if>
@@ -244,12 +242,13 @@ class Component extends DCLogic {
   renderVals() {
     const c = this.props.card || {};
     const mobile = this.props.variant === 'mobile';
+    const energyImg = String(c.energy || '').toUpperCase() === 'G' ? 'images/energy-g.png' : 'images/energy-a.png';
     const num = (v) => parseFloat(String(v || '').replace(/[^0-9,]/g, '').replace(',', '.')) || 0;
     const fmt = (n) => {
       const [i, d] = n.toFixed(2).split('.');
       return i.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',' + d + ' €';
     };
-    const euro = (v) => (String(v).indexOf('€') > -1 ? String(v) : String(v) + ' €');
+    const euro = (v) => (/€|KM/.test(String(v)) ? String(v) : String(v) + ' €');
     const TONES = { navy: ['#002D73', '#fff'], orange: ['#F65F04', '#fff'], red: ['#DA0D00', '#fff'], blue: ['#0050A0', '#fff'], lime: ['#CDD700', '#002D73'] };
     const pillStyle = (pl, mob) => {
       const t = TONES[pl.tone] || TONES.navy;
@@ -297,7 +296,7 @@ class Component extends DCLogic {
     const rata = rateRaw ? (rateRaw.indexOf('/') > -1 ? rateRaw.replace(/\s*\/\s*/, ' / ') : euro(rateRaw) + ' / 12 rata') : '';
     const discN = c.old ? Math.round(num(c.old) - num(c.price)) : 0;
     return {
-      isDesktop: !mobile, isMobile: mobile, c: c,
+      isDesktop: !mobile, isMobile: mobile, c: c, energyImg,
       imgStyle: { width: '100%', height: '100%', backgroundImage: c.img ? 'url("' + c.img + '")' : 'none', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' },
       warrantyPos: c.cashback ? { position: 'absolute', top: 60, left: 14, zIndex: 2 } : { position: 'absolute', top: 11, left: 14, zIndex: 2 },
       warrantyPosMob: c.cashback ? { position: 'absolute', top: 52, left: 10, zIndex: 2 } : { position: 'absolute', top: 10, left: 10, zIndex: 2 },
@@ -318,7 +317,7 @@ class Component extends DCLogic {
       priceTagStyleMob: { height: 16, padding: '0 5px', borderRadius: 3, background: c.priceTagTone === 'green' ? '#0B7A48' : '#E07842', color: '#fff', fontSize: 10, fontWeight: 600, lineHeight: '16px', letterSpacing: '0.02em' },
       price: euro(c.price || ''),
       old: c.old && !isRefurb ? euro(c.old) : '',
-      disc: discN > 0 ? '-' + discN + ' €' : '',
+      disc: c.disc ? c.disc : (discN > 0 ? '-' + discN + ' €' : ''),
       hasCode: pct > 0 && !renewed,
       hasRenewed: !!renewed,
       renewedSave: renewed,
@@ -329,6 +328,7 @@ class Component extends DCLogic {
       lowest: euro(c.lowest || fmt(num(c.price) * 0.92)),
       anchor: euro(c.anchor || c.old || c.price || ''),
       anchorDate: c.anchorDate || '10.09.2026.',
+      showAnchor: !c.noAnchor,
       wish: !!this.props.wish,
       open: (e) => { if (e) e.preventDefault(); if (this.props.onOpen) this.props.onOpen(c); },
       stop: stop,

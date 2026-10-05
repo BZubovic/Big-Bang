@@ -132,7 +132,7 @@ class Component extends DCLogic {
               options: this.props.noReviews ? 0 : (i % 4 === 1 ? 6 : 0),
               renewedSave: refurb ? '-' + (Math.round(num(p.price) * 0.2)) + ',00 €' : '',
               cashback: i % 5 === 0 ? '100' : '', warranty: i % 5 === 0 ? '5' : '',
-              energy: i % 4 === 2 ? '' : 'A',
+              energy: i % 4 === 2 ? '' : (i % 3 === 1 ? 'G' : 'A'),
               pills: i === 1 ? [{ label: 'Besplatna dostava', tone: 'navy' }, { label: 'Razrezana cena', tone: 'blue' }, { label: 'Besplatna montaža', tone: 'blue' }, { label: 'Poklon uz kupnju', tone: 'red' }, { label: 'Dostava 24 h', tone: 'navy' }] : pills,
               rating: rated && !this.props.noReviews ? 4 : 0, reviews: [218, 96, 47, 312, 15, 64][i % 6],
               avail: av.text, availTone: av.tone, seller: 'Big Bang',
