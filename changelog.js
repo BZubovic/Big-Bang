@@ -1,6 +1,7 @@
 /* Prototype change log — one entry per piece of work, not per prompt.
    Shown in the "Prototype settings" panel via "View logs". */
 window.BB_CHANGELOG = [
+  { date: '06.10.2026.', title: 'Stranica proizvoda (mobilno) – ljepljivi gumb za košaricu', changes: ['Ljepljiva traka na dnu prikazuje samo gumb "Dodaj u košaricu", bez cijene.', 'Traka se pojavljuje tek kad glavni gumb "Dodaj u košaricu" nije vidljiv na ekranu.', 'Gumbi "Dodaj u košaricu" koriste istu ikonu košarice kao zaglavlje.'] },
   { date: '05.10.2026.', title: 'Kategorija razine 3 – minimalni prikaz proizvoda', changes: ['Nova postavka prototipa "Prikaz proizvoda": Uobičajeno / Minimalno.', 'Minimalni prikaz (rubni slučaj): kartice bez opcija, recenzija, promo koda i sidrene cijene, najviše jedna oznaka, bez naljepnica (povrat novca, jamstvo, UAU CENA); prazni retci se skupljaju.', 'U minimalnom prikazu nema slikovnog bannera u mreži proizvoda.'] },
   { date: '05.10.2026.', title: 'Kategorija razine 3 – rubni slučaj valute KM', changes: ['Zadnji proizvod u mreži prikazuje cijene u KM (BiH): 49.000 KM, precrtano 59.000,90 KM, ušteda -10.000,90 KM – za provjeru dugih iznosa na kartici.'] },
   { date: '05.10.2026.', title: 'Kartica proizvoda – energetska oznaka', changes: ['Energetska oznaka i "Informacijski list" premješteni su s retka cijene u zaseban redak na dnu kartice, ispod "Cijena na …" (lijevo poravnato), pa se više ne preklapaju s cijenom.'] },

@@ -634,8 +634,8 @@ function BuyBox({ bundleMode, onOpenSheet, onOpenCondition }) {
         </div>
       )}
       <button onClick={() => window.BBCart && window.BBCart.open({ img: pv('img', 'images/pdp/main/galaxy-s24-yellow.png'), name: pv('name', 'Samsung Galaxy S24+ 5G, 12/256 GB, Amber Yellow'), price: pv('price', '1.299,00'), old: pv('old', '1.299,99') })}
-        className="bbcta" style={{ width: '100%', height: 54, color: '#fff', border: 'none', borderRadius: 27, fontSize: 16, fontWeight: 600, letterSpacing: '-0.01em', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, cursor: 'pointer', fontFamily: 'inherit' }}>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 4h2l2.4 10.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.76L20 8H6.2"></path><circle cx="9" cy="19" r="1.5"></circle><circle cx="17" cy="19" r="1.5"></circle></svg>
+        data-main-cta="1" className="bbcta" style={{ width: '100%', height: 54, color: '#fff', border: 'none', borderRadius: 27, fontSize: 16, fontWeight: 600, letterSpacing: '-0.01em', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, cursor: 'pointer', fontFamily: 'inherit' }}>
+        <svg width="22" height="22" viewBox="0 0 30 30" fill="none"><path d="M4 4.25H6.22222L6.66667 6.47222M6.66667 6.47222L8.44444 15.3611H19.5556L24 6.47222H6.66667ZM19.5556 19.8056C18.3283 19.8056 17.3333 20.8005 17.3333 22.0278C17.3333 23.2551 18.3283 24.25 19.5556 24.25C20.7829 24.25 21.7778 23.2551 21.7778 22.0278C21.7778 20.8005 20.7829 19.8056 19.5556 19.8056ZM19.5556 19.8056H8.44444M8.44444 19.8056C7.21714 19.8056 6.22222 20.8005 6.22222 22.0278C6.22222 23.2551 7.21714 24.25 8.44444 24.25C9.67174 24.25 10.6667 23.2551 10.6667 22.0278C10.6667 20.8005 9.67174 19.8056 8.44444 19.8056Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>
         Dodaj u košaricu
       </button>
 
@@ -1060,16 +1060,23 @@ function MoreOffers({ onOpenAll }) {
 // ─── Sticky CTA (blue!) ───────────────────────────────────────────
 function StickyCTA({ bundleMode }) {
   const price = bundleMode ? '549,99 €' : pv('price', '1.299,00') + ' €';
+  const [show, setShow] = React.useState(false);
+  React.useEffect(() => {
+    let io, t, tries = 0;
+    const attach = () => {
+      const el = document.querySelector('[data-main-cta="1"]');
+      if (!el) { if (tries++ < 40) t = setTimeout(attach, 150); return; }
+      io = new IntersectionObserver(([e]) => setShow(!e.isIntersecting), { threshold: 0 });
+      io.observe(el);
+    };
+    attach();
+    return () => { clearTimeout(t); io && io.disconnect(); };
+  }, []);
   return (
-    <div style={{ position: 'fixed', left: 0, right: 0, bottom: 0, background: '#fff', borderTop: `1px solid ${T.border}`, padding: '10px 16px', boxShadow: '0 -4px 16px rgba(0,0,0,0.08)', zIndex: 100, display: 'flex', gap: 20, alignItems: 'center' }}>
-      <div style={{ flexShrink: 0, display: 'flex', alignItems: 'flex-start', color: '#101117', fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1 }}>
-        <span style={{ fontSize: 22 }}>{price.replace(/,\d+.*$/, '')}</span>
-        <span style={{ fontSize: 12, marginTop: 1, marginLeft: 1 }}>{(price.match(/,(\d+)/) || [])[1]}</span>
-        <span style={{ fontSize: 22, marginLeft: 5 }}>€</span>
-      </div>
+    <div aria-hidden={!show} style={{ position: 'fixed', left: 0, right: 0, bottom: 0, background: '#fff', borderTop: `1px solid ${T.border}`, padding: '10px 16px', boxShadow: '0 -4px 16px rgba(0,0,0,0.08)', zIndex: 100, display: 'flex', alignItems: 'center', transform: show ? 'translateY(0)' : 'translateY(110%)', transition: 'transform .25s cubic-bezier(0,0,.5,1)', pointerEvents: show ? 'auto' : 'none' }}>
       <button onClick={() => window.BBCart && window.BBCart.open({ img: bundleMode ? 'images/pdp/main/ps5-bundle.png' : pv('img', 'images/pdp/main/galaxy-s24-yellow.png'), name: bundleMode ? 'PlayStation 5 Digital Chassis + dodatni Dual Sense Wireless Controller' : pv('name', 'Samsung Galaxy S24+ 5G, 12/256 GB, Amber Yellow'), price: price })}
         className="bbcta" style={{ flex: 1, height: 48, color: '#fff', border: 'none', borderRadius: 24, fontSize: 16, fontWeight: 600, letterSpacing: '-0.01em', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, cursor: 'pointer', fontFamily: 'inherit' }}>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 4h2l2.4 10.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.76L20 8H6.2"></path><circle cx="9" cy="19" r="1.5"></circle><circle cx="17" cy="19" r="1.5"></circle></svg>
+        <svg width="22" height="22" viewBox="0 0 30 30" fill="none"><path d="M4 4.25H6.22222L6.66667 6.47222M6.66667 6.47222L8.44444 15.3611H19.5556L24 6.47222H6.66667ZM19.5556 19.8056C18.3283 19.8056 17.3333 20.8005 17.3333 22.0278C17.3333 23.2551 18.3283 24.25 19.5556 24.25C20.7829 24.25 21.7778 23.2551 21.7778 22.0278C21.7778 20.8005 20.7829 19.8056 19.5556 19.8056ZM19.5556 19.8056H8.44444M8.44444 19.8056C7.21714 19.8056 6.22222 20.8005 6.22222 22.0278C6.22222 23.2551 7.21714 24.25 8.44444 24.25C9.67174 24.25 10.6667 23.2551 10.6667 22.0278C10.6667 20.8005 9.67174 19.8056 8.44444 19.8056Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></svg>
         Dodaj u košaricu
       </button>
     </div>
