@@ -103,7 +103,16 @@
           <span style="display:flex;opacity:0.85"><svg width="16" height="16" viewBox="0 0 18 18" fill="none"><path d="M3 7.5V15.75H15V7.5M7.125 15.75V9.375H10.875V15.75M3.375 2.25H8.625H14.625L15.75 5.625V6.375C15.75 7.875 13.5 7.875 13.5 6.375C13.5 7.875 11.25 7.875 11.25 6.375C11.25 7.875 9 7.875 9 6.375C9 7.875 6.75 7.875 6.75 6.375C6.75 7.875 4.5 7.875 4.5 6.375C4.5 7.875 2.25 7.875 2.25 6.375V5.625L3.375 2.25Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
           Prodavatelji
         </button>
-        <button style="background:none;border:none;color:rgba(255,255,255,0.88);font-family:Inter,sans-serif;font-size:13px;font-weight:500;padding:0 14px;height:44px;display:flex;align-items:center;white-space:nowrap;transition:background .15s,color .15s" style-hover="color:#fff;background:rgba(255,255,255,0.08)">•••</button>
+        <div ref="{{ moreRef }}" style="position:relative">
+          <button type="button" onClick="{{ toggleMore }}" aria-haspopup="menu" aria-expanded="{{ moreOpen }}" aria-label="Više" style="{{ moreBtnStyle }}" style-hover="color:#fff;background:rgba(255,255,255,0.08)">•••</button>
+          <sc-if value="{{ moreOpen }}" hint-placeholder-val="{{ false }}">
+            <div role="menu" style="{{ morePos }}"><div style="min-width:220px;background:#fff;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.20);padding:6px;z-index:400;font-family:Inter,sans-serif">
+              <button type="button" role="menuitem" onClick="{{ goBrands }}" style="width:100%;height:44px;display:flex;align-items:center;gap:10px;padding:0 12px;border:none;border-radius:8px;background:transparent;color:#101117;font-family:Inter,sans-serif;font-size:14px;font-weight:500;text-align:left;cursor:pointer" style-hover="background:#F1F1F4;color:#0050A0">
+                Brendovi
+              </button>
+            </div></div>
+          </sc-if>
+        </div>
       </div>
     </nav>
   </div>
@@ -329,7 +338,8 @@ const SPROD = [
 ];
 
 class Component extends DCLogic {
-  state = { q: '', open: false, focused: false, mobTop: 116 };
+  moreRef = React.createRef();
+  state = { q: '', open: false, focused: false, mobTop: 116, moreOpen: false };
 
   rootRef = (el) => { this.root = el || this.root; };
   mobSearchRef = (el) => { if (el) { this.mobSearch = el; this.measureMob(); } };
@@ -360,12 +370,23 @@ class Component extends DCLogic {
       this.setState({ open: false, focused: false });
     };
     document.addEventListener('mousedown', this.onDocDown, true);
+    this._moreDown = (e) => { if (this.state.moreOpen && this.moreRef.current && !this.moreRef.current.contains(e.target)) this.setState({ moreOpen: false }); };
+    this._moreKey = (e) => { if (e.key === 'Escape' && this.state.moreOpen) this.setState({ moreOpen: false }); };
+    document.addEventListener('mousedown', this._moreDown);
+    document.addEventListener('keydown', this._moreKey);
+    this._moreScroll = () => { if (this.state.moreOpen) this.setState({ moreOpen: false }); };
+    window.addEventListener('scroll', this._moreScroll);
+    window.addEventListener('resize', this._moreScroll);
     this.onAnyScroll = () => this.measureMob();
     document.addEventListener('scroll', this.onAnyScroll, true);
     window.addEventListener('resize', this.onAnyScroll);
   }
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.onDocDown, true);
+    document.removeEventListener('mousedown', this._moreDown);
+    document.removeEventListener('keydown', this._moreKey);
+    window.removeEventListener('scroll', this._moreScroll);
+    window.removeEventListener('resize', this._moreScroll);
     document.removeEventListener('scroll', this.onAnyScroll, true);
     window.removeEventListener('resize', this.onAnyScroll);
   }
@@ -465,6 +486,12 @@ class Component extends DCLogic {
       onContact: (e) => { if (e && e.preventDefault) e.preventDefault(); if (this.props.onContact) this.props.onContact(); },
       onStores: (e) => { if (e && e.preventDefault) e.preventDefault(); if (this.props.onStores) this.props.onStores(); },
       onPromos: (e) => { if (e && e.preventDefault) e.preventDefault(); if (this.props.onPromos) this.props.onPromos(); },
+      moreRef: this.moreRef,
+      moreOpen: !!(this.state && this.state.moreOpen),
+      toggleMore: (e) => { if (e) e.preventDefault(); const r = e && e.currentTarget ? e.currentTarget.getBoundingClientRect() : null; this.setState(st => ({ moreOpen: !st.moreOpen, moreRect: r ? { top: r.bottom + 6, right: Math.max(8, window.innerWidth - r.right) } : st.moreRect })); },
+      morePos: { position: 'fixed', top: (this.state.moreRect || {}).top || 0, right: (this.state.moreRect || {}).right || 0, zIndex: 1000 },
+      goBrands: (e) => { if (e) e.preventDefault(); this.setState({ moreOpen: false }); if (this.props.onBrands) this.props.onBrands(); },
+      moreBtnStyle: { background: this.state && this.state.moreOpen ? 'rgba(255,255,255,0.12)' : 'none', border: 'none', color: this.state && this.state.moreOpen ? '#fff' : 'rgba(255,255,255,0.88)', fontFamily: 'Inter,sans-serif', fontSize: 13, fontWeight: 500, padding: '0 14px', height: 44, display: 'flex', alignItems: 'center', whiteSpace: 'nowrap', cursor: 'pointer', transition: 'background .15s,color .15s' },
       onKitchens: (e) => { if (e && e.preventDefault) e.preventDefault(); if (this.props.onKitchens) this.props.onKitchens(); },
       openNotice: (e) => { if (e && e.preventDefault) e.preventDefault(); if (window.BBEU) window.BBEU.openNotice(); },
       trigStyle: {

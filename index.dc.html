@@ -32,8 +32,8 @@
 <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
 <div style="min-height:100vh;background:#F1F1F4">
 
-  <dc-import name="Components/SiteHeader" cart-count="{{ cartCount }}" on-cart="{{ goCart }}" on-wish="{{ goWish }}" on-contact="{{ goContact }}" on-kitchens="{{ goKitchens }}" on-promos="{{ goPromos }}" on-stores="{{ goStores }}" on-search="{{ doSearch }}" on-open-product="{{ openProduct }}" variant="desktop" menu-open="{{ menuOpen }}" on-toggle-menu="{{ toggleMenu }}" on-logo="{{ goHome }}" logged-in="{{ loggedIn }}" on-account="{{ openAccount }}" hint-size="100%,116px"></dc-import>
-  <dc-import name="Components/SiteHeader" cart-count="{{ cartCount }}" on-cart="{{ goCart }}" on-wish="{{ goWish }}" on-contact="{{ goContact }}" on-kitchens="{{ goKitchens }}" on-promos="{{ goPromos }}" on-stores="{{ goStores }}" on-search="{{ doSearch }}" on-open-product="{{ openProduct }}" variant="desktop-bar" scrolled="{{ deskScrolled }}" menu-open="{{ menuOpen }}" on-toggle-menu="{{ toggleMenu }}" on-logo="{{ goHome }}" logged-in="{{ loggedIn }}" on-account="{{ openAccount }}" hint-size="100%,56px"></dc-import>
+  <dc-import name="Components/SiteHeader" on-brands="{{ goBrands }}" cart-count="{{ cartCount }}" on-cart="{{ goCart }}" on-wish="{{ goWish }}" on-contact="{{ goContact }}" on-kitchens="{{ goKitchens }}" on-promos="{{ goPromos }}" on-stores="{{ goStores }}" on-search="{{ doSearch }}" on-open-product="{{ openProduct }}" variant="desktop" menu-open="{{ menuOpen }}" on-toggle-menu="{{ toggleMenu }}" on-logo="{{ goHome }}" logged-in="{{ loggedIn }}" on-account="{{ openAccount }}" hint-size="100%,116px"></dc-import>
+  <dc-import name="Components/SiteHeader" on-brands="{{ goBrands }}" cart-count="{{ cartCount }}" on-cart="{{ goCart }}" on-wish="{{ goWish }}" on-contact="{{ goContact }}" on-kitchens="{{ goKitchens }}" on-promos="{{ goPromos }}" on-stores="{{ goStores }}" on-search="{{ doSearch }}" on-open-product="{{ openProduct }}" variant="desktop-bar" scrolled="{{ deskScrolled }}" menu-open="{{ menuOpen }}" on-toggle-menu="{{ toggleMenu }}" on-logo="{{ goHome }}" logged-in="{{ loggedIn }}" on-account="{{ openAccount }}" hint-size="100%,56px"></dc-import>
   <dc-import name="Components/SiteMenu" variant="desktop" open="{{ menuOpen }}" on-close="{{ closeMenu }}" on-open-category="{{ openCategory }}" hint-size="100%,0px"></dc-import>
 
   <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
@@ -56,7 +56,7 @@
 
   <sc-if value="{{ isBrand }}" hint-placeholder-val="{{ false }}">
     <div class="pgin">
-      <dc-import name="Pages/Category body" variant="desktop" on-promos="{{ goPromos }}" card-style="{{ cardStyle }}" brand="{{ brand }}" many-cats="{{ brandMany }}" tile-style="{{ brandTiles }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,3200px"></dc-import>
+      <dc-import name="Pages/Category body" variant="desktop" on-promos="{{ goPromos }}" card-style="{{ cardStyle }}" brand="{{ brand }}" on-brands="{{ goBrands }}" many-cats="{{ brandMany }}" tile-style="{{ brandTiles }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,3200px"></dc-import>
     </div>
   </sc-if>
 
@@ -120,15 +120,28 @@
     </div>
   </sc-if>
 
+  <sc-if value="{{ isBrands }}" hint-placeholder-val="{{ false }}">
+    <div class="pgin">
+      <dc-import name="Pages/Brands body" variant="desktop" on-home="{{ goHome }}" on-open-brand="{{ openBrand }}" hint-size="100%,2400px"></dc-import>
+    </div>
+  </sc-if>
+
   <sc-if value="{{ isPromos }}" hint-placeholder-val="{{ false }}">
     <div class="pgin">
       <dc-import name="Pages/Promotions body" variant="desktop" on-home="{{ goHome }}" hint-size="100%,2600px"></dc-import>
     </div>
   </sc-if>
 
+  <sc-if value="{{ isKStyle }}" hint-placeholder-val="{{ false }}">
+    <div class="pgin">
+      <dc-import name="Pages/Kitchen style body" variant="desktop" kitchen-style="{{ kStyle }}" on-style="{{ openKStyle }}" on-back="{{ goKitchens }}" on-home="{{ goHome }}" hint-size="100%,4200px"></dc-import>
+      <div class="bbsk"><dc-import name="Components/PageSkeleton" kind="list" variant="desktop" hint-size="100%,100vh"></dc-import></div>
+    </div>
+  </sc-if>
+
   <sc-if value="{{ isKitchens }}" hint-placeholder-val="{{ false }}">
     <div class="pgin">
-      <dc-import name="Pages/Kitchens body" variant="desktop" benefits-variant="{{ kitBenefits }}" stili-variant="{{ kitStili }}" hero-variant="{{ kitHero }}" on-home="{{ goHome }}" hint-size="100%,5200px"></dc-import>
+      <dc-import name="Pages/Kitchens body" variant="desktop" activity="{{ kitActivity }}" raz-theme="{{ kitRazTheme }}" hero-variant="{{ kitHero }}" on-open-style="{{ openKStyle }}" on-home="{{ goHome }}" hint-size="100%,5200px"></dc-import>
     </div>
   </sc-if>
 
@@ -143,7 +156,7 @@
   <div data-bb-frame="mobile" style="width:412px;height:915px;flex-shrink:0;border-radius:36px;overflow:hidden;position:relative;background:#F1F1F4;box-shadow:0 24px 64px rgba(0,0,0,0.45);transform:translate(0)">
 
     <div class="nsb" ref="{{ scrollerRef }}" onScroll="{{ mobScroll }}" style="position:absolute;inset:0;overflow-y:auto;overflow-anchor:none">
-      <dc-import name="Components/SiteHeader" cart-count="{{ cartCount }}" on-cart="{{ goCart }}" on-wish="{{ goWish }}" on-contact="{{ goContact }}" on-kitchens="{{ goKitchens }}" on-promos="{{ goPromos }}" on-stores="{{ goStores }}" on-search="{{ doSearch }}" on-open-product="{{ openProduct }}" variant="mobile" menu-open="{{ menuOpen }}" on-toggle-menu="{{ toggleMenu }}" on-logo="{{ goHome }}" logged-in="{{ loggedIn }}" on-account="{{ openAccount }}" hint-size="100%,166px"></dc-import>
+      <dc-import name="Components/SiteHeader" on-brands="{{ goBrands }}" cart-count="{{ cartCount }}" on-cart="{{ goCart }}" on-wish="{{ goWish }}" on-contact="{{ goContact }}" on-kitchens="{{ goKitchens }}" on-promos="{{ goPromos }}" on-stores="{{ goStores }}" on-search="{{ doSearch }}" on-open-product="{{ openProduct }}" variant="mobile" menu-open="{{ menuOpen }}" on-toggle-menu="{{ toggleMenu }}" on-logo="{{ goHome }}" logged-in="{{ loggedIn }}" on-account="{{ openAccount }}" hint-size="100%,166px"></dc-import>
 
       <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
         <div class="pgin">
@@ -165,7 +178,7 @@
 
       <sc-if value="{{ isBrand }}" hint-placeholder-val="{{ false }}">
         <div class="pgin">
-          <dc-import name="Pages/Category body" variant="mobile" on-promos="{{ goPromos }}" card-style="{{ cardStyle }}" on-overlay="{{ setOverlay }}" brand="{{ brand }}" many-cats="{{ brandMany }}" tile-style="{{ brandTiles }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,4000px"></dc-import>
+          <dc-import name="Pages/Category body" variant="mobile" on-promos="{{ goPromos }}" card-style="{{ cardStyle }}" on-overlay="{{ setOverlay }}" brand="{{ brand }}" on-brands="{{ goBrands }}" many-cats="{{ brandMany }}" tile-style="{{ brandTiles }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,4000px"></dc-import>
         </div>
       </sc-if>
 
@@ -229,15 +242,28 @@
         </div>
       </sc-if>
 
+      <sc-if value="{{ isBrands }}" hint-placeholder-val="{{ false }}">
+        <div class="pgin">
+          <dc-import name="Pages/Brands body" variant="mobile" on-home="{{ goHome }}" on-open-brand="{{ openBrand }}" hint-size="100%,3000px"></dc-import>
+        </div>
+      </sc-if>
+
       <sc-if value="{{ isPromos }}" hint-placeholder-val="{{ false }}">
         <div class="pgin">
           <dc-import name="Pages/Promotions body" variant="mobile" on-home="{{ goHome }}" hint-size="100%,3200px"></dc-import>
         </div>
       </sc-if>
 
+      <sc-if value="{{ isKStyle }}" hint-placeholder-val="{{ false }}">
+        <div class="pgin">
+          <dc-import name="Pages/Kitchen style body" variant="mobile" kitchen-style="{{ kStyle }}" on-style="{{ openKStyle }}" on-back="{{ goKitchens }}" on-home="{{ goHome }}" hint-size="100%,5200px"></dc-import>
+          <div class="bbsk"><dc-import name="Components/PageSkeleton" kind="list" variant="mobile" hint-size="100%,100vh"></dc-import></div>
+        </div>
+      </sc-if>
+
       <sc-if value="{{ isKitchens }}" hint-placeholder-val="{{ false }}">
         <div class="pgin">
-          <dc-import name="Pages/Kitchens body" variant="mobile" benefits-variant="{{ kitBenefits }}" stili-variant="{{ kitStili }}" hero-variant="{{ kitHero }}" on-home="{{ goHome }}" hint-size="100%,7000px"></dc-import>
+          <dc-import name="Pages/Kitchens body" variant="mobile" activity="{{ kitActivity }}" raz-theme="{{ kitRazTheme }}" hero-variant="{{ kitHero }}" on-open-style="{{ openKStyle }}" on-home="{{ goHome }}" hint-size="100%,7000px"></dc-import>
         </div>
       </sc-if>
 
@@ -246,7 +272,7 @@
       </sc-if>
     </div>
 
-    <dc-import name="Components/SiteHeader" cart-count="{{ cartCount }}" on-cart="{{ goCart }}" on-wish="{{ goWish }}" on-contact="{{ goContact }}" on-kitchens="{{ goKitchens }}" on-promos="{{ goPromos }}" on-stores="{{ goStores }}" on-search="{{ doSearch }}" on-open-product="{{ openProduct }}" variant="mobile-bar" scrolled="{{ mobBarOn }}" on-toggle-menu="{{ toggleMenu }}" on-logo="{{ goHome }}" logged-in="{{ loggedIn }}" on-account="{{ openAccount }}" hint-size="100%,55px"></dc-import>
+    <dc-import name="Components/SiteHeader" on-brands="{{ goBrands }}" cart-count="{{ cartCount }}" on-cart="{{ goCart }}" on-wish="{{ goWish }}" on-contact="{{ goContact }}" on-kitchens="{{ goKitchens }}" on-promos="{{ goPromos }}" on-stores="{{ goStores }}" on-search="{{ doSearch }}" on-open-product="{{ openProduct }}" variant="mobile-bar" scrolled="{{ mobBarOn }}" on-toggle-menu="{{ toggleMenu }}" on-logo="{{ goHome }}" logged-in="{{ loggedIn }}" on-account="{{ openAccount }}" hint-size="100%,55px"></dc-import>
     <dc-import name="Components/SiteMenu" variant="mobile" open="{{ menuOpen }}" on-close="{{ closeMenu }}" on-open-category="{{ openCategory }}" hint-size="100%,100%"></dc-import>
 
   </div>
@@ -373,8 +399,7 @@ class Component extends DCLogic {
       catMinimal: false,
       cartEmpty: false,
       wishEmpty: false,
-      kitBenefits: '1',
-      kitStili: '5',
+      kitActivity: 'razstavne',
       kitHero: 'video'
     }
   };
@@ -485,9 +510,18 @@ class Component extends DCLogic {
     this.setState({ menuOpen: false, page: 'brand', brand: name || 'Samsung' }, this.toTop);
   };
 
+  goBrands = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    this.setState({ menuOpen: false, page: 'brands' }, this.toTop);
+  };
+
   goPromos = (e) => {
     if (e && e.preventDefault) e.preventDefault();
     this.setState({ menuOpen: false, page: 'promos' }, this.toTop);
+  };
+
+  openKStyle = (id) => {
+    this.setState({ menuOpen: false, page: 'kstyle', kStyle: id || 'klasicne' }, this.toTop);
   };
 
   goKitchens = (e) => {
@@ -597,11 +631,14 @@ class Component extends DCLogic {
       cardStyle: tw.card || 'v2',
       deptLayout: tw.deptBento ? 'bento' : 'cards',
       goContact: this.goContact,
+      isBrands: s.page === 'brands',
+      goBrands: this.goBrands,
       isPromos: s.page === 'promos',
       goPromos: this.goPromos,
       isKitchens: s.page === 'kitchens',
-      kitBenefits: tw.kitBenefits,
-      kitStili: tw.kitStili,
+      isKStyle: s.page === 'kstyle', kStyle: s.kStyle || 'klasicne', openKStyle: this.openKStyle,
+      kitActivity: tw.kitActivity || 'razstavne',
+      kitRazTheme: tw.kitRazTheme || 'ledena',
       kitHero: tw.kitHero || 'video',
       goKitchens: this.goKitchens,
       isDelivery: s.page === 'delivery',
@@ -735,15 +772,12 @@ class Component extends DCLogic {
         if (s.page === 'kitchens') {
           list.push(pair('Hero', 'Slika', 'Video', (tw.kitHero || 'video') !== 'video',
             () => this.setTweak('kitHero', 'image'), () => this.setTweak('kitHero', 'video')));
+          list.push(pair('Aktivnost', 'Razstavne kuhinje', 'Nagradna igra', (tw.kitActivity || 'razstavne') !== 'igra',
+            () => this.setTweak('kitActivity', 'razstavne'), () => this.setTweak('kitActivity', 'igra')));
           list.push({
-            label: 'Ugodnosti', seg: false, sel: true, value: tw.kitBenefits,
-            onChange: (e) => this.setTweak('kitBenefits', e.target.value),
-            options: [['1', '1 · Akcija + mreža'], ['2', '2 · Pas z ikonami'], ['3', '3 · Kupon'], ['4', '4 · Bento s fotografijo'], ['5', '5 · Številke'], ['6', '6 · Seznam s fotografijo'], ['0', 'Izvorno']].map(o => ({ value: o[0], label: o[1] }))
-          });
-          list.push({
-            label: 'Stili kuhinj', seg: false, sel: true, value: tw.kitStili,
-            onChange: (e) => this.setTweak('kitStili', e.target.value),
-            options: [['1', '1 · Foto kartice'], ['2', '2 · Visoke ploščice'], ['3', '3 · Izpostavljen stil'], ['4', '4 · Seznam + slika'], ['5', '5 · Harmonika'], ['6', '6 · Vodoravne kartice'], ['0', 'Izvorno']].map(o => ({ value: o[0], label: o[1] }))
+            label: 'Razstavne kuhinje — barvna tema', seg: false, sel: true, value: tw.kitRazTheme || 'ledena',
+            onChange: (e) => this.setTweak('kitRazTheme', e.target.value),
+            options: [['polnoc', 'Polnočna'], ['svetla', 'Svetla'], ['ledena', 'Ledeno modra (privzeto)'], ['modra', 'Big Bang modra'], ['grafit', 'Grafit + turkizna'], ['hrast', 'Topli hrast']].map(o => ({ value: o[0], label: o[1] }))
           });
         }
         if (s.page === 'contact') {

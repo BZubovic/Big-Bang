@@ -1,6 +1,39 @@
 /* Prototype change log — one entry per piece of work, not per prompt.
    Shown in the "Prototype settings" panel via "View logs". */
 window.BB_CHANGELOG = [
+  { date: '07.10.2026.', title: 'Kartica izdelka — nova razporeditev oznak', changes: [
+    'Oznake zgoraj levo na sliki v eni vrstici: zadnja vidna oznaka je skrajšana s »…«, preostale so združene v »+N«; ob prehodu z miško se oznaka prikaže v celoti',
+    'Povrat novca in nalepka jamstva sta v vrstici na dnu slike, tik nad naslovom; slika 193 / 150 px',
+    'Mop Philips XV5113/01 na naslovnici: dodana oznaka »Besplatna montaža«'
+  ] },
+  { date: '07.10.2026.', title: 'Kuhinje — strani stilov (Klasične, Rustikalne, Moderne)', changes: [
+    'Nova stran za vsak stil kuhinj, odpre se iz razdelka »Izberi kuhinjo po svojem okusu« (gumb »Poglej primere«)',
+    'Klasične kuhinje: kolekcija Paris | Porto (nežno zelena + naravni hrast) z dvema fotografijama',
+    'Klasične kuhinje: kolekcija Rhodos | Bali (delovni kotiček, izvlečni deli, poravnano korito in plošča) s štirimi fotografijami',
+    'Klasične kuhinje: kolekcija Leni | Paula — velika fotografija, opis, dekorja Leni 188/189, »Čut za estetiko«, »Čudovite teksture« in galerija',
+    'Na vrhu drobtine, povezava »Nazaj na Big Bang kuhinje« in preklop med vsemi tremi stili; na dnu »Odkrij še druge stile«',
+    'Vključen obrazec »Rezervacija termina« z glavne strani kuhinj (skupna komponenta)',
+    'Rustikalne in moderne kuhinje: stran pripravljena, kolekcije sledijo'
+  ] },
+  { date: '07.10.2026.', title: 'Kuhinje — nova besedila in razstavne kuhinje', changes: [
+    'Nova besedila po navodilih ekipe: naslov in uvod, »Kako poteka« (4 koraki), rezervacija, navdih in stili',
+    'Namesto nagradne igre nov razdelek »Razstavne kuhinje po posebnih cenah« s karticami (fotografija, lokacija, cena) in obvestilom na vrhu strani',
+    'Nagradna igra ostaja v Prototype settings → Aktivnost (Razstavne kuhinje / Nagradna igra)',
+    'Ugodnosti v oktobru (1.–29. 10.): do -60 % na leseni del, -15 % na belo tehniko, Philips Baristina za 1 € ter pogoji akcij',
+    'Razstavne kuhinje po salonih (Ljubljana BTC, Ljubljana Rudnik, Celje, Maribor Europark, Kranj, Koper) z izbirnikom salona, pravimi cenami (MPC → posebna cena, popust) ter preklopom Fotografija / Tloris na vsaki kartici',
+    'Dodane fotografije in tlorisi razstavnih kuhinj za vseh 6 salonov',
+    'Razstavne kuhinje: na mobilnem širše kartice; odstranjena oznaka »1 kos«',
+    'Razstavne kuhinje: klik na sliko odpre večjo sliko v oknu z gumbom za zapiranje (zapre tudi klik ob sliki ali Esc)',
+    'Razstavne kuhinje: privzet dizajn je »Izpostavljena kuhinja« s preklopom Fotografija / Tloris na veliki sliki — tudi na mobilnem, enako kot na računalniku (podatki na sliki; izbirnik ostalih kuhinj salona nad njo kot vodoraven drsnik)',
+    'Prototype settings → »Razstavne kuhinje — barvna tema«: 6 tem za razdelek, privzeta je Ledeno modra (Polnočna, Svetla, Ledeno modra, Big Bang modra, Grafit + turkizna, Topli hrast); ostale različice postavitve odstranjene',
+    'Trak pod naslovom (Razstavne kuhinje po posebnih cenah) v ledeno modrih barvah, usklajen z razdelkom',
+    'Odstranjena preklopa »Ugodnosti« in »Stili kuhinj« — trenutni različici sta končni',
+    'FAQ: izdelava in montaža traja 6–10 tednov'
+  ] },
+  { date: '06.10.2026.', title: 'Bento kutije bez sjene i obruba', changes: ['Uklonjene sjene i obrubi s bento kutija i kartica, uključujući hover: istaknuti brendovi i traka pretrage (Brendovi), kartice odjela (Kontakt), pločica „Natrag na” (kategorija), kartice nagradne igre i obrasca (Kuhinje).', 'Pravilo dodano na stranicu dizajn sustava: bento kutije odvajaju se samo bojom pozadine; sjena samo za plutajuće slojeve.'] },
+  { date: '06.10.2026.', title: 'Nova stranica „Brendovi” i izbornik „•••” u zaglavlju', changes: ['Klik na „•••” u navigaciji zaglavlja otvara mali padajući izbornik s dodatnim poveznicama; zasad samo „Brendovi”.', 'Nova stranica „Brendovi”: istaknuti brendovi s logotipima (12) i popis svih brendova.', 'Popis brendova: pretraga s isticanjem pogotka, filtar po kategoriji (s brojem brendova), skok na slovo A–Ž i sortiranje Popularni (zadano) / A–Ž.', 'Mobilno: pretraga i slova u ljepljivoj traci, popis u recima od 48px.', 'Slova s više od 8 redaka brendova skraćena su; „Prikaži sve (N)” u donjoj desnoj ćeliji otvara cijelo slovo (tijekom pretrage prikazuje se sve).', 'Poveznica „Brendovi” u navigaciji stranice brenda vodi na novu stranicu.'] },
+  { date: '06.10.2026.', title: 'Kartica proizvoda – oznake na prelazak mišem', changes: ['Prelaskom mišem preko oznake na slici proizvoda prikazuje se njezin puni tekst, a ostale oznake se skraćuju (…).'] },
+  { date: '06.10.2026.', title: 'Kartica proizvoda – konačna oznaka promo koda', changes: ['Nova oznaka promo koda na svim karticama proizvoda: tamnozeleni dio "-20% uz kod:" + svijetlozeleni "-179,80 €" (poravnato lijevo).', 'Iznos uštede izračunava se iz cijene proizvoda i postotka koda (i u KM).', 'Desktop: ikona za kopiranje promo koda u svijetlozelenom dijelu oznake (klik kopira kod, ikona se na trenutak mijenja u kvačicu).', 'Iznos uštede prikazuje se s minusom („-179,80 €”) na desktopu i mobilno; font 13px desktop / 12px mobilno.', 'Mobilno: oznaka promo koda i oznaka obnovljenog proizvoda („… u odnosu na novi”) iste su visine (24px) i veličine fonta (12px).', 'Oznaka „Obnovljeno” (tamni tekst na limeti) podebljana na 700 kako bi optički odgovarala bijelim oznakama.', 'Uklonjena postavka prototipa "Oznaka promo koda" s kategorije; ista oznaka u prikazu liste, na naslovnici i na stranici dizajn sustava.'] },
   { date: '06.10.2026.', title: 'Stranica proizvoda (mobilno) – ljepljivi gumb za košaricu', changes: ['Ljepljiva traka na dnu prikazuje samo gumb "Dodaj u košaricu", bez cijene.', 'Traka se pojavljuje tek kad glavni gumb "Dodaj u košaricu" nije vidljiv na ekranu.', 'Gumbi "Dodaj u košaricu" koriste istu ikonu košarice kao zaglavlje.'] },
   { date: '05.10.2026.', title: 'Kategorija razine 3 – minimalni prikaz proizvoda', changes: ['Nova postavka prototipa "Prikaz proizvoda": Uobičajeno / Minimalno.', 'Minimalni prikaz (rubni slučaj): kartice bez opcija, recenzija, promo koda i sidrene cijene, najviše jedna oznaka, bez naljepnica (povrat novca, jamstvo, UAU CENA); prazni retci se skupljaju.', 'U minimalnom prikazu nema slikovnog bannera u mreži proizvoda.'] },
   { date: '05.10.2026.', title: 'Kategorija razine 3 – rubni slučaj valute KM', changes: ['Zadnji proizvod u mreži prikazuje cijene u KM (BiH): 49.000 KM, precrtano 59.000,90 KM, ušteda -10.000,90 KM – za provjeru dugih iznosa na kartici.'] },

@@ -14,6 +14,10 @@ Concretely: the **only dark blue is navy `#002D73`** (nav bars, filled CTA fill,
 every info page (Načini plaćanja, Načini dostave, Uvjeti kupnje, Kontakt) uses the footer
 blue **`#00337A`**, not `#002D73`.
 
+**Bento boxes and cards never have a shadow or a border — not even on hover.** They separate
+from the page by fill only (white on `#F1F1F4`, `#F7F8FA` on white); hover may only scale/lift
+or recolour text. Shadows are reserved for floating layers (dropdowns, modals, flyouts).
+
 When a token or shared pattern changes, update the design system page in the same turn so it
 stays accurate.
 
@@ -83,6 +87,13 @@ Components/InfoPageHead.dc.html    white intro block for every "Usluge i uvjeti"
 Components/InfoAnchorNav.dc.html   left column: the page's own section anchors (sticky)
 Pages/Kitchens body.dc.html    "Kuhinje" campaign landing (header nav link) — own sticky in-page
                                anchor bar, booking form, giveaway countdown; photos in images/kuhinje/
+Pages/Kitchen style body.dc.html  Kitchen style showcase (prop kitchenStyle: klasicne|rusticne|moderne) — collections
+                               data in its logic class (STYLES), images in images/kuhinje/stili/; opened from the
+                               Kuhinje landing "Poglej primere" (shell openKStyle)
+Components/KitchenBooking.dc.html  shared "Rezervacija termina" form block (desktop / mobile)
+Pages/Brands body.dc.html     "Brendovi" (header ••• dropdown) — featured logo tiles, searchable A–Ž brand directory
+                               with category chips, letter jump and A–Ž / popularity sort; data in brands-data.js
+brands-data.js                 brand list + categories + featured (window.BB_BRANDS); logos in images/brands/
 Pages/Stores body.dc.html      "Prodajna mjesta" (header nav) — InfoPageHead with city filter tabs,
                                StoreLocator (city + onShowStore props), store detail panel
 Pages/Contact body.dc.html     "Kontakt" — support block, department cards, store locator,
@@ -234,7 +245,7 @@ brand-blue links. Desktop starts with "Big Bang", mobile with "Početna". Never 
 `card`: `{ img, name, price, old?, rate?, cashback?, warranty?, energy?, pills?: [{ label, tone:
 'navy'|'orange'|'lime'|'red'|'blue' }], rating?, reviews?, options?, avail, availTone?: 'in'|'wait'|'out', seller?, priceTag? ("UAU CENA" label in the old-price row, only when there is no old price; priceTagTone: 'green' → #0B7A48 e.g. "DOBRA PONUDA"),
 codePct?, renewedSave?, reserveCode?, lowest?, anchor?, anchorDate? }`. FINAL DESIGN (28.09.2026.): image zone 193 / 150px
-with pills (Besplatna dostava navy, UAU Cena orange #F65F04, Obnovljeno lime) overlaid at its bottom; title 14/20;
+with labels top-left (Besplatna dostava navy, UAU Cena orange #F65F04, Obnovljeno lime; wrap to max 2 rows, left of wishlist/compare) and cashback + warranty side by side at the image bottom, just above the title; title 14/20;
 stars + "4.0(218)"; "Dostupno još N opcija" (underlined); "Na zalihi" green bold / "Artikl nije na zalihi" red dot;
 "Prodaje: <seller>"; old price struck + red "-400 €" badge; price 22px/700 black; EU energy arrow + "Informacijski list"
 right of price; promo box "Dodatnih 20% uz promo kod" (#E6F5EC, dashed) or lime "-232,00 € u odnosu na novi" for

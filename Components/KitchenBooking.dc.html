@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</helmet>
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<div style="font-family:Inter,sans-serif;color:#101117">
+<section data-sec="rezervacija" style="padding:84px max(20px,calc(50vw - 720px)) 92px;background:#E3ECF7">
+      <div style="display:grid;grid-template-columns:minmax(0,0.85fr) minmax(0,1.15fr);gap:56px;align-items:start">
+        <div>
+          <span style="display:inline-flex;padding:7px 14px;border-radius:999px;background:#fff;color:#0050A0;font-size:11.5px;font-weight:900;letter-spacing:0.09em">REZERVACIJA TERMINA</span>
+          <h2 style="font-size:32px;line-height:1.18;font-weight:800;letter-spacing:-0.015em;color:#101117;margin:14px 0 0">Naroči brezplačen izris kuhinje</h2>
+          <p style="font-size:15.5px;line-height:1.65;color:#545F71;margin:12px 0 0;max-width:470px;text-wrap:pretty">Izpolni obrazec — svetovalec te pokliče v 24 urah, da uskladita termin za obisk salona ali obisk na tvojem domu. Traja manj kot minuto, brez obveznosti nakupa.</p>
+          <div style="display:flex;flex-direction:column;gap:16px;margin-top:20px">
+            <sc-for list="{{ bSteps }}" as="b" hint-placeholder-count="3">
+              <div style="background:#fff;border-radius:12px;padding:18px 20px;display:flex;gap:14px;align-items:center">
+                <span style="width:28px;height:28px;box-sizing:border-box;border-radius:50%;background:#fff;border:1.5px solid #0050A0;color:#0050A0;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">{{ b.n }}</span>
+                <div><div style="font-size:14px;font-weight:700;color:#101117">{{ b.t }}</div><div style="font-size:13px;color:#545F71;margin-top:2px">{{ b.s }}</div></div>
+              </div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ isIgra }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:12px;display:flex;gap:12px;align-items:flex-start;background:#FFF6E0;border:1px solid #F2C35B;border-radius:12px;padding:16px 18px;font-size:13px;line-height:1.6;color:#5C4300">
+            <svg width="18" height="18" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;display:block;margin-top:1px"><path d="M4.08333 12.25V11.0833H6.41667V9.275C5.94028 9.16806 5.51493 8.96632 5.14062 8.66979C4.76632 8.37326 4.49167 8.00139 4.31667 7.55417C3.5875 7.46667 2.97743 7.14826 2.48646 6.59896C1.99549 6.04965 1.75 5.40556 1.75 4.66667V4.08333C1.75 3.7625 1.86424 3.48785 2.09271 3.25937C2.32118 3.0309 2.59583 2.91667 2.91667 2.91667H4.08333V1.75H9.91667V2.91667H11.0833C11.4042 2.91667 11.6788 3.0309 11.9073 3.25937C12.1358 3.48785 12.25 3.7625 12.25 4.08333V4.66667C12.25 5.40556 12.0045 6.04965 11.5135 6.59896C11.0226 7.14826 10.4125 7.46667 9.68333 7.55417C9.50833 8.00139 9.23368 8.37326 8.85938 8.66979C8.48507 8.96632 8.05972 9.16806 7.58333 9.275V11.0833H9.91667V12.25H4.08333ZM4.08333 6.3V4.08333H2.91667V4.66667C2.91667 5.03611 3.02361 5.3691 3.2375 5.66563C3.45139 5.96215 3.73333 6.17361 4.08333 6.3ZM7 8.16667C7.48611 8.16667 7.89931 7.99653 8.23958 7.65625C8.57986 7.31597 8.75 6.90278 8.75 6.41667V2.91667H5.25V6.41667C5.25 6.90278 5.42014 7.31597 5.76042 7.65625C6.10069 7.99653 6.51389 8.16667 7 8.16667ZM9.91667 6.3C10.2667 6.17361 10.5486 5.96215 10.7625 5.66563C10.9764 5.3691 11.0833 5.03611 11.0833 4.66667V4.08333H9.91667V6.3Z" fill="#C98A00"></path></svg>
+            <span>S to prijavo samodejno sodeluješ tudi v <strong style="font-weight:800">žrebanju za brezplačno kuhinjo po meri</strong> — brez nakupa, samo z rezervacijo termina.</span>
+          </div>
+          </sc-if>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:26px;font-size:12.5px;color:#545F71">
+            <span style="display:flex;gap:1px"><sc-for list="{{ stars }}" as="s" hint-placeholder-count="5"><svg width="13" height="12.5" viewBox="0 0 24 23" fill="#F5A623"><path d="M12 0l3.1 7.5 8.3.7-6.3 5.4 2 8.2L12 17.4l-7.1 4.4 2-8.2L.6 8.2l8.3-.7z"></path></svg></sc-for></span>
+            <span>[4,x/5 · Y ocen strank]</span>
+          </div>
+        </div>
+
+        <div style="background:#fff;border-radius:20px;padding:30px 30px 32px;box-shadow:0 20px 50px -30px rgba(16,17,23,0.18)">
+          <sc-if value="{{ formOpen }}" hint-placeholder-val="{{ true }}">
+            <h3 style="font-size:20px;font-weight:800;letter-spacing:-0.01em;color:#101117;margin:0">Rezerviraj svoj termin</h3>
+            <p style="font-size:13.5px;color:#545F71;margin:6px 0 0">Brezplačno in brez obveznosti — izpolni spodnja polja.</p>
+            <label style="display:block;margin-top:16px">
+              <span style="display:block;font-size:12.5px;font-weight:700;color:#3C4450;margin-bottom:6px">E-pošta *</span>
+              <input type="email" value="{{ f.email }}" onChange="{{ set.email }}" placeholder="ime.priimek@primer.si" style="{{ inp.email }}">
+              <sc-if value="{{ err.email }}" hint-placeholder-val="{{ false }}"><span style="display:block;font-size:12px;color:#DA0D00;margin-top:5px">Obvezno polje</span></sc-if>
+            </label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px">
+              <label style="display:block">
+                <span style="display:block;font-size:12.5px;font-weight:700;color:#3C4450;margin-bottom:6px">Ime *</span>
+                <input type="text" value="{{ f.ime }}" onChange="{{ set.ime }}" placeholder="Ime" style="{{ inp.ime }}">
+                <sc-if value="{{ err.ime }}" hint-placeholder-val="{{ false }}"><span style="display:block;font-size:12px;color:#DA0D00;margin-top:5px">Obvezno polje</span></sc-if>
+              </label>
+              <label style="display:block">
+                <span style="display:block;font-size:12.5px;font-weight:700;color:#3C4450;margin-bottom:6px">Priimek *</span>
+                <input type="text" value="{{ f.priimek }}" onChange="{{ set.priimek }}" placeholder="Priimek" style="{{ inp.priimek }}">
+                <sc-if value="{{ err.priimek }}" hint-placeholder-val="{{ false }}"><span style="display:block;font-size:12px;color:#DA0D00;margin-top:5px">Obvezno polje</span></sc-if>
+              </label>
+            </div>
+            <label style="display:block;margin-top:16px">
+              <span style="display:block;font-size:12.5px;font-weight:700;color:#3C4450;margin-bottom:6px">Telefon *</span>
+              <input type="tel" value="{{ f.tel }}" onChange="{{ set.tel }}" placeholder="040 123 456" style="{{ inp.tel }}">
+              <sc-if value="{{ err.tel }}" hint-placeholder-val="{{ false }}"><span style="display:block;font-size:12px;color:#DA0D00;margin-top:5px">Obvezno polje</span></sc-if>
+            </label>
+            <div style="font-size:12.5px;font-weight:700;color:#3C4450;margin:22px 0 4px">Izberi svojo lokacijo *</div>
+            <p style="font-size:12px;line-height:1.5;color:#8B95A5;margin:0 0 10px">Ne glede na izbiro te pokličemo in uskladiva, ali ti bolj ustreza obisk salona ali obisk na domu.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <sc-for list="{{ locations }}" as="l" hint-placeholder-count="7">
+                <button type="button" onClick="{{ l.pick }}" style="{{ l.style }}">
+                  <span>{{ l.label }}</span>
+                  <sc-if value="{{ l.rec }}" hint-placeholder-val="{{ false }}">
+                    <span style="font-size:8.5px;font-weight:800;color:#fff;background:#0050A0;padding:3px 7px;border-radius:999px;white-space:nowrap">Priporočeno</span>
+                  </sc-if>
+                </button>
+              </sc-for>
+            </div>
+            <sc-if value="{{ err.lok }}" hint-placeholder-val="{{ false }}"><span style="display:block;font-size:12px;color:#DA0D00;margin-top:6px">Izberi lokacijo</span></sc-if>
+            <div style="display:flex;gap:10px;align-items:flex-start;margin-top:22px">
+              <button type="button" onClick="{{ toggleConsent }}" aria-label="Soglasje" style="{{ consentBox }}">
+                <sc-if value="{{ f.consent }}" hint-placeholder-val="{{ false }}"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12.5 10 17.5 19 7"></polyline></svg></sc-if>
+              </button>
+              <div style="font-size:12px;line-height:1.55;color:#8B95A5">
+                Seznanjen/-a sem, da družba Big Bang, d.o.o. (upravljalec) skupaj s pogodbenim obdelovalcem obdeluje zgoraj navedene podatke z namenom izvedbe brezplačnega svetovanja in izrisa kuhinje<sc-if value="{{ isIgra }}" hint-placeholder-val="{{ false }}"> ter, s to prijavo, tudi za sodelovanje v nagradni igri</sc-if>.
+                <sc-if value="{{ consentMore }}" hint-placeholder-val="{{ false }}"><span> Podatke hranimo skladno z zakonodajo o varstvu osebnih podatkov in jih ne predajamo tretjim osebam za namene neposrednega trženja brez ločene privolitve. Podrobnosti so na voljo v politiki zasebnosti<sc-if value="{{ isIgra }}" hint-placeholder-val="{{ false }}"> in v uradnih pravilih nagradne igre</sc-if>.</span></sc-if>
+                <sc-if value="{{ consentLess }}" hint-placeholder-val="{{ true }}"><a href="#" onClick="{{ showMore }}" style="color:#545F71;text-decoration:underline">Prikaži več</a></sc-if>
+                <sc-if value="{{ err.consent }}" hint-placeholder-val="{{ false }}"><span style="display:block;color:#DA0D00;margin-top:4px">Za oddajo prijave potrdi soglasje.</span></sc-if>
+              </div>
+            </div>
+            <button type="button" onClick="{{ submit }}" style="width:100%;height:53px;border:none;border-radius:27px;margin-top:22px;background:#0050A0;color:#fff;display:flex;align-items:center;justify-content:center;gap:9px;font-family:Inter,sans-serif;font-size:15.5px;font-weight:700;cursor:pointer;transition:background .15s" style-hover="background:#002D73">
+              Rezerviraj brezplačen termin
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+            </button>
+            <div style="display:flex;align-items:center;justify-content:center;gap:6px;font-size:11.5px;color:#8B95A5;margin-top:10px">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+              Tvoji podatki so varni. Ne pošiljamo neželene pošte.
+            </div>
+          </sc-if>
+          <sc-if value="{{ formDone }}" hint-placeholder-val="{{ false }}">
+            <div style="text-align:center;padding:20px 6px 6px">
+              <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#0050A0" stroke-width="1.6" style="display:block;margin:0 auto 14px"><circle cx="12" cy="12" r="10"></circle><path d="M8 12.5l2.5 2.5L16 9.5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+              <h3 style="font-size:19px;font-weight:800;color:#101117;margin:0">Hvala! Tvoja prijava je oddana.</h3>
+              <p style="font-size:13.5px;line-height:1.6;color:#545F71;margin:8px 0 0">Poklicali te bomo v 24 urah, da uskladimo termin.<sc-if value="{{ isIgra }}" hint-placeholder-val="{{ false }}"> Hkrati si samodejno vključen/-a v žrebanje za brezplačno kuhinjo po meri — srečno!</sc-if></p>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </section>
+</div>
+</sc-if>
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<div style="font-family:Inter,sans-serif;color:#101117">
+<section data-sec="rezervacija" style="padding:36px 16px 40px;background:#E3ECF7">
+    <span style="display:inline-flex;padding:4px 10px;border-radius:6px;background:#fff;color:#0050A0;font-size:10.5px;font-weight:900;letter-spacing:0.06em">REZERVACIJA TERMINA</span>
+    <h2 style="font-size:22px;line-height:1.22;font-weight:700;letter-spacing:-0.02em;margin:10px 0 0">Naroči brezplačen izris kuhinje</h2>
+    <p style="font-size:13.5px;line-height:1.6;color:#545F71;margin:8px 0 0">Izpolni obrazec — svetovalec te pokliče v 24 urah, da uskladita termin za obisk salona ali obisk na tvojem domu. Traja manj kot minuto, brez obveznosti nakupa.</p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px">
+      <sc-for list="{{ bSteps }}" as="b" hint-placeholder-count="3">
+        <div style="background:#fff;border-radius:12px;padding:14px 16px;display:flex;gap:12px;align-items:center">
+          <span style="width:28px;height:28px;box-sizing:border-box;border-radius:50%;background:#fff;border:1.5px solid #0050A0;color:#0050A0;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0">{{ b.n }}</span>
+          <div><div style="font-size:14px;font-weight:700;color:#101117">{{ b.t }}</div><div style="font-size:12.5px;color:#545F71;margin-top:2px">{{ b.s }}</div></div>
+        </div>
+      </sc-for>
+    </div>
+    <sc-if value="{{ isIgra }}" hint-placeholder-val="{{ false }}">
+    <div style="margin-top:10px;display:flex;gap:10px;align-items:flex-start;background:#FFF6E0;border:1px solid #F2C35B;border-radius:12px;padding:14px 16px;font-size:12.5px;line-height:1.55;color:#5C4300">
+      <svg width="16" height="16" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;display:block;margin-top:1px"><path d="M4.08333 12.25V11.0833H6.41667V9.275C5.94028 9.16806 5.51493 8.96632 5.14062 8.66979C4.76632 8.37326 4.49167 8.00139 4.31667 7.55417C3.5875 7.46667 2.97743 7.14826 2.48646 6.59896C1.99549 6.04965 1.75 5.40556 1.75 4.66667V4.08333C1.75 3.7625 1.86424 3.48785 2.09271 3.25937C2.32118 3.0309 2.59583 2.91667 2.91667 2.91667H4.08333V1.75H9.91667V2.91667H11.0833C11.4042 2.91667 11.6788 3.0309 11.9073 3.25937C12.1358 3.48785 12.25 3.7625 12.25 4.08333V4.66667C12.25 5.40556 12.0045 6.04965 11.5135 6.59896C11.0226 7.14826 10.4125 7.46667 9.68333 7.55417C9.50833 8.00139 9.23368 8.37326 8.85938 8.66979C8.48507 8.96632 8.05972 9.16806 7.58333 9.275V11.0833H9.91667V12.25H4.08333ZM4.08333 6.3V4.08333H2.91667V4.66667C2.91667 5.03611 3.02361 5.3691 3.2375 5.66563C3.45139 5.96215 3.73333 6.17361 4.08333 6.3ZM7 8.16667C7.48611 8.16667 7.89931 7.99653 8.23958 7.65625C8.57986 7.31597 8.75 6.90278 8.75 6.41667V2.91667H5.25V6.41667C5.25 6.90278 5.42014 7.31597 5.76042 7.65625C6.10069 7.99653 6.51389 8.16667 7 8.16667ZM9.91667 6.3C10.2667 6.17361 10.5486 5.96215 10.7625 5.66563C10.9764 5.3691 11.0833 5.03611 11.0833 4.66667V4.08333H9.91667V6.3Z" fill="#C98A00"></path></svg>
+      <span>S to prijavo samodejno sodeluješ tudi v <strong style="font-weight:800">žrebanju za brezplačno kuhinjo po meri</strong> — brez nakupa, samo z rezervacijo termina.</span>
+    </div>
+    </sc-if>
+
+    <div style="background:#fff;border-radius:16px;padding:22px 16px 24px;margin-top:16px">
+      <sc-if value="{{ formOpen }}" hint-placeholder-val="{{ true }}">
+        <h3 style="font-size:18px;font-weight:700;letter-spacing:-0.015em;margin:0">Rezerviraj svoj termin</h3>
+        <p style="font-size:13px;color:#545F71;margin:5px 0 0">Brezplačno in brez obveznosti — izpolni spodnja polja.</p>
+        <label style="display:block;margin-top:16px">
+          <span style="display:block;font-size:12.5px;font-weight:600;margin-bottom:6px">E-pošta *</span>
+          <input type="email" value="{{ f.email }}" onChange="{{ set.email }}" placeholder="ime.priimek@primer.si" style="{{ inp.email }}">
+          <sc-if value="{{ err.email }}" hint-placeholder-val="{{ false }}"><span style="display:block;font-size:11.5px;color:#DA0D00;margin-top:5px">Obvezno polje</span></sc-if>
+        </label>
+        <label style="display:block;margin-top:14px">
+          <span style="display:block;font-size:12.5px;font-weight:600;margin-bottom:6px">Ime *</span>
+          <input type="text" value="{{ f.ime }}" onChange="{{ set.ime }}" placeholder="Ime" style="{{ inp.ime }}">
+          <sc-if value="{{ err.ime }}" hint-placeholder-val="{{ false }}"><span style="display:block;font-size:11.5px;color:#DA0D00;margin-top:5px">Obvezno polje</span></sc-if>
+        </label>
+        <label style="display:block;margin-top:14px">
+          <span style="display:block;font-size:12.5px;font-weight:600;margin-bottom:6px">Priimek *</span>
+          <input type="text" value="{{ f.priimek }}" onChange="{{ set.priimek }}" placeholder="Priimek" style="{{ inp.priimek }}">
+          <sc-if value="{{ err.priimek }}" hint-placeholder-val="{{ false }}"><span style="display:block;font-size:11.5px;color:#DA0D00;margin-top:5px">Obvezno polje</span></sc-if>
+        </label>
+        <label style="display:block;margin-top:14px">
+          <span style="display:block;font-size:12.5px;font-weight:600;margin-bottom:6px">Telefon *</span>
+          <input type="tel" value="{{ f.tel }}" onChange="{{ set.tel }}" placeholder="040 123 456" style="{{ inp.tel }}">
+          <sc-if value="{{ err.tel }}" hint-placeholder-val="{{ false }}"><span style="display:block;font-size:11.5px;color:#DA0D00;margin-top:5px">Obvezno polje</span></sc-if>
+        </label>
+        <div style="font-size:12.5px;font-weight:600;margin:18px 0 4px">Izberi svojo lokacijo *</div>
+        <p style="font-size:12px;line-height:1.5;color:#8B95A5;margin:0 0 10px">Ne glede na izbiro te pokličemo in uskladiva, ali ti bolj ustreza obisk salona ali obisk na domu.</p>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <sc-for list="{{ locations }}" as="l" hint-placeholder-count="7">
+            <button type="button" onClick="{{ l.pick }}" style="{{ l.style }}">
+              <span style="display:flex;align-items:center;gap:10px;min-width:0">
+                <span style="{{ l.dot }}"></span>
+                <span>{{ l.label }}</span>
+              </span>
+              <sc-if value="{{ l.rec }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size:10px;font-weight:700;color:#fff;background:#0050A0;padding:3px 7px;border-radius:4px;white-space:nowrap">Priporočeno</span>
+              </sc-if>
+            </button>
+          </sc-for>
+        </div>
+        <sc-if value="{{ err.lok }}" hint-placeholder-val="{{ false }}"><span style="display:block;font-size:11.5px;color:#DA0D00;margin-top:6px">Izberi lokacijo</span></sc-if>
+        <div style="display:flex;gap:10px;align-items:flex-start;margin-top:18px">
+          <button type="button" onClick="{{ toggleConsent }}" aria-label="Soglasje" style="{{ consentBox }}">
+            <sc-if value="{{ f.consent }}" hint-placeholder-val="{{ false }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12.5 10 17.5 19 7"></polyline></svg></sc-if>
+          </button>
+          <div style="font-size:11.5px;line-height:1.55;color:#545F71">
+            Seznanjen/-a sem, da družba Big Bang, d.o.o. (upravljalec) skupaj s pogodbenim obdelovalcem obdeluje zgoraj navedene podatke z namenom izvedbe brezplačnega svetovanja in izrisa kuhinje<sc-if value="{{ isIgra }}" hint-placeholder-val="{{ false }}"> ter, s to prijavo, tudi za sodelovanje v nagradni igri</sc-if>.
+            <sc-if value="{{ consentMore }}" hint-placeholder-val="{{ false }}"><span> Podatke hranimo skladno z zakonodajo o varstvu osebnih podatkov in jih ne predajamo tretjim osebam za namene neposrednega trženja brez ločene privolitve. Podrobnosti so na voljo v politiki zasebnosti<sc-if value="{{ isIgra }}" hint-placeholder-val="{{ false }}"> in v uradnih pravilih nagradne igre</sc-if>.</span></sc-if>
+            <sc-if value="{{ consentLess }}" hint-placeholder-val="{{ true }}"><a href="#" onClick="{{ showMore }}" style="color:#0050A0;font-weight:600;text-decoration:underline">Prikaži več</a></sc-if>
+            <sc-if value="{{ err.consent }}" hint-placeholder-val="{{ false }}"><span style="display:block;color:#DA0D00;margin-top:4px">Za oddajo prijave potrdi soglasje.</span></sc-if>
+          </div>
+        </div>
+        <button type="button" onClick="{{ submit }}" class="bbcta" style="width:100%;height:48px;border-radius:24px;margin-top:18px;display:flex;align-items:center;justify-content:center;gap:9px;font-size:15px;font-weight:700">
+          Rezerviraj brezplačen termin
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </button>
+        <div style="display:flex;align-items:center;justify-content:center;gap:6px;font-size:11px;color:#8B95A5;margin-top:10px">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+          Tvoji podatki so varni. Ne pošiljamo neželene pošte.
+        </div>
+      </sc-if>
+      <sc-if value="{{ formDone }}" hint-placeholder-val="{{ false }}">
+        <div style="text-align:center;padding:24px 4px">
+          <span style="width:56px;height:56px;border-radius:50%;background:#E6F5EC;color:#0B7A48;display:inline-flex;align-items:center;justify-content:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12.5 10 17.5 19 7"></polyline></svg></span>
+          <h3 style="font-size:18px;font-weight:700;margin:14px 0 0">Hvala! Tvoja prijava je oddana.</h3>
+          <p style="font-size:13px;line-height:1.55;color:#545F71;margin:8px 0 0">Poklicali te bomo v 24 urah, da uskladimo termin.<sc-if value="{{ isIgra }}" hint-placeholder-val="{{ false }}"> Hkrati si samodejno vključen/-a v žrebanje za brezplačno kuhinjo po meri — srečno!</sc-if></p>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;variant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;desktop&quot;,&quot;mobile&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const LOCS = [
+  { v: 'Izris na domu', label: 'Izris na domu', rec: true },
+  { v: 'Ljubljana - Rudnik', label: 'Ljubljana – Rudnik' },
+  { v: 'Ljubljana - BTC', label: 'Ljubljana – BTC' },
+  { v: 'Celje', label: 'Celje' },
+  { v: 'Maribor', label: 'Maribor' },
+  { v: 'Koper', label: 'Koper' },
+  { v: 'Kranj', label: 'Kranj' }
+];
+
+class Component extends DCLogic {
+  state = { f: { email: '', ime: '', priimek: '', tel: '', lok: '', consent: false }, err: {}, done: false, more: false };
+
+  setField = (k) => (e) => {
+    const v = e.target.value;
+    this.setState(s => ({ f: Object.assign({}, s.f, { [k]: v }), err: Object.assign({}, s.err, { [k]: false }) }));
+  };
+
+  submit = () => {
+    const f = this.state.f;
+    const err = {
+      email: !/^\S+@\S+\.\S+$/.test(f.email.trim()),
+      ime: !f.ime.trim(), priimek: !f.priimek.trim(), tel: !f.tel.trim(),
+      lok: !f.lok, consent: !f.consent
+    };
+    if (Object.keys(err).some(k => err[k])) { this.setState({ err }); return; }
+    this.setState({ done: true, err: {} });
+  };
+
+  renderVals() {
+    const p = this.props, s = this.state;
+    const mobile = p.variant === 'mobile';
+    const f = s.f, err = s.err;
+    const inp = (k) => ({
+      width: '100%', height: 46, padding: '0 14px', borderRadius: 10, boxSizing: 'border-box',
+      border: '1.5px solid ' + (err[k] ? '#DA0D00' : '#E6E9EE'), background: '#FBFBFC', outline: 'none',
+      fontFamily: 'Inter,sans-serif', fontSize: 14, color: '#101117'
+    });
+    return {
+      isDesktop: !mobile, isMobile: mobile, isIgra: false,
+      stars: [0, 1, 2, 3, 4],
+      bSteps: [
+        { n: '1', t: 'Izpolniš obrazec', s: 'Samo kontaktni podatki — brez plačilnih.' },
+        { n: '2', t: 'Pokličemo te v 24 urah', s: 'Uskladimo točen termin — v salonu ali obisk na domu.' },
+        { n: '3', t: 'Brezplačno svetovanje in 3D izris', s: 'Prejmeš ponudbo po meri, brez obveznosti nakupa.' }
+      ],
+      formOpen: !s.done,
+      formDone: s.done,
+      f: f,
+      err: err,
+      set: { email: this.setField('email'), ime: this.setField('ime'), priimek: this.setField('priimek'), tel: this.setField('tel') },
+      inp: { email: inp('email'), ime: inp('ime'), priimek: inp('priimek'), tel: inp('tel') },
+      locations: LOCS.map(l => {
+        const on = f.lok === l.v;
+        return {
+          label: l.label, rec: !!l.rec,
+          pick: () => this.setState(st => ({ f: Object.assign({}, st.f, { lok: l.v }), err: Object.assign({}, st.err, { lok: false }) })),
+          style: {
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 6, padding: '11px 14px', boxSizing: 'border-box',
+            borderRadius: 10, border: '1.5px solid ' + (on ? '#0050A0' : (err.lok ? '#DA0D00' : '#E6E9EE')),
+            background: on ? '#EAF1FA' : '#fff', color: on ? '#003B7A' : '#3C4450',
+            fontFamily: 'Inter,sans-serif', fontSize: 13, fontWeight: 600, textAlign: 'left', cursor: 'pointer', transition: 'border-color .15s, background .15s'
+          },
+          dot: {
+            width: 16, height: 16, borderRadius: '50%', flexShrink: 0, boxSizing: 'border-box',
+            border: on ? '5px solid #0050A0' : '1.5px solid #8B95A5', background: '#fff'
+          }
+        };
+      }),
+      toggleConsent: () => this.setState(st => ({ f: Object.assign({}, st.f, { consent: !st.f.consent }), err: Object.assign({}, st.err, { consent: false }) })),
+      consentBox: {
+        width: 16, height: 16, borderRadius: 3, flexShrink: 0, marginTop: 2, padding: 0, cursor: 'pointer', boxSizing: 'border-box',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        border: f.consent ? 'none' : '1.5px solid ' + (err.consent ? '#DA0D00' : '#8B95A5'),
+        background: f.consent ? '#0050A0' : '#fff'
+      },
+      consentMore: s.more,
+      consentLess: !s.more,
+      showMore: (e) => { if (e) e.preventDefault(); this.setState({ more: true }); },
+      submit: this.submit,
+    };
+  }
+}
+</script>
+</body>
+</html>

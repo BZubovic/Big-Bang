@@ -74,3 +74,20 @@ html { scrollbar-gutter: stable }
 .bbcta:hover{background:#0050A0!important;color:#fff!important}
 
 @keyframes bbfade{from{opacity:0}to{opacity:1}}
+
+
+/* .bbcopy — promo-code copy button (desktop): copy icon, check icon for 1.6s after copying */
+.bbcopy .ic-ok{display:none}
+.bbcopy[data-copied] .ic-copy{display:none}
+.bbcopy[data-copied] .ic-ok{display:block}
+.bbcopy:hover{background:rgba(11,122,72,0.12) !important}
+.bbcopy:focus-visible{outline:2px solid #0B7A48;outline-offset:1px}
+
+/* brand directory (Pages/Brands body) — chip / letter hover, search focus */
+.bbchip[data-on="0"]:hover{color:#0050A0 !important}
+.bbltr:not(:disabled):hover{background:#EBF3FE !important;color:#0050A0 !important}
+.bbfield:focus-within{border-color:#0050A0 !important}
+
+/* .bbpills — product card labels: hovered label shows in full, the others ellipsise (desktop) */
+.bbpills .bbpl{transition:flex-shrink .2s}
+@media (hover:hover){.bbpills:hover .bbpl{flex-shrink:1}.bbpills .bbpl:hover{flex-shrink:0;min-width:max-content}}

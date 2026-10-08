@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</helmet>
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<div ref="{{ rootRef }}" style="background:#fff;font-family:Inter,sans-serif;color:#101117">
+
+  <div style="background:#fff;border-bottom:1px solid #EEF0F3">
+    <div style="max-width:1480px;margin:0 auto;padding:20px 20px 18px;display:flex;flex-direction:column;gap:16px">
+      <dc-import name="Components/Breadcrumbs" variant="desktop" items="{{ crumbs }}" hint-size="100%,18px"></dc-import>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
+        <a href="#" onClick="{{ goBack }}" style="display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:#0050A0" style-hover="color:#002D73">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"></path></svg>
+          Nazaj na Big Bang kuhinje
+        </a>
+        <nav aria-label="Stili kuhinj" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <sc-for list="{{ styleTabs }}" as="t" hint-placeholder-count="3">
+            <a href="#" onClick="{{ t.pick }}" style="{{ t.style }}">{{ t.label }}</a>
+          </sc-for>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <section style="max-width:1480px;margin:0 auto;padding:56px 20px 40px">
+    <span style="display:inline-flex;padding:7px 14px;border-radius:999px;background:#EAF1FA;color:#0050A0;font-size:11.5px;font-weight:900;letter-spacing:0.09em">STILI KUHINJ</span>
+    <h1 style="font-size:52px;line-height:1.08;font-weight:800;letter-spacing:-0.02em;color:#101117;margin:16px 0 0">{{ title }}</h1>
+    <sc-if value="{{ hasCollections }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:22px">
+        <span style="font-size:13px;font-weight:700;color:#8B95A5;letter-spacing:0.04em">KOLEKCIJE</span>
+        <sc-for list="{{ collections }}" as="c" hint-placeholder-count="1">
+          <a href="#" onClick="{{ c.jump }}" style="height:38px;padding:0 16px;border-radius:19px;background:#F1F1F4;color:#101117;display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600" style-hover="background:#EAF1FA;color:#002D73"><span style="font-size:11px;font-weight:800;color:#8B95A5">{{ c.num }}</span>{{ c.name }}</a>
+        </sc-for>
+      </div>
+    </sc-if>
+  </section>
+
+  <sc-if value="{{ noCollections }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1480px;margin:0 auto;padding:0 20px 64px">
+      <div style="background:#F7F8FA;border-radius:20px;padding:56px 40px;text-align:center">
+        <div style="font-size:20px;font-weight:700;color:#101117">Kolekcije za ta stil pripravljamo</div>
+        <p style="font-size:15px;line-height:1.6;color:#545F71;margin:8px auto 0;max-width:520px">Medtem si oglej druge stile ali rezerviraj brezplačen termin — svetovalec ti pokaže vse možnosti v salonu ali na tvojem domu.</p>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-for list="{{ collections }}" as="c" hint-placeholder-count="1">
+    <section data-sec="{{ c.id }}" style="max-width:1480px;margin:0 auto;padding:0 20px 88px">
+      <div style="position:relative;border-radius:20px;overflow:hidden;background:#E4E4EA;aspect-ratio:1480/820">
+        <img src="{{ c.hero }}" alt="{{ c.heroAlt }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        <div style="position:absolute;left:0;right:0;bottom:0;padding:120px 40px 36px;background:linear-gradient(180deg,rgba(6,16,34,0) 0%,rgba(6,16,34,0.78) 100%)">
+          <div style="font-size:12px;font-weight:800;letter-spacing:0.1em;color:#10DFBA">KOLEKCIJA {{ c.num }}</div>
+          <h2 style="font-size:56px;line-height:1.05;font-weight:800;letter-spacing:-0.025em;color:#fff;margin:8px 0 0">{{ c.name }}</h2>
+        </div>
+      </div>
+
+      <div style="{{ c.introGrid }}">
+        <div>
+          <h3 style="font-size:32px;line-height:1.2;font-weight:800;letter-spacing:-0.015em;color:#101117;margin:0">{{ c.name }}</h3>
+          <p style="font-size:17px;line-height:1.7;color:#3C4450;margin:18px 0 0;text-wrap:pretty">{{ c.intro }}</p>
+        </div>
+        <sc-if value="{{ c.hasSwatch }}" hint-placeholder-val="{{ true }}">
+        <figure style="margin:0">
+          <div style="border-radius:16px;overflow:hidden;background:#F1F1F4"><img src="{{ c.swatch }}" alt="{{ c.swatchCap }}" style="width:100%;display:block"></div>
+          <figcaption style="font-size:13px;color:#8B95A5;margin-top:10px">{{ c.swatchCap }}</figcaption>
+        </figure>
+        </sc-if>
+      </div>
+
+      <sc-if value="{{ c.hasBlocks }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:72px;margin-top:88px">
+        <sc-for list="{{ c.blocks }}" as="b" hint-placeholder-count="2">
+          <div style="{{ b.row }}">
+            <div style="flex:1.25;min-width:0;border-radius:16px;overflow:hidden;background:#F1F1F4;aspect-ratio:1110/600"><img src="{{ b.img }}" alt="{{ b.alt }}" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+            <div style="flex:1;min-width:0">
+              <span style="font-size:12px;font-weight:800;letter-spacing:0.1em;color:#0050A0">{{ b.kicker }}</span>
+              <h3 style="font-size:32px;line-height:1.2;font-weight:800;letter-spacing:-0.015em;color:#101117;margin:10px 0 0">{{ b.h }}</h3>
+              <p style="font-size:17px;line-height:1.7;color:#3C4450;margin:16px 0 0;text-wrap:pretty">{{ b.t }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      </sc-if>
+
+      <div style="{{ c.galGrid }}">
+        <sc-for list="{{ c.gallery }}" as="g" hint-placeholder-count="2">
+          <div style="{{ g.box }}"><img src="{{ g.img }}" alt="{{ g.alt }}" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:32px;background:#EBF3FE;border-radius:16px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
+        <div>
+          <div style="font-size:20px;font-weight:700;color:#101117">Ti je všeč kolekcija {{ c.name }}?</div>
+          <div style="font-size:15px;color:#3C4450;margin-top:4px">Oglej si jo v salonu ali naroči brezplačen izris kuhinje po meri.</div>
+        </div>
+        <a href="#" onClick="{{ goBooking }}" class="bbcta" style="height:50px;padding:0 26px;border-radius:25px;display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:700">Rezerviraj brezplačen termin
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </a>
+      </div>
+    </section>
+  </sc-for>
+
+  <div data-sec="rezervacija">
+    <dc-import name="Components/KitchenBooking" variant="desktop" hint-size="100%,820px"></dc-import>
+  </div>
+
+  <section style="max-width:1480px;margin:0 auto;padding:80px 20px 96px">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:28px">
+      <h2 style="font-size:28px;font-weight:700;letter-spacing:-0.02em;color:#101117;margin:0">Odkrij še druge stile</h2>
+      <a href="#" onClick="{{ goBack }}" class="arw" style="display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:#0050A0">Vse o Big Bang kuhinjah
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px">
+      <sc-for list="{{ others }}" as="o" hint-placeholder-count="2">
+        <a href="#" onClick="{{ o.pick }}" class="imz" style="position:relative;display:block;height:360px;border-radius:20px;overflow:hidden;background:#101117;color:#fff" style-hover="color:#fff">
+          <img src="{{ o.img }}" alt="{{ o.label }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+          <div style="position:absolute;left:0;right:0;bottom:0;padding:90px 28px 26px;background:linear-gradient(180deg,rgba(6,16,34,0) 0%,rgba(6,16,34,0.82) 100%);display:flex;align-items:flex-end;justify-content:space-between;gap:16px">
+            <div>
+              <div style="font-size:26px;font-weight:800;letter-spacing:-0.015em">{{ o.label }}</div>
+              <div style="font-size:14px;color:#D5DCE6;margin-top:4px">{{ o.d }}</div>
+            </div>
+            <span style="width:48px;height:48px;border-radius:50%;background:#fff;color:#002D73;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<div ref="{{ rootRefM }}" style="background:#fff;font-family:Inter,sans-serif;color:#101117">
+  <div style="padding:14px 16px 12px;border-bottom:1px solid #EEF0F3;display:flex;flex-direction:column;gap:12px">
+    <dc-import name="Components/Breadcrumbs" variant="mobile" items="{{ crumbs }}" hint-size="100%,16px"></dc-import>
+    <a href="#" onClick="{{ goBack }}" style="display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:700;color:#0050A0">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"></path></svg>
+      Nazaj na Big Bang kuhinje
+    </a>
+  </div>
+  <nav class="nsb" aria-label="Stili kuhinj" style="display:flex;gap:8px;overflow-x:auto;padding:12px 16px">
+    <sc-for list="{{ styleTabs }}" as="t" hint-placeholder-count="3">
+      <a href="#" onClick="{{ t.pick }}" style="{{ t.mStyle }}">{{ t.label }}</a>
+    </sc-for>
+  </nav>
+
+  <section style="padding:22px 16px 24px">
+    <span style="display:inline-flex;padding:4px 10px;border-radius:6px;background:#EAF1FA;color:#0050A0;font-size:10.5px;font-weight:900;letter-spacing:0.06em">STILI KUHINJ</span>
+    <h1 style="font-size:32px;line-height:1.1;font-weight:800;letter-spacing:-0.02em;margin:12px 0 0">{{ title }}</h1>
+    <sc-if value="{{ hasCollections }}" hint-placeholder-val="{{ true }}">
+      <div class="nsb" style="display:flex;gap:8px;overflow-x:auto;margin:16px -16px 0;padding:0 16px">
+        <sc-for list="{{ collections }}" as="c" hint-placeholder-count="1">
+          <a href="#" onClick="{{ c.jump }}" style="flex-shrink:0;height:36px;padding:0 14px;border-radius:18px;background:#F1F1F4;color:#101117;display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;white-space:nowrap"><span style="font-size:10.5px;font-weight:800;color:#8B95A5">{{ c.num }}</span>{{ c.name }}</a>
+        </sc-for>
+      </div>
+    </sc-if>
+  </section>
+
+  <sc-if value="{{ noCollections }}" hint-placeholder-val="{{ false }}">
+    <div style="margin:0 16px 36px;background:#F7F8FA;border-radius:16px;padding:28px 20px;text-align:center">
+      <div style="font-size:17px;font-weight:700">Kolekcije za ta stil pripravljamo</div>
+      <p style="font-size:13.5px;line-height:1.55;color:#545F71;margin:6px 0 0">Medtem si oglej druge stile ali rezerviraj brezplačen termin.</p>
+    </div>
+  </sc-if>
+
+  <sc-for list="{{ collections }}" as="c" hint-placeholder-count="1">
+    <section data-sec="{{ c.id }}" style="padding:0 0 48px">
+      <div style="position:relative;aspect-ratio:4/3;background:#E4E4EA;overflow:hidden">
+        <img src="{{ c.hero }}" alt="{{ c.heroAlt }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+        <div style="position:absolute;left:0;right:0;bottom:0;padding:60px 16px 16px;background:linear-gradient(180deg,rgba(6,16,34,0) 0%,rgba(6,16,34,0.8) 100%)">
+          <div style="font-size:10.5px;font-weight:800;letter-spacing:0.1em;color:#10DFBA">KOLEKCIJA {{ c.num }}</div>
+          <h2 style="font-size:30px;line-height:1.08;font-weight:800;letter-spacing:-0.02em;color:#fff;margin:4px 0 0">{{ c.name }}</h2>
+        </div>
+      </div>
+      <div style="padding:24px 16px 0">
+        <p style="font-size:15px;line-height:1.65;color:#3C4450;margin:0">{{ c.intro }}</p>
+        <sc-if value="{{ c.hasSwatch }}" hint-placeholder-val="{{ true }}">
+        <figure style="margin:20px 0 0">
+          <div style="border-radius:12px;overflow:hidden;background:#F1F1F4"><img src="{{ c.swatch }}" alt="{{ c.swatchCap }}" style="width:100%;display:block"></div>
+          <figcaption style="font-size:12px;color:#8B95A5;margin-top:8px">{{ c.swatchCap }}</figcaption>
+        </figure>
+        </sc-if>
+      </div>
+      <sc-if value="{{ c.hasBlocks }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:32px;padding:36px 16px 0">
+        <sc-for list="{{ c.blocks }}" as="b" hint-placeholder-count="2">
+          <div>
+            <div style="border-radius:12px;overflow:hidden;background:#F1F1F4;aspect-ratio:1110/600"><img src="{{ b.img }}" alt="{{ b.alt }}" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+            <span style="display:block;font-size:10.5px;font-weight:800;letter-spacing:0.1em;color:#0050A0;margin-top:16px">{{ b.kicker }}</span>
+            <h3 style="font-size:22px;line-height:1.2;font-weight:800;letter-spacing:-0.015em;margin:6px 0 0">{{ b.h }}</h3>
+            <p style="font-size:15px;line-height:1.65;color:#3C4450;margin:10px 0 0">{{ b.t }}</p>
+          </div>
+        </sc-for>
+      </div>
+      </sc-if>
+      <div class="nsb" style="display:flex;gap:10px;overflow-x:auto;padding:32px 16px 0">
+        <sc-for list="{{ c.gallery }}" as="g" hint-placeholder-count="2">
+          <div style="flex-shrink:0;width:82%;height:240px;border-radius:12px;overflow:hidden;background:#F1F1F4"><img src="{{ g.img }}" alt="{{ g.alt }}" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+        </sc-for>
+      </div>
+      <div style="margin:24px 16px 0;background:#EBF3FE;border-radius:14px;padding:20px 18px">
+        <div style="font-size:16px;font-weight:700">Ti je všeč kolekcija {{ c.name }}?</div>
+        <div style="font-size:13.5px;line-height:1.5;color:#3C4450;margin-top:4px">Oglej si jo v salonu ali naroči brezplačen izris.</div>
+        <a href="#" onClick="{{ goBooking }}" class="bbcta" style="margin-top:14px;height:48px;border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700">Rezerviraj brezplačen termin</a>
+      </div>
+    </section>
+  </sc-for>
+
+  <div data-sec="rezervacija">
+    <dc-import name="Components/KitchenBooking" variant="mobile" hint-size="100%,1200px"></dc-import>
+  </div>
+
+  <section style="padding:40px 16px 48px">
+    <h2 style="font-size:20px;font-weight:700;letter-spacing:-0.02em;margin:0 0 14px">Odkrij še druge stile</h2>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ others }}" as="o" hint-placeholder-count="2">
+        <a href="#" onClick="{{ o.pick }}" style="position:relative;display:block;height:180px;border-radius:14px;overflow:hidden;background:#101117;color:#fff" style-active="color:#fff">
+          <img src="{{ o.img }}" alt="{{ o.label }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block">
+          <div style="position:absolute;left:0;right:0;bottom:0;padding:50px 16px 14px;background:linear-gradient(180deg,rgba(6,16,34,0) 0%,rgba(6,16,34,0.82) 100%);display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
+            <div><div style="font-size:19px;font-weight:800">{{ o.label }}</div><div style="font-size:12.5px;color:#D5DCE6;margin-top:2px">{{ o.d }}</div></div>
+            <span style="width:40px;height:40px;border-radius:50%;background:#fff;color:#002D73;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+    <a href="#" onClick="{{ goBack }}" style="margin-top:18px;height:48px;border-radius:24px;border:1px solid #0050A0;color:#0050A0;background:#fff;display:flex;align-items:center;justify-content:center;font-size:14.5px;font-weight:700">Vse o Big Bang kuhinjah</a>
+  </section>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;variant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;desktop&quot;,&quot;mobile&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;kitchenStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;klasicne&quot;,&quot;rusticne&quot;,&quot;moderne&quot;],&quot;default&quot;:&quot;klasicne&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;onStyle&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(id: string) =&gt; void&quot;},&quot;onBack&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;},&quot;onHome&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;}}">
+const D = 'images/kuhinje/stili/';
+const STYLES = [
+  { id: 'klasicne', label: 'Klasične kuhinje', d: 'Toplina, okvirjene fronte', img: 'images/kuhinje/kitchen-bright.jpg', collections: [
+    { id: 'leni-paula', name: 'Leni | Paula',
+      hero: D + 'leni-paula-hero.png', heroAlt: 'Kuhinja Leni | Paula s satenasto črnimi frontami Paula in lesenim dekorjem Leni',
+      intro: 'Tekstura iz ščetkanega furnirja je v trendu: utori, razvrščeni v vrste, ustvarjajo občutek globine z edinstvenim učinkom. Naša visokokakovostna melaminska smola Leni daje valovit izgled, ki je dodelan do popolnosti. Oba odtenka dekorja pa zagotavljata neomejeno možnosti načrtovanja vaše nove kuhinje.',
+      swatch: D + 'leni-188-189.png', swatchCap: 'Dekorja Leni 188 in Leni 189',
+      blocks: [
+        { kicker: 'PAULA', h: 'Čut za estetiko', t: 'Eleganca je lahko funkcionalna! Naša trpežna sprednja stran iz laminata Paula je robustna in je na voljo v satenasto črni barvi. Praktična prednost: premaz proti prstnim odtisom, ki preprečuje prstne odtise.', img: D + 'leni-paula-predali.png', alt: 'Odprti predali s satenasto črnimi frontami Paula' },
+        { kicker: 'LENI', h: 'Čudovite teksture', t: 'Tekstura iz ščetkanega furnirja naših front Leni je izjemno priljubljena. Nič čudnega, saj se lepo ujema s svetlimi in kontrastnimi elementi.', img: D + 'leni-tekstura.png', alt: 'Detajl teksture ščetkanega furnirja Leni' }
+      ],
+      gallery: [
+        { img: D + 'leni-paula-organizator.png', alt: 'Predal z lesenim organizatorjem pod kuhalno ploščo' },
+        { img: D + 'leni-paula-svetla.png', alt: 'Svetla kuhinja z lesenimi frontami Leni in barskim pultom' }
+      ] },
+    { id: 'paris-porto', name: 'Paris | Porto',
+      hero: D + 'paris-porto-hero.png', heroAlt: 'Kuhinja Paris | Porto z nežno zelenimi frontami in dekorjem naravnega hrasta',
+      intro: 'Vam je všeč pomirjujoč naravni izgled? V družbi nežno zelene in dekorja s fino strukturo naravnega hrasta, dimljenega hrasta in oreha bo vaša nova kuhinja delovala pristno in še posebej domače.',
+      blocks: [],
+      gallery: [
+        { img: D + 'paris-porto-otok.png', alt: 'Kuhinjski otok z nežno zelenimi frontami Paris in svetlim kamnitim pultom', square: true },
+        { img: D + 'paris-porto-omare.png', alt: 'Visoke omare v dekorju naravnega hrasta Porto z vgradno pečico', square: true }
+      ] },
+    { id: 'rhodos-bali', name: 'Rhodos | Bali',
+      hero: D + 'rhodos-bali-hero.png', heroAlt: 'Kuhinja Rhodos | Bali z belimi visokosijajnimi frontami, dekorjem hrasta in vgrajenim delovnim kotičkom',
+      intro: 'Pametna zasnova z rešitvami za kuhinje in celo vaš delovni kotiček: visoka enota z vgrajeno LED-osvetlitvijo in vgrajeno mizico zagotavlja priročen prostor za udobno delo od doma. Vsestranski notranji izvlečni deli v stranskih delih z lahkoto organizirajo vse druge pisarniške potrebe. Poravnana vgradnja korita in kuhalne plošče poskrbi za prefinjene detajle in dovršen izgled.',
+      blocks: [],
+      gallery: [
+        { img: D + 'rhodos-bali-delovni-kotick.png', alt: 'Odprta visoka enota z vgrajeno mizico in LED-osvetlitvijo kot delovni kotiček', ratio: '3/4' },
+        { img: D + 'rhodos-bali-omara.png', alt: 'Visoka omara v dekorju hrasta z notranjimi izvlečnimi policami ob straneh', ratio: '3/4' },
+        { img: D + 'rhodos-bali-korito.png', alt: 'Poravnano vgrajeno korito iz nerjavnega jekla v pultu z dekorjem hrasta', ratio: '760/543' },
+        { img: D + 'rhodos-bali-plosca.png', alt: 'Poravnano vgrajena steklokeramična kuhalna plošča', ratio: '760/543' }
+      ] }
+  ] },
+  { id: 'rusticne', label: 'Rustikalne kuhinje', d: 'Les, naravni materiali', img: 'images/kuhinje/kitchen-sink.jpg', collections: [] },
+  { id: 'moderne', label: 'Moderne kuhinje', d: 'Čiste linije, minimalizem', img: 'images/kuhinje/kitchen-dark.jpg', collections: [] }
+];
+
+class Component extends DCLogic {
+  rootRef = (el) => { if (el) this.root = el; };
+
+  scroller() {
+    let node = this.root && this.root.parentElement;
+    while (node && node !== document.body && node !== document.documentElement) {
+      const oy = getComputedStyle(node).overflowY;
+      if ((oy === 'auto' || oy === 'scroll') && node.scrollHeight > node.clientHeight) return node;
+      node = node.parentElement;
+    }
+    return null;
+  }
+
+  scrollTo = (sel) => (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    const el = this.root && this.root.querySelector('[data-sec="' + sel + '"]');
+    if (!el) return;
+    const cont = this.scroller(), r = el.getBoundingClientRect();
+    if (cont) cont.scrollBy({ top: r.top - cont.getBoundingClientRect().top - 70, behavior: 'smooth' });
+    else window.scrollBy({ top: r.top - 130, behavior: 'smooth' });
+  };
+
+  renderVals() {
+    const p = this.props;
+    const mobile = p.variant === 'mobile';
+    const cur = STYLES.find(x => x.id === p.kitchenStyle) || STYLES[0];
+    const nav = (id) => (e) => { if (e && e.preventDefault) e.preventDefault(); if (p.onStyle) p.onStyle(id); };
+    const back = (e) => { if (e && e.preventDefault) e.preventDefault(); if (p.onBack) p.onBack(); };
+    return {
+      isDesktop: !mobile, isMobile: mobile,
+      rootRef: mobile ? null : this.rootRef, rootRefM: mobile ? this.rootRef : null,
+      title: cur.label,
+      crumbs: [
+        { label: mobile ? 'Početna' : 'Big Bang', onClick: (e) => { if (e) e.preventDefault(); if (p.onHome) p.onHome(); } },
+        { label: 'Kuhinje', onClick: back },
+        { label: cur.label }
+      ],
+      goBack: back,
+      goBooking: this.scrollTo('rezervacija'),
+      styleTabs: STYLES.map(st => {
+        const on = st.id === cur.id;
+        return {
+          label: st.label, pick: nav(st.id),
+          style: { height: 40, padding: '0 18px', borderRadius: 20, display: 'inline-flex', alignItems: 'center', fontSize: 14, fontWeight: on ? 700 : 500, textDecoration: 'none', boxSizing: 'border-box', border: on ? '1.5px solid #002D73' : '1.5px solid transparent', background: on ? '#fff' : '#F1F1F4', color: on ? '#002D73' : '#3C4450' },
+          mStyle: { flexShrink: 0, height: 36, padding: '0 14px', borderRadius: 18, display: 'inline-flex', alignItems: 'center', fontSize: 13.5, fontWeight: on ? 700 : 500, whiteSpace: 'nowrap', boxSizing: 'border-box', border: on ? '1.5px solid #002D73' : '1.5px solid transparent', background: on ? '#fff' : '#F1F1F4', color: on ? '#002D73' : '#3C4450' }
+        };
+      }),
+      hasCollections: cur.collections.length > 0, noCollections: cur.collections.length === 0,
+      collections: cur.collections.map((c, i) => Object.assign({}, c, {
+        num: String(i + 1).padStart(2, '0'),
+        jump: this.scrollTo(c.id),
+        hasSwatch: !!c.swatch, hasBlocks: c.blocks.length > 0,
+        introGrid: c.swatch ? { display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,1fr)', gap: 64, alignItems: 'center', marginTop: 72 } : { marginTop: 64, maxWidth: 820 },
+        galGrid: { display: 'grid', gridTemplateColumns: c.gallery.every(g => g.square || g.ratio) ? 'minmax(0,1fr) minmax(0,1fr)' : 'minmax(0,1fr) minmax(0,1.6fr)', gap: 20, marginTop: c.blocks.length ? 88 : 48 },
+        gallery: c.gallery.map(g => Object.assign({}, g, { box: (g.square || g.ratio) ? { borderRadius: 16, overflow: 'hidden', background: '#F1F1F4', aspectRatio: g.ratio || '1/1' } : { borderRadius: 16, overflow: 'hidden', background: '#F1F1F4', height: 480 } })),
+        blocks: c.blocks.map((b, j) => Object.assign({}, b, { row: { display: 'flex', flexDirection: j % 2 ? 'row-reverse' : 'row', alignItems: 'center', gap: 64 } }))
+      })),
+      others: STYLES.filter(st => st.id !== cur.id).map(st => ({ label: st.label, d: st.d, img: st.img, pick: nav(st.id) }))
+    };
+  }
+}
+</script>
+</body>
+</html>
