@@ -1865,6 +1865,7 @@ function DealsBody() {
   );
 }
 
+const energyOk = () => !window.BBEnergy || window.BBEnergy.allowed(P ? P.name : 'Samsung Galaxy S24+');
 function SidePanel() {
   const [openId, setOpenId] = React.useState(null);
   React.useEffect(() => {
@@ -1878,7 +1879,7 @@ function SidePanel() {
   { id: 'delivery', title: 'Dostava', icon: <Icon.Truck size={20} /> },
   { id: 'pickup', title: 'Raspoloživost u poslovnicama (5)', icon: <BBI.LocationMarker size={20} /> },
   { id: 'energy', title: 'Energetski razred', icon: <BBI.Bolt size={20} /> },
-  { id: 'b2b', title: 'B2B ponuda i najam opreme', icon: <BBI.Briefcase size={20} /> }];
+  { id: 'b2b', title: 'B2B ponuda i najam opreme', icon: <BBI.Briefcase size={20} /> }].filter(i => i.id !== 'energy' || energyOk());
 
   const open = openId === 'deals' ? { id: 'deals', title: 'Posebne pogodnosti', icon: <BBI.PromoTag size={20} /> } : items.find(i => i.id === openId);
   const Body = openId === 'deals' ? DealsBody

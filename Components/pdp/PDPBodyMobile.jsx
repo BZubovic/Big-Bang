@@ -790,6 +790,7 @@ function StockBox({ inStock, shown }) {
 }
 
 // ─── Info list (Promo / Dostava / Pickup / Energy / B2B) ──────────
+const energyOk = () => !window.BBEnergy || window.BBEnergy.allowed(P ? P.name : 'Samsung Galaxy S24+');
 function InfoList({ onOpenSheet }) {
   const items = [
     { id: 'promo', icon: <Icon.Tag/>, title: 'Dostupni promo kodovi' },
@@ -797,7 +798,7 @@ function InfoList({ onOpenSheet }) {
     { id: 'pickup', icon: <Icon.Pin/>, title: 'Raspoloživost u poslovnicama (5)' },
     { id: 'energy', icon: <Icon.Bolt/>, title: 'Energetski razred' },
     { id: 'b2b', icon: <Icon.Briefcase/>, title: 'B2B ponuda i najam opreme' },
-  ];
+  ].filter(i => i.id !== 'energy' || energyOk());
   return (
     <div style={{ background: '#fff', marginTop: 10 }}>
       {items.map((it, i) => (

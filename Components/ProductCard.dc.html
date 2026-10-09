@@ -12,265 +12,487 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<script src="energy-rule.js"></script>
 </helmet>
 
-<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
-<a href="#" onClick="{{ open }}" class="imz" style="position:relative;width:100%;height:100%;background:#fff;border-radius:12px;display:flex;flex-direction:column;color:#101117;overflow:hidden;font-family:Inter,sans-serif">
-  <div style="position:relative;height:193px;flex-shrink:0">
-    <div style="position:absolute;top:10px;left:11px;right:11px;bottom:4px;overflow:hidden">
-      <div class="pimg" style="{{ imgStyle }}"></div>
-    </div>
-    <div style="{{ badgeRow }}">
+<sc-if value="{{ isVD }}" hint-placeholder-val="{{ true }}">
+<a href="#" onClick="{{ open }}" class="imz" style="position:relative;width:100%;height:100%;box-sizing:border-box;background:#fff;border-radius:12px;display:flex;flex-direction:column;color:#101117;overflow:hidden;font-family:Inter,sans-serif;padding-bottom:10px">
+  <div style="position:relative;height:200px;flex-shrink:0">
+    <div style="position:absolute;top:10px;left:12px;right:12px;bottom:0;overflow:hidden"><div class="pimg" style="{{ imgStyle }}"></div></div>
+    <div style="position:absolute;top:10px;left:8px;width:44px;display:flex;flex-direction:column;align-items:center;gap:11px;z-index:2;pointer-events:none">
       <sc-if value="{{ c.cashback }}" hint-placeholder-val="{{ false }}">
-        <div style="width:40px;height:40px;flex-shrink:0;border-radius:50%;background:#1A7FD0;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;z-index:2">
-          <span style="font-size:4.5px;font-weight:700;letter-spacing:0.02em">POVRAT</span>
-          <span style="font-size:4.5px;font-weight:700;letter-spacing:0.02em;margin-top:0.5px">NOVCA</span>
-          <span style="font-size:16px;font-weight:800;letter-spacing:-0.04em;margin-top:1px">{{ c.cashback }}</span>
-          <span style="font-size:5.5px;font-weight:700;margin-top:1px">EUR</span>
-        </div>
+        <div style="width:44px;height:44px;border-radius:50%;background:#1A7FD0;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1"><span style="font-size:5px;font-weight:700;letter-spacing:0.02em">POVRAT</span><span style="font-size:5px;font-weight:700;letter-spacing:0.02em;margin-top:0.5px">NOVCA</span><span style="font-size:17px;font-weight:800;letter-spacing:-0.04em;margin-top:1px">{{ c.cashback }}</span><span style="font-size:6px;font-weight:700;margin-top:1px">EUR</span></div>
       </sc-if>
       <sc-if value="{{ c.warranty }}" hint-placeholder-val="{{ false }}">
-        <div>
-          <div style="width:26px;height:32px;border-radius:3px;background:#1C1C1A;box-shadow:3px -3px 0 #22B5E6,-1px 3px 0 #B44B91;display:flex;flex-direction:column;align-items:center;padding-top:3px;color:#fff">
-            <span style="font-size:18px;font-weight:800;line-height:1">{{ c.warranty }}</span>
-            <span style="font-size:3px;font-weight:700;line-height:1.2;margin-top:3px;letter-spacing:0.02em">GODINA</span>
-            <span style="font-size:3px;font-weight:700;line-height:1.2;letter-spacing:0.02em">JAMSTVA</span>
-          </div>
+        <div style="padding-top:3px">
+          <div style="width:26px;height:32px;border-radius:3px;background:#1C1C1A;box-shadow:3px -3px 0 #22B5E6,-1px 3px 0 #B44B91;display:flex;flex-direction:column;align-items:center;padding-top:3px;box-sizing:border-box;color:#fff"><span style="font-size:18px;font-weight:800;line-height:1">{{ c.warranty }}</span><span style="font-size:3px;font-weight:700;line-height:1.2;margin-top:3px;letter-spacing:0.02em">GODINA</span><span style="font-size:3px;font-weight:700;line-height:1.2;letter-spacing:0.02em">JAMSTVA</span></div>
           <span style="display:block;font-size:2.5px;color:#8B8B8B;text-align:center;margin-top:4px;width:26px">Big Bang</span>
         </div>
       </sc-if>
     </div>
-  <div style="{{ pillRow }}" class="bbpills">
-    <sc-if value="{{ hasPills }}" hint-placeholder-val="{{ true }}">
-      <div style="display:contents">
-        <sc-for list="{{ pills }}" as="pl" hint-placeholder-count="1">
-          <span class="{{ pl.cls }}" style="{{ pl.style }}">{{ pl.label }}</span>
-        </sc-for>
-      </div>
-    </sc-if>
-  </div>
-    <div style="position:absolute;top:10px;right:9px;display:flex;flex-direction:column;gap:8px;z-index:3">
+    <div style="position:absolute;left:12px;right:12px;bottom:0;height:21px;display:flex;flex-wrap:nowrap;gap:6px;overflow:hidden;z-index:2;pointer-events:none">
+      <sc-for list="{{ pills }}" as="pl" hint-placeholder-count="1"><span style="{{ pl.style }}">{{ pl.label }}</span></sc-for>
+    </div>
+    <div style="position:absolute;top:9px;right:9px;display:flex;flex-direction:column;gap:8px;z-index:3">
       <sc-if value="{{ notWish }}" hint-placeholder-val="{{ true }}">
-      <button onClick="{{ stop }}" title="Spremi" style="width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid #D9DCE1;display:flex;align-items:center;justify-content:center;color:#545F71;cursor:pointer;padding:0;transition:border-color .15s,color .15s" style-hover="border-color:#0050A0;color:#0050A0">
-        <svg width="18" height="18" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      </button>
+        <button onClick="{{ stop }}" title="Spremi" style="width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid #E0E0E0;display:flex;align-items:center;justify-content:center;color:#545F71;cursor:pointer;padding:0;transition:border-color .15s,color .15s" style-hover="border-color:#0050A0;color:#0050A0"><svg width="18" height="18" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+        <button onClick="{{ stop }}" title="Usporedi" style="width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid #E0E0E0;display:flex;align-items:center;justify-content:center;color:#545F71;cursor:pointer;padding:0;transition:border-color .15s,color .15s" style-hover="border-color:#0050A0;color:#0050A0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg></button>
       </sc-if>
       <sc-if value="{{ wish }}" hint-placeholder-val="{{ false }}">
-      <button onClick="{{ removeWish }}" title="Ukloni s popisa želja" aria-label="Ukloni s popisa želja" style="width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid #D9DCE1;display:flex;align-items:center;justify-content:center;color:#545F71;cursor:pointer;padding:0;transition:border-color .15s,color .15s" style-hover="border-color:#0050A0;color:#0050A0"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M15.8335 5.83333L15.1107 15.9521C15.0484 16.8243 14.3227 17.5 13.4483 17.5H6.55203C5.67763 17.5 4.9519 16.8243 4.8896 15.9521L4.16683 5.83333M8.3335 9.16667V14.1667M11.6668 9.16667V14.1667M12.5002 5.83333V3.33333C12.5002 2.8731 12.1271 2.5 11.6668 2.5H8.3335C7.87326 2.5 7.50016 2.8731 7.50016 3.33333V5.83333M3.3335 5.83333H16.6668" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+        <button onClick="{{ removeWish }}" title="Ukloni s popisa želja" aria-label="Ukloni s popisa želja" style="width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid #E0E0E0;display:flex;align-items:center;justify-content:center;color:#545F71;cursor:pointer;padding:0;transition:border-color .15s,color .15s" style-hover="border-color:#0050A0;color:#0050A0"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M15.8335 5.83333L15.1107 15.9521C15.0484 16.8243 14.3227 17.5 13.4483 17.5H6.55203C5.67763 17.5 4.9519 16.8243 4.8896 15.9521L4.16683 5.83333M8.3335 9.16667V14.1667M11.6668 9.16667V14.1667M12.5002 5.83333V3.33333C12.5002 2.8731 12.1271 2.5 11.6668 2.5H8.3335C7.87326 2.5 7.50016 2.8731 7.50016 3.33333V5.83333M3.3335 5.83333H16.6668" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
       </sc-if>
-      <button onClick="{{ stop }}" title="Usporedi" style="width:34px;height:34px;border-radius:50%;background:#fff;border:1px solid #D9DCE1;display:flex;align-items:center;justify-content:center;color:#545F71;cursor:pointer;padding:0;transition:border-color .15s,color .15s" style-hover="border-color:#0050A0;color:#0050A0">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg>
-      </button>
     </div>
   </div>
-
-  <div style="padding:8px 11px 8px;display:flex;flex-direction:column;flex:1">
-    <div style="{{ metaBox }}">
-    <div style="max-height:40px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:14px;font-weight:500;line-height:20px;letter-spacing:-0.01em;color:#101117">{{ c.name }}</div>
-      <sc-if value="{{ rated }}" hint-placeholder-val="{{ true }}">
-      <div style="height:17px;display:flex;align-items:center;gap:4px">
-        <span style="display:flex;gap:1px">
-          <sc-for list="{{ stars }}" as="st" hint-placeholder-count="5">
-            <svg width="14" height="13.5" viewBox="0 0 24 23" fill="{{ st }}"><path d="M12 0l3.1 7.5 8.3.7-6.3 5.4 2 8.2L12 17.4l-7.1 4.4 2-8.2L.6 8.2l8.3-.7z"></path></svg>
-          </sc-for>
-        </span>
-        <span style="font-size:12px;line-height:17px;color:#545F71">{{ ratingLabel }}</span>
-      </div>
-      </sc-if>
-      <sc-if value="{{ optionsLabel }}" hint-placeholder-val="{{ false }}">
-        <div style="height:16px;display:flex;align-items:center"><span style="font-size:12px;line-height:16px;color:#101117;text-decoration:underline;text-underline-offset:2px">{{ optionsLabel }}</span></div>
-      </sc-if>
-    </div>
-    <div style="margin-top:14px;height:20px;display:flex;align-items:center;gap:8px;min-width:0">
-      <span style="width:13px;display:flex;justify-content:center;flex-shrink:0"><span style="{{ dotStyle }}"></span></span>
-      <span style="{{ availStyle }}">{{ availText }}</span>
-    </div>
-    <div style="margin-top:1px;height:24px;padding-bottom:4px;box-sizing:border-box;display:flex;align-items:center;gap:8px;min-width:0;font-size:13px;line-height:20px;color:#545F71;white-space:nowrap">
-      <svg width="13" height="13" viewBox="2.1 2.1 18.8 18.8" fill="none" style="flex-shrink:0;color:#7F8795"><path d="M3.83333 9.58333V20.125H19.1667V9.58333M9.10417 20.125V11.9792H13.8958V20.125M4.3125 2.875H11.0208H18.6875L20.125 7.1875V8.14583C20.125 10.0625 17.25 10.0625 17.25 8.14583C17.25 10.0625 14.375 10.0625 14.375 8.14583C14.375 10.0625 11.5 10.0625 11.5 8.14583C11.5 10.0625 8.625 10.0625 8.625 8.14583C8.625 10.0625 5.75 10.0625 5.75 8.14583C5.75 10.0625 2.875 10.0625 2.875 8.14583V7.1875L4.3125 2.875Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      <span style="display:flex;gap:4px;min-width:0;flex:1">Prodaje: <span style="overflow:hidden;text-overflow:ellipsis;min-width:0">{{ seller }}</span></span>
-    </div>
-    <div style="margin-top:auto;padding-top:11px;display:flex;align-items:last baseline;justify-content:space-between;gap:8px">
-      <div style="min-width:0">
-        <div style="height:18px;display:flex;align-items:center;gap:5px;white-space:nowrap">
-          <sc-if value="{{ old }}" hint-placeholder-val="{{ false }}">
-            <span style="font-size:14px;line-height:18px;color:#8B95A5;text-decoration:line-through">{{ old }}</span>
-            <span style="height:18px;padding:0 4px;border-radius:3px;background:#DA0D00;color:#fff;font-size:12px;font-weight:600;line-height:18px">{{ disc }}</span>
-          </sc-if>
-          <sc-if value="{{ priceTag }}" hint-placeholder-val="{{ false }}">
-            <span style="{{ priceTagStyle }}">{{ priceTag }}</span>
-          </sc-if>
-        </div>
-        <div style="margin-top:2px;font-size:20px;font-weight:800;line-height:28px;letter-spacing:-0.01em;color:#101117;white-space:nowrap">{{ price }}</div>
-      </div>
-    </div>
-    <sc-if value="{{ promoSlot }}" hint-placeholder-val="{{ true }}">
-      <div style="margin-top:10px;height:28px;flex-shrink:0">
-        <sc-if value="{{ hasCode }}" hint-placeholder-val="{{ true }}">
-          <div style="height:28px;box-sizing:border-box;border-radius:6px;display:flex;align-items:stretch;white-space:nowrap;overflow:hidden;font-size:13px;font-weight:700;letter-spacing:-0.01em;line-height:28px"><span style="flex-shrink:0;background:#0B7A48;color:#fff;padding:0 9px">{{ promoPct }} uz kod:</span><span style="flex:1;min-width:0;background:#E6F5EC;color:#0B7A48;padding:0 9px;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:6px"><span style="min-width:0;overflow:hidden">-{{ promoSave }}</span><button type="button" class="bbcopy" data-code="{{ promoCode }}" onClick="{{ copyCode }}" title="Kopiraj promo kod" aria-label="Kopiraj promo kod" style="flex-shrink:0;width:24px;height:24px;margin-right:-4px;padding:0;border:none;border-radius:4px;background:transparent;color:#0B7A48;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg class="ic-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path></svg><svg class="ic-ok" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></button></span></div>
-        </sc-if>
-        <sc-if value="{{ hasRenewed }}" hint-placeholder-val="{{ false }}">
-          <div style="height:28px;box-sizing:border-box;background:#CDD700;border-radius:8px;padding:0 10px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#002D73;font-size:12px;font-weight:800;line-height:28px">
-
-            <span style="overflow:hidden;text-overflow:ellipsis">{{ renewedSave }} u odnosu na novi</span>
-          </div>
+  <div style="padding:0 12px;display:flex;flex-direction:column;flex:1;min-height:0">
+    <div style="margin-top:8px;height:44px;flex-shrink:0;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:15px;font-weight:500;line-height:22px;color:#101117">{{ c.name }}</div>
+    <sc-if value="{{ ratingSlot }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top:3px;height:17px;flex-shrink:0;display:flex;align-items:center;gap:6px">
+        <sc-if value="{{ rated }}" hint-placeholder-val="{{ true }}">
+          <span style="display:flex;gap:3px"><sc-for list="{{ stars }}" as="st" hint-placeholder-count="5"><svg width="12" height="11.5" viewBox="0 0 24 23" fill="{{ st }}"><path d="M12 0l3.1 7.5 8.3.7-6.3 5.4 2 8.2L12 17.4l-7.1 4.4 2-8.2L.6 8.2l8.3-.7z"></path></svg></sc-for></span>
+          <span style="font-size:12px;line-height:17px;color:#545F71">{{ ratingLabel }}</span>
         </sc-if>
       </div>
     </sc-if>
-    <div style="margin-top:10px;font-size:13px;font-weight:600;line-height:18px;letter-spacing:-0.01em;color:#101117;white-space:nowrap">{{ rata }}</div>
-    <sc-if value="{{ showAnchor }}" hint-placeholder-val="{{ true }}"><div style="margin-top:4px;font-size:10px;line-height:14px;color:#8B95A5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cijena na {{ anchorDate }} {{ anchor }}</div></sc-if>
-    <div style="margin-top:10px;height:22px;flex-shrink:0">
-      <sc-if value="{{ c.energy }}" hint-placeholder-val="{{ true }}">
-        <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
-          <img class="nozm" src="{{ energyImg }}" alt="Energetski razred {{ c.energy }}" style="height:22px;width:auto;display:block">
-          <span onClick="{{ stop }}" style="font-size:10.5px;line-height:13px;color:#545F71;text-decoration:underline;text-underline-offset:2px;white-space:nowrap;cursor:pointer">Informacijski list</span>
-        </div>
-      </sc-if>
+    <sc-if value="{{ optionsSlot }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top:6px;height:18px;flex-shrink:0;display:flex;align-items:center">
+        <sc-if value="{{ optionsLabel }}" hint-placeholder-val="{{ true }}"><span style="font-size:13px;line-height:18px;color:#101117;text-decoration:underline;text-underline-offset:2px;white-space:nowrap">{{ optionsLabel }}</span></sc-if>
+      </div>
+    </sc-if>
+    <div style="margin-top:8px;height:20px;flex-shrink:0;display:flex;align-items:center;gap:8px;min-width:0">
+      <span style="width:13px;display:flex;justify-content:center;flex-shrink:0"><span style="{{ dot9 }}"></span></span>
+      <span style="{{ availStyle13 }}">{{ availText }}</span>
     </div>
+    <div style="margin-top:2px;height:20px;flex-shrink:0;display:flex;align-items:center;gap:8px;min-width:0;font-size:13px;line-height:20px;color:#545F71;white-space:nowrap">
+      <svg width="13" height="13" viewBox="2.1 2.1 18.8 18.8" fill="none" style="flex-shrink:0;color:#545F71"><path d="M3.83333 9.58333V20.125H19.1667V9.58333M9.10417 20.125V11.9792H13.8958V20.125M4.3125 2.875H11.0208H18.6875L20.125 7.1875V8.14583C20.125 10.0625 17.25 10.0625 17.25 8.14583C17.25 10.0625 14.375 10.0625 14.375 8.14583C14.375 10.0625 11.5 10.0625 11.5 8.14583C11.5 10.0625 8.625 10.0625 8.625 8.14583C8.625 10.0625 5.75 10.0625 5.75 8.14583C5.75 10.0625 2.875 10.0625 2.875 8.14583V7.1875L4.3125 2.875Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="min-width:0;overflow:hidden;text-overflow:ellipsis">Prodaje: {{ seller }}</span>
+    </div>
+    <div style="flex-shrink:0"><sc-if value="{{ saveSlot }}" hint-placeholder-val="{{ true }}"><div style="padding-top:17px;height:20px;box-sizing:content-box;display:flex;align-items:flex-end">
+      <sc-if value="{{ save }}" hint-placeholder-val="{{ true }}"><span style="height:20px;padding:0 6.5px;border-radius:4px;background:#DA0D00;color:#fff;font-size:13px;font-weight:600;line-height:20px;white-space:nowrap">{{ save }}</span></sc-if>
+      <sc-if value="{{ priceTag }}" hint-placeholder-val="{{ false }}"><span style="{{ priceTag14 }}">{{ priceTag }}</span></sc-if>
+    </div></sc-if></div>
+    <div style="margin-top:8px;min-height:26px;flex-shrink:0;display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px;row-gap:0;white-space:nowrap">
+      <span style="font-size:21px;font-weight:800;line-height:26px;color:#101117">{{ price }}</span>
+      <sc-if value="{{ old }}" hint-placeholder-val="{{ true }}"><span style="font-size:15px;line-height:20px;color:#545F71;text-decoration:line-through">{{ old }}</span></sc-if>
+    </div>
+    <div style="flex:1 0 0"></div>
+    <sc-if value="{{ promoSlot }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top:8px;flex-shrink:0">
+        <sc-if value="{{ promoEmpty }}" hint-placeholder-val="{{ false }}"><div style="height:44px"></div></sc-if>
+        <sc-if value="{{ hasCode }}" hint-placeholder-val="{{ true }}">
+          <div style="height:44px;box-sizing:border-box;border:1px dashed #0B7A48;border-radius:8px;padding:0 6px 0 5px;display:flex;align-items:center;gap:9px;min-width:0">
+            <span style="flex-shrink:0;height:24px;padding:0 4px;border-radius:4px;background:#0B7A48;color:#fff;font-size:14px;font-weight:700;line-height:24px">{{ promoPct }}</span>
+            <span style="flex:1;min-width:0;display:flex;flex-direction:column;white-space:nowrap">
+              <span style="font-size:14px;font-weight:700;line-height:17px;color:#000;overflow:hidden;text-overflow:ellipsis">-{{ promoSave }}</span>
+              <span style="font-size:11px;line-height:14px;color:#545F71;overflow:hidden;text-overflow:ellipsis">uz kod <b style="font-weight:700">{{ promoCode }}</b></span>
+            </span>
+            <button type="button" class="bbcopy" data-code="{{ promoCode }}" onClick="{{ copyCode }}" title="Kopiraj promo kod" aria-label="Kopiraj promo kod" style="flex-shrink:0;width:31px;height:32px;padding:0;border:none;border-radius:8px;background:#E6F5EC;color:#0B7A48;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg class="ic-copy" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path></svg><svg class="ic-ok" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ hasRenewed }}" hint-placeholder-val="{{ false }}">
+          <div style="width:fit-content;max-width:100%;height:24px;box-sizing:border-box;background:#CDD700;border-radius:4px;padding:0 8px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#002D73;font-size:13px;font-weight:700"><span style="overflow:hidden;text-overflow:ellipsis">{{ renewedSave }} u odnosu na novi</span></div><sc-if value="{{ renewPad }}" hint-placeholder-val="{{ false }}"><div style="height:20px"></div></sc-if>
+        </sc-if>
+      </div>
+    </sc-if>
+    <div style="margin-top:10px;height:16px;flex-shrink:0;font-size:12px;font-weight:400;line-height:16px;color:#101117;white-space:nowrap">{{ rataIli }}</div>
+    <sc-if value="{{ energySlot }}" hint-placeholder-val="{{ true }}"><div style="margin-top:12px;height:29px;flex-shrink:0">
+      <sc-if value="{{ showEnergy }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;gap:8px"><img class="nozm" src="{{ energyImg }}" alt="Energetski razred {{ c.energy }}" style="height:29px;width:auto;display:block"><span onClick="{{ stop }}" style="font-size:11px;line-height:14px;color:#888888;text-decoration:underline;text-underline-offset:2px;white-space:nowrap;cursor:pointer">Informacijski list</span></div>
+      </sc-if>
+    </div></sc-if>
+    <sc-if value="{{ showAnchor }}" hint-placeholder-val="{{ true }}"><div style="margin-top:10px;font-size:10px;line-height:14px;color:#545F71;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cijena na {{ anchorDate }} {{ anchor }}</div></sc-if>
   </div>
 </a>
 </sc-if>
 
-<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
-<a href="#" onClick="{{ open }}" class="imz" style="position:relative;width:100%;height:100%;background:#fff;border-radius:12px;display:flex;flex-direction:column;color:#101117;overflow:hidden;font-family:Inter,sans-serif">
-  <div style="position:relative;height:150px;flex-shrink:0">
-    <div style="position:absolute;top:8px;left:8px;right:8px;bottom:3px;overflow:hidden">
-      <div class="pimg" style="{{ imgStyle }}"></div>
+<sc-if value="{{ isDM }}" hint-placeholder-val="{{ false }}">
+<a href="#" onClick="{{ open }}" class="imz" style="position:relative;width:100%;height:100%;box-sizing:border-box;background:#fff;border-radius:12px;display:flex;flex-direction:column;color:#101117;overflow:hidden;font-family:Inter,sans-serif;padding-bottom:10px">
+  <div style="position:relative;height:165px;flex-shrink:0">
+    <div style="position:absolute;top:8px;left:12px;right:12px;bottom:0;overflow:hidden"><div class="pimg" style="{{ imgStyle }}"></div></div>
+    <div style="position:absolute;left:12px;right:12px;bottom:0;height:21px;display:flex;flex-wrap:nowrap;gap:6px;overflow:hidden;z-index:2;pointer-events:none">
+      <sc-for list="{{ pills }}" as="pl" hint-placeholder-count="1"><span style="{{ pl.style }}">{{ pl.label }}</span></sc-for>
     </div>
-    <div style="{{ badgeRowMob }}">
+    <div style="position:absolute;top:8px;right:8px;display:flex;flex-direction:column;gap:8px;z-index:3">
+      <sc-if value="{{ notWish }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ stop }}" title="Spremi" style="width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid #E0E0E0;display:flex;align-items:center;justify-content:center;color:#545F71;cursor:pointer;padding:0;transition:border-color .15s,color .15s" style-hover="border-color:#0050A0;color:#0050A0"><svg width="18" height="18" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+        <button onClick="{{ stop }}" title="Usporedi" style="width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid #E0E0E0;display:flex;align-items:center;justify-content:center;color:#545F71;cursor:pointer;padding:0;transition:border-color .15s,color .15s" style-hover="border-color:#0050A0;color:#0050A0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg></button>
+      </sc-if>
+      <sc-if value="{{ wish }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ removeWish }}" title="Ukloni s popisa želja" aria-label="Ukloni s popisa želja" style="width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid #E0E0E0;display:flex;align-items:center;justify-content:center;color:#545F71;cursor:pointer;padding:0;transition:border-color .15s,color .15s" style-hover="border-color:#0050A0;color:#0050A0"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M15.8335 5.83333L15.1107 15.9521C15.0484 16.8243 14.3227 17.5 13.4483 17.5H6.55203C5.67763 17.5 4.9519 16.8243 4.8896 15.9521L4.16683 5.83333M8.3335 9.16667V14.1667M11.6668 9.16667V14.1667M12.5002 5.83333V3.33333C12.5002 2.8731 12.1271 2.5 11.6668 2.5H8.3335C7.87326 2.5 7.50016 2.8731 7.50016 3.33333V5.83333M3.3335 5.83333H16.6668" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+      </sc-if>
+    </div>
+  </div>
+  <div style="padding:0 12px;display:flex;flex-direction:column;flex:1;min-height:0">
+    <div style="margin-top:8px;height:44px;flex-shrink:0;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:15px;font-weight:500;line-height:22px;color:#101117">{{ c.name }}</div>
+    <div style="margin-top:8px;height:20px;flex-shrink:0;display:flex;align-items:center;gap:8px;min-width:0;font-size:13px;line-height:20px;color:#545F71;white-space:nowrap">
+      <svg width="13" height="13" viewBox="2.1 2.1 18.8 18.8" fill="none" style="flex-shrink:0;color:#545F71"><path d="M3.83333 9.58333V20.125H19.1667V9.58333M9.10417 20.125V11.9792H13.8958V20.125M4.3125 2.875H11.0208H18.6875L20.125 7.1875V8.14583C20.125 10.0625 17.25 10.0625 17.25 8.14583C17.25 10.0625 14.375 10.0625 14.375 8.14583C14.375 10.0625 11.5 10.0625 11.5 8.14583C11.5 10.0625 8.625 10.0625 8.625 8.14583C8.625 10.0625 5.75 10.0625 5.75 8.14583C5.75 10.0625 2.875 10.0625 2.875 8.14583V7.1875L4.3125 2.875Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="min-width:0;overflow:hidden;text-overflow:ellipsis">Prodaje: {{ seller }}</span>
+    </div>
+    <div style="flex-shrink:0"><sc-if value="{{ saveSlot }}" hint-placeholder-val="{{ true }}"><div style="padding-top:10px;height:20px;box-sizing:content-box;display:flex;align-items:flex-end">
+      <sc-if value="{{ save }}" hint-placeholder-val="{{ true }}"><span style="height:20px;padding:0 6.5px;border-radius:4px;background:#DA0D00;color:#fff;font-size:13px;font-weight:600;line-height:20px;white-space:nowrap">{{ save }}</span></sc-if>
+      <sc-if value="{{ priceTag }}" hint-placeholder-val="{{ false }}"><span style="{{ priceTag14 }}">{{ priceTag }}</span></sc-if>
+    </div></sc-if></div>
+    <div style="margin-top:8px;min-height:26px;flex-shrink:0;display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px;row-gap:0;white-space:nowrap">
+      <span style="font-size:21px;font-weight:800;line-height:26px;color:#101117">{{ price }}</span>
+      <sc-if value="{{ old }}" hint-placeholder-val="{{ true }}"><span style="font-size:15px;line-height:20px;color:#545F71;text-decoration:line-through">{{ old }}</span></sc-if>
+    </div>
+    <div style="flex:1 0 0"></div>
+    <sc-if value="{{ promoSlot }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top:9px;flex-shrink:0">
+        <sc-if value="{{ promoEmpty }}" hint-placeholder-val="{{ false }}"><div style="height:47px"></div></sc-if>
+        <sc-if value="{{ hasCode }}" hint-placeholder-val="{{ true }}">
+          <div style="height:47px;box-sizing:border-box;border:1px dashed #0B7A48;border-radius:8px;padding:0 6px 0 5px;display:flex;align-items:center;gap:9px;min-width:0">
+            <span style="flex-shrink:0;height:24px;padding:0 4px;border-radius:4px;background:#0B7A48;color:#fff;font-size:14px;font-weight:700;line-height:24px">{{ promoPct }}</span>
+            <span style="flex:1;min-width:0;display:flex;flex-direction:column;white-space:nowrap">
+              <span style="font-size:14px;font-weight:700;line-height:17px;color:#000;overflow:hidden;text-overflow:ellipsis">-{{ promoSave }}</span>
+              <span style="font-size:11px;line-height:14px;color:#545F71;overflow:hidden;text-overflow:ellipsis">uz kod <b style="font-weight:700">{{ promoCode }}</b></span>
+            </span>
+            <button type="button" class="bbcopy" data-code="{{ promoCode }}" onClick="{{ copyCode }}" title="Kopiraj promo kod" aria-label="Kopiraj promo kod" style="flex-shrink:0;width:32px;height:31px;padding:0;border:none;border-radius:8px;background:#E6F5EC;color:#0B7A48;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg class="ic-copy" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path></svg><svg class="ic-ok" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ hasRenewed }}" hint-placeholder-val="{{ false }}">
+          <div style="width:fit-content;max-width:100%;height:24px;box-sizing:border-box;background:#CDD700;border-radius:4px;padding:0 8px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#002D73;font-size:13px;font-weight:700"><span style="overflow:hidden;text-overflow:ellipsis">{{ renewedSave }} u odnosu na novi</span></div><sc-if value="{{ renewPad }}" hint-placeholder-val="{{ false }}"><div style="height:23px"></div></sc-if>
+        </sc-if>
+      </div>
+    </sc-if>
+    <sc-if value="{{ energySlot }}" hint-placeholder-val="{{ true }}"><div style="margin-top:12px;height:29px;flex-shrink:0">
+      <sc-if value="{{ showEnergy }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;gap:8px"><img class="nozm" src="{{ energyImg }}" alt="Energetski razred {{ c.energy }}" style="height:29px;width:auto;display:block"><span onClick="{{ stop }}" style="font-size:11px;line-height:14px;color:#888888;text-decoration:underline;text-underline-offset:2px;white-space:nowrap;cursor:pointer">Informacijski list</span></div>
+      </sc-if>
+    </div></sc-if>
+    <sc-if value="{{ showAnchor }}" hint-placeholder-val="{{ true }}"><div style="margin-top:10px;font-size:10px;line-height:14px;color:#545F71;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cijena na {{ anchorDate }} {{ anchor }}</div></sc-if>
+  </div>
+</a>
+</sc-if>
+
+<sc-if value="{{ isVM }}" hint-placeholder-val="{{ false }}">
+<a href="#" onClick="{{ open }}" class="imz" style="position:relative;width:100%;height:100%;box-sizing:border-box;background:#fff;border-radius:8px;display:flex;flex-direction:column;color:#101117;overflow:hidden;font-family:Inter,sans-serif;padding-bottom:11px">
+  <div style="position:relative;height:151px;flex-shrink:0">
+    <div style="position:absolute;top:8px;left:8px;right:8px;bottom:0;overflow:hidden"><div class="pimg" style="{{ imgStyle }}"></div></div>
+    <div style="position:absolute;top:9px;left:4px;width:44px;display:flex;flex-direction:column;align-items:center;gap:11px;z-index:2;pointer-events:none">
       <sc-if value="{{ c.cashback }}" hint-placeholder-val="{{ false }}">
-        <div style="width:36px;height:36px;flex-shrink:0;border-radius:50%;background:#1A7FD0;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;z-index:2">
-          <span style="font-size:4px;font-weight:700;letter-spacing:0.02em">POVRAT</span>
-          <span style="font-size:4px;font-weight:700;letter-spacing:0.02em;margin-top:0.5px">NOVCA</span>
-          <span style="font-size:14px;font-weight:800;letter-spacing:-0.04em;margin-top:1px">{{ c.cashback }}</span>
-          <span style="font-size:5px;font-weight:700;margin-top:1px">EUR</span>
-        </div>
+        <div style="width:42px;height:42px;border-radius:50%;background:#1A7FD0;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1"><span style="font-size:4.8px;font-weight:700;letter-spacing:0.02em">POVRAT</span><span style="font-size:4.8px;font-weight:700;letter-spacing:0.02em;margin-top:0.5px">NOVCA</span><span style="font-size:16px;font-weight:800;letter-spacing:-0.04em;margin-top:1px">{{ c.cashback }}</span><span style="font-size:5.8px;font-weight:700;margin-top:1px">EUR</span></div>
       </sc-if>
       <sc-if value="{{ c.warranty }}" hint-placeholder-val="{{ false }}">
-        <div>
-          <div style="width:24px;height:29px;border-radius:3px;background:#1C1C1A;box-shadow:3px -3px 0 #22B5E6,-1px 3px 0 #B44B91;display:flex;flex-direction:column;align-items:center;padding-top:3px;color:#fff">
-            <span style="font-size:16px;font-weight:800;line-height:1">{{ c.warranty }}</span>
-            <span style="font-size:3px;font-weight:700;line-height:1.2;margin-top:2px;letter-spacing:0.02em">GODINA</span>
-            <span style="font-size:3px;font-weight:700;line-height:1.2;letter-spacing:0.02em">JAMSTVA</span>
-          </div>
+        <div style="padding-top:3px">
+          <div style="width:26px;height:32px;border-radius:3px;background:#1C1C1A;box-shadow:3px -3px 0 #22B5E6,-1px 3px 0 #B44B91;display:flex;flex-direction:column;align-items:center;padding-top:3px;box-sizing:border-box;color:#fff"><span style="font-size:18px;font-weight:800;line-height:1">{{ c.warranty }}</span><span style="font-size:3px;font-weight:700;line-height:1.2;margin-top:3px;letter-spacing:0.02em">GODINA</span><span style="font-size:3px;font-weight:700;line-height:1.2;letter-spacing:0.02em">JAMSTVA</span></div>
+          <span style="display:block;font-size:2.5px;color:#8B8B8B;text-align:center;margin-top:4px;width:26px">Big Bang</span>
         </div>
       </sc-if>
     </div>
-  <div style="{{ pillRowMob }}" class="bbpills">
-    <sc-if value="{{ hasPills }}" hint-placeholder-val="{{ true }}">
-      <div style="display:contents">
-        <sc-for list="{{ pillsMob }}" as="pl" hint-placeholder-count="1">
-          <span class="{{ pl.cls }}" style="{{ pl.style }}">{{ pl.label }}</span>
-        </sc-for>
-      </div>
-    </sc-if>
-  </div>
-    <div style="position:absolute;top:8px;right:8px;display:flex;flex-direction:column;gap:6px;z-index:3">
+    <div style="position:absolute;left:8px;right:8px;bottom:0;height:18px;display:flex;flex-wrap:nowrap;gap:4px;overflow:hidden;z-index:2;pointer-events:none">
+      <sc-for list="{{ pillsVM }}" as="pl" hint-placeholder-count="1"><span style="{{ pl.style }}">{{ pl.label }}</span></sc-for>
+    </div>
+    <div style="position:absolute;top:8px;right:8px;display:flex;flex-direction:column;gap:8px;z-index:3">
       <sc-if value="{{ notWish }}" hint-placeholder-val="{{ true }}">
-      <button onClick="{{ stop }}" title="Spremi" style="width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid #D9DCE1;display:flex;align-items:center;justify-content:center;color:#545F71;padding:0">
-        <svg width="16" height="16" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      </button>
+        <button onClick="{{ stop }}" title="Spremi" style="width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid #E0E0E0;display:flex;align-items:center;justify-content:center;color:#545F71;padding:0"><svg width="18" height="18" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+        <button onClick="{{ stop }}" title="Usporedi" style="width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid #E0E0E0;display:flex;align-items:center;justify-content:center;color:#545F71;padding:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg></button>
       </sc-if>
       <sc-if value="{{ wish }}" hint-placeholder-val="{{ false }}">
-      <button onClick="{{ removeWish }}" title="Ukloni s popisa želja" aria-label="Ukloni s popisa želja" style="width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid #D9DCE1;display:flex;align-items:center;justify-content:center;color:#545F71;padding:0"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M15.8335 5.83333L15.1107 15.9521C15.0484 16.8243 14.3227 17.5 13.4483 17.5H6.55203C5.67763 17.5 4.9519 16.8243 4.8896 15.9521L4.16683 5.83333M8.3335 9.16667V14.1667M11.6668 9.16667V14.1667M12.5002 5.83333V3.33333C12.5002 2.8731 12.1271 2.5 11.6668 2.5H8.3335C7.87326 2.5 7.50016 2.8731 7.50016 3.33333V5.83333M3.3335 5.83333H16.6668" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+        <button onClick="{{ removeWish }}" title="Ukloni s popisa želja" aria-label="Ukloni s popisa želja" style="width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid #E0E0E0;display:flex;align-items:center;justify-content:center;color:#545F71;padding:0"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M15.8335 5.83333L15.1107 15.9521C15.0484 16.8243 14.3227 17.5 13.4483 17.5H6.55203C5.67763 17.5 4.9519 16.8243 4.8896 15.9521L4.16683 5.83333M8.3335 9.16667V14.1667M11.6668 9.16667V14.1667M12.5002 5.83333V3.33333C12.5002 2.8731 12.1271 2.5 11.6668 2.5H8.3335C7.87326 2.5 7.50016 2.8731 7.50016 3.33333V5.83333M3.3335 5.83333H16.6668" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
       </sc-if>
-      <button onClick="{{ stop }}" title="Usporedi" style="width:30px;height:30px;border-radius:50%;background:#fff;border:1px solid #D9DCE1;display:flex;align-items:center;justify-content:center;color:#545F71;padding:0">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg>
-      </button>
     </div>
   </div>
-
-  <div style="padding:10px 8px 8px;display:flex;flex-direction:column;flex:1">
-    <div style="{{ metaBoxMob }}">
-    <div style="max-height:34px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:12.5px;font-weight:500;line-height:17px;letter-spacing:-0.01em;color:#101117">{{ c.name }}</div>
-      <sc-if value="{{ rated }}" hint-placeholder-val="{{ true }}">
-      <div style="height:14px;display:flex;align-items:center;gap:3px">
-        <span style="display:flex;gap:1px">
-          <sc-for list="{{ stars }}" as="st" hint-placeholder-count="5">
-            <svg width="10.5" height="10" viewBox="0 0 24 23" fill="{{ st }}"><path d="M12 0l3.1 7.5 8.3.7-6.3 5.4 2 8.2L12 17.4l-7.1 4.4 2-8.2L.6 8.2l8.3-.7z"></path></svg>
-          </sc-for>
-        </span>
-        <span style="font-size:10px;line-height:14px;color:#545F71">{{ ratingLabel }}</span>
-      </div>
-      </sc-if>
-      <sc-if value="{{ optionsLabel }}" hint-placeholder-val="{{ false }}">
-        <div style="height:14px;display:flex;align-items:center"><span style="font-size:10px;line-height:14px;color:#101117;text-decoration:underline;text-underline-offset:2px">{{ optionsLabel }}</span></div>
-      </sc-if>
-    </div>
-    <div style="margin-top:10px;height:17px;display:flex;align-items:center;gap:6px;min-width:0">
-      <span style="width:11px;display:flex;justify-content:center;flex-shrink:0"><span style="{{ dotStyleMob }}"></span></span>
-      <span style="{{ availStyleMob }}">{{ availText }}</span>
-    </div>
-    <div style="margin-top:1px;height:21px;padding-bottom:4px;box-sizing:border-box;display:flex;align-items:center;gap:6px;min-width:0;font-size:11.5px;line-height:17px;color:#545F71;white-space:nowrap">
-      <svg width="11" height="11" viewBox="2.1 2.1 18.8 18.8" fill="none" style="flex-shrink:0;color:#7F8795"><path d="M3.83333 9.58333V20.125H19.1667V9.58333M9.10417 20.125V11.9792H13.8958V20.125M4.3125 2.875H11.0208H18.6875L20.125 7.1875V8.14583C20.125 10.0625 17.25 10.0625 17.25 8.14583C17.25 10.0625 14.375 10.0625 14.375 8.14583C14.375 10.0625 11.5 10.0625 11.5 8.14583C11.5 10.0625 8.625 10.0625 8.625 8.14583C8.625 10.0625 5.75 10.0625 5.75 8.14583C5.75 10.0625 2.875 10.0625 2.875 8.14583V7.1875L4.3125 2.875Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      <span style="display:flex;gap:3px;min-width:0;flex:1">Prodaje: <span style="overflow:hidden;text-overflow:ellipsis;min-width:0">{{ seller }}</span></span>
-    </div>
-    <div style="margin-top:auto;padding-top:9px;display:flex;align-items:last baseline;justify-content:space-between;gap:6px">
-      <div style="min-width:0">
-        <div style="height:16px;display:flex;align-items:center;gap:4px;white-space:nowrap">
-          <sc-if value="{{ old }}" hint-placeholder-val="{{ false }}">
-            <span style="font-size:11px;line-height:16px;color:#8B95A5;text-decoration:line-through">{{ old }}</span>
-            <span style="height:15px;padding:0 3px;border-radius:3px;background:#DA0D00;color:#fff;font-size:10.5px;font-weight:600;line-height:15px">{{ disc }}</span>
-          </sc-if>
-          <sc-if value="{{ priceTag }}" hint-placeholder-val="{{ false }}">
-            <span style="{{ priceTagStyleMob }}">{{ priceTag }}</span>
-          </sc-if>
-        </div>
-        <div style="margin-top:4px;font-size:19px;font-weight:800;line-height:24px;letter-spacing:-0.01em;color:#101117;white-space:nowrap">{{ price }}</div>
-      </div>
-    </div>
-    <sc-if value="{{ promoSlot }}" hint-placeholder-val="{{ true }}">
-      <div style="margin-top:8px;height:24px;flex-shrink:0">
-        <sc-if value="{{ hasCode }}" hint-placeholder-val="{{ true }}">
-          <div style="box-sizing:border-box;border-radius:6px;display:flex;align-items:stretch;white-space:nowrap;overflow:hidden;font-size:12px;font-weight:700;letter-spacing:-0.01em;line-height:16px"><span style="flex-shrink:0;background:#0B7A48;color:#fff;padding:4px 6px">{{ promoPct }} uz kod:</span><span style="flex:1;min-width:0;background:#E6F5EC;color:#0B7A48;padding:4px 6px;text-align:left">-{{ promoSave }}</span></div>
-        </sc-if>
-        <sc-if value="{{ hasRenewed }}" hint-placeholder-val="{{ false }}">
-          <div style="box-sizing:border-box;background:#CDD700;border-radius:8px;padding:4px 10px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#002D73;font-size:12px;font-weight:800;line-height:16px">
-
-            <span style="overflow:hidden;text-overflow:ellipsis">{{ renewedSave }} u odnosu na novi</span>
-          </div>
+  <div style="padding:0 8px;display:flex;flex-direction:column;flex:1;min-height:0">
+    <div style="margin-top:8px;height:40px;flex-shrink:0;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:14px;font-weight:500;line-height:20px;color:#101117">{{ c.name }}</div>
+    <sc-if value="{{ ratingSlot }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top:4px;height:15px;flex-shrink:0;display:flex;align-items:center;gap:6px">
+        <sc-if value="{{ rated }}" hint-placeholder-val="{{ true }}">
+          <span style="display:flex;gap:3px"><sc-for list="{{ stars }}" as="st" hint-placeholder-count="5"><svg width="11" height="10.5" viewBox="0 0 24 23" fill="{{ st }}"><path d="M12 0l3.1 7.5 8.3.7-6.3 5.4 2 8.2L12 17.4l-7.1 4.4 2-8.2L.6 8.2l8.3-.7z"></path></svg></sc-for></span>
+          <span style="font-size:12px;line-height:15px;color:#545F71">{{ ratingLabel }}</span>
         </sc-if>
       </div>
     </sc-if>
-    <div style="margin-top:8px;font-size:11.5px;font-weight:600;line-height:16px;color:#101117;white-space:nowrap">{{ rata }}</div>
-    <sc-if value="{{ showAnchor }}" hint-placeholder-val="{{ true }}"><div style="margin-top:3px;font-size:9px;line-height:12px;color:#8B95A5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cijena na {{ anchorDate }} {{ anchor }}</div></sc-if>
-    <div style="margin-top:8px;height:19px;flex-shrink:0">
-      <sc-if value="{{ c.energy }}" hint-placeholder-val="{{ true }}">
-        <div style="display:flex;align-items:center;gap:5px;flex-shrink:0">
-          <img class="nozm" src="{{ energyImg }}" alt="Energetski razred {{ c.energy }}" style="height:19px;width:auto;display:block">
-          <span onClick="{{ stop }}" style="font-size:9.5px;line-height:12px;color:#545F71;text-decoration:underline;text-underline-offset:2px;white-space:nowrap;cursor:pointer">Informacijski list</span>
-        </div>
-      </sc-if>
+    <sc-if value="{{ optionsSlot }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top:6px;height:16px;flex-shrink:0;display:flex;align-items:center">
+        <sc-if value="{{ optionsLabel }}" hint-placeholder-val="{{ true }}"><span style="font-size:12px;line-height:16px;color:#101117;text-decoration:underline;text-underline-offset:2px;white-space:nowrap">{{ optionsLabel }}</span></sc-if>
+      </div>
+    </sc-if>
+    <div style="margin-top:9px;height:18px;flex-shrink:0;display:flex;align-items:center;gap:9px;min-width:0">
+      <span style="width:10px;display:flex;justify-content:center;flex-shrink:0"><span style="{{ dot6 }}"></span></span>
+      <span style="{{ availStyle12 }}">{{ availText }}</span>
     </div>
+    <div style="height:18px;flex-shrink:0;display:flex;align-items:center;gap:9px;min-width:0;font-size:12px;line-height:18px;color:#545F71;white-space:nowrap">
+      <svg width="10" height="10" viewBox="2.1 2.1 18.8 18.8" fill="none" style="flex-shrink:0;color:#545F71"><path d="M3.83333 9.58333V20.125H19.1667V9.58333M9.10417 20.125V11.9792H13.8958V20.125M4.3125 2.875H11.0208H18.6875L20.125 7.1875V8.14583C20.125 10.0625 17.25 10.0625 17.25 8.14583C17.25 10.0625 14.375 10.0625 14.375 8.14583C14.375 10.0625 11.5 10.0625 11.5 8.14583C11.5 10.0625 8.625 10.0625 8.625 8.14583C8.625 10.0625 5.75 10.0625 5.75 8.14583C5.75 10.0625 2.875 10.0625 2.875 8.14583V7.1875L4.3125 2.875Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="min-width:0;overflow:hidden;text-overflow:ellipsis">Prodaje: {{ seller }}</span>
+    </div>
+    <div style="flex-shrink:0"><sc-if value="{{ saveSlot }}" hint-placeholder-val="{{ true }}"><div style="padding-top:13px;height:21px;box-sizing:content-box;display:flex;align-items:flex-end">
+      <sc-if value="{{ save }}" hint-placeholder-val="{{ true }}"><span style="height:21px;padding:0 4.5px;border-radius:4px;background:#DA0D00;color:#fff;font-size:12px;font-weight:600;line-height:21px;white-space:nowrap">{{ save }}</span></sc-if>
+      <sc-if value="{{ priceTag }}" hint-placeholder-val="{{ false }}"><span style="{{ priceTag12 }}">{{ priceTag }}</span></sc-if>
+    </div></sc-if></div>
+    <sc-if value="{{ noSaveSlot }}" hint-placeholder-val="{{ false }}"><div style="height:3px"></div></sc-if>
+    <div style="margin-top:6px;min-height:24px;flex-shrink:0;display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px;row-gap:0;white-space:nowrap">
+      <span style="font-size:20px;font-weight:800;line-height:24px;color:#101117">{{ price }}</span>
+      <sc-if value="{{ old }}" hint-placeholder-val="{{ true }}"><span style="font-size:13px;line-height:18px;color:#545F71;text-decoration:line-through">{{ old }}</span></sc-if>
+    </div>
+    <div style="flex:1 0 0"></div>
+    <sc-if value="{{ promoSlot }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top:6px;flex-shrink:0">
+        <sc-if value="{{ promoEmpty }}" hint-placeholder-val="{{ false }}"><div style="height:44px"></div></sc-if>
+        <sc-if value="{{ hasCode }}" hint-placeholder-val="{{ true }}">
+          <div style="height:44px;box-sizing:border-box;border:1px dashed #0B7A48;border-radius:8px;padding:0 5px;display:flex;align-items:center;gap:9px;min-width:0">
+            <span style="flex-shrink:0;height:22px;padding:0 2.5px;border-radius:4px;background:#0B7A48;color:#fff;font-size:13px;font-weight:700;line-height:22px">{{ promoPct }}</span>
+            <span style="flex:1;min-width:0;display:flex;flex-direction:column;white-space:nowrap">
+              <span style="font-size:13px;font-weight:700;line-height:16px;color:#000;overflow:hidden;text-overflow:ellipsis">-{{ promoSave }}</span>
+              <span style="font-size:10px;line-height:13px;color:#545F71;overflow:hidden;text-overflow:ellipsis">uz kod <b style="font-weight:700">{{ promoCode }}</b></span>
+            </span>
+            <button type="button" class="bbcopy" data-code="{{ promoCode }}" onClick="{{ copyCode }}" title="Kopiraj promo kod" aria-label="Kopiraj promo kod" style="flex-shrink:0;width:32px;height:32px;padding:0;border:none;border-radius:8px;background:#E6F5EC;color:#0B7A48;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg class="ic-copy" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path></svg><svg class="ic-ok" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ hasRenewed }}" hint-placeholder-val="{{ false }}">
+          <div style="width:fit-content;max-width:100%;height:22px;box-sizing:border-box;background:#CDD700;border-radius:4px;padding:0 6px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#002D73;font-size:12px;font-weight:700"><span style="overflow:hidden;text-overflow:ellipsis">{{ renewedSave }} u odnosu na novi</span></div><sc-if value="{{ renewPad }}" hint-placeholder-val="{{ false }}"><div style="height:22px"></div></sc-if>
+        </sc-if>
+      </div>
+    </sc-if>
+    <div style="margin-top:8px;height:16px;flex-shrink:0;font-size:12px;font-weight:400;line-height:16px;color:#101117;white-space:nowrap">{{ rata }}</div>
+    <sc-if value="{{ energySlot }}" hint-placeholder-val="{{ true }}"><div style="margin-top:9px;height:24px;flex-shrink:0">
+      <sc-if value="{{ showEnergy }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;gap:7px"><img class="nozm" src="{{ energyImg }}" alt="Energetski razred {{ c.energy }}" style="height:24px;width:auto;display:block"><span onClick="{{ stop }}" style="font-size:9px;line-height:12px;color:#888888;text-decoration:underline;text-underline-offset:2px;white-space:nowrap">Informacijski list</span></div>
+      </sc-if>
+    </div></sc-if>
+    <sc-if value="{{ showAnchor }}" hint-placeholder-val="{{ true }}"><div style="margin-top:9px;font-size:9px;line-height:12px;color:#545F71;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cijena na {{ anchorDate }} {{ anchor }}</div></sc-if>
   </div>
 </a>
 </sc-if>
+
+<sc-if value="{{ isMM }}" hint-placeholder-val="{{ false }}">
+<a href="#" onClick="{{ open }}" class="imz" style="position:relative;width:100%;height:100%;box-sizing:border-box;background:#fff;border-radius:8px;display:flex;flex-direction:column;color:#101117;overflow:hidden;font-family:Inter,sans-serif;padding-bottom:11px">
+  <div style="position:relative;height:138px;flex-shrink:0">
+    <div style="position:absolute;top:8px;left:8px;right:8px;bottom:0;overflow:hidden"><div class="pimg" style="{{ imgStyle }}"></div></div>
+    <div style="position:absolute;left:8px;right:8px;bottom:0;height:21px;display:flex;flex-wrap:nowrap;gap:6px;overflow:hidden;z-index:2;pointer-events:none">
+      <sc-for list="{{ pills }}" as="pl" hint-placeholder-count="1"><span style="{{ pl.style }}">{{ pl.label }}</span></sc-for>
+    </div>
+    <div style="position:absolute;top:8px;right:8px;display:flex;flex-direction:column;gap:8px;z-index:3">
+      <sc-if value="{{ notWish }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ stop }}" title="Spremi" style="width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid #E0E0E0;display:flex;align-items:center;justify-content:center;color:#545F71;padding:0"><svg width="18" height="18" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+        <button onClick="{{ stop }}" title="Usporedi" style="width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid #E0E0E0;display:flex;align-items:center;justify-content:center;color:#545F71;padding:0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg></button>
+      </sc-if>
+      <sc-if value="{{ wish }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ removeWish }}" title="Ukloni s popisa želja" aria-label="Ukloni s popisa želja" style="width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid #E0E0E0;display:flex;align-items:center;justify-content:center;color:#545F71;padding:0"><svg width="18" height="18" viewBox="0 0 20 20" fill="none"><path d="M15.8335 5.83333L15.1107 15.9521C15.0484 16.8243 14.3227 17.5 13.4483 17.5H6.55203C5.67763 17.5 4.9519 16.8243 4.8896 15.9521L4.16683 5.83333M8.3335 9.16667V14.1667M11.6668 9.16667V14.1667M12.5002 5.83333V3.33333C12.5002 2.8731 12.1271 2.5 11.6668 2.5H8.3335C7.87326 2.5 7.50016 2.8731 7.50016 3.33333V5.83333M3.3335 5.83333H16.6668" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+      </sc-if>
+    </div>
+  </div>
+  <div style="padding:0 8px;display:flex;flex-direction:column;flex:1;min-height:0">
+    <div style="margin-top:12px;height:40px;flex-shrink:0;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:14px;font-weight:500;line-height:20px;color:#101117">{{ c.name }}</div>
+    <div style="margin-top:5px;height:18px;flex-shrink:0;display:flex;align-items:center;gap:9px;min-width:0;font-size:12px;line-height:18px;color:#545F71;white-space:nowrap">
+      <svg width="10" height="10" viewBox="2.1 2.1 18.8 18.8" fill="none" style="flex-shrink:0;color:#545F71"><path d="M3.83333 9.58333V20.125H19.1667V9.58333M9.10417 20.125V11.9792H13.8958V20.125M4.3125 2.875H11.0208H18.6875L20.125 7.1875V8.14583C20.125 10.0625 17.25 10.0625 17.25 8.14583C17.25 10.0625 14.375 10.0625 14.375 8.14583C14.375 10.0625 11.5 10.0625 11.5 8.14583C11.5 10.0625 8.625 10.0625 8.625 8.14583C8.625 10.0625 5.75 10.0625 5.75 8.14583C5.75 10.0625 2.875 10.0625 2.875 8.14583V7.1875L4.3125 2.875Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="min-width:0;overflow:hidden;text-overflow:ellipsis">Prodaje: {{ seller }}</span>
+    </div>
+    <div style="flex-shrink:0"><sc-if value="{{ saveSlot }}" hint-placeholder-val="{{ true }}"><div style="padding-top:11px;height:20px;box-sizing:content-box;display:flex;align-items:flex-end">
+      <sc-if value="{{ save }}" hint-placeholder-val="{{ true }}"><span style="height:20px;padding:0 4.5px;border-radius:4px;background:#DA0D00;color:#fff;font-size:12px;font-weight:600;line-height:20px;white-space:nowrap">{{ save }}</span></sc-if>
+      <sc-if value="{{ priceTag }}" hint-placeholder-val="{{ false }}"><span style="{{ priceTag12 }}">{{ priceTag }}</span></sc-if>
+    </div></sc-if></div>
+    <div style="margin-top:7px;min-height:24px;flex-shrink:0;display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px;row-gap:0;white-space:nowrap">
+      <span style="font-size:20px;font-weight:800;line-height:24px;color:#101117">{{ price }}</span>
+      <sc-if value="{{ old }}" hint-placeholder-val="{{ true }}"><span style="font-size:13px;line-height:18px;color:#545F71;text-decoration:line-through">{{ old }}</span></sc-if>
+    </div>
+    <div style="flex:1 0 0"></div>
+    <sc-if value="{{ promoSlot }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top:6px;flex-shrink:0">
+        <sc-if value="{{ promoEmpty }}" hint-placeholder-val="{{ false }}"><div style="height:44px"></div></sc-if>
+        <sc-if value="{{ hasCode }}" hint-placeholder-val="{{ true }}">
+          <div style="height:44px;box-sizing:border-box;border:1px dashed #0B7A48;border-radius:8px;padding:0 5px;display:flex;align-items:center;gap:9px;min-width:0">
+            <span style="flex-shrink:0;height:22px;padding:0 2.5px;border-radius:4px;background:#0B7A48;color:#fff;font-size:13px;font-weight:700;line-height:22px">{{ promoPct }}</span>
+            <span style="flex:1;min-width:0;display:flex;flex-direction:column;white-space:nowrap">
+              <span style="font-size:13px;font-weight:700;line-height:16px;color:#000;overflow:hidden;text-overflow:ellipsis">-{{ promoSave }}</span>
+              <span style="font-size:10px;line-height:13px;color:#545F71;overflow:hidden;text-overflow:ellipsis">uz kod <b style="font-weight:700">{{ promoCode }}</b></span>
+            </span>
+            <button type="button" class="bbcopy" data-code="{{ promoCode }}" onClick="{{ copyCode }}" title="Kopiraj promo kod" aria-label="Kopiraj promo kod" style="flex-shrink:0;width:32px;height:32px;padding:0;border:none;border-radius:8px;background:#E6F5EC;color:#0B7A48;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg class="ic-copy" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path></svg><svg class="ic-ok" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ hasRenewed }}" hint-placeholder-val="{{ false }}">
+          <div style="width:fit-content;max-width:100%;height:22px;box-sizing:border-box;background:#CDD700;border-radius:4px;padding:0 6px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#002D73;font-size:12px;font-weight:700"><span style="overflow:hidden;text-overflow:ellipsis">{{ renewedSave }} u odnosu na novi</span></div><sc-if value="{{ renewPad }}" hint-placeholder-val="{{ false }}"><div style="height:22px"></div></sc-if>
+        </sc-if>
+      </div>
+    </sc-if>
+    <sc-if value="{{ energySlot }}" hint-placeholder-val="{{ true }}"><div style="margin-top:10px;height:24px;flex-shrink:0">
+      <sc-if value="{{ showEnergy }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;gap:7px"><img class="nozm" src="{{ energyImg }}" alt="Energetski razred {{ c.energy }}" style="height:24px;width:auto;display:block"><span onClick="{{ stop }}" style="font-size:9px;line-height:12px;color:#888888;text-decoration:underline;text-underline-offset:2px;white-space:nowrap">Informacijski list</span></div>
+      </sc-if>
+    </div></sc-if>
+    <sc-if value="{{ showAnchor }}" hint-placeholder-val="{{ true }}"><div style="margin-top:9px;font-size:9px;line-height:12px;color:#545F71;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cijena na {{ anchorDate }} {{ anchor }}</div></sc-if>
+  </div>
+</a>
+</sc-if>
+
+<sc-if value="{{ isHD }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ open }}" class="imz" style="container-type:inline-size;position:relative;width:100%;min-height:321px;box-sizing:border-box;background:#fff;border-radius:12px;display:flex;align-items:stretch;padding:16px 15px 16px 16px;color:#101117;overflow:hidden;font-family:Inter,sans-serif;cursor:pointer">
+  <div style="width:48px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:10px">
+    <sc-if value="{{ c.cashback }}" hint-placeholder-val="{{ false }}">
+      <div style="width:48px;height:48px;border-radius:50%;background:#1A7FD0;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1"><span style="font-size:5.4px;font-weight:700;letter-spacing:0.02em">POVRAT</span><span style="font-size:5.4px;font-weight:700;letter-spacing:0.02em;margin-top:0.5px">NOVCA</span><span style="font-size:19px;font-weight:800;letter-spacing:-0.04em;margin-top:1px">{{ c.cashback }}</span><span style="font-size:6.5px;font-weight:700;margin-top:1px">EUR</span></div>
+    </sc-if>
+    <sc-if value="{{ c.warranty }}" hint-placeholder-val="{{ false }}">
+      <div style="padding-top:3px">
+        <div style="width:30px;height:36px;border-radius:3px;background:#1C1C1A;box-shadow:3px -3px 0 #22B5E6,-1px 3px 0 #B44B91;display:flex;flex-direction:column;align-items:center;padding-top:3px;box-sizing:border-box;color:#fff"><span style="font-size:21px;font-weight:800;line-height:1">{{ c.warranty }}</span><span style="font-size:3px;font-weight:700;line-height:1.2;margin-top:3px;letter-spacing:0.02em">GODINA</span><span style="font-size:3px;font-weight:700;line-height:1.2;letter-spacing:0.02em">JAMSTVA</span></div>
+        <span style="display:block;font-size:2.5px;color:#8B8B8B;text-align:center;margin-top:4px;width:30px">Big Bang</span>
+      </div>
+    </sc-if>
+    <sc-if value="{{ c.gift }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top:2px;width:48px;height:48px;border-radius:50%;background:#51E3CC;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;font-weight:800;line-height:12px;letter-spacing:0.02em"><span>POK</span><span>LON</span></div>
+    </sc-if>
+  </div>
+  <div style="width:clamp(90px,14.6cqw,166px);flex-shrink:0;margin-left:clamp(10px,3.52cqw,40px);padding-top:8px;display:flex;flex-direction:column;align-items:center">
+    <div style="width:100%;height:196px;overflow:hidden"><div class="pimg" style="{{ imgStyleG }}"></div></div>
+    <div style="margin-top:14px;height:24px;display:flex;align-items:center;gap:12px">
+      <button onClick="{{ prevImg }}" aria-label="Prethodna slika" style="width:24px;height:24px;border:none;padding:0;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(16,17,23,0.18);display:flex;align-items:center;justify-content:center;color:#101117;cursor:pointer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+      <span style="display:flex;align-items:center;gap:6px"><sc-for list="{{ dots10 }}" as="d" hint-placeholder-count="4"><button onClick="{{ d.onClick }}" aria-label="Slika" style="{{ d.style }}"></button></sc-for></span>
+      <button onClick="{{ nextImg }}" aria-label="Sljedeća slika" style="width:24px;height:24px;border:none;padding:0;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(16,17,23,0.18);display:flex;align-items:center;justify-content:center;color:#101117;cursor:pointer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+    </div>
+  </div>
+  <div style="flex:1;min-width:0;margin-left:clamp(10px,3.7cqw,42px);padding-top:16px;display:flex;flex-direction:column;align-items:flex-start">
+    <div style="max-width:530px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:15px;font-weight:500;line-height:22px;color:#101117">{{ c.name }}</div>
+    <sc-if value="{{ metaRow }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top:8px;height:17px;display:flex;align-items:center;gap:18px;white-space:nowrap">
+        <sc-if value="{{ rated }}" hint-placeholder-val="{{ true }}">
+          <span style="display:flex;align-items:center;gap:6px"><span style="display:flex;gap:3px"><sc-for list="{{ stars }}" as="st" hint-placeholder-count="5"><svg width="13" height="12.5" viewBox="0 0 24 23" fill="{{ st }}"><path d="M12 0l3.1 7.5 8.3.7-6.3 5.4 2 8.2L12 17.4l-7.1 4.4 2-8.2L.6 8.2l8.3-.7z"></path></svg></sc-for></span><span style="font-size:12px;line-height:17px;color:#545F71">{{ ratingLabel }}</span></span>
+        </sc-if>
+        <sc-if value="{{ optionsLabel }}" hint-placeholder-val="{{ true }}"><span style="font-size:12px;line-height:17px;color:#101117;text-decoration:underline;text-underline-offset:2px">{{ optionsLabel }}</span></sc-if>
+      </div>
+    </sc-if>
+    <sc-if value="{{ hasPills }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top:11px;max-width:100%;height:21px;display:flex;gap:8px;overflow:hidden">
+        <sc-for list="{{ pillsH }}" as="pl" hint-placeholder-count="2"><span style="{{ pl.style }}">{{ pl.label }}</span></sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ c.spec }}" hint-placeholder-val="{{ true }}"><p style="margin:10px 0 0;max-width:530px;font-size:12px;line-height:17px;color:#545F71;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden">{{ c.spec }}</p></sc-if>
+    <div style="margin-top:13px;min-height:26px;display:flex;align-items:center;flex-wrap:wrap;gap:4px 12px;white-space:nowrap">
+      <span style="font-size:22px;font-weight:800;line-height:26px;color:#101117">{{ price }}</span>
+      <sc-if value="{{ old }}" hint-placeholder-val="{{ true }}"><span style="font-size:16px;line-height:20px;color:#545F71;text-decoration:line-through">{{ old }}</span></sc-if>
+      <sc-if value="{{ save }}" hint-placeholder-val="{{ true }}"><span style="height:20px;padding:0 6.5px;border-radius:4px;background:#DA0D00;color:#fff;font-size:13px;font-weight:600;line-height:20px">{{ save }}</span></sc-if>
+      <sc-if value="{{ priceTag }}" hint-placeholder-val="{{ false }}"><span style="{{ priceTag14 }}">{{ priceTag }}</span></sc-if>
+      <sc-if value="{{ rataIli }}" hint-placeholder-val="{{ true }}"><span style="font-size:12px;font-weight:400;line-height:16px;color:#101117">{{ rataIli }}</span></sc-if>
+    </div>
+    <sc-if value="{{ hasCode }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top:11px;width:399px;max-width:100%;height:40px;box-sizing:border-box;border:1px dashed #0B7A48;border-radius:8px;padding:0 6px 0 5px;display:flex;align-items:center;gap:9px;white-space:nowrap;min-width:0">
+        <span style="flex-shrink:0;height:24px;padding:0 4px;border-radius:4px;background:#0B7A48;color:#fff;font-size:14px;font-weight:700;line-height:24px">{{ promoPct }}</span>
+        <span style="flex-shrink:0;font-size:14px;font-weight:700;line-height:18px;color:#000">-{{ promoSave }}</span>
+        <span style="margin-left:1px;min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:12px;line-height:16px;color:#545F71">uz kod <b style="font-weight:700">{{ promoCode }}</b></span>
+        <button type="button" class="bbcopy" data-code="{{ promoCode }}" onClick="{{ copyCode }}" title="Kopiraj promo kod" aria-label="Kopiraj promo kod" style="margin-left:auto;flex-shrink:0;width:27px;height:28px;padding:0;border:none;border-radius:6px;background:#E6F5EC;color:#0B7A48;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg class="ic-copy" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path></svg><svg class="ic-ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></button>
+      </div>
+    </sc-if>
+    <sc-if value="{{ hasRenewed }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top:11px;width:fit-content;max-width:100%;height:24px;box-sizing:border-box;background:#CDD700;border-radius:4px;padding:0 8px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#002D73;font-size:13px;font-weight:700"><span style="overflow:hidden;text-overflow:ellipsis">{{ renewedSave }} u odnosu na novi</span></div>
+    </sc-if>
+    <sc-if value="{{ showAnchor }}" hint-placeholder-val="{{ true }}"><div style="margin-top:9px;font-size:10px;line-height:14px;color:#545F71;white-space:nowrap">Cijena na {{ anchorDate }} {{ anchor }}</div></sc-if>
+  </div>
+  <div style="width:clamp(150px,21.1cqw,240px);flex-shrink:0;margin-left:clamp(10px,2.11cqw,24px);padding-top:12px;display:flex;flex-direction:column">
+    <div style="height:22px;display:flex;align-items:center;gap:9px;min-width:0">
+      <span style="width:12px;display:flex;justify-content:center;flex-shrink:0"><span style="{{ dot9 }}"></span></span>
+      <span style="{{ availStyle15 }}">{{ availText }}</span>
+    </div>
+    <div style="margin-top:4px;height:22px;display:flex;align-items:center;gap:7px;min-width:0;font-size:15px;line-height:22px;color:#545F71;white-space:nowrap">
+      <svg width="14" height="14" viewBox="2.1 2.1 18.8 18.8" fill="none" style="flex-shrink:0;color:#545F71"><path d="M3.83333 9.58333V20.125H19.1667V9.58333M9.10417 20.125V11.9792H13.8958V20.125M4.3125 2.875H11.0208H18.6875L20.125 7.1875V8.14583C20.125 10.0625 17.25 10.0625 17.25 8.14583C17.25 10.0625 14.375 10.0625 14.375 8.14583C14.375 10.0625 11.5 10.0625 11.5 8.14583C11.5 10.0625 8.625 10.0625 8.625 8.14583C8.625 10.0625 5.75 10.0625 5.75 8.14583C5.75 10.0625 2.875 10.0625 2.875 8.14583V7.1875L4.3125 2.875Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="min-width:0;overflow:hidden;text-overflow:ellipsis">Prodaje: {{ seller }}</span>
+    </div>
+    <div style="margin-top:49px;height:33px">
+      <sc-if value="{{ showEnergy }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:center;gap:11px"><img class="nozm" src="{{ energyImg }}" alt="Energetski razred {{ c.energy }}" style="height:32.5px;width:auto;display:block"><span onClick="{{ stop }}" style="font-size:13px;line-height:16px;color:#888888;text-decoration:underline;text-underline-offset:2px;white-space:nowrap;cursor:pointer">Informacijski list</span></div>
+      </sc-if>
+    </div>
+    <div style="margin-top:auto;padding-top:20px;padding-left:5px;display:flex;align-items:center;flex-wrap:wrap;gap:8px clamp(14px,2.6cqw,30px)">
+      <button onClick="{{ stop }}" style="height:24px;display:flex;align-items:center;gap:9px;background:none;border:none;padding:0;font-family:Inter,sans-serif;font-size:15px;line-height:22px;color:#545F71;cursor:pointer" style-hover="color:#0050A0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg>Usporedi</button>
+      <button onClick="{{ stop }}" style="height:24px;display:flex;align-items:center;gap:9px;background:none;border:none;padding:0;font-family:Inter,sans-serif;font-size:15px;line-height:22px;color:#545F71;cursor:pointer" style-hover="color:#0050A0"><svg width="24" height="24" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>Spremi</button>
+    </div>
+    <button onClick="{{ addCart }}" style="margin-top:22px;height:42px;width:100%;flex-shrink:0;border-radius:21px;background:#fff;border:1px solid #002D73;color:#002D73;font-family:Inter,sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:background .15s" style-hover="background:#F1F5FB">Dodaj u košaricu</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isHM }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ open }}" style="position:relative;width:100%;box-sizing:border-box;background:#fff;display:flex;align-items:stretch;padding:12px 8px 11px;color:#101117;overflow:hidden;font-family:Inter,sans-serif;cursor:pointer">
+  <div style="width:128px;flex-shrink:0;display:flex;flex-direction:column;align-items:center">
+    <div style="width:100%;height:38px;display:flex;flex-direction:column;align-items:flex-start;gap:4px;overflow:hidden">
+      <sc-for list="{{ pillsHM }}" as="pl" hint-placeholder-count="2"><span style="{{ pl.style }}">{{ pl.label }}</span></sc-for>
+    </div>
+    <div onTouchStart="{{ swStart }}" onTouchMove="{{ swMove }}" onTouchEnd="{{ swEnd }}" onMouseDown="{{ msStart }}" onClick="{{ msClick }}" onDragStart="{{ noDrag }}" style="margin-top:11px;width:128px;height:132px;overflow:hidden;touch-action:pan-y;cursor:grab;user-select:none"><div style="{{ trackStyle }}"><sc-for list="{{ slides }}" as="g" hint-placeholder-count="1"><div style="{{ g }}"></div></sc-for></div></div>
+    <span style="margin-top:12px;display:flex;align-items:center;gap:5px"><sc-for list="{{ dots8 }}" as="d" hint-placeholder-count="4"><button onClick="{{ d.onClick }}" aria-label="Slika" style="{{ d.style }}"></button></sc-for></span>
+  </div>
+  <div style="flex:1;min-width:0;margin-left:20px;display:flex;flex-direction:column">
+    <div style="padding-right:59px;height:40px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;font-size:14px;font-weight:500;line-height:20px;color:#101117">{{ c.name }}</div>
+    <sc-if value="{{ rated }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top:5px;height:15px;display:flex;align-items:center;gap:6px"><span style="display:flex;gap:3px"><sc-for list="{{ stars }}" as="st" hint-placeholder-count="5"><svg width="11" height="10.5" viewBox="0 0 24 23" fill="{{ st }}"><path d="M12 0l3.1 7.5 8.3.7-6.3 5.4 2 8.2L12 17.4l-7.1 4.4 2-8.2L.6 8.2l8.3-.7z"></path></svg></sc-for></span><span style="font-size:11px;line-height:15px;color:#545F71">{{ ratingLabel }}</span></div>
+    </sc-if>
+    <sc-if value="{{ optionsLabel }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top:6px;height:16px;display:flex;align-items:center"><span style="font-size:12px;line-height:16px;color:#101117;text-decoration:underline;text-underline-offset:2px;white-space:nowrap">{{ optionsLabel }}</span></div>
+    </sc-if>
+    <div style="margin-top:9px;height:18px;display:flex;align-items:center;gap:9px;min-width:0">
+      <span style="width:10px;display:flex;justify-content:center;flex-shrink:0"><span style="{{ dot6 }}"></span></span>
+      <span style="{{ availStyle12 }}">{{ availText }}</span>
+    </div>
+    <div style="margin-top:3px;height:18px;display:flex;align-items:center;gap:9px;min-width:0;font-size:12px;line-height:18px;color:#545F71;white-space:nowrap">
+      <svg width="10" height="10" viewBox="2.1 2.1 18.8 18.8" fill="none" style="flex-shrink:0;color:#545F71"><path d="M3.83333 9.58333V20.125H19.1667V9.58333M9.10417 20.125V11.9792H13.8958V20.125M4.3125 2.875H11.0208H18.6875L20.125 7.1875V8.14583C20.125 10.0625 17.25 10.0625 17.25 8.14583C17.25 10.0625 14.375 10.0625 14.375 8.14583C14.375 10.0625 11.5 10.0625 11.5 8.14583C11.5 10.0625 8.625 10.0625 8.625 8.14583C8.625 10.0625 5.75 10.0625 5.75 8.14583C5.75 10.0625 2.875 10.0625 2.875 8.14583V7.1875L4.3125 2.875Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <span style="min-width:0;overflow:hidden;text-overflow:ellipsis">Prodaje: {{ seller }}</span>
+    </div>
+    <sc-if value="{{ save }}" hint-placeholder-val="{{ true }}"><div style="margin-top:10px;height:20px;display:flex"><span style="height:20px;padding:0 4.5px;border-radius:4px;background:#DA0D00;color:#fff;font-size:12px;font-weight:600;line-height:20px;white-space:nowrap">{{ save }}</span></div></sc-if>
+    <sc-if value="{{ priceTag }}" hint-placeholder-val="{{ false }}"><div style="margin-top:10px;height:20px;display:flex"><span style="{{ priceTag12 }}">{{ priceTag }}</span></div></sc-if>
+    <div style="margin-top:7px;min-height:24px;display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px;row-gap:0;white-space:nowrap">
+      <span style="font-size:20px;font-weight:800;line-height:24px;color:#101117">{{ price }}</span>
+      <sc-if value="{{ old }}" hint-placeholder-val="{{ true }}"><span style="font-size:13px;line-height:18px;color:#545F71;text-decoration:line-through">{{ old }}</span></sc-if>
+    </div>
+    <sc-if value="{{ hasCode }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top:9px;height:44px;box-sizing:border-box;border:1px dashed #0B7A48;border-radius:8px;padding:0 5px;display:flex;align-items:center;gap:9px;min-width:0">
+        <span style="flex-shrink:0;height:22px;padding:0 2.5px;border-radius:4px;background:#0B7A48;color:#fff;font-size:13px;font-weight:700;line-height:22px">{{ promoPct }}</span>
+        <span style="flex:1;min-width:0;display:flex;flex-direction:column;white-space:nowrap">
+          <span style="font-size:13px;font-weight:700;line-height:16px;color:#000;overflow:hidden;text-overflow:ellipsis">-{{ promoSave }}</span>
+          <span style="font-size:10px;line-height:13px;color:#545F71;overflow:hidden;text-overflow:ellipsis">uz kod <b style="font-weight:700">{{ promoCode }}</b></span>
+        </span>
+        <button type="button" class="bbcopy" data-code="{{ promoCode }}" onClick="{{ copyCode }}" title="Kopiraj promo kod" aria-label="Kopiraj promo kod" style="flex-shrink:0;width:32px;height:32px;padding:0;border:none;border-radius:8px;background:#E6F5EC;color:#0B7A48;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg class="ic-copy" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path></svg><svg class="ic-ok" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></button>
+      </div>
+    </sc-if>
+    <sc-if value="{{ hasRenewed }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top:10px;width:fit-content;max-width:100%;height:22px;box-sizing:border-box;background:#CDD700;border-radius:4px;padding:0 6px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#002D73;font-size:12px;font-weight:700"><span style="overflow:hidden;text-overflow:ellipsis">{{ renewedSave }} u odnosu na novi</span></div>
+    </sc-if>
+    <sc-if value="{{ rata }}" hint-placeholder-val="{{ true }}"><div style="margin-top:9px;height:16px;font-size:12px;font-weight:400;line-height:16px;color:#101117;white-space:nowrap">{{ rata }}</div></sc-if>
+    <sc-if value="{{ showEnergy }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top:11px;height:24px;display:flex;align-items:center;gap:6px"><img class="nozm" src="{{ energyImg }}" alt="Energetski razred {{ c.energy }}" style="height:24px;width:auto;display:block"><span onClick="{{ stop }}" style="font-size:9px;line-height:12px;color:#888888;text-decoration:underline;text-underline-offset:2px;white-space:nowrap">Informacijski list</span></div>
+    </sc-if>
+    <sc-if value="{{ showAnchor }}" hint-placeholder-val="{{ true }}"><div style="margin-top:11px;font-size:9px;line-height:12px;color:#545F71;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cijena na {{ anchorDate }} {{ anchor }}</div></sc-if>
+  </div>
+  <div style="position:absolute;top:12px;right:8px;width:45px;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none">
+    <sc-if value="{{ c.cashback }}" hint-placeholder-val="{{ false }}">
+      <div style="width:45px;height:45px;border-radius:50%;background:#1A7FD0;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1"><span style="font-size:5px;font-weight:700;letter-spacing:0.02em">POVRAT</span><span style="font-size:5px;font-weight:700;letter-spacing:0.02em;margin-top:0.5px">NOVCA</span><span style="font-size:17.5px;font-weight:800;letter-spacing:-0.04em;margin-top:1px">{{ c.cashback }}</span><span style="font-size:6px;font-weight:700;margin-top:1px">EUR</span></div>
+    </sc-if>
+    <sc-if value="{{ c.warranty }}" hint-placeholder-val="{{ false }}">
+      <div style="padding-top:3px">
+        <div style="width:27px;height:33px;border-radius:3px;background:#1C1C1A;box-shadow:3px -3px 0 #22B5E6,-1px 3px 0 #B44B91;display:flex;flex-direction:column;align-items:center;padding-top:3px;box-sizing:border-box;color:#fff"><span style="font-size:19px;font-weight:800;line-height:1">{{ c.warranty }}</span><span style="font-size:3px;font-weight:700;line-height:1.2;margin-top:3px;letter-spacing:0.02em">GODINA</span><span style="font-size:3px;font-weight:700;line-height:1.2;letter-spacing:0.02em">JAMSTVA</span></div>
+        <span style="display:block;font-size:2.5px;color:#8B8B8B;text-align:center;margin-top:4px;width:27px">Big Bang</span>
+      </div>
+    </sc-if>
+    <sc-if value="{{ c.gift }}" hint-placeholder-val="{{ false }}">
+      <div style="width:42px;height:42px;border-radius:50%;background:#51E3CC;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;font-weight:800;line-height:11px;letter-spacing:0.02em"><span>POK</span><span>LON</span></div>
+    </sc-if>
+  </div>
+</div>
+</sc-if>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:269,&quot;height&quot;:500},&quot;variant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;desktop&quot;,&quot;mobile&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;card&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;{ img, name, price, old?, rate?, cashback?, warranty?, energy?, pills?: {label, tone: 'navy'|'orange'|'lime'|'red'|'blue'}[], rating?, reviews?, options?, avail, availTone?, seller?, codePct?, renewedSave?, reserveCode?, lowest?, anchor?, anchorDate? }&quot;},&quot;wish&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;onOpen&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(card) =&gt; void&quot;},&quot;onRemoveWish&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(card) =&gt; void&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:284,&quot;height&quot;:568},&quot;variant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;desktop&quot;,&quot;mobile&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;layout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;vertical&quot;,&quot;minimal&quot;,&quot;horizontal&quot;],&quot;default&quot;:&quot;vertical&quot;,&quot;tsType&quot;:&quot;'vertical' | 'minimal' | 'horizontal'&quot;},&quot;card&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;{ img, gallery?: string[], name, spec?, price, old?, disc?, rate?, cashback?, warranty?, gift?, energy?, pills?: {label, tone: 'navy'|'orange'|'lime'|'red'|'blue'}[], rating?, reviews?, options?, avail, availTone?, seller?, codePct?, promoCode?, renewedSave?, priceTag?, priceTagTone?, reserveCode?, anchor?, anchorDate?, noAnchor? }&quot;},&quot;wish&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;onOpen&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(card) =&gt; void&quot;},&quot;onRemoveWish&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(card) =&gt; void&quot;}}">
 class Component extends DCLogic {
+  state = { gi: 0, drag: 0, dragging: false };
+  finishSwipe(dx, dy) {
+    const c = this.props.card || {};
+    const gn = Math.max(((c.gallery && c.gallery.length ? c.gallery : [c.img]).filter(Boolean)).length, 1);
+    const cur = ((this.state.gi % gn) + gn) % gn;
+    let gi = cur;
+    if (Math.abs(dx) > 20 && Math.abs(dx) > Math.abs(dy)) { this._swiped = Date.now(); gi = dx < 0 ? Math.min(cur + 1, gn - 1) : Math.max(cur - 1, 0); }
+    this.setState({ gi: gi, drag: 0, dragging: false });
+  }
   renderVals() {
     const c = this.props.card || {};
     const mobile = this.props.variant === 'mobile';
+    const layout = this.props.layout === 'minimal' || this.props.layout === 'horizontal' ? this.props.layout : 'vertical';
     const energyImg = String(c.energy || '').toUpperCase() === 'G' ? 'images/energy-g.png' : 'images/energy-a.png';
     const num = (v) => parseFloat(String(v || '').replace(/[^0-9,]/g, '').replace(',', '.')) || 0;
-    const fmt = (n) => {
-      const [i, d] = n.toFixed(2).split('.');
-      return i.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',' + d + ' €';
-    };
     const euro = (v) => (/€|KM/.test(String(v)) ? String(v) : String(v) + ' €');
+    const stop = (e) => { if (e) { e.preventDefault(); e.stopPropagation(); } };
     const TONES = { navy: ['#002D73', '#fff'], orange: ['#F65F04', '#fff'], red: ['#DA0D00', '#fff'], blue: ['#0050A0', '#fff'], lime: ['#CDD700', '#002D73'] };
-    const pillStyle = (pl, mob) => {
+    // label chip; dims = [fontSize, padX, height]
+    const pillStyle = (pl, d) => {
       const t = TONES[pl.tone] || TONES.navy;
-      return {
-        background: t[0], color: t[1], fontSize: mob ? 10.5 : 12, fontWeight: pl.tone === 'lime' ? 700 : 600,
-        height: mob ? 17 : 19, lineHeight: (mob ? 17 : 19) + 'px', padding: '0 6px',
-        borderRadius: 4, whiteSpace: 'nowrap', boxSizing: 'border-box'
-      };
+      return { background: t[0], color: t[1], fontSize: d[0], fontWeight: 600, height: d[2], lineHeight: d[2] + 'px', padding: '0 ' + d[1] + 'px', borderRadius: 4, whiteSpace: 'nowrap', boxSizing: 'border-box' };
     };
-    // labels top-left on the image, one row: last visible label ellipsises, rest collapse into "+N"; hovered label expands (styles.css .bbpills)
-    const fitPills = (list, mob) => {
-      const fs = mob ? 10.5 : 12, gap = mob ? 4 : 6, W = mob ? 142 : 196, MIN = mob ? 34 : 40;
-      const w = (t) => Math.ceil(String(t).length * fs * 0.56) + 12;
-      const n = list.length;
+    // one row above the title: labels that fit, the last one ellipsised, the rest collapsed into "+N" (no expand)
+    const fitPills = (list, d, W, gap) => {
+      const w = (t) => Math.ceil(String(t).length * d[0] * 0.58) + d[1] * 2;
+      const n = list.length, MIN = d[0] * 3 + d[1] * 2;
       let k = 0, used = 0;
       for (let i = 0; i < n; i++) {
         const rest = n - i - 1, chip = rest > 0 ? w('+' + rest) + gap : 0, need = w(list[i].label);
@@ -279,73 +501,111 @@ class Component extends DCLogic {
         break;
       }
       if (k === 0 && n) k = 1;
-      const out = list.slice(0, k).map((pl, i) => Object.assign({}, pl, { cls: 'bbpl', style: Object.assign(pillStyle(pl, mob), { flexShrink: i === k - 1 ? 1 : 0, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis' }) }));
-      if (k < n) out.push({ label: '+' + (n - k), cls: '', style: Object.assign(pillStyle({ tone: 'navy' }, mob), { flexShrink: 0, background: '#0050A0', color: '#fff' }) });
+      const out = list.slice(0, k).map((pl, i) => ({ label: pl.label, style: Object.assign(pillStyle(pl, d), { flexShrink: i === k - 1 ? 1 : 0, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis' }) }));
+      if (k < n) out.push({ label: '+' + (n - k), style: Object.assign(pillStyle({ tone: 'blue' }, d), { flexShrink: 0 }) });
       return out;
     };
-    const isRefurb = !!c.renewedSave || (c.pills || []).some(pl => /obnovljeno/i.test(pl.label || ''));
-    const pills = fitPills(c.pills || [], false);
-    const pillsMob = fitPills(c.pills || [], true);
+    const optOk = !window.BBCatProducts || !window.BBCatProducts.optionsAllowed || window.BBCatProducts.optionsAllowed(c.name);
+    const plist = c.pills || [];
+    const isRefurb = !!c.renewedSave || plist.some(pl => /obnovljeno/i.test(pl.label || ''));
     const rated = !!c.rating;
     const filled = Math.round(c.rating || 0);
     const tone = c.availTone || 'in';
     const out = tone === 'out';
-    const availStyle = (mob) => ({
-      fontSize: mob ? 11.5 : 13, lineHeight: (mob ? 17 : 20) + 'px', fontWeight: out ? 400 : 600,
-      color: out ? '#545F71' : '#0B7A48',
-      whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0
-    });
+    const availStyle = (fs, lh) => ({ fontSize: fs, lineHeight: lh + 'px', fontWeight: out ? 400 : 600, color: out ? '#545F71' : '#0B7A48', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', minWidth: 0 });
     const dot = (d) => ({ width: d, height: d, borderRadius: '50%', background: out ? '#DA0D00' : '#0B7A48', display: 'block' });
     const pct = c.codePct || 0;
     const renewed = c.renewedSave ? euro(c.renewedSave) : '';
-    const stop = (e) => { if (e) { e.preventDefault(); e.stopPropagation(); } };
     const rateRaw = c.rate ? String(c.rate) : '';
     const rata = rateRaw ? (rateRaw.indexOf('/') > -1 ? rateRaw.replace(/\s*\/\s*/, ' / ') : euro(rateRaw) + ' / 12 rata') : '';
+    const oldShown = c.old && !isRefurb ? euro(c.old) : '';
     const discN = c.old ? Math.round(num(c.old) - num(c.price)) : 0;
+    const discRaw = c.disc ? String(c.disc).replace(/^-\s*/, '') : (discN > 0 ? discN + ' €' : '');
+    const save = oldShown && discRaw ? 'Uštedi ' + euro(discRaw) : '';
+    const tagStyle = (fs, h, px) => ({ height: h, padding: '0 ' + px + 'px', borderRadius: 4, background: c.priceTagTone === 'green' ? '#0B7A48' : '#F65F04', color: '#fff', fontSize: fs, fontWeight: 600, lineHeight: h + 'px', whiteSpace: 'nowrap' });
+    const gallery = (c.gallery && c.gallery.length ? c.gallery : [c.img]).filter(Boolean);
+    const gn = Math.max(gallery.length, 1);
+    const gi = ((this.state.gi % gn) + gn) % gn;
+    const setGi = (n) => this.setState({ gi: n });
+    const bg = (src) => ({ width: '100%', height: '100%', backgroundImage: src ? 'url("' + src + '")' : 'none', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' });
+    const dots = (d) => gallery.slice(0, 4).map((g, n) => ({
+      onClick: (e) => { stop(e); setGi(n); },
+      style: { width: d, height: d, padding: 0, boxSizing: 'border-box', borderRadius: '50%', cursor: 'pointer', display: 'block', background: n === gi ? '#002D73' : '#fff', border: n === gi ? 'none' : '1px solid #818181' }
+    }));
+    const hmPills = plist.length > 3 ? plist.slice(0, 2).concat([{ label: '+' + (plist.length - 2), tone: 'blue' }]) : plist;
     return {
-      isDesktop: !mobile, isMobile: mobile, c: c, energyImg,
-      imgStyle: { width: '100%', height: '100%', backgroundImage: c.img ? 'url("' + c.img + '")' : 'none', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' },
-      badgeRow: { position: 'absolute', left: 11, bottom: 2, display: 'flex', alignItems: 'center', gap: 10, zIndex: 2, pointerEvents: 'none' },
-      badgeRowMob: { position: 'absolute', left: 8, bottom: 1, display: 'flex', alignItems: 'center', gap: 8, zIndex: 2, pointerEvents: 'none' },
-      pills: pills, pillsMob: pillsMob, hasPills: pills.length > 0,
-      pillRow: { position: 'absolute', top: 10, left: 11, right: 52, display: 'flex', flexWrap: 'nowrap', gap: 6, overflow: 'hidden', zIndex: 2 },
-      pillRowMob: { position: 'absolute', top: 8, left: 8, right: 44, display: 'flex', flexWrap: 'nowrap', gap: 4, overflow: 'hidden', zIndex: 2 },
-      // title block reserves rating/options rows only if some card in the same row uses them
-      metaBox: { height: 40 + (c.rowRating === false ? 0 : 21) + (c.rowOptions === false ? 0 : 20), flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 4, overflow: 'hidden' },
-      metaBoxMob: { height: 34 + (c.rowRating === false ? 0 : 17) + (c.rowOptions === false ? 0 : 17), flexShrink: 0, display: 'flex', flexDirection: 'column', gap: 3, overflow: 'hidden' },
+      isVD: layout === 'vertical' && !mobile, isVM: layout === 'vertical' && mobile,
+      isDM: layout === 'minimal' && !mobile, isMM: layout === 'minimal' && mobile,
+      isHD: layout === 'horizontal' && !mobile, isHM: layout === 'horizontal' && mobile,
+      c: c, energyImg,
+      showEnergy: !!c.energy && (window.BBEnergy ? window.BBEnergy.allowed(c.name) : true),
+      energySlot: (!!c.energy && (window.BBEnergy ? window.BBEnergy.allowed(c.name) : true)) || c.rowEnergy !== false,
+      promoEmpty: !(pct > 0) && !renewed,
+      noSaveSlot: !(!!save || !!(oldShown && !isRefurb ? '' : (c.priceTag || '')) || c.rowSave !== false),
+      renewPad: !!renewed && c.rowCode !== false,
+      saveSlot: !!save || !!(oldShown && !isRefurb ? '' : (c.priceTag || '')) || c.rowSave !== false,
+      imgStyle: bg(c.img),
+      imgStyleG: bg(gallery[gi]),
+      slides: gallery.map(g => Object.assign(bg(g), { flex: '0 0 100%', width: '100%' })),
+      trackStyle: { display: 'flex', width: '100%', height: '100%', transform: 'translateX(calc(' + (-gi * 100) + '% + ' + (this.state.dragging ? Math.max(-140, Math.min(140, (gi === 0 && this.state.drag > 0) || (gi === gn - 1 && this.state.drag < 0) ? this.state.drag * 0.3 : this.state.drag)) : 0) + 'px))', transition: this.state.dragging ? 'none' : 'transform .32s cubic-bezier(.2,.7,.2,1)' },
+      dots10: dots(10), dots11: dots(11), dots8: dots(8),
+      swStart: (e) => { const t = e.touches && e.touches[0]; if (!t) return; this._sx = t.clientX; this._sy = t.clientY; this._w = e.currentTarget.offsetWidth || 128; this.setState({ drag: 0, dragging: true }); },
+      swMove: (e) => { const t = e.touches && e.touches[0]; if (!t || this._sx == null) return; this.setState({ drag: t.clientX - this._sx }); },
+      swEnd: (e) => { const t = e.changedTouches && e.changedTouches[0]; if (this._sx == null) return; const dx = t ? t.clientX - this._sx : 0, dy = t ? t.clientY - this._sy : 0; this._sx = null; this.finishSwipe(dx, dy); },
+      msStart: (e) => {
+        if (e.button !== 0) return;
+        e.preventDefault();
+        const sx = e.clientX, sy = e.clientY;
+        this._w = e.currentTarget.offsetWidth || 128;
+        this.setState({ drag: 0, dragging: true });
+        const move = (ev) => this.setState({ drag: ev.clientX - sx });
+        const up = (ev) => { window.removeEventListener('mousemove', move, true); window.removeEventListener('mouseup', up, true); this.finishSwipe(ev.clientX - sx, ev.clientY - sy); };
+        window.addEventListener('mousemove', move, true);
+        window.addEventListener('mouseup', up, true);
+      },
+      msClick: (e) => { if (this._swiped && Date.now() - this._swiped < 400) { e.preventDefault(); e.stopPropagation(); } },
+      noDrag: (e) => { if (e) e.preventDefault(); },
+      prevImg: (e) => { stop(e); setGi((gi - 1 + gn) % gn); },
+      nextImg: (e) => { stop(e); setGi((gi + 1) % gn); },
+      pills: fitPills(plist, [12, 6, 21], mobile ? 200 : 245, 6),
+      pillsVM: fitPills(plist, [11, 4, 18], 178, 4),
+      pillsH: fitPills(plist, [12, 10, 21], 520, 8),
+      pillsHM: hmPills.map(pl => ({ label: pl.label, style: Object.assign(pillStyle(pl, [11, 12, 17]), { maxWidth: '100%', overflow: 'hidden', textOverflow: 'ellipsis', flexShrink: 0 }) })),
+      hasPills: plist.length > 0,
       rated: rated,
+      ratingSlot: rated || c.rowRating !== false,
+      optionsSlot: (!!c.options && optOk) || c.rowOptions !== false,
+      metaRow: rated || (!!c.options && optOk),
       stars: [0, 1, 2, 3, 4].map(n => (n < filled ? '#F5B82E' : '#B5B9C0')),
       ratingLabel: rated ? Number(c.rating).toFixed(1) + '(' + (c.reviews || 0) + ')' : '',
-      optionsLabel: c.options ? 'Dostupno još ' + c.options + ' opcija →' : '',
+      optionsLabel: c.options && optOk ? 'Dostupno još ' + c.options + ' opcija →' : '',
       availText: out ? (c.avail && c.avail !== 'Nema na zalihi' ? c.avail : 'Artikl nije na zalihi') : (c.avail || 'Na zalihi'),
-      dotStyle: dot(8), dotStyleMob: dot(7),
-      availStyle: availStyle(false), availStyleMob: availStyle(true),
+      dot9: dot(9), dot6: dot(6),
+      availStyle12: availStyle(12, 18), availStyle13: availStyle(13, 20), availStyle15: availStyle(15, 22),
       seller: c.seller || 'Big Bang',
-      priceTag: c.old && !isRefurb ? '' : (c.priceTag || ''),
-      priceTagStyle: { height: 18, padding: '0 6px', borderRadius: 3, background: c.priceTagTone === 'green' ? '#0B7A48' : '#E07842', color: '#fff', fontSize: 12, fontWeight: 600, lineHeight: '18px', letterSpacing: '0.02em' },
-      priceTagStyleMob: { height: 16, padding: '0 5px', borderRadius: 3, background: c.priceTagTone === 'green' ? '#0B7A48' : '#E07842', color: '#fff', fontSize: 10, fontWeight: 600, lineHeight: '16px', letterSpacing: '0.02em' },
+      save: save,
+      priceTag: oldShown && !isRefurb ? '' : (c.priceTag || ''),
+      priceTag14: tagStyle(13, 20, 6.5), priceTag12: tagStyle(12, 20, 4.5),
       price: euro(c.price || ''),
-      old: c.old && !isRefurb ? euro(c.old) : '',
-      disc: c.disc ? c.disc : (discN > 0 ? '-' + discN + ' €' : ''),
+      old: oldShown,
       hasCode: pct > 0 && !renewed,
       hasRenewed: !!renewed,
       renewedSave: renewed,
       promoSlot: pct > 0 || !!renewed || (c.rowPromo !== undefined ? !!c.rowPromo : c.reserveCode !== false),
-      promoText: '-' + pct + '% uz kod · Uštedite',
       promoPct: '-' + pct + '%',
-      promoPctPlain: pct + '%',
       promoCode: c.promoCode || ('BIGBANG' + pct),
-      copyCode: (e) => { if (!e) return; e.preventDefault(); e.stopPropagation(); const b = e.currentTarget; const code = b.getAttribute('data-code') || ''; const fb = () => { const t = document.createElement('textarea'); t.value = code; t.style.position = 'fixed'; t.style.opacity = '0'; document.body.appendChild(t); t.select(); try { document.execCommand('copy'); } catch (_) {} t.remove(); }; try { navigator.clipboard ? navigator.clipboard.writeText(code).catch(fb) : fb(); } catch (_) { fb(); } b.setAttribute('data-copied', '1'); b.title = 'Kopirano: ' + code; clearTimeout(b._t); b._t = setTimeout(() => { b.removeAttribute('data-copied'); b.title = 'Kopiraj promo kod'; }, 1600); },
       promoSave: (() => { const cur = /KM/.test(String(c.price)) ? ' KM' : ' €'; const v = num(c.price) * pct / 100; return v.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + cur; })(),
+      copyCode: (e) => { if (!e) return; e.preventDefault(); e.stopPropagation(); const b = e.currentTarget; const code = b.getAttribute('data-code') || ''; const fb = () => { const t = document.createElement('textarea'); t.value = code; t.style.position = 'fixed'; t.style.opacity = '0'; document.body.appendChild(t); t.select(); try { document.execCommand('copy'); } catch (_) {} t.remove(); }; try { navigator.clipboard ? navigator.clipboard.writeText(code).catch(fb) : fb(); } catch (_) { fb(); } b.setAttribute('data-copied', '1'); b.title = 'Kopirano: ' + code; clearTimeout(b._t); b._t = setTimeout(() => { b.removeAttribute('data-copied'); b.title = 'Kopiraj promo kod'; }, 1600); },
       rata: rata,
-      lowest: euro(c.lowest || fmt(num(c.price) * 0.92)),
+      rataIli: rata ? 'ili ' + rata : '',
       anchor: euro(c.anchor || c.old || c.price || ''),
       anchorDate: c.anchorDate || '10.09.2026.',
       showAnchor: !c.noAnchor,
       wish: !!this.props.wish,
-      open: (e) => { if (e) e.preventDefault(); if (this.props.onOpen) this.props.onOpen(c); },
-      stop: stop,
       notWish: !this.props.wish,
+      open: (e) => { if (e) e.preventDefault(); if (this._swiped && Date.now() - this._swiped < 400) return; if (this.props.onOpen) this.props.onOpen(c); },
+      stop: stop,
+      addCart: (e) => { stop(e); if (window.BBCart) window.BBCart.open({ img: gallery[gi] || c.img, name: c.name, price: String(c.price || '').replace(/\s*€$/, ''), old: String(c.old || '').replace(/\s*€$/, '') }); },
       removeWish: (e) => { stop(e); if (this.props.onRemoveWish) this.props.onRemoveWish(c); }
     };
   }

@@ -1,6 +1,35 @@
 /* Prototype change log — one entry per piece of work, not per prompt.
    Shown in the "Prototype settings" panel via "View logs". */
 window.BB_CHANGELOG = [
+  { date: '08.10.2026.', title: 'Kartica proizvoda — nove varijante: vertikalna, minimalna i horizontalna', changes: [
+    'Vertikalna kartica (mreža kategorije) prema novom dizajnu: veći naslov (16 / 14 px), oznake ponovno iznad naslova u jednom redu s »…« i »+N«, bez proširivanja na hover',
+    'Nova minimalna kartica za sve karusele proizvoda: naslov, prodavatelj, ušteda, cijena, promo kod, energetski razred i MPC',
+    'Ušteda kao crvena oznaka »Uštedi 400 €« iznad cijene; stara cijena precrtana desno od cijene',
+    'Novi promo okvir: isprekidani zeleni rub, oznaka »-20%«, iznos uštede, »uz kod …« i gumb za kopiranje koda',
+    'Horizontalna kartica za prikaz popisa u kategoriji (desktop i mobilno): galerija s točkicama, opis, Usporedi / Spremi i »Dodaj u košaricu«',
+    'Popis želja: minimalna kartica samo s ikonom za uklanjanje',
+    'Cijena na karticama ekstra podebljana (800), oznaka »Uštedi« 13 px polupodebljana (mobilno 12 px)',
+    'Oznake na karticama (npr. »Besplatna dostava«) polupodebljane',
+    'Oznaka »… u odnosu na novi« (obnovljeni proizvodi) smanjena na kompaktnu oznaku (24 / 22 px)',
+    'Oznake »UAU cijena« / »Dobra cijena« iste veličine kao »Uštedi« (13 px / mobilno 12 px, polupodebljano)',
+    'Postavka »Prikaz proizvoda: Minimalno« u kategoriji: glavna kartica bez praznog prostora između prodavatelja i cijene',
+    'Energetski razred prikazuje se samo za mobitele i bijelu tehniku (hladnjaci, klime, štednjaci, perilice …) — na karticama i na stranici proizvoda',
+    'Naslovi proizvoda na karticama srednje debljine (500)',
+    'Kategorija prikazuje samo proizvode te kategorije (TV, mobiteli, laptopi, perilice, hladnjaci, klime …), i u karuselima na stranici; pretraga i brendovi filtriraju prema nazivu',
+    'Prikaz cijena po kategoriji: Hladnjaci samo akcijske cijene (bez promo koda), Laptopi samo obnovljeni proizvodi, Mobiteli samo promo kod, Pametni satovi samo redovna cijena, Televizori sve kombinacije',
+    'Kartice bez energetskog razreda ili s oznakom »… u odnosu na novi« više nemaju prazan prostor (red kartica i dalje poravnat)',
+    'Precrtana cijena prelazi u novi red kad ne stane uz cijenu',
+    'Iznos rate (»ili 25,99 € / 12 rata«) u običnoj debljini',
+    '»Dostupno još N opcija« prikazuje se samo za televizore, mobitele i pametne satove',
+    'Precrtana cijena 15 px na desktop kartici u mreži i u karuselima',
+    'Bez oznake »Uštedi« u redu kartica nema praznog prostora iznad cijene',
+    'Glavna cijena 21 px na desktop kartici u mreži i u karuselima',
+    'Naslovi proizvoda na desktop karticama 15 px',
+    'Cijene u redu kartica poravnate i kad precrtana cijena prelazi u novi red',
+    'Mobilni prikaz popisa: dostupnost i prodavatelj 12 px',
+    'Mobilni prikaz popisa: galerija slika na povlačenje prstom ili mišem, manje točkice (8 px)',
+    'Kartice u dvorednim widgetima na početnoj: novi promo okvir (isprekidani zeleni rub, »-20%«, ušteda, »uz kod BIGBANG20«, kopiranje)'
+  ] },
   { date: '07.10.2026.', title: 'Kartica izdelka — nova razporeditev oznak', changes: [
     'Oznake zgoraj levo na sliki v eni vrstici: zadnja vidna oznaka je skrajšana s »…«, preostale so združene v »+N«; ob prehodu z miško se oznaka prikaže v celoti',
     'Povrat novca in nalepka jamstva sta v vrstici na dnu slike, tik nad naslovom; slika 193 / 150 px',

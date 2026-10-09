@@ -34,7 +34,7 @@
   <div ref="{{ trackRef }}" onScroll="{{ onTrackScroll }}" class="nsb" style="display:flex;gap:24px;overflow-x:auto;padding:8px 0 12px max(20px,calc((100% - 1480px) / 2 + 20px))">
     <sc-for list="{{ products }}" as="p" hint-placeholder-count="0">
       <div style="width:269px;flex-shrink:0;display:flex">
-        <dc-import name="Components/ProductCard" variant="desktop" card="{{ p.card }}" wish="{{ p.wish }}" on-open="{{ p.onOpen }}" on-remove-wish="{{ p.onRemoveWish }}" hint-size="269px,500px" style="width:100%"></dc-import>
+        <dc-import name="Components/ProductCard" variant="desktop" layout="minimal" card="{{ p.card }}" wish="{{ p.wish }}" on-open="{{ p.onOpen }}" on-remove-wish="{{ p.onRemoveWish }}" hint-size="269px,440px" style="width:100%"></dc-import>
       </div>
     </sc-for>
   </div>
@@ -55,7 +55,7 @@
   <div class="nsb" ref="{{ trackRef }}" onScroll="{{ onTrackScroll }}" style="display:flex;gap:12px;overflow-x:auto;padding:6px 12px 10px 0">
     <sc-for list="{{ products }}" as="p" hint-placeholder-count="0">
       <div style="width:216px;flex-shrink:0;display:flex">
-        <dc-import name="Components/ProductCard" variant="mobile" card="{{ p.card }}" wish="{{ p.wish }}" on-open="{{ p.onOpen }}" on-remove-wish="{{ p.onRemoveWish }}" hint-size="216px,390px" style="width:100%"></dc-import>
+        <dc-import name="Components/ProductCard" variant="mobile" layout="minimal" card="{{ p.card }}" wish="{{ p.wish }}" on-open="{{ p.onOpen }}" on-remove-wish="{{ p.onRemoveWish }}" hint-size="216px,390px" style="width:100%"></dc-import>
       </div>
     </sc-for>
   </div>

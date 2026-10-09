@@ -88,6 +88,3 @@ html { scrollbar-gutter: stable }
 .bbltr:not(:disabled):hover{background:#EBF3FE !important;color:#0050A0 !important}
 .bbfield:focus-within{border-color:#0050A0 !important}
 
-/* .bbpills — product card labels: hovered label shows in full, the others ellipsise (desktop) */
-.bbpills .bbpl{transition:flex-shrink .2s}
-@media (hover:hover){.bbpills:hover .bbpl{flex-shrink:1}.bbpills .bbpl:hover{flex-shrink:0;min-width:max-content}}

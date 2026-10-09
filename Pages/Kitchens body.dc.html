@@ -1960,7 +1960,7 @@ class Component extends DCLogic {
       ? { position: 'relative', zIndex: 5, paddingTop: 12, background: 'transparent', borderBottom: mobile ? '1px solid transparent' : undefined }
       : { position: 'relative', zIndex: 5, background: '#fff', borderBottom: mobile ? '1px solid #E4E4EA' : undefined };
     const navFixedStyle = {
-      position: 'fixed', top: mobile ? 55 : 56, left: 0, right: 0, zIndex: mobile ? 210 : 200, background: '#fff',
+      position: 'fixed', top: p.noHeader ? 0 : (mobile ? 55 : 56), left: 0, right: 0, zIndex: mobile ? 210 : 200, background: '#fff',
       borderBottom: mobile ? '1px solid #E4E4EA' : undefined, boxShadow: mobile ? undefined : '0 1px 0 #E4E4EA',
       transform: s.navSolid ? 'translateY(0)' : 'translateY(calc(-100% - 56px))',
       transition: 'transform .3s cubic-bezier(.2,.7,.3,1)', willChange: 'transform'

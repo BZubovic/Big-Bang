@@ -16,6 +16,7 @@
 <script src="catimg.js"></script>
 <script src="eu-guarantee.js"></script>
 <script src="garan-data.js"></script>
+<script src="category-products.js"></script>
 </helmet>
 
 <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
@@ -211,7 +212,7 @@
                   </a>
                 </sc-if>
                 <sc-if value="{{ cell.isProduct }}" hint-placeholder-val="{{ true }}">
-                  <dc-import name="Components/ProductCard" variant="desktop" card="{{ cell.card }}" on-open="{{ cell.openCard }}" hint-size="100%,500px" style="width:100%;height:100%"></dc-import>
+                  <dc-import name="Components/ProductCard" variant="desktop" layout="{{ cell.cardLayout }}" card="{{ cell.card }}" on-open="{{ cell.openCard }}" hint-size="100%,568px" style="width:100%;height:100%"></dc-import>
                 </sc-if>
               </sc-for>
             </div>
@@ -220,120 +221,7 @@
           <sc-if value="{{ isList }}" hint-placeholder-val="{{ false }}">
             <div style="display:flex;flex-direction:column;gap:16px">
               <sc-for list="{{ listRows }}" as="p" hint-placeholder-count="6">
-                <div class="imz" style="background:#fff;border-radius:12px;padding:18px clamp(12px,1.4vw,20px) 18px clamp(10px,1.1vw,16px);display:flex;color:#101117;overflow:hidden;font-family:Inter,sans-serif">
-                  <div style="width:48px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:14px">
-                    <sc-if value="{{ p.card.cashback }}" hint-placeholder-val="{{ false }}">
-                <div style="width:46px;height:46px;border-radius:50%;background:#1A7FD0;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;flex-shrink:0">
-                  <span style="font-size:4.6px;font-weight:700;letter-spacing:0.02em">POVRAT</span>
-                  <span style="font-size:4.6px;font-weight:700;letter-spacing:0.02em;margin-top:0.5px">NOVCA</span>
-                  <span style="font-size:19px;font-weight:800;letter-spacing:-0.04em;margin-top:1px">{{ p.card.cashback }}</span>
-                  <span style="font-size:5.8px;font-weight:700;margin-top:1px">EUR</span>
-                </div>
-                    </sc-if>
-                    <sc-if value="{{ p.card.warranty }}" hint-placeholder-val="{{ false }}">
-                <div style="flex-shrink:0">
-                  <div style="width:30px;height:36px;border-radius:3px;background:#1C1C1A;box-shadow:3px -3px 0 #22B5E6,-1px 3px 0 #B44B91;display:flex;flex-direction:column;align-items:center;padding-top:3px;color:#fff">
-                    <span style="font-size:21px;font-weight:800;line-height:1">{{ p.card.warranty }}</span>
-                    <span style="font-size:3px;font-weight:700;line-height:1.2;margin-top:3px;letter-spacing:0.02em">GODINA</span>
-                    <span style="font-size:3px;font-weight:700;line-height:1.2;letter-spacing:0.02em">JAMSTVA</span>
-                  </div>
-                  <span style="display:block;font-size:2.5px;color:#8B8B8B;text-align:center;margin-top:4px;width:30px">Big Bang</span>
-                </div>
-                    </sc-if>
-                    <sc-if value="{{ p.card.gift }}" hint-placeholder-val="{{ false }}">
-                <div style="width:46px;height:46px;border-radius:50%;background:#4DE3CB;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;font-weight:800;line-height:12px;letter-spacing:0.02em;flex-shrink:0"><span>POK</span><span>LON</span></div>
-                    </sc-if>
-                  </div>
-
-                  <div style="width:clamp(100px,13vw,180px);flex-shrink:1;min-width:90px;margin-left:clamp(10px,2.2vw,40px);display:flex;flex-direction:column;align-items:center">
-                    <a href="#" onClick="{{ p.open }}" style="width:100%;flex:1;min-height:120px;display:block;overflow:hidden">
-                      <span class="pimg" style="{{ p.imgStyle }}"></span>
-                    </a>
-                    <div style="display:flex;align-items:center;gap:12px;margin-top:10px;height:24px">
-                      <button onClick="{{ p.prevImg }}" style="width:24px;height:24px;border:none;padding:0;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(16,17,23,0.18);display:flex;align-items:center;justify-content:center;color:#101117;cursor:pointer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-                      <span style="display:flex;align-items:center;gap:4px">
-                        <sc-for list="{{ p.listDots }}" as="d" hint-placeholder-count="4">
-                          <button onClick="{{ d.onClick }}" style="{{ d.style }}"></button>
-                        </sc-for>
-                      </span>
-                      <button onClick="{{ p.nextImg }}" style="width:24px;height:24px;border:none;padding:0;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(16,17,23,0.18);display:flex;align-items:center;justify-content:center;color:#101117;cursor:pointer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-                    </div>
-                  </div>
-
-                  <div style="flex:1;min-width:0;overflow:hidden;margin-left:clamp(12px,2.4vw,40px);display:flex;flex-direction:column;align-items:flex-start">
-                    <a href="#" onClick="{{ p.open }}" style="margin-top:12px;max-width:560px;font-size:16px;font-weight:500;line-height:23px;letter-spacing:-0.01em;color:#101117;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden">{{ p.card.name }}</a>
-                    <div style="margin-top:10px;min-height:21px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-                      <sc-if value="{{ p.listRated }}" hint-placeholder-val="{{ true }}">
-                        <span style="display:flex;align-items:center;gap:4px">
-                  <span style="display:flex;gap:1px">
-                    <sc-for list="{{ p.listStars }}" as="st" hint-placeholder-count="5">
-                      <svg width="14" height="14" viewBox="0 0 24 23" fill="{{ st }}"><path d="M12 0l3.1 7.5 8.3.7-6.3 5.4 2 8.2L12 17.4l-7.1 4.4 2-8.2L.6 8.2l8.3-.7z"></path></svg>
-                    </sc-for>
-                  </span>
-                          <span style="font-size:12px;line-height:17px;color:#545F71">{{ p.listRatingLabel }}</span>
-                        </span>
-                      </sc-if>
-                      <sc-for list="{{ p.listPills }}" as="pl" hint-placeholder-count="1">
-                        <span style="{{ pl.style }}">{{ pl.label }}</span>
-                      </sc-for>
-                      <sc-if value="{{ p.listOptions }}" hint-placeholder-val="{{ false }}">
-                        <span style="font-size:12px;line-height:17px;color:#101117;text-decoration:underline;text-underline-offset:2px">{{ p.listOptions }}</span>
-                      </sc-if>
-                    </div>
-                    <p style="margin:14px 0 0;max-width:520px;font-size:12px;line-height:18px;color:#545F71;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden">{{ p.spec }}</p>
-                    <div style="margin-top:12px;display:flex;align-items:center;flex-wrap:wrap;column-gap:12px;row-gap:6px;white-space:nowrap">
-                      <span style="font-size:22px;font-weight:800;line-height:30px;letter-spacing:-0.01em;color:#101117">{{ p.listPrice }}</span>
-                      <sc-if value="{{ p.listOld }}" hint-placeholder-val="{{ false }}">
-                        <span style="font-size:15px;line-height:20px;color:#8B95A5;text-decoration:line-through">{{ p.listOld }}</span>
-                        <span style="height:20px;padding:0 5px;border-radius:3px;background:#DA0D00;color:#fff;font-size:14px;font-weight:600;line-height:20px">-{{ p.discPct }}%</span>
-                      </sc-if>
-                      <sc-if value="{{ p.listRate }}" hint-placeholder-val="{{ true }}"><span style="margin-left:4px;font-size:14px;font-weight:600;line-height:20px;letter-spacing:-0.01em;color:#101117">25,99 € / 12 rata</span></sc-if>
-                    </div>
-                    <sc-if value="{{ p.listHasCode }}" hint-placeholder-val="{{ true }}">
-                      <div style="margin-top:10px;max-width:100%;align-self:flex-start;height:30px;box-sizing:border-box;border-radius:6px;display:flex;align-items:stretch;white-space:nowrap;overflow:hidden;font-size:13px;font-weight:700;letter-spacing:-0.01em;line-height:30px"><span style="flex-shrink:0;background:#0B7A48;color:#fff;padding:0 9px">{{ p.listCodePct }} uz kod:</span><span style="flex:1;min-width:0;background:#E6F5EC;color:#0B7A48;padding:0 9px;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:6px"><span style="min-width:0;overflow:hidden">-{{ p.listCodeSave }}</span><button type="button" class="bbcopy" data-code="{{ p.listCode }}" onClick="{{ copyCode }}" title="Kopiraj promo kod" aria-label="Kopiraj promo kod" style="flex-shrink:0;width:24px;height:24px;margin-right:-4px;padding:0;border:none;border-radius:4px;background:transparent;color:#0B7A48;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg class="ic-copy" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path></svg><svg class="ic-ok" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></button></span></div>
-                    </sc-if>
-                    <sc-if value="{{ p.listRenewed }}" hint-placeholder-val="{{ false }}">
-                      <div style="margin-top:10px;max-width:100%;height:30px;box-sizing:border-box;background:#CDD700;border-radius:8px;padding:0 10px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#002D73;font-size:12px;font-weight:800;line-height:28px">
-
-                        <span style="overflow:hidden;text-overflow:ellipsis;min-width:0">{{ p.listRenewed }} u odnosu na novi</span>
-                      </div>
-                    </sc-if>
-                    <div style="margin-top:auto;padding-top:14px;max-width:100%;display:flex;flex-wrap:wrap;column-gap:24px;row-gap:2px;font-size:10px;line-height:14px;color:#8B95A5">
-                      <span>Cijena na {{ p.anchorDate }} {{ p.anchor }}</span>
-                    </div>
-                  </div>
-
-                  <div style="width:clamp(150px,19vw,240px);flex-shrink:0;min-width:0;margin-left:clamp(12px,2vw,32px);display:flex;flex-direction:column">
-                    <div style="margin-top:2px;height:20px;display:flex;align-items:center;gap:10px;white-space:nowrap;min-width:0;overflow:hidden">
-                      <span style="width:13px;display:flex;justify-content:center;flex-shrink:0"><span style="{{ p.listDotStyle }}"></span></span>
-                      <span style="{{ p.listAvailStyle }}">{{ p.card.avail }}</span>
-                    </div>
-                    <div style="margin-top:8px;height:20px;display:flex;align-items:center;gap:10px;white-space:nowrap;font-size:14px;line-height:20px;color:#545F71;min-width:0;overflow:hidden">
-                      <svg width="14" height="14" viewBox="2.1 2.1 18.8 18.8" fill="none" style="flex-shrink:0;color:#7F8795"><path d="M3.83333 9.58333V20.125H19.1667V9.58333M9.10417 20.125V11.9792H13.8958V20.125M4.3125 2.875H11.0208H18.6875L20.125 7.1875V8.14583C20.125 10.0625 17.25 10.0625 17.25 8.14583C17.25 10.0625 14.375 10.0625 14.375 8.14583C14.375 10.0625 11.5 10.0625 11.5 8.14583C11.5 10.0625 8.625 10.0625 8.625 8.14583C8.625 10.0625 5.75 10.0625 5.75 8.14583C5.75 10.0625 2.875 10.0625 2.875 8.14583V7.1875L4.3125 2.875Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                      <span style="display:flex;gap:5px;min-width:0;overflow:hidden">Prodaje: <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0">{{ p.card.seller }}</span></span>
-                    </div>
-                    <sc-if value="{{ p.card.energy }}" hint-placeholder-val="{{ true }}">
-                      <div style="margin-top:32px;display:flex;align-items:center;gap:12px">
-              <span style="display:flex;height:32px;flex-shrink:0">
-                <span style="width:42px;background:#00A651;color:#fff;font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;padding-left:11px;box-sizing:border-box;clip-path:polygon(30% 0,100% 0,100% 100%,30% 100%,0 50%)">{{ p.card.energy }}</span>
-                <span style="width:14px;box-sizing:border-box;border:1px solid #101117;border-left:none;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:7.5px;font-weight:700;line-height:1.05;color:#101117"><span>A</span><span>↑</span><span>G</span></span>
-              </span>
-                        <span onClick="{{ p.stop }}" style="font-size:12px;line-height:16px;color:#545F71;text-decoration:underline;text-underline-offset:2px;white-space:nowrap;cursor:pointer">Informacijski list</span>
-                      </div>
-                    </sc-if>
-                    <div style="margin-top:auto;padding-top:20px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px 28px">
-                      <button onClick="{{ p.stop }}" style="display:flex;align-items:center;gap:10px;background:none;border:none;padding:0;font-family:Inter,sans-serif;font-size:14px;line-height:22px;color:#545F71;cursor:pointer" style-hover="color:#0050A0">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 4 19 8 15 12"></polyline><line x1="19" y1="8" x2="5" y2="8"></line><polyline points="9 12 5 16 9 20"></polyline><line x1="5" y1="16" x2="19" y2="16"></line></svg>
-                        Usporedi
-                      </button>
-                      <button onClick="{{ p.stop }}" style="display:flex;align-items:center;gap:8px;background:none;border:none;padding:0;font-family:Inter,sans-serif;font-size:14px;line-height:22px;color:#545F71;cursor:pointer" style-hover="color:#0050A0">
-                        <svg width="24" height="24" viewBox="0 0 30 30" fill="none"><path d="M3.75736 5.96572C1.41421 8.25335 1.41421 11.9623 3.75736 14.25L12.8516 23.1287C13.4903 23.7523 14.5099 23.7523 15.1485 23.1287L24.2426 14.25C26.5858 11.9623 26.5858 8.25335 24.2426 5.96572C21.8995 3.67809 18.1005 3.67809 15.7574 5.96572L14.0001 7.68151L12.2426 5.96572C9.8995 3.67809 6.1005 3.67809 3.75736 5.96572Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                        Spremi
-                      </button>
-                    </div>
-                    <button onClick="{{ p.addCart }}" style="margin-top:18px;height:42px;width:100%;border-radius:21px;background:#fff;border:1px solid #002D73;color:#002D73;font-family:Inter,sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background .15s" style-hover="background:#F1F5FB">Dodaj u košaricu</button>
-                  </div>
-                </div>
+                <dc-import name="Components/ProductCard" variant="desktop" layout="horizontal" card="{{ p.card }}" on-open="{{ p.openCard }}" hint-size="100%,321px"></dc-import>
               </sc-for>
             </div>
           </sc-if>
@@ -568,7 +456,7 @@
     <sc-if value="{{ isGrid }}" hint-placeholder-val="{{ true }}">
       <div style="padding:0 8px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px">
         <sc-for list="{{ products }}" as="p" hint-placeholder-count="6">
-          <dc-import name="Components/ProductCard" variant="mobile" card="{{ p.card }}" on-open="{{ p.openCard }}" hint-size="100%,390px" style="width:100%;height:100%"></dc-import>
+          <dc-import name="Components/ProductCard" variant="mobile" layout="{{ p.cardLayout }}" card="{{ p.card }}" on-open="{{ p.openCard }}" hint-size="100%,485px" style="width:100%;height:100%"></dc-import>
         </sc-for>
       </div>
     </sc-if>
@@ -576,95 +464,7 @@
     <sc-if value="{{ isList }}" hint-placeholder-val="{{ false }}">
       <div style="display:flex;flex-direction:column;gap:8px">
         <sc-for list="{{ listRows }}" as="p" hint-placeholder-count="4">
-          <div style="background:#fff;padding:10px 10px 12px 8px;display:flex;gap:10px;color:#101117;font-family:Inter,sans-serif">
-            <div style="width:140px;flex-shrink:0;display:flex;flex-direction:column">
-              <div style="display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-height:17px">
-                <sc-for list="{{ p.listPillsMob }}" as="pl" hint-placeholder-count="1">
-                  <span style="{{ pl.style }}">{{ pl.label }}</span>
-                </sc-for>
-              </div>
-              <a href="#" onClick="{{ p.open }}" style="display:block;height:120px;margin-top:24px;overflow:hidden"><span class="pimg" style="{{ p.imgStyle }}"></span></a>
-              <div style="margin-top:auto;padding-top:12px;display:flex;align-items:flex-end;gap:8px">
-                <sc-if value="{{ p.card.cashback }}" hint-placeholder-val="{{ false }}">
-          <div style="width:48px;height:48px;border-radius:50%;background:#1A7FD0;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;flex-shrink:0">
-                  <span style="font-size:4.8px;font-weight:700;letter-spacing:0.02em">POVRAT</span>
-                  <span style="font-size:4.8px;font-weight:700;letter-spacing:0.02em;margin-top:0.5px">NOVCA</span>
-                  <span style="font-size:20px;font-weight:800;letter-spacing:-0.04em;margin-top:1px">{{ p.card.cashback }}</span>
-                  <span style="font-size:6.0px;font-weight:700;margin-top:1px">EUR</span>
-                </div>
-                </sc-if>
-                <sc-if value="{{ p.card.warranty }}" hint-placeholder-val="{{ false }}">
-          <div style="flex-shrink:0">
-                  <div style="width:30px;height:36px;border-radius:3px;background:#1C1C1A;box-shadow:3px -3px 0 #22B5E6,-1px 3px 0 #B44B91;display:flex;flex-direction:column;align-items:center;padding-top:3px;color:#fff">
-                    <span style="font-size:21px;font-weight:800;line-height:1">{{ p.card.warranty }}</span>
-                    <span style="font-size:3px;font-weight:700;line-height:1.2;margin-top:3px;letter-spacing:0.02em">GODINA</span>
-                    <span style="font-size:3px;font-weight:700;line-height:1.2;letter-spacing:0.02em">JAMSTVA</span>
-                  </div>
-                  <span style="display:block;font-size:2.5px;color:#8B8B8B;text-align:center;margin-top:4px;width:30px">Big Bang</span>
-                </div>
-                </sc-if>
-                <sc-if value="{{ p.card.gift }}" hint-placeholder-val="{{ false }}">
-          <div style="width:40px;height:40px;border-radius:50%;background:#4DE3CB;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:11px;font-weight:800;line-height:11px;letter-spacing:0.02em;flex-shrink:0"><span>POK</span><span>LON</span></div>
-                </sc-if>
-              </div>
-            </div>
-
-            <div style="flex:1;min-width:0;display:flex;flex-direction:column;align-items:stretch">
-              <a href="#" onClick="{{ p.open }}" style="font-size:14px;font-weight:500;line-height:19px;letter-spacing:-0.01em;color:#101117;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden">{{ p.card.name }}</a>
-              <sc-if value="{{ p.listRated }}" hint-placeholder-val="{{ true }}">
-                <div style="margin-top:5px;height:15px;display:flex;align-items:center;gap:4px">
-          <span style="display:flex;gap:1px">
-                    <sc-for list="{{ p.listStars }}" as="st" hint-placeholder-count="5">
-                      <svg width="12" height="12" viewBox="0 0 24 23" fill="{{ st }}"><path d="M12 0l3.1 7.5 8.3.7-6.3 5.4 2 8.2L12 17.4l-7.1 4.4 2-8.2L.6 8.2l8.3-.7z"></path></svg>
-                    </sc-for>
-                  </span>
-                  <span style="font-size:11px;line-height:15px;color:#545F71">{{ p.listRatingLabel }}</span>
-                </div>
-              </sc-if>
-              <sc-if value="{{ p.listOptions }}" hint-placeholder-val="{{ false }}">
-                <div style="margin-top:8px;height:15px;font-size:11px;line-height:15px;color:#101117;text-decoration:underline;text-underline-offset:2px;white-space:nowrap">{{ p.listOptions }}</div>
-              </sc-if>
-              <div style="margin-top:10px;height:17px;display:flex;align-items:center;gap:9px;white-space:nowrap">
-                <span style="width:12px;display:flex;justify-content:center;flex-shrink:0"><span style="{{ p.listDotStyleMob }}"></span></span>
-                <span style="{{ p.listAvailStyleMob }}">{{ p.card.avail }}</span>
-              </div>
-              <div style="margin-top:6px;height:17px;display:flex;align-items:center;gap:9px;white-space:nowrap;font-size:12px;line-height:17px;color:#545F71;min-width:0">
-                <svg width="12" height="12" viewBox="2.1 2.1 18.8 18.8" fill="none" style="flex-shrink:0;color:#7F8795"><path d="M3.83333 9.58333V20.125H19.1667V9.58333M9.10417 20.125V11.9792H13.8958V20.125M4.3125 2.875H11.0208H18.6875L20.125 7.1875V8.14583C20.125 10.0625 17.25 10.0625 17.25 8.14583C17.25 10.0625 14.375 10.0625 14.375 8.14583C14.375 10.0625 11.5 10.0625 11.5 8.14583C11.5 10.0625 8.625 10.0625 8.625 8.14583C8.625 10.0625 5.75 10.0625 5.75 8.14583C5.75 10.0625 2.875 10.0625 2.875 8.14583V7.1875L4.3125 2.875Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                <span style="display:flex;gap:4px;min-width:0">Prodaje: <span style="overflow:hidden;text-overflow:ellipsis;min-width:0">{{ p.card.seller }}</span></span>
-              </div>
-              <div style="margin-top:auto;padding-top:12px;display:flex;align-items:flex-end;justify-content:space-between;gap:6px">
-                <div style="min-width:0">
-                  <div style="height:17px;display:flex;align-items:center;gap:5px;white-space:nowrap">
-                    <sc-if value="{{ p.listOld }}" hint-placeholder-val="{{ false }}">
-                      <span style="font-size:12px;line-height:17px;color:#8B95A5;text-decoration:line-through">{{ p.listOld }}</span>
-                      <span style="height:17px;padding:0 4px;border-radius:3px;background:#DA0D00;color:#fff;font-size:12px;font-weight:600;line-height:17px">-{{ p.discPct }}%</span>
-                    </sc-if>
-                  </div>
-                  <div style="margin-top:1px;font-size:19px;font-weight:800;line-height:24px;letter-spacing:-0.01em;color:#101117;white-space:nowrap">{{ p.listPrice }}</div>
-                </div>
-                <sc-if value="{{ p.card.energy }}" hint-placeholder-val="{{ true }}">
-                  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0">
-          <span style="display:flex;height:23px;flex-shrink:0">
-                <span style="width:30px;background:#00A651;color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;padding-left:8px;box-sizing:border-box;clip-path:polygon(30% 0,100% 0,100% 100%,30% 100%,0 50%)">{{ p.card.energy }}</span>
-                <span style="width:10px;box-sizing:border-box;border:1px solid #101117;border-left:none;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:6px;font-weight:700;line-height:1.05;color:#101117"><span>A</span><span>↑</span><span>G</span></span>
-              </span>
-                    <span onClick="{{ p.stop }}" style="font-size:9.5px;line-height:12px;color:#545F71;text-decoration:underline;text-underline-offset:2px;white-space:nowrap">Informacijski list</span>
-                  </div>
-                </sc-if>
-              </div>
-              <sc-if value="{{ p.listHasCode }}" hint-placeholder-val="{{ true }}">
-                <div style="margin-top:8px;box-sizing:border-box;border-radius:6px;display:flex;align-items:stretch;white-space:nowrap;overflow:hidden;font-size:12px;font-weight:700;letter-spacing:-0.01em;line-height:16px"><span style="flex-shrink:0;background:#0B7A48;color:#fff;padding:4px 6px">{{ p.listCodePct }} uz kod:</span><span style="flex:1;min-width:0;background:#E6F5EC;color:#0B7A48;padding:4px 6px;text-align:left">-{{ p.listCodeSave }}</span></div>
-              </sc-if>
-              <sc-if value="{{ p.listRenewed }}" hint-placeholder-val="{{ false }}">
-                <div style="margin-top:8px;box-sizing:border-box;background:#CDD700;border-radius:8px;padding:4px 10px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;color:#002D73;font-size:12px;font-weight:800;line-height:16px">
-
-                  <span style="overflow:hidden;text-overflow:ellipsis">{{ p.listRenewed }} u odnosu na novi</span>
-                </div>
-              </sc-if>
-              <div style="margin-top:8px;height:17px;font-size:12.5px;font-weight:600;line-height:17px;letter-spacing:-0.01em;color:#101117;white-space:nowrap"><sc-if value="{{ p.listRate }}" hint-placeholder-val="{{ true }}">25,99 € / 12 rata</sc-if></div>
-              <div style="margin-top:4px;font-size:9.5px;line-height:13px;color:#8B95A5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Cijena na {{ p.anchorDate }} {{ p.anchor }}</div>
-            </div>
-          </div>
+          <dc-import name="Components/ProductCard" variant="mobile" layout="horizontal" card="{{ p.card }}" on-open="{{ p.openCard }}" hint-size="100%,348px"></dc-import>
         </sc-for>
       </div>
     </sc-if>
@@ -878,18 +678,18 @@ const TREE = () => (window.BB_CATALOG || []).map(c => ({
 }));
 
 const PROD = [
-  { img: 'images/prod-samsung-a16.webp', name: 'TV SAMSUNG QE55Q80DATXXH, 138.8cm (55"), QLED, 4K UHD Smart TV, Tizen OS', price: '799,00 €', old: '1.199,00 €' },
-  { img: 'images/prod-huawei-watch.webp', name: 'TV LG OLED65C45LA, 164cm (65"), OLED evo, 4K UHD Smart TV, webOS', price: '1.299,00 €', old: '1.799,00 €' },
-  { img: 'images/prod-hisense-klima.webp', name: 'TV HISENSE 65U7NQ, 164cm (65"), QLED, 4K UHD Smart TV, VIDAA OS', price: '549,00 €', old: '749,00 €' },
-  { img: 'images/prod-gaming-pc.webp', name: 'TV SONY K65XR55B.CEI, 165.1cm (65"), Mini LED, 4K UHD Smart TV, Android TV', price: '1.099,99 €', old: '1.499,99 €' },
-  { img: 'images/prod-bosch-perilica.webp', name: 'TV TCL 55C6K, 139.9cm (55"), QD-Mini LED, 4K UHD Smart TV, Google TV', price: '499,99 €' },
-  { img: 'images/prod-nutribullet.webp', name: 'TV PHILIPS 75PUS8909/12, 189cm (75"), 4K UHD LED, Smart TV, Ambilight', price: '899,00 €', old: '1.199,00 €' },
-  { img: 'images/prod-philips-brijac.webp', name: 'TV SAMSUNG QE75LS03FWUXXH, 190.5cm (75"), QLED, 4K UHD Smart TV, The Frame', price: '1.999,00 €' },
-  { img: 'images/prod-gorenje-perilica.webp', name: 'TV SONY K98XR55BP.CEI, 248.9cm (98"), Mini LED, 4K UHD Smart TV, Android TV', price: '4.399,00 €', old: '5.199,00 €' },
-  { img: 'images/prod-krups-kava.webp', name: 'TV TCL 65C9K, 165.1cm (65"), QD-Mini LED, 4K UHD Smart TV, Google TV', price: '1.399,00 €', old: '1.699,00 €' },
-  { img: 'images/prod-philips-mop.webp', name: 'TV LG 55NANO81T6A, 139cm (55"), NanoCell, 4K UHD Smart TV, webOS', price: '449,00 €', old: '599,00 €' },
-  { img: 'images/prod-laptop-lenovo-yoga7.webp', name: 'TV HISENSE 55E7NQ PRO, 139cm (55"), QLED, 4K UHD Smart TV, VIDAA', price: '399,99 €' },
-  { img: 'images/prod-laptop-hp-omnibook7.webp', name: 'TV SAMSUNG UE43DU7172UXXH, 108cm (43"), Crystal UHD, 4K Smart TV', price: '299,00 €', old: '379,00 €' }
+  { img: 'images/cat-televizori.webp', name: 'TV SAMSUNG QE55Q80DATXXH, 138.8cm (55"), QLED, 4K UHD Smart TV, Tizen OS', price: '799,00 €', old: '1.199,00 €' },
+  { img: 'images/cat-televizori.webp', name: 'TV LG OLED65C45LA, 164cm (65"), OLED evo, 4K UHD Smart TV, webOS', price: '1.299,00 €', old: '1.799,00 €' },
+  { img: 'images/cat-televizori.webp', name: 'TV HISENSE 65U7NQ, 164cm (65"), QLED, 4K UHD Smart TV, VIDAA OS', price: '549,00 €', old: '749,00 €' },
+  { img: 'images/cat-televizori.webp', name: 'TV SONY K65XR55B.CEI, 165.1cm (65"), Mini LED, 4K UHD Smart TV, Android TV', price: '1.099,99 €', old: '1.499,99 €' },
+  { img: 'images/cat-televizori.webp', name: 'TV TCL 55C6K, 139.9cm (55"), QD-Mini LED, 4K UHD Smart TV, Google TV', price: '499,99 €' },
+  { img: 'images/cat-televizori.webp', name: 'TV PHILIPS 75PUS8909/12, 189cm (75"), 4K UHD LED, Smart TV, Ambilight', price: '899,00 €', old: '1.199,00 €' },
+  { img: 'images/cat-televizori.webp', name: 'TV SAMSUNG QE75LS03FWUXXH, 190.5cm (75"), QLED, 4K UHD Smart TV, The Frame', price: '1.999,00 €' },
+  { img: 'images/cat-televizori.webp', name: 'TV SONY K98XR55BP.CEI, 248.9cm (98"), Mini LED, 4K UHD Smart TV, Android TV', price: '4.399,00 €', old: '5.199,00 €' },
+  { img: 'images/cat-televizori.webp', name: 'TV TCL 65C9K, 165.1cm (65"), QD-Mini LED, 4K UHD Smart TV, Google TV', price: '1.399,00 €', old: '1.699,00 €' },
+  { img: 'images/cat-televizori.webp', name: 'TV LG 55NANO81T6A, 139cm (55"), NanoCell, 4K UHD Smart TV, webOS', price: '449,00 €', old: '599,00 €' },
+  { img: 'images/cat-televizori.webp', name: 'TV HISENSE 55E7NQ PRO, 139cm (55"), QLED, 4K UHD Smart TV, VIDAA', price: '399,99 €' },
+  { img: 'images/cat-televizori.webp', name: 'TV SAMSUNG UE43DU7172UXXH, 108cm (43"), Crystal UHD, 4K Smart TV', price: '299,00 €', old: '379,00 €' }
 ];
 
 const BEST = PROD.map(p => ({ img: p.img, name: p.name, price: p.price, old: p.old, rate: '25,99 € / 12 rata' }));
@@ -992,6 +792,7 @@ class Component extends DCLogic {
 
   // catalog.js / catimg.js arrive from <helmet> after the first paint
   componentDidMount() {
+    if (!window.BBCatProducts) { let n = 0; const t = setInterval(() => { if (window.BBCatProducts || ++n > 50) { clearInterval(t); this.forceUpdate(); } }, 100); }
     if (!window.BB_CATALOG || !window.BB_L3IMG) {
       this.catPoll = setInterval(() => {
         if (window.BB_CATALOG && window.BB_L3IMG) { clearInterval(this.catPoll); this.forceUpdate(); }
@@ -1216,6 +1017,8 @@ class Component extends DCLogic {
     const v2 = true;
     const v3 = false;
     const noBanner = level === 3 && !isSearch && !isBrand && !!this.props.minimal;
+    const POOL = (window.BBCatProducts && (isSearch ? window.BBCatProducts.forSearch(query) : isBrand ? window.BBCatProducts.forBrand(brand) : window.BBCatProducts.forCat(cat))) || PROD;
+    const toCar = (p) => ({ img: p.img, name: p.name, price: p.price, old: p.old, rate: '25,99 € / 12 rata' });
     const L3_FIRST = [
       { p: { img: 'images/l3-perilica-samsung.png', name: 'Perilica rublja Samsung WW90T534DAW 9kg bijela', price: '1.099,99 €', old: '1.499,99 €', anchor: '749,00 €' },
         card: { pills: [{ label: 'Besplatna dostava', tone: 'navy' }], rating: 4, reviews: 218, options: 6, avail: 'Na zalihi', availTone: 'in', seller: 'Big Bang', warranty: '5', cashback: '', energy: 'A', codePct: 20, renewedSave: '', priceTag: '' } },
@@ -1226,10 +1029,10 @@ class Component extends DCLogic {
     ];
     const decorate = (p, i) => {
       const first = level === 3 && !isSearch ? L3_FIRST[i] : null;
-      if (first) p = Object.assign({}, p, first.p);
+      if (first) p = Object.assign({}, p, { anchor: first.p.anchor });
       const goodDeal = level === 3 && !isSearch && i === (mobile ? 2 : 3);
       if (goodDeal) p = Object.assign({}, p, { old: '' });
-      const gallery = [p.img, PROD[(i + 1) % PROD.length].img, PROD[(i + 2) % PROD.length].img, PROD[(i + 3) % PROD.length].img, PROD[(i + 4) % PROD.length].img];
+      const gallery = [p.img, POOL[(i + 1) % POOL.length].img, POOL[(i + 2) % POOL.length].img, POOL[(i + 3) % POOL.length].img];
       const gi = ((s.imgIdx[i] || 0) % gallery.length + gallery.length) % gallery.length;
       const bits = String(p.price).replace(' €', '').split(',');
       const rated = i % 7 === 0 || i % 7 === 4;
@@ -1272,13 +1075,33 @@ class Component extends DCLogic {
         avail: av.text, availTone: av.out ? 'out' : (av.green ? 'in' : 'wait'),
         seller: i % 6 === 3 ? 'Electronics Emporium HR' : 'Big Bang',
         codePct: noCode || refurb ? 0 : 20, reserveCode: !rowNoCode,
-        anchor: p.anchor || p.old || p.price, anchorDate: p.anchorDate || '10.09.2026.'
+        anchor: p.anchor || p.old || p.price, anchorDate: p.anchorDate || '10.09.2026.',
+        gallery: gallery, spec: '6,4\'\' Super AMOLED, Octa-core, kamera: prednja 32 MP, stražnja 50.0 MP, 12.0 MP, 5.0 MP, 8GB, 128GB, 5000 mAh 6,4\'\' Super AMOLED, Octa-core, kamera: prednja 32 MP, stražnja 50.0 MP'
       };
       if (first) Object.assign(card, first.card, { reserveCode: true });
       if (goodDeal) Object.assign(card, { old: '', priceTag: 'DOBRA PONUDA', priceTagTone: 'green', rate: '', codePct: 0 });
       const kmCase = level === 3 && !isSearch && i === count - 1;
       if (kmCase) { p = Object.assign({}, p, { price: '49.000 KM', old: '59.000,90 KM' }); Object.assign(card, { price: '49.000 KM', old: '59.000,90 KM', disc: '-10.000,90 KM', rate: '4.083,33 KM / 12 rata', anchor: '59.000,90 KM', priceTag: '' }); }
       if (level === 3 && !isSearch && !isBrand && this.props.minimal) Object.assign(card, { options: 0, rating: 0, reviews: 0, codePct: 0, renewedSave: '', reserveCode: false, noAnchor: true, cashback: '', warranty: '', gift: false, priceTag: '', pills: (card.pills || []).slice(0, 1) });
+      {
+        const mode = !isSearch && !isBrand && window.BBCatProducts && window.BBCatProducts.modeFor ? window.BBCatProducts.modeFor(cat) : 'all';
+        if (mode !== 'all') {
+          const noRefurbPill = (card.pills || []).filter(pl => !/obnovljeno/i.test(pl.label));
+          const pn = num(card.price);
+          if (mode === 'sale') {
+            const old = card.old || p.old || (Math.round(pn * 1.25) + ',00 €');
+            Object.assign(card, { old: old, disc: '', codePct: 0, renewedSave: '', priceTag: '', reserveCode: false, pills: noRefurbPill });
+          } else if (mode === 'refurb') {
+            const pl = noRefurbPill.filter(x => x.label !== 'Besplatna dostava');
+            Object.assign(card, { old: '', disc: '', codePct: 0, renewedSave: '-' + Math.round(pn * 0.2) + ',00 €', priceTag: '', reserveCode: true, pills: [{ label: 'Obnovljeno', tone: 'lime' }].concat(pl) });
+          } else if (mode === 'code') {
+            Object.assign(card, { old: '', disc: '', codePct: 20, promoCode: 'BIGBANG20', renewedSave: '', priceTag: '', reserveCode: true, pills: noRefurbPill });
+          } else if (mode === 'regular') {
+            Object.assign(card, { old: '', disc: '', codePct: 0, renewedSave: '', priceTag: '', reserveCode: false, pills: noRefurbPill });
+          }
+          if (mode !== 'sale') card.anchor = card.price;
+        }
+      }
       const PT = { navy: ['#002D73', '#fff'], orange: ['#F65F04', '#fff'], red: ['#DA0D00', '#fff'], blue: ['#0050A0', '#fff'], lime: ['#CDD700', '#002D73'] };
       const listPills = cardPills.slice(0, 2).map(pl => ({ label: pl.label, style: { background: PT[pl.tone][0], color: PT[pl.tone][1], fontSize: 13, fontWeight: 600, height: 22, lineHeight: '22px', padding: '0 8px', borderRadius: 4, whiteSpace: 'nowrap' } }));
       const eur = (v) => (/€|KM/.test(String(v)) ? String(v) : String(v) + ' €');
@@ -1315,6 +1138,7 @@ class Component extends DCLogic {
           style: { width: 11, height: 11, padding: 0, boxSizing: 'border-box', borderRadius: '50%', cursor: 'pointer', display: 'block', background: n === gi ? '#002D73' : '#fff', border: n === gi ? 'none' : '1px solid #B8B8B8' }
         })),
         card: card,
+        cardLayout: 'vertical',
         openCard: () => openP(p),
         raw: p,
         garan: garanOf(p),
@@ -1409,12 +1233,12 @@ class Component extends DCLogic {
     let count = Math.min(s.shown, TOTAL);
     while ((count + 1) % 4 !== 0 && count < TOTAL) count++;
     const all = [];
-    for (let i = 0; i < count; i++) all.push(decorate(PROD[i % PROD.length], i));
+    for (let i = 0; i < count; i++) all.push(decorate(POOL[i % POOL.length], i));
     {
       const rowOf = (i) => mobile ? Math.floor(i / 2) : (v3 ? (i < 15 ? Math.floor(i / 3) : 5 + Math.floor((i - 15) / 4)) : Math.floor((noBanner ? i : (i < 3 ? i : i + 1)) / 4));
       const rows = {};
       all.forEach((p, i) => { if (!p.card) return; const r = rowOf(i); (rows[r] = rows[r] || []).push(p.card); });
-      Object.values(rows).forEach(cs => { const rr = cs.some(c => c.rating), ro = cs.some(c => c.options), rp = cs.some(c => (c.codePct > 0 || !!c.renewedSave)); cs.forEach(c => { c.rowRating = rr; c.rowOptions = ro; c.rowPromo = rp; }); });
+      Object.values(rows).forEach(cs => { const rr = cs.some(c => c.rating), ro = cs.some(c => c.options && (!window.BBCatProducts || !window.BBCatProducts.optionsAllowed || window.BBCatProducts.optionsAllowed(c.name))), rp = cs.some(c => (c.codePct > 0 || !!c.renewedSave)), re = cs.some(c => !!c.energy && (!window.BBEnergy || window.BBEnergy.allowed(c.name))), rs = cs.some(c => (!!c.old && !c.renewedSave) || !!c.priceTag), rc = cs.some(c => c.codePct > 0 && !c.renewedSave); cs.forEach(c => { c.rowRating = rr; c.rowOptions = ro; c.rowPromo = rp; c.rowEnergy = re; c.rowSave = rs; c.rowCode = rc; }); });
     }
     const gridCells = [];
     all.forEach((p, i) => {
@@ -1515,9 +1339,9 @@ class Component extends DCLogic {
       listRows: all,
       openProduct: openP,
       bestTitle: level === 3 ? 'Popularni proizvodi' : 'Najprodavanije u ' + title,
-      bestList: BEST,
-      popList: POP,
-      sponsList: SPONS,
+      bestList: POOL.map(toCar),
+      popList: POOL.slice(3).concat(POOL.slice(0, 3)).map(toCar),
+      sponsList: POOL.slice().reverse().map(toCar),
       promos: PROMOS.map(p => Object.assign({}, p, {
         textShort: clip(p.text, 96),
         imgStyle: { width: '100%', height: '100%', backgroundImage: 'url("' + p.img + '")', backgroundSize: 'cover', backgroundPosition: 'center', display: 'block' }

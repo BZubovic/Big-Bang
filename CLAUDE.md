@@ -43,7 +43,7 @@ re-implement a header, footer, menu or product carousel inside a page.
   (ProductCarousel; other mobile card grids keep their own widths).
 - Double-row widgets (TV promo, "Široka ponuda") are **477px** tall: portrait banner
   269×477, two card rows of 226.5px with a 24px gap.
-- Section titles: 24px / 600 desktop, 17px / 600 mobile. Prices are 700, never 800.
+- Section titles: 24px / 600 desktop, 17px / 600 mobile. Product card prices are 800 (extra bold); "Uštedi" badge 13px / 600 (12px mobile); labels (Besplatna dostava …) 600.
 - Mobile is previewed in a 412×915 phone frame; the `viewport` tweak switches it.
 
 ## Files
@@ -67,8 +67,9 @@ Components/pdp/PDPBodyMobile.jsx   PDP mobile body + sticky CTA
 Components/SiteHeader.dc.html      header bars
 Components/SiteMenu.dc.html        hamburger / mega menu + mobile drawer
 Components/SiteFooter.dc.html      footer
-Components/ProductCard.dc.html     THE product card (desktop 269×451 / mobile 194×390) — used by
-                                   ProductCarousel and the category grid; never hand-roll a card
+Components/ProductCard.dc.html     THE product card — layout vertical (category grid, desktop 284×568 / mobile 204×485),
+                                   minimal (all carousels, 269×440 / 216×390) and horizontal (category list view,
+                                   full width × 321 / 348); never hand-roll a card
 Components/ProductCarousel.dc.html product row (desktop + mobile)
 Components/PromoCard.dc.html     THE promotion card — layout vertical | side | side-rev, size md | lg;
                                    used on Akcije i promocije and category "Istraži promocije"
@@ -105,6 +106,9 @@ Components/SupportBand.dc.html     GLOBAL dark support/contact band (#00337A) �
                                title, text, phone + e-mail pills; bottom of every info page
 Components/store-map.html      plain-HTML Leaflet map the widget embeds in an iframe
                                (maps must NOT be .dc.html — script timing)
+category-products.js           category → product pool (window.BBCatProducts.forCat / forSearch / forBrand) —
+                               the category listing and its carousels only show products of the clicked category
+energy-rule.js                 window.BBEnergy.allowed(name) — energy label only for phones + white goods
 stores-data.js                 store list (window.BB_STORES) shared by both
 changelog.js                   prototype change log — MUST be updated every working day
                                (see "Change log" below)
@@ -239,22 +243,26 @@ brand-blue links. Desktop starts with "Big Bang", mobile with "Početna". Never 
 
 ### ProductCard
 ```html
-<dc-import name="Components/ProductCard" variant="desktop" card="{{ p.card }}"
-  on-open="{{ p.onOpen }}" hint-size="100%,451px"></dc-import>
+<dc-import name="Components/ProductCard" variant="desktop" layout="vertical" card="{{ p.card }}"
+  on-open="{{ p.onOpen }}" hint-size="100%,568px"></dc-import>
 ```
-`card`: `{ img, name, price, old?, rate?, cashback?, warranty?, energy?, pills?: [{ label, tone:
-'navy'|'orange'|'lime'|'red'|'blue' }], rating?, reviews?, options?, avail, availTone?: 'in'|'wait'|'out', seller?, priceTag? ("UAU CENA" label in the old-price row, only when there is no old price; priceTagTone: 'green' → #0B7A48 e.g. "DOBRA PONUDA"),
-codePct?, renewedSave?, reserveCode?, lowest?, anchor?, anchorDate? }`. FINAL DESIGN (28.09.2026.): image zone 193 / 150px
-with labels top-left (Besplatna dostava navy, UAU Cena orange #F65F04, Obnovljeno lime; wrap to max 2 rows, left of wishlist/compare) and cashback + warranty side by side at the image bottom, just above the title; title 14/20;
-stars + "4.0(218)"; "Dostupno još N opcija" (underlined); "Na zalihi" green bold / "Artikl nije na zalihi" red dot;
-"Prodaje: <seller>"; old price struck + red "-400 €" badge; price 22px/700 black; EU energy arrow + "Informacijski list"
-right of price; promo box "Dodatnih 20% uz promo kod" (#E6F5EC, dashed) or lime "-232,00 € u odnosu na novi" for
-refurbished; "25,99 € / 12 rata"; then "Cijena na <date> <anchor>" (10px #8B95A5). No "Posljednja najniža cijena" line on cards. Fixed anatomy — every slot keeps its height when its data
-is missing, so rows of cards line up: image zone (200 / 154px) with cashback circle + warranty
-sticker top-left, wishlist/compare top-right, energy label + pills stacked from the image
-bottom upwards (overlaying the image); then 2-line title, rating row, availability, seller,
-price, instalment box (#EBF3FE), promo-code box (#E6F5EC, border #BDDDCE, text #0B7A48) and the
-MPC line (#808080). Mobile category grid: 2 columns, 8px side padding, 8px gap.
+FINAL DESIGN (08.10.2026., from the designer's screenshots — match exactly). `layout`:
+- `vertical` — category grid. Image zone 200 / 151px with stickers (cashback circle, warranty) top-left and
+  wishlist + compare (36px, #E0E0E0 ring) top-right; labels in ONE row at the image bottom, directly above the title
+  (last visible one ellipsised, the rest collapse into a "+N" chip, no hover/click expand); title 15/22 / 500 (mobile 14/20);
+  stars + "4.0(218)"; "Dostupno još N opcija →"; availability; "Prodaje: …"; red "Uštedi 400 €" badge (13/600); price 21/800
+  (mobile 20) with the old price struck through to its right (#545F71); dashed green promo box (-20% chip, saving,
+  "uz kod CODE", copy button #E6F5EC); "ili 25,99 € / 12 rata" (mobile without "ili"); energy label + "Informacijski
+  list" (#888); "Cijena na <date> <anchor>" (#545F71). Every slot keeps its height so rows line up.
+- `minimal` — every ProductCarousel: title, seller, Uštedi badge, price, promo box, energy, anchor line. No rating,
+  options, availability or rate line. `wish` shows only the trash button.
+- `horizontal` — category list view: stickers column (cashback, warranty, gift), image with dot gallery
+  (`card.gallery`), title, rating + options, labels, `card.spec` (2 lines), price row (price · old · Uštedi · rate),
+  promo box, anchor; right column with availability, seller, energy, Usporedi / Spremi and outline "Dodaj u košaricu"
+  (BBCart). Mobile: labels stacked above the image, stickers top-right, no buttons, square corners, full width.
+Radii 12 desktop / 8 mobile. `card`: `{ img, gallery?, name, spec?, price, old?, disc?, rate?, cashback?, warranty?, gift?,
+energy?, pills?: [{ label, tone: 'navy'|'orange'|'lime'|'red'|'blue' }], rating?, reviews?, options?, avail, availTone?:
+'in'|'wait'|'out', seller?, codePct?, promoCode?, renewedSave?, priceTag?, priceTagTone?, anchor?, anchorDate?, noAnchor? }`.
 
 ### ProductCarousel
 ```html
@@ -298,12 +306,16 @@ In multi-product layouts the label belongs to the individual product, never to t
 Big Bang's own paid warranty services must be named and described so they cannot be confused
 with the EU GARAN label.
 
+## Energy label
+
+Shown **only for phones and white goods** (fridges, freezers, air-cons, stoves/ovens/hobs, hoods, washers, dryers, boilers). The rule lives in `energy-rule.js` (`window.BBEnergy.allowed(name)`); ProductCard and the PDP info list both use it — never show an energy label without it.
+
 ## Anchored price
 
 **Anchored price ("sidrena cijena") — legally required from 1.10.2026.** Every product
 price display (cards, PDP, cart flyout, cross-sell) shows the regular price on the reference
 day as the last line of the price block — on product cards **below the promo-code label**, on the
-PDP under the instalment line: `MPC na 10.09.2026. 1.099,00 €` (cards: `Cijena na 10.09.2026. 749,00 €`, last line, 10px / 9px mobile, `#8B95A5`), `#8B95A5` on the PDP,
+PDP under the instalment line: `MPC na 10.09.2026. 1.099,00 €` (cards: `Cijena na 10.09.2026. 749,00 €`, last line, 10px / 9px mobile, `#545F71`), `#8B95A5` on the PDP,
 never struck through (strike-through stays reserved for the 30-day lowest price). Cards fall
 back to `old || price` when no explicit `anchor` is given; `anchorDate` overrides the date.
 
