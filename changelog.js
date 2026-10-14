@@ -1,6 +1,90 @@
 /* Prototype change log — one entry per piece of work, not per prompt.
    Shown in the "Prototype settings" panel via "View logs". */
 window.BB_CHANGELOG = [
+  { date: '14.10.2026.', title: 'Prijenos prototipa na novo platno — slike', changes: [
+    'Sve slike i videozapisi prototipa ponovno se prikazuju (naslovnice, banneri, proizvodi, kuhinje, logotipi, EU oznake)',
+    'Kartice proizvoda na stranicama kategorija, pretrage i brenda ponovno prikazuju slike proizvoda',
+    'Stranica stilova kuhinja ponovno prikazuje fotografije kolekcija'
+  ] },
+  { date: '14.10.2026.', title: 'Kuhinje — popravki vsebine', changes: [
+    'Potek v 4 korakih: novi naslovi, opisi in trajanja (Rezervacija, Svetovanje, izmera in 3D načrtovanje, 3D skice in načrti, Izdelava in montaža)',
+    'Oznaka razstavnih kuhinj: »Odprodaja razstavnih eksponatov«',
+    'Ugodnosti: odstranjena opomba v modri kartici (že v pogojih), nova podnaslova za -15 % na belo tehniko in Philips Baristino',
+    'Obrazec za rezervacijo: pri izbiri »Izris na domu« se prikažeta obvezni polji Naslov in Poštna številka'
+  ] },
+  { date: '13.10.2026.', title: 'GEO stranice kategorija — TV i audio, Televizori i dodaci, Televizori', changes: [
+    'TV i audio, Televizori i dodaci i Televizori dobili su vlastite, GEO optimizirane stranice; ostale kategorije zadržavaju postojeći izgled',
+    'Novi uvodni tekstovi za TV i audio i Televizori i dodaci; pločice potkategorija prikazuju broj modela i početnu cijenu',
+    'TV i audio: vodiči "Kako odabrati" za televizore, soundbarove, slušalice i projektore, brendovi s poveznicom na stranicu brenda, česta pitanja i blok s činjenicama o kategoriji',
+    'Televizori i dodaci: traka "Postavite TV kako treba" u četiri koraka, tablica kompatibilnosti nosača (dijagonala, težina, VESA), montaža na zid na prvom mjestu, česta pitanja; uklonjeni brendovi i B2B blok',
+    'Televizori: vodič za dijagonalu s kalkulatorom udaljenosti, usporedba OLED / QLED / Mini-LED / LED, "Najbolji po namjeni" (gaming, sport, mala soba, do 500 €), 8 čestih pitanja i sažetak kategorije s datumom ažuriranja',
+    'Vodič za dijagonalu pojednostavljen: klizač udaljenosti i preporuka u svijetlom panelu, uz tablicu svih dijagonala s udaljenošću i dimenzijama',
+    'Panel s filterima na popisu proizvoda je ljepljiv (prati skrolanje, s vlastitim skrolom)',
+    'Brzi filteri s odabranom opcijom dobivaju plavi obrub i plavi kružić s brojem odabira',
+    'Brzi filteri iznad popisa: najprije potkategorije, nakon odabira prva grupa filtera (npr. Brend), a nakon odabira iz grupe sljedeća grupa',
+    'Minimalni prikaz popisa proizvoda je zadan; na Televizorima promo kod imaju po jedan televizor u 2. i 4. redu',
+    'Postavke prototipa: sedam varijanti zaglavlja popisa proizvoda na mobitelu (potkategorije, Filteri, Sortiraj, prikaz) — 1 ostaje zadana',
+    'Postavke prototipa: Vodič za dijagonalu se može prebaciti između tablice i kalkulatora "Pronađi savršenu veličinu TV-a"',
+    'Klik na dijagonalu, tehnologiju ili namjenu primjenjuje filter na popisu televizora',
+    'Novi globalni blok "Česta pitanja" (GeoFaq) sa strukturiranim podacima za tražilice',
+    'Nove fotografije televizora u karuselima, popisu Televizori i odabiru "Najbolji po namjeni"',
+    'Nove promocije na TV stranicama: Samsung televizori, Hisense televizori i audio oprema do -40%',
+    'Svi televizori u karuselima imaju energetsku oznaku; uklonjen prazan razmak ispod promo koda',
+    'Ujednačeni nadnaslovi (plavi, 12 px, verzalom) i tekst odlomaka (15 px, sivi) u svim GEO blokovima'
+  ] },
+  { date: '13.10.2026.', title: 'Stranica proizvoda — istaknute akcije u kupovnom bloku', changes: [
+    'Blok "Istaknute akcije" (jamstva, pokloni, promo kodovi, otkup — slika i naslov) premješten u desni stupac ispod iznosa rate, u kompaktnijem obliku; klik otvara sve ponude',
+    'Uklonjen zasebni okvir s promo kodom ispod cijene',
+    'Postavke prototipa: odabir broja istaknutih akcija (1–6); svaka akcija u svom redu',
+    'Istaknute akcije odvojene od iznosa rate tankom svijetlosivom linijom',
+    'Uz naslov "Istaknute akcije" prikazan broj aktivnih akcija u zagradi; prikazuju se najviše 4, ostale su dostupne preko "Prikaži sve"',
+    'Promo kodovi u istaknutim akcijama izgledaju kao na karticama proizvoda: isprekidani zeleni okvir, postotak i gumb za kopiranje koda',
+  ] },
+  { date: '13.10.2026.', title: 'Kuhinje — Rustikalne i Moderne kuhinje', changes: [
+    'Stranica stila »Moderne kuhinje« dobila prvu kolekciju: Salzburg | Paris (uvod, blok »Industrijski stil«, galerija od tri fotografije)',
+    'Nova moderna kolekcija Cora | Susann: uvod, blok »Ideje, ki navdušujejo.« i galerija od tri fotografije',
+    'Stranica stila »Rustikalne kuhinje« dobila prvu kolekciju: Cambridge (uvod, blok »Nova različica v podeželskem slogu«, galerija od tri fotografije)',
+    'Galerija kolekcije može imati tri stupca',
+    'Sve fotografije na stranicama stilova kuhinja (Klasične, Rustikalne, Moderne) imaju povećalo na hover; klik otvara veliku fotografiju s gumbom za zatvaranje (i tipkom Esc)',
+    'Uklonjen prazan sivi prostor ispod sekcije »Odkrij še druge stile«',
+    'Nova kolekcija Mara: uvod i galerija od tri fotografije (otok, predal s organizatorom, vitrina)',
+    'Nova kolekcija Sophie: uvod i galerija od tri fotografije (vitrine, sustav za odpadke, stranica z videzem opaža)'
+  ] },
+  { date: '13.10.2026.', title: 'Kartica proizvoda — veličine fontova i razmaci', changes: [
+    'Sve varijante kartice (mreža, karuseli, popis želja, popis kategorije — desktop i mobilno) izmjerene prema dizajnu: veličine fontova, visine redaka i razmaci između elemenata',
+    'Cijena na karticama manja (desktop 20 px, mobilno 17 px zbijeno u mreži i karuselima, 18 px na mobilnom popisu), stara cijena okomito centrirana uz nju',
+    'Oznaka »Uštedi« manja (desktop 12 px, mobilno 10–11 px); ocjena i »Dostupno još N opcija« 12 px (mobilno 11 px)',
+    'Mobilna kartica u mreži: niži promo okvir (39 px) s manjim tekstom; mobilni popis kategorije: veća dostupnost, prodavač i energetska oznaka',
+    'Popis kategorije (desktop): naslov 16 px; na širokom prikazu oznake stoje u istom redu kao ocjena, promo okvir prati širinu sadržaja, a rate su 14 px bez »ili«',
+    'Kartica na popisu želja ima nešto niži promo okvir (44 px) od kartice u karuselu'
+  ] },
+  { date: '12.10.2026.', title: 'Kuhinje — hero', changes: [
+    'Glavni gumb »Rezerviraj brezplačen termin« u heru je u brand plavoj (#0050A0), na hover svjetlije plava (#1F6DC0)',
+    'Nova postavka prototipa: sekcija »Navdih« (Kuhinja, ne showroom) može se prikazati ili sakriti (zadano: skrivena); kad je skrivena, sekcija »Stili« zadržava razmak od prethodne sekcije',
+    'Ujednačen razmak slova (0.06em) na svim oznakama stranice, uključujući »KUHINJE PO MERI«',
+    'Opis termina (30 min · …) stoji odmah ispod glavnog gumba u heru, a sekundarna poveznica »Najprej si oglej stile kuhinj« odmah ispod njega'
+  ] },
+  { date: '12.10.2026.', title: 'Kartica proizvoda — oznake', changes: [
+    'Prva oznaka na kartici uvijek je cijela, druga se skraćuje (…); višak se i dalje skuplja u »+N«',
+    'Prelaskom mišem preko oznaka prva se oznaka skraćuje (…), a druga prikazuje cijela — uz blagi prijelaz; prelaskom preko prve oznake ona se opet prikazuje cijela',
+    'Prelaskom mišem preko »+N« vidljive oznake klize ulijevo i nestaju, a prikazuju se preostale oznake'
+  ] },
+  { date: '09.10.2026.', title: 'Prototip — izvoz za CMS', changes: [
+    'Gumb »Export for CMS« u Prototype settings sada priprema prompt za Claude: upute za izvoz iz CLAUDE.md + kontekst otvorene stranice (bez izvornog koda — Claude ga sam čita iz projekta, pa je prompt kratak)',
+    'Prompt se kopira ili preuzima kao .md i lijepi u Claude chat projekta — Claude izvodi izvoz, provjerava ga i isporučuje ZIP (jedna HTML datoteka + mapa assets/)',
+    'Uklonjen stari automatski izvoz (prolazak kroz desktop i mobilni prikaz, klikanje elemenata, generiranje JavaScripta)',
+    'Globalne komponente (karuseli i liste proizvoda, forme, prodajna mjesta) u izvozu se zamjenjuju oznakom [SHORTCODE=""] izvan HTML strukture'
+  ] },
+  { date: '09.10.2026.', title: 'Kategorija — razmak u mreži; indikatori scrolla kao klizač', changes: [
+    'Razmak između proizvoda u mrežnom prikazu kategorije smanjen s 24 px na 16 px (vodoravno i okomito)',
+    'Indikatori scrolla na cijelom webu sada su klizač fiksne širine koji se pomiče, umjesto trake koja se puni',
+    'Zadnja stavka u karuselima sada staje na rub sadržaja (1480 px), a ne na rub stranice',
+    'Indikator scrolla kod »Istaknuti brendovi« (kategorija) sada prati scroll',
+    'Indikatori scrolla klize glatko, bez zastajkivanja',
+    'Svi karuseli i klizači mogu se povlačiti mišem',
+    'Glavni banner na početnoj može se povlačiti mišem — povlačenje postupno pretapa u sljedeći / prethodni banner',
+    'Mali banneri ispod glavnog prikazuju pokazivač (ruku) na hover'
+  ] },
   { date: '08.10.2026.', title: 'Kartica proizvoda — nove varijante: vertikalna, minimalna i horizontalna', changes: [
     'Vertikalna kartica (mreža kategorije) prema novom dizajnu: veći naslov (16 / 14 px), oznake ponovno iznad naslova u jednom redu s »…« i »+N«, bez proširivanja na hover',
     'Nova minimalna kartica za sve karusele proizvoda: naslov, prodavatelj, ušteda, cijena, promo kod, energetski razred i MPC',

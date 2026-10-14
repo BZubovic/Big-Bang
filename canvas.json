@@ -1,0 +1,352 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Components/Breadcrumbs.dc.html": {
+      "h": 40,
+      "is_interactive": true,
+      "w": 900,
+      "x": 8704,
+      "y": 7600
+    },
+    "Components/CategoryTiles.dc.html": {
+      "h": 620,
+      "is_interactive": true,
+      "w": 1480,
+      "x": 7144,
+      "y": 7600
+    },
+    "Components/GeoFaq.dc.html": {
+      "h": 800,
+      "is_interactive": true,
+      "w": 1200,
+      "x": 15344,
+      "y": 7600
+    },
+    "Components/InfoAnchorNav.dc.html": {
+      "h": 360,
+      "is_interactive": true,
+      "w": 260,
+      "x": 11964,
+      "y": 7600
+    },
+    "Components/InfoPageHead.dc.html": {
+      "h": 260,
+      "is_interactive": true,
+      "w": 1480,
+      "x": 10404,
+      "y": 7600
+    },
+    "Components/KitchenBooking.dc.html": {
+      "h": 800,
+      "is_interactive": true,
+      "w": 1480,
+      "x": 18184,
+      "y": 7600
+    },
+    "Components/ProductCard.dc.html": {
+      "h": 568,
+      "is_interactive": true,
+      "w": 284,
+      "x": 4680,
+      "y": 7600
+    },
+    "Components/ProductCarousel.dc.html": {
+      "h": 560,
+      "is_interactive": true,
+      "w": 1480,
+      "x": 5044,
+      "y": 7600
+    },
+    "Components/PromoCard.dc.html": {
+      "h": 520,
+      "is_interactive": true,
+      "w": 460,
+      "x": 6604,
+      "y": 7600
+    },
+    "Components/SearchPanel.dc.html": {
+      "h": 420,
+      "is_interactive": true,
+      "w": 640,
+      "x": 9684,
+      "y": 7600
+    },
+    "Components/SiteFooter.dc.html": {
+      "h": 620,
+      "is_interactive": true,
+      "w": 1480,
+      "x": 3120,
+      "y": 7600
+    },
+    "Components/SiteHeader.dc.html": {
+      "h": 160,
+      "is_interactive": true,
+      "w": 1480,
+      "x": 0,
+      "y": 7600
+    },
+    "Components/SiteMenu.dc.html": {
+      "h": 700,
+      "is_interactive": true,
+      "w": 1480,
+      "x": 1560,
+      "y": 7600
+    },
+    "Components/StoreLocator.dc.html": {
+      "h": 640,
+      "is_interactive": true,
+      "w": 1440,
+      "x": 13824,
+      "y": 7600
+    },
+    "Components/SupportBand.dc.html": {
+      "h": 190,
+      "is_interactive": true,
+      "w": 1440,
+      "x": 12304,
+      "y": 7600
+    },
+    "Components/TvGeo.dc.html": {
+      "h": 1200,
+      "is_interactive": true,
+      "w": 1480,
+      "x": 16624,
+      "y": 7600
+    },
+    "Main.dc.html": {
+      "expand": "fill",
+      "h": 3600,
+      "is_interactive": true,
+      "title": "Big Bang webshop (app shell)",
+      "w": 1480,
+      "x": 0,
+      "y": 0
+    },
+    "Pages/Account-body.dc.html": {
+      "expand": "fill",
+      "h": 3200,
+      "is_interactive": true,
+      "title": "Account body",
+      "w": 1480,
+      "x": 23400,
+      "y": 4000
+    },
+    "Pages/Brands-body.dc.html": {
+      "expand": "fill",
+      "h": 3200,
+      "is_interactive": true,
+      "title": "Brands body",
+      "w": 1480,
+      "x": 9360,
+      "y": 4000
+    },
+    "Pages/Cart-body.dc.html": {
+      "expand": "fill",
+      "h": 3200,
+      "is_interactive": true,
+      "title": "Cart body",
+      "w": 1480,
+      "x": 4680,
+      "y": 4000
+    },
+    "Pages/Category-body.dc.html": {
+      "expand": "fill",
+      "h": 3200,
+      "is_interactive": true,
+      "title": "Category body",
+      "w": 1480,
+      "x": 1560,
+      "y": 4000
+    },
+    "Pages/Contact-body.dc.html": {
+      "expand": "fill",
+      "h": 3200,
+      "is_interactive": true,
+      "title": "Contact body",
+      "w": 1480,
+      "x": 12480,
+      "y": 4000
+    },
+    "Pages/Delivery-methods-body.dc.html": {
+      "expand": "fill",
+      "h": 3200,
+      "is_interactive": true,
+      "title": "Delivery methods body",
+      "w": 1480,
+      "x": 18720,
+      "y": 4000
+    },
+    "Pages/Design-system-body.dc.html": {
+      "expand": "fill",
+      "h": 1000,
+      "is_interactive": true,
+      "title": "Design system body",
+      "w": 1480,
+      "x": 24960,
+      "y": 4000
+    },
+    "Pages/Homepage-body.dc.html": {
+      "expand": "fill",
+      "h": 3200,
+      "is_interactive": true,
+      "title": "Homepage body",
+      "w": 1480,
+      "x": 0,
+      "y": 4000
+    },
+    "Pages/Kitchen-style-body.dc.html": {
+      "expand": "fill",
+      "h": 3200,
+      "is_interactive": true,
+      "title": "Kitchen style body",
+      "w": 1480,
+      "x": 15600,
+      "y": 4000
+    },
+    "Pages/Kitchens-body.dc.html": {
+      "expand": "fill",
+      "h": 3200,
+      "is_interactive": true,
+      "title": "Kitchens body",
+      "w": 1480,
+      "x": 14040,
+      "y": 4000
+    },
+    "Pages/Legal-guarantee-body.dc.html": {
+      "expand": "fill",
+      "h": 3200,
+      "is_interactive": true,
+      "title": "Legal guarantee body",
+      "w": 1480,
+      "x": 21840,
+      "y": 4000
+    },
+    "Pages/Payment-methods-body.dc.html": {
+      "expand": "fill",
+      "h": 3200,
+      "is_interactive": true,
+      "title": "Payment methods body",
+      "w": 1480,
+      "x": 17160,
+      "y": 4000
+    },
+    "Pages/Product-body.dc.html": {
+      "expand": "fill",
+      "h": 3200,
+      "is_interactive": true,
+      "title": "Product body",
+      "w": 1480,
+      "x": 3120,
+      "y": 4000
+    },
+    "Pages/Promotions-body.dc.html": {
+      "expand": "fill",
+      "h": 3200,
+      "is_interactive": true,
+      "title": "Promotions body",
+      "w": 1480,
+      "x": 7800,
+      "y": 4000
+    },
+    "Pages/Stores-body.dc.html": {
+      "expand": "fill",
+      "h": 3200,
+      "is_interactive": true,
+      "title": "Stores body",
+      "w": 1480,
+      "x": 10920,
+      "y": 4000
+    },
+    "Pages/Terms-body.dc.html": {
+      "expand": "fill",
+      "h": 3200,
+      "is_interactive": true,
+      "title": "Terms body",
+      "w": 1480,
+      "x": 20280,
+      "y": 4000
+    },
+    "Pages/Wishlist-body.dc.html": {
+      "expand": "fill",
+      "h": 900,
+      "is_interactive": true,
+      "title": "Wishlist body",
+      "w": 1480,
+      "x": 6240,
+      "y": 4000
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-14T06:46:03Z",
+    "v": 1
+  },
+  "designSystems": [
+    {
+      "artifact": "https://claude.ai/code/artifact/8855205e-9f39-43bf-9cf6-6f11170a03cc",
+      "copiedAt": "2026-10-14T06:46:03Z",
+      "namespace": "bigbangdesignsystem_019e02",
+      "title": "Big Bang Design System",
+      "version": "1791959437-cf00"
+    }
+  ],
+  "launch": {
+    "view": "canvas"
+  },
+  "notes": {
+    "componentsTitle": {
+      "kind": "title1",
+      "maxW": 8000,
+      "text": "Components",
+      "w": 240,
+      "x": 0,
+      "y": 7340
+    },
+    "pagesTitle": {
+      "kind": "title1",
+      "maxW": 8000,
+      "text": "Pages",
+      "w": 240,
+      "x": 0,
+      "y": 3740
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Pages/Homepage-body.dc.html",
+    "Pages/Category-body.dc.html",
+    "Pages/Product-body.dc.html",
+    "Pages/Cart-body.dc.html",
+    "Pages/Wishlist-body.dc.html",
+    "Pages/Promotions-body.dc.html",
+    "Pages/Brands-body.dc.html",
+    "Pages/Stores-body.dc.html",
+    "Pages/Contact-body.dc.html",
+    "Pages/Kitchens-body.dc.html",
+    "Pages/Kitchen-style-body.dc.html",
+    "Pages/Payment-methods-body.dc.html",
+    "Pages/Delivery-methods-body.dc.html",
+    "Pages/Terms-body.dc.html",
+    "Pages/Legal-guarantee-body.dc.html",
+    "Pages/Account-body.dc.html",
+    "Pages/Design-system-body.dc.html",
+    "Components/SiteHeader.dc.html",
+    "Components/SiteMenu.dc.html",
+    "Components/SiteFooter.dc.html",
+    "Components/ProductCard.dc.html",
+    "Components/ProductCarousel.dc.html",
+    "Components/PromoCard.dc.html",
+    "Components/CategoryTiles.dc.html",
+    "Components/Breadcrumbs.dc.html",
+    "Components/SearchPanel.dc.html",
+    "Components/InfoPageHead.dc.html",
+    "Components/InfoAnchorNav.dc.html",
+    "Components/SupportBand.dc.html",
+    "Components/StoreLocator.dc.html",
+    "Components/GeoFaq.dc.html",
+    "Components/TvGeo.dc.html",
+    "Components/KitchenBooking.dc.html"
+  ],
+  "pages": [],
+  "title": "Big Bang Full Site"
+}

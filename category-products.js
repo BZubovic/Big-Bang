@@ -3,16 +3,71 @@
    category stand-ins until real product shots are supplied. */
 (function () {
   var I = 'images/';
+  /* images are canvas assets (see CLAUDE.md "Image assets"): file name → asset URL */
+  var A = {
+    'cat-audio.webp': 'images/cat-audio.webp',
+    'cat-gaming.webp': 'images/cat-gaming.webp',
+    'cat-hladnjaci.webp': 'images/cat-hladnjaci.webp',
+    'cat-kamere.webp': 'images/cat-kamere.webp',
+    'cat-klima.webp': 'images/cat-klima.webp',
+    'cat-mali-aparati.webp': 'images/cat-mali-aparati.webp',
+    'cat-mobiteli.webp': 'images/cat-mobiteli.webp',
+    'cat-osobna-njega.webp': 'images/cat-osobna-njega.webp',
+    'cat-pametni-satovi.webp': 'images/cat-pametni-satovi.webp',
+    'cat-pecnice.webp': 'images/cat-pecnice.webp',
+    'cat-perilice.webp': 'images/cat-perilice.webp',
+    'cat-ploce-kuhanje.webp': 'images/cat-ploce-kuhanje.webp',
+    'cat-pranje-posuda.webp': 'images/cat-pranje-posuda.webp',
+    'cat-stolna-racunala.webp': 'images/cat-stolna-racunala.webp',
+    'l3-hladnjak-samsung.png': 'images/l3-hladnjak-samsung.png',
+    'l3-perilica-samsung.png': 'images/l3-perilica-samsung.png',
+    'l3-ploca-indukcija.png': 'images/l3-ploca-indukcija.png',
+    'prod-bosch-perilica.webp': 'images/prod-bosch-perilica.webp',
+    'prod-gaming-pc.webp': 'images/prod-gaming-pc.webp',
+    'prod-gorenje-perilica.webp': 'images/prod-gorenje-perilica.webp',
+    'prod-hisense-klima.webp': 'images/prod-hisense-klima.webp',
+    'prod-huawei-watch.webp': 'images/prod-huawei-watch.webp',
+    'prod-krups-kava.webp': 'images/prod-krups-kava.webp',
+    'prod-laptop-acer-aspire-lite1.webp': 'images/prod-laptop-acer-aspire-lite1.webp',
+    'prod-laptop-acer-aspire-lite2.webp': 'images/prod-laptop-acer-aspire-lite2.webp',
+    'prod-laptop-asus-tuf.webp': 'images/prod-laptop-asus-tuf.webp',
+    'prod-laptop-hp-omnibook5-16.webp': 'images/prod-laptop-hp-omnibook5-16.webp',
+    'prod-laptop-hp-omnibook5-ai.webp': 'images/prod-laptop-hp-omnibook5-ai.webp',
+    'prod-laptop-hp-omnibook5-flip.webp': 'images/prod-laptop-hp-omnibook5-flip.webp',
+    'prod-laptop-hp-omnibook7.webp': 'images/prod-laptop-hp-omnibook7.webp',
+    'prod-laptop-hp-victus.webp': 'images/prod-laptop-hp-victus.webp',
+    'prod-laptop-lenovo-ideapad-slim3.webp': 'images/prod-laptop-lenovo-ideapad-slim3.webp',
+    'prod-laptop-lenovo-legion5.webp': 'images/prod-laptop-lenovo-legion5.webp',
+    'prod-laptop-lenovo-slim5.webp': 'images/prod-laptop-lenovo-slim5.webp',
+    'prod-laptop-lenovo-yoga7.webp': 'images/prod-laptop-lenovo-yoga7.webp',
+    'prod-nutribullet.webp': 'images/prod-nutribullet.webp',
+    'prod-philips-brijac.webp': 'images/prod-philips-brijac.webp',
+    'prod-philips-mop.webp': 'images/prod-philips-mop.webp',
+    'prod-samsung-a16.webp': 'images/prod-samsung-a16.webp',
+    'prod-samsung-s24.webp': 'images/prod-samsung-s24.webp',
+    'tv/hisense-qled-e7s.png': 'images/tv/hisense-qled-e7s.png',
+    'tv/hisense-uled-u7.png': 'images/tv/hisense-uled-u7.png',
+    'tv/hisense-uled-u8.png': 'images/tv/hisense-uled-u8.png',
+    'tv/lg-nano-2026.png': 'images/tv/lg-nano-2026.png',
+    'tv/lg-oled-c5.png': 'images/tv/lg-oled-c5.png',
+    'tv/philips-ambilight-qled.png': 'images/tv/philips-ambilight-qled.png',
+    'tv/philips-compact-hd.png': 'images/tv/philips-compact-hd.png',
+    'tv/samsung-crystal-uhd.png': 'images/tv/samsung-crystal-uhd.png',
+    'tv/samsung-mini-led.png': 'images/tv/samsung-mini-led.png',
+    'tv/samsung-neo-qled.png': 'images/tv/samsung-neo-qled.png'
+  };
   var G = [
     { key: 'tv', match: /televizor|tv i audio|^tv$|ostali tv/i, items: [
-      ['cat-televizori.webp', 'TV SAMSUNG QE55Q80DATXXH, 138.8cm (55"), QLED, 4K UHD Smart TV, Tizen OS', '799,00 €', '1.199,00 €'],
-      ['cat-televizori.webp', 'TV LG OLED65C45LA, 164cm (65"), OLED evo, 4K UHD Smart TV, webOS', '1.299,00 €', '1.799,00 €'],
-      ['cat-televizori.webp', 'TV HISENSE 65U7NQ, 164cm (65"), QLED, 4K UHD Smart TV, VIDAA OS', '549,00 €', '749,00 €'],
-      ['cat-televizori.webp', 'TV SONY K65XR55B.CEI, 165.1cm (65"), Mini LED, 4K UHD Smart TV, Android TV', '1.099,99 €', '1.499,99 €'],
-      ['cat-televizori.webp', 'TV TCL 55C6K, 139.9cm (55"), QD-Mini LED, 4K UHD Smart TV, Google TV', '499,99 €', ''],
-      ['cat-televizori.webp', 'TV PHILIPS 75PUS8909/12, 189cm (75"), 4K UHD LED, Smart TV, Ambilight', '899,00 €', '1.199,00 €'],
-      ['cat-televizori.webp', 'TV LG 55NANO81T6A, 139cm (55"), NanoCell, 4K UHD Smart TV, webOS', '449,00 €', '599,00 €'],
-      ['cat-televizori.webp', 'TV SAMSUNG UE43DU7172UXXH, 108cm (43"), Crystal UHD, 4K Smart TV', '299,00 €', '379,00 €']
+      ['tv/hisense-qled-e7s.png', 'TV HISENSE 58E7S, 147.3cm (58"), QLED, 4K UHD Smart TV, VIDAA', '529,00 €', '699,00 €'],
+      ['tv/lg-oled-c5.png', 'TV LG OLED65C54LA, 164cm (65"), OLED evo, 4K UHD Smart TV, webOS', '1.299,00 €', '1.799,00 €'],
+      ['tv/hisense-uled-u7.png', 'TV HISENSE 65U7Q, 164cm (65"), Mini-LED, 4K UHD Smart TV, 144 Hz', '799,00 €', '999,00 €'],
+      ['tv/samsung-neo-qled.png', 'TV SAMSUNG QE55QN85FATXXH, 138cm (55"), Neo QLED, 4K UHD Smart TV, Tizen OS', '1.099,00 €', '1.399,00 €'],
+      ['tv/philips-ambilight-qled.png', 'TV PHILIPS 55PUS8919/12, 139cm (55"), QLED, 4K UHD Smart TV, Ambilight', '749,00 €', '899,00 €'],
+      ['tv/samsung-mini-led.png', 'TV SAMSUNG QE65QN70FATXXH, 163cm (65"), Mini LED, 4K UHD Smart TV, Tizen OS', '899,00 €', '1.149,00 €'],
+      ['tv/samsung-crystal-uhd.png', 'TV SAMSUNG UE50U8072HUXXH, 125cm (50"), Crystal UHD, 4K Smart TV, Tizen OS', '459,00 €', '539,00 €'],
+      ['tv/lg-nano-2026.png', 'TV LG 55NANO82A6, 139cm (55"), NanoCell, 4K UHD Smart TV, webOS', '449,00 €', '599,00 €'],
+      ['tv/philips-compact-hd.png', 'TV PHILIPS 32PHS6009/12, 80cm (32"), HD LED, Smart TV, Titan OS', '199,00 €', '249,00 €'],
+      ['tv/hisense-uled-u8.png', 'TV HISENSE 75U8Q, 189cm (75"), Mini-LED Pro, 4K UHD Smart TV, 165 Hz', '1.399,00 €', '1.799,00 €']
     ] },
     { key: 'phones', match: /mobitel|mobilni|pametni telefon|smartphone/i, items: [
       ['prod-samsung-s24.webp', 'Mobitel Samsung Galaxy S24+ 5G 12GB/256GB dual SIM', '999,00 €', '1.199,00 €'],
@@ -125,7 +180,7 @@
     { key: 'it', match: /računala|it oprema/i, mix: ['laptops', 'pc'] }
   ];
   var byKey = {}; G.forEach(function (g) { byKey[g.key] = g; });
-  var toP = function (r) { return { img: I + r[0], name: r[1], price: r[2], old: r[3] || '' }; };
+  var toP = function (r) { return { img: A[r[0]] || I + r[0], name: r[1], price: r[2], old: r[3] || '' }; };
   var poolOf = function (g) {
     if (g.items) return g.items.map(toP);
     var lists = g.mix.map(function (k) { return byKey[k].items.map(toP); }), out = [], n = 0;

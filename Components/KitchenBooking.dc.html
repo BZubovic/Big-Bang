@@ -80,6 +80,20 @@
               </sc-for>
             </div>
             <sc-if value="{{ err.lok }}" hint-placeholder-val="{{ false }}"><span style="display:block;font-size:12px;color:#DA0D00;margin-top:6px">Izberi lokacijo</span></sc-if>
+            <sc-if value="{{ isHomeLoc }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:12px;margin-top:14px">
+              <label style="display:block">
+                <span style="display:block;font-size:12.5px;font-weight:700;color:#3C4450;margin-bottom:6px">Naslov *</span>
+                <input type="text" value="{{ f.naslov }}" onChange="{{ set.naslov }}" placeholder="Ulica in hišna številka" autocomplete="street-address" style="{{ inp.naslov }}">
+                <sc-if value="{{ err.naslov }}" hint-placeholder-val="{{ false }}"><span style="display:block;font-size:12px;color:#DA0D00;margin-top:5px">Obvezno polje</span></sc-if>
+              </label>
+              <label style="display:block">
+                <span style="display:block;font-size:12.5px;font-weight:700;color:#3C4450;margin-bottom:6px">Poštna številka *</span>
+                <input type="text" inputmode="numeric" value="{{ f.posta }}" onChange="{{ set.posta }}" placeholder="1000" autocomplete="postal-code" style="{{ inp.posta }}">
+                <sc-if value="{{ err.posta }}" hint-placeholder-val="{{ false }}"><span style="display:block;font-size:12px;color:#DA0D00;margin-top:5px">Obvezno polje</span></sc-if>
+              </label>
+            </div>
+            </sc-if>
             <div style="display:flex;gap:10px;align-items:flex-start;margin-top:22px">
               <button type="button" onClick="{{ toggleConsent }}" aria-label="Soglasje" style="{{ consentBox }}">
                 <sc-if value="{{ f.consent }}" hint-placeholder-val="{{ false }}"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12.5 10 17.5 19 7"></polyline></svg></sc-if>
@@ -173,6 +187,18 @@
           </sc-for>
         </div>
         <sc-if value="{{ err.lok }}" hint-placeholder-val="{{ false }}"><span style="display:block;font-size:11.5px;color:#DA0D00;margin-top:6px">Izberi lokacijo</span></sc-if>
+        <sc-if value="{{ isHomeLoc }}" hint-placeholder-val="{{ false }}">
+        <label style="display:block;margin-top:14px">
+          <span style="display:block;font-size:12.5px;font-weight:600;margin-bottom:6px">Naslov *</span>
+          <input type="text" value="{{ f.naslov }}" onChange="{{ set.naslov }}" placeholder="Ulica in hišna številka" autocomplete="street-address" style="{{ inp.naslov }}">
+          <sc-if value="{{ err.naslov }}" hint-placeholder-val="{{ false }}"><span style="display:block;font-size:11.5px;color:#DA0D00;margin-top:5px">Obvezno polje</span></sc-if>
+        </label>
+        <label style="display:block;margin-top:14px">
+          <span style="display:block;font-size:12.5px;font-weight:600;margin-bottom:6px">Poštna številka *</span>
+          <input type="text" inputmode="numeric" value="{{ f.posta }}" onChange="{{ set.posta }}" placeholder="1000" autocomplete="postal-code" style="{{ inp.posta }}">
+          <sc-if value="{{ err.posta }}" hint-placeholder-val="{{ false }}"><span style="display:block;font-size:11.5px;color:#DA0D00;margin-top:5px">Obvezno polje</span></sc-if>
+        </label>
+        </sc-if>
         <div style="display:flex;gap:10px;align-items:flex-start;margin-top:18px">
           <button type="button" onClick="{{ toggleConsent }}" aria-label="Soglasje" style="{{ consentBox }}">
             <sc-if value="{{ f.consent }}" hint-placeholder-val="{{ false }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12.5 10 17.5 19 7"></polyline></svg></sc-if>
@@ -217,7 +243,7 @@ const LOCS = [
 ];
 
 class Component extends DCLogic {
-  state = { f: { email: '', ime: '', priimek: '', tel: '', lok: '', consent: false }, err: {}, done: false, more: false };
+  state = { f: { email: '', ime: '', priimek: '', tel: '', lok: '', naslov: '', posta: '', consent: false }, err: {}, done: false, more: false };
 
   setField = (k) => (e) => {
     const v = e.target.value;
@@ -229,7 +255,9 @@ class Component extends DCLogic {
     const err = {
       email: !/^\S+@\S+\.\S+$/.test(f.email.trim()),
       ime: !f.ime.trim(), priimek: !f.priimek.trim(), tel: !f.tel.trim(),
-      lok: !f.lok, consent: !f.consent
+      lok: !f.lok, consent: !f.consent,
+      naslov: f.lok === 'Izris na domu' && !f.naslov.trim(),
+      posta: f.lok === 'Izris na domu' && !/^\d{4}$/.test(f.posta.trim())
     };
     if (Object.keys(err).some(k => err[k])) { this.setState({ err }); return; }
     this.setState({ done: true, err: {} });
@@ -256,8 +284,9 @@ class Component extends DCLogic {
       formDone: s.done,
       f: f,
       err: err,
-      set: { email: this.setField('email'), ime: this.setField('ime'), priimek: this.setField('priimek'), tel: this.setField('tel') },
-      inp: { email: inp('email'), ime: inp('ime'), priimek: inp('priimek'), tel: inp('tel') },
+      set: { email: this.setField('email'), ime: this.setField('ime'), priimek: this.setField('priimek'), tel: this.setField('tel'), naslov: this.setField('naslov'), posta: this.setField('posta') },
+      isHomeLoc: f.lok === 'Izris na domu',
+      inp: { email: inp('email'), ime: inp('ime'), priimek: inp('priimek'), tel: inp('tel'), naslov: inp('naslov'), posta: inp('posta') },
       locations: LOCS.map(l => {
         const on = f.lok === l.v;
         return {

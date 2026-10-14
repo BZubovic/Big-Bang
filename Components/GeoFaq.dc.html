@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="styles.css">
+</helmet>
+
+<sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+<section data-sec="faq" style="max-width:1480px;margin:52px auto 0;padding:0 20px;box-sizing:border-box">
+  <div style="background:#fff;border-radius:12px;padding:32px 32px 8px">
+    <span style="display:block;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8B95A5">Najčešća pitanja</span>
+    <h2 style="font-size:24px;font-weight:700;letter-spacing:-0.02em;line-height:1.25;color:#101117;margin-top:8px;text-wrap:balance">{{ title }}</h2>
+    <div style="margin-top:20px;border-top:1px solid #EEF0F3">
+      <sc-for list="{{ rows }}" as="r" hint-placeholder-count="6">
+        <div style="border-bottom:1px solid #EEF0F3">
+          <button onClick="{{ r.toggle }}" aria-expanded="{{ r.open }}" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 0;background:none;border:none;cursor:pointer;text-align:left;font-family:inherit">
+            <h3 style="font-size:16px;font-weight:600;letter-spacing:-0.01em;line-height:1.4;color:#101117;margin:0">{{ r.q }}</h3>
+            <span style="{{ r.chev }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+          </button>
+          <div style="{{ r.body }}">
+            <div style="overflow:hidden;min-height:0">
+              <p style="font-size:15px;line-height:1.6;color:#545F71;padding:0 0 24px;max-width:1080px;text-wrap:pretty">{{ r.a }}</p>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <div style="margin-top:24px">
+    <dc-import name="Components/SupportBand" variant="desktop" eyebrow="NISTE PRONAŠLI ODGOVOR?" mail-label="Pošalji upit" hint-size="100%,170px"></dc-import>
+  </div>
+</section>
+</sc-if>
+
+<sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+<section data-sec="faq" style="padding:40px 0 0">
+  <div style="margin:0 12px;background:#fff;border-radius:12px;padding:20px 16px 4px">
+    <span style="display:block;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#8B95A5">Najčešća pitanja</span>
+    <h2 style="font-size:17px;font-weight:700;letter-spacing:-0.02em;line-height:1.3;color:#101117;margin-top:6px">{{ title }}</h2>
+    <div style="margin-top:14px;border-top:1px solid #EEF0F3">
+      <sc-for list="{{ rows }}" as="r" hint-placeholder-count="6">
+        <div style="{{ r.wrapMob }}">
+          <button onClick="{{ r.toggle }}" aria-expanded="{{ r.open }}" style="width:100%;min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 0;background:none;border:none;cursor:pointer;text-align:left;font-family:inherit">
+            <h3 style="font-size:14px;font-weight:600;line-height:1.4;color:#101117;margin:0">{{ r.q }}</h3>
+            <span style="{{ r.chev }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+          </button>
+          <div style="{{ r.body }}">
+            <div style="overflow:hidden;min-height:0">
+              <p style="font-size:13px;line-height:1.6;color:#545F71;padding:0 0 16px">{{ r.a }}</p>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <div style="margin:16px -4px 0">
+    <dc-import name="Components/SupportBand" variant="mobile" eyebrow="NISTE PRONAŠLI ODGOVOR?" mail-label="Pošalji upit" hint-size="100%,250px"></dc-import>
+  </div>
+</section>
+</sc-if>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:800},&quot;variant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;desktop&quot;,&quot;mobile&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;'desktop'|'mobile'&quot;},&quot;title&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Česta pitanja&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;items&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;{q:string,a:string}[]&quot;},&quot;onContact&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;},&quot;noSchema&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const DEMO_FAQ = [
+  { q: 'Kako se dostavljaju veliki televizori?', a: 'Televizore od 55″ naviše dostavljamo na adresu u 1–3 radna dana, uz unos u stan do željene prostorije.' },
+  { q: 'Mogu li platiti na rate?', a: 'Da, na do 36 rata bez kamata karticama banaka partnera, online i u trgovinama.' }
+];
+class Component extends DCLogic {
+  state = { open: { 0: true } };
+  ldId = 'bb-ld-faq-' + Math.random().toString(36).slice(2, 7);
+  items() { return (this.props.items && this.props.items.length) ? this.props.items : DEMO_FAQ; }
+  writeLd() {
+    if (this.props.noSchema) return;
+    let el = document.getElementById(this.ldId);
+    if (!el) { el = document.createElement('script'); el.type = 'application/ld+json'; el.id = this.ldId; document.head.appendChild(el); }
+    el.textContent = JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: this.items().map(it => ({ '@type': 'Question', name: it.q, acceptedAnswer: { '@type': 'Answer', text: it.a } })) });
+  }
+  componentDidMount() { this.writeLd(); }
+  componentDidUpdate(prev) { if (prev.items !== this.props.items) this.writeLd(); }
+  componentWillUnmount() { const el = document.getElementById(this.ldId); if (el) el.remove(); }
+  renderVals() {
+    const mobile = this.props.variant === 'mobile';
+    const items = this.items();
+    const open = this.state.open;
+    return {
+      isDesktop: !mobile, isMobile: mobile,
+      title: this.props.title || 'Česta pitanja',
+      rows: items.map((it, i) => {
+        const on = !!open[i];
+        return {
+          q: it.q, a: it.a, open: on ? 'true' : 'false',
+          wrapMob: { borderBottom: i < items.length - 1 ? '1px solid #EEF0F3' : 'none' },
+          body: { display: 'grid', gridTemplateRows: on ? '1fr' : '0fr', transition: 'grid-template-rows .3s cubic-bezier(.2,.7,.3,1)' },
+          chev: { display: 'flex', flexShrink: 0, color: '#101117', transform: on ? 'rotate(180deg)' : 'none', transition: 'transform .25s' },
+          toggle: () => this.setState(s => ({ open: Object.assign({}, s.open, { [i]: !s.open[i] }) }))
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

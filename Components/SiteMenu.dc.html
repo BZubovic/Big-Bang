@@ -112,7 +112,7 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="12" x2="20" y2="12"></line><polyline points="14 6 20 12 14 18"></polyline></svg>
           </a>
         </sc-if>
-</x-dc>
+</div></div></div></div></sc-if></x-dc>
 <script type="text/x-dc" data-dc-script data-props="{
   &quot;$preview&quot;: {
     &quot;width&quot;: 1480,
@@ -280,12 +280,12 @@ function getTree() {
           name: g[0],
           items: g[1].map(function (n, ii) {
             var file = L3[n];
-            if (file) return { name: n, img: 'images/c/' + file, hasImg: true };
+            if (file) return { name: n, img: (window.BB_CIMG_URL || {})[file] || 'images/c/' + file, hasImg: true };
             // no artwork for this label: group photo once, then a neutral well —
             // never an unrelated product photo under a caption
             if (groupFile && !usedGroupFallback) {
               usedGroupFallback = true;
-              return { name: n, img: 'images/c/' + groupFile, hasImg: true };
+              return { name: n, img: (window.BB_CIMG_URL || {})[groupFile] || 'images/c/' + groupFile, hasImg: true };
             }
             fbIdx++;
             return { name: n, img: null, hasImg: false, noImg: true };

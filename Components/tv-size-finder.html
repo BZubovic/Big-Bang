@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pronađi savršenu veličinu TV-a</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Big Bang "Pronađi savršenu veličinu TV-a" widget — the team's original component, embedded in
+     Components/TvGeo (L3 Televizori, Prototype settings → Vodič za dijagonalu → Kalkulator).
+     Glue only: "Pregledaj ponudu" posts the size index to the parent (applies the grid filter),
+     and the document reports its height so the iframe fits. -->
+<style>
+  html, body { margin: 0; padding: 0; overflow: hidden; background: transparent; font-family: 'Inter', sans-serif; color: #101117; -webkit-font-smoothing: antialiased; }
+  *, *::before, *::after { box-sizing: border-box; }
+  p { margin: 0; }
+  .widget-card-clpb { margin-bottom: 0 !important; }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    input[type="number"] { -moz-appearance: textfield; }
+    .page-clpb { width: 100%; max-width: 1440px; }
+    .page-title-clpb { text-align: center; font-size: 28px; font-weight: 700; letter-spacing: -0.02em; color: #101117; margin-bottom: 8px; padding-bottom: 0px !important; }
+    .page-subtitle-clpb { text-align: center; font-size: 16px; color: #101117; margin-bottom: 32px; line-height: 1.6; padding-bottom: 0px !important; }
+    .page-subtitle-clpb strong { color: #0050A0; }
+    .widget-card-clpb { background: #fff; border-radius: 12px; padding: 36px 32px 28px; margin-bottom: 20px; }
+    .scene-clpb { position: relative; height: 180px; display: flex; align-items: center; justify-content: center; margin-bottom: 28px; overflow: hidden; }
+    .scene-tv-group-clpb { position: absolute; top: 50%; transform: translateY(-50%); display: flex; align-items: center; justify-content: center; transition: right 0.4s cubic-bezier(0, 0, 0.5, 1); padding: 12px; }
+    .scene-stand-clpb { display: block; transition: width 0.4s cubic-bezier(0, 0, 0.5, 1), height 0.4s cubic-bezier(0, 0, 0.5, 1); }
+    .scene-tv-img-clpb { position: absolute; display: block; left: 60%; top: 50%; transform: translate(-50%, -50%); transition: width 0.4s cubic-bezier(0, 0, 0.5, 1), height 0.4s cubic-bezier(0, 0, 0.5, 1); }
+    .scene-sofa-clpb { position: absolute; top: 50%; transform: translateY(-50%); transition: left 0.4s cubic-bezier(0, 0, 0.5, 1); padding: 12px; }
+    .scene-sofa-img-clpb { display: block; height: 130px; width: auto; }
+    .distance-line-clpb { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 10; transition: width 0.4s cubic-bezier(0, 0, 0.5, 1); }
+    .distance-tick-clpb { width: 1px; height: 12px; background: #0050A0; opacity: 0.5; flex-shrink: 0; }
+    .distance-line-seg-clpb { flex: 1; height: 1px; background: #0050A0; opacity: 0.35; }
+    .distance-label-clpb { font-size: 12px; font-weight: 700; color: #0050A0; padding: 3px 10px; background: #EBF3FF; border-radius: 10px; white-space: nowrap; border: 1px solid #cce0ff; flex-shrink: 0; }
+    .controls-clpb { display: flex; align-items: center; justify-content: center; gap: 12px; }
+    .unit-toggle-clpb { display: flex; background: #F1F1F4; border-radius: 24px; padding: 3px; gap: 2px; }
+    .unit-btn-clpb { height: 34px; padding: 0 18px; border-radius: 20px; border: none; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; background: transparent; color: #545F71; transition: background 0.2s, color 0.2s; }
+    .unit-btn-clpb.active { background: #0050A0 !important; color: #fff; }
+    .step-btn-clpb { width: 42px; height: 42px; border-radius: 30px; background: #f1f1f4; color: #0050A0; font-size: 23px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; font-family: 'Inter', sans-serif; line-height: 1; flex-shrink: 0; transition: background 0.15s; padding: 0px; border: none; }
+    .step-btn-clpb:hover { background: #EBF3FF; }
+    .distance-input-clpb { width: 106px; height: 48px; border: 2px solid #0050A0; border-radius: 8px; font-family: 'Inter', sans-serif; font-size: 24px; font-weight: 700; color: #101117; text-align: center; outline: none; background: #fff; letter-spacing: -0.02em; transition: border-color 0.15s; box-sizing: border-box; }
+    .distance-input-clpb:focus { border-color: #002D73; }
+    .recommendation-clpb { background: #002D73; border-radius: 12px; padding: 18px 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; max-width: 900px; margin: 0 auto; margin-top: 28px; }
+    .recommendation-label-clpb { font-size: 11px; font-weight: 600; color: #10DFBA; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 4px; text-align: left; }
+    .recommendation-size-clpb { font-size: 26px; font-weight: 700; color: #fff; letter-spacing: -0.02em; text-align: left; }
+    .recommendation-size-clpb span { font-size: 14px; font-weight: 400; opacity: 0.7; margin-left: 8px; }
+    .recommendation-distance-clpb { font-size: 13px; color: rgba(255, 255, 255, 0.65); margin-top: 2px; text-align: left; }
+    .browse-btn-clpb { height: 44px; padding: 0 24px; border-radius: 22px; background: #10DFBA; border: none; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; color: #002D73; white-space: nowrap; transition: opacity 0.15s; text-decoration: none; display: inline-flex; align-items: center; }
+    .browse-btn-clpb:hover { opacity: 0.85; text-decoration: none; }
+    .widget-divider-clpb { border: none; border-top: 1px solid #F1F1F4; margin: 28px -32px 24px; }
+    .selector-subtitle-clpb { text-align: center; font-size: 15px; color: #545F71; margin-bottom: 20px; }
+    .selector-subtitle-clpb strong { color: #0050A0; }
+    .carousel-clpb { display: flex; align-items: center; gap: 8px; }
+    .carousel-arrow-clpb { width: 40px; height: 40px; border-radius: 20px; border: none; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; transition: background 0.2s; padding: 0px }
+    .carousel-arrow-clpb svg{ overflow: visible; }
+    .carousel-arrow-clpb.enabled { background: #0050A0; cursor: pointer; }
+    .carousel-arrow-clpb.disabled { background: #F1F1F4; cursor: default; }
+    .carousel-track-clpb { flex: 1; display: flex; gap: 10px; overflow-x: scroll; overflow-y: visible; padding: 12px; cursor: grab; user-select: none; scrollbar-width: none; }
+    .carousel-track-clpb::-webkit-scrollbar { display: none; }
+    .carousel-track-clpb.is-dragging-clpb { cursor: grabbing; }
+    .size-card-clpb { flex: 0 0 auto; width: 140px; border: 1px solid #E8E8EC; border-radius: 12px; background: #fff; cursor: pointer; padding: 14px 8px 12px; display: flex; flex-direction: column; align-items: center; gap: 8px; transition: border-color 0.15s, background 0.15s, box-shadow 0.15s; min-height: 123px; font-family: 'Inter', sans-serif; }
+    @media (hover: hover) { .size-card-clpb:hover { border-color: #0050A0; background-color: #fff; } .unit-btn-clpb:hover{ background: none; } }
+    .size-card-clpb.selected { border: 2px solid #0050A0; background: #EBF3FF; box-shadow: 0 0 0 1px #0050A0; }
+    .size-card-clpb svg { display: block; }
+    .size-card-label-clpb { font-size: 13px; font-weight: 500; color: #101117; letter-spacing: -0.01em; }
+    .size-card-clpb.selected .size-card-label-clpb { font-weight: 700; color: #0050A0; }
+    @media(max-width:760px){
+      .widget-card-clpb { padding: 15px 15px 15px; border-radius: 8px; }
+      .page-title-clpb { font-size: 22px; text-align: left; }
+      .page-subtitle-clpb { font-size: 15px; text-align: left; }
+      .recommendation-clpb { border-radius: 8px; padding: 16px 16px; }
+      .browse-btn-clpb { width: 100%; text-align: center; height: unset; padding: 14px 24px; display: block; box-sizing: border-box; }
+      .carousel-arrow-clpb { display: none; }
+      .carousel-clpb { overflow: hidden; margin: 0 -15px; }
+      .carousel-track-clpb { padding: 12px 15px; cursor: default; }
+      .size-card-clpb { flex: 0 0 120px; width: 120px; }
+    }
+</style>
+</head>
+<body>
+  <div class="page-clpb">
+    <div class="widget-card-clpb">
+      <h2 class="page-title-clpb" style="margin-top:0">Pronađi savršenu veličinu TV-a</h2>
+      <p class="page-subtitle-clpb">Unesi udaljenost <strong>između sofe i TV-a</strong> kako bismo pronašli idealnu veličinu ekrana za tebe:</p>
+      <div class="scene-clpb" id="scene-clpb">
+        <div class="distance-line-clpb" id="distanceLine-clpb">
+          <div class="distance-tick-clpb"></div>
+          <div class="distance-line-seg-clpb"></div>
+          <span class="distance-label-clpb" id="distanceLabel-clpb">160 cm</span>
+          <div class="distance-line-seg-clpb"></div>
+          <div class="distance-tick-clpb"></div>
+        </div>
+        <div class="scene-tv-group-clpb" id="sceneTvGroup-clpb">
+          <img id="standImg-clpb" class="scene-stand-clpb" src="https://www.bigbang.hr/upload/2026/05/stand_69f9917539e9d.png" alt="TV stalak - pogled odozgo">
+          <img id="tvImg-clpb" class="scene-tv-img-clpb" src="https://www.bigbang.hr/upload/2026/05/tv_69f991754139b.png" alt="TV - pogled odozgo">
+        </div>
+        <div class="scene-sofa-clpb" id="sceneSofa-clpb">
+          <img src="https://www.bigbang.hr/upload/2026/05/sofa_69f9917531744.png" alt="Sofa - pogled odozgo" class="scene-sofa-img-clpb">
+        </div>
+      </div>
+      <div class="controls-clpb">
+        <div class="unit-toggle-clpb">
+          <button class="unit-btn-clpb active" data-unit="cm">cm</button>
+          <button class="unit-btn-clpb" data-unit="in">in</button>
+        </div>
+        <button class="step-btn-clpb" id="btnMinus-clpb" aria-label="Smanji udaljenost">−</button>
+        <input type="number" class="distance-input-clpb" id="distanceInput-clpb" value="160" min="50" max="510" aria-label="Udaljenost između sofe i TV-a">
+        <button class="step-btn-clpb" id="btnPlus-clpb" aria-label="Povećaj udaljenost">+</button>
+      </div>
+      <div class="recommendation-clpb">
+        <div>
+          <div class="recommendation-label-clpb">Preporučena veličina</div>
+          <div class="recommendation-size-clpb" id="recSize-clpb">39" – 45"</div>
+          <div class="recommendation-distance-clpb" id="recDistance-clpb">Optimalna udaljenost: 160 – 190 cm</div>
+        </div>
+        <a href="#" id="browseBtn-clpb" class="browse-btn-clpb">Pregledaj ponudu</a>
+      </div>
+      <hr class="widget-divider-clpb">
+      <p class="selector-subtitle-clpb">ili <strong>odaberi veličinu TV-a</strong> kako bi vidio preporučenu udaljenost:</p>
+      <div class="carousel-clpb">
+        <button class="carousel-arrow-clpb disabled" id="arrowLeft-clpb" aria-label="Prethodni">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C7C7CD" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="carousel-track-clpb" id="carouselTrack-clpb"></div>
+        <button class="carousel-arrow-clpb enabled" id="arrowRight-clpb" aria-label="Sljedeći">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+<script>
+(function () {
+  'use strict';
+  function initWhenReady() {
+    const el = document.getElementById('carouselTrack-clpb');
+    if (el && el.clientWidth > 0) { init(); return; }
+    setTimeout(initWhenReady, 50);
+  }
+  function init() {
+    const MINI_ROOM_SVGS = [
+      `<svg xmlns="http://www.w3.org/2000/svg" width="110" height="70" viewBox="0 0 110 70" fill="none"><line x1="41" y1="35" x2="69" y2="35" stroke="#C7C7CD" stroke-width="1" stroke-dasharray="3 2"/><rect x="34" y="17.38" width="7" height="37.24" rx="2" fill="rgba(0,0,0,0.08)"/><rect x="35" y="16.38" width="6" height="37.24" rx="2" fill="#2A2A3A"/><rect x="37.10" y="18.38" width="3.00" height="33.24" rx="1" fill="#0A0F2E"/><rect x="68" y="18" width="23" height="36" rx="3" fill="rgba(0,0,0,0.07)"/><rect x="69" y="17" width="22" height="36" rx="3" fill="#C7C7CD"/><rect x="69" y="17" width="6" height="36" rx="3" fill="#B0B0B8"/><rect x="69" y="17" width="22" height="4" rx="2" fill="#B6B6B6"/><rect x="69" y="49" width="22" height="4" rx="2" fill="#B6B6B6"/><rect x="76" y="22" width="12" height="26" rx="2" fill="#D8D8DE"/></svg>`,
+      `<svg xmlns="http://www.w3.org/2000/svg" width="110" height="70" viewBox="0 0 110 70" fill="none"><line x1="41" y1="35" x2="69" y2="35" stroke="#C7C7CD" stroke-width="1" stroke-dasharray="3 2"/><rect x="34" y="15.95" width="7" height="40.10" rx="2" fill="rgba(0,0,0,0.08)"/><rect x="35" y="14.95" width="6" height="40.10" rx="2" fill="#2A2A3A"/><rect x="37.10" y="16.95" width="3.00" height="36.10" rx="1" fill="#0A0F2E"/><rect x="68" y="18" width="23" height="36" rx="3" fill="rgba(0,0,0,0.07)"/><rect x="69" y="17" width="22" height="36" rx="3" fill="#C7C7CD"/><rect x="69" y="17" width="6" height="36" rx="3" fill="#B0B0B8"/><rect x="69" y="17" width="22" height="4" rx="2" fill="#B6B6B6"/><rect x="69" y="49" width="22" height="4" rx="2" fill="#B6B6B6"/><rect x="76" y="22" width="12" height="26" rx="2" fill="#D8D8DE"/></svg>`,
+      `<svg xmlns="http://www.w3.org/2000/svg" width="110" height="70" viewBox="0 0 110 70" fill="none"><line x1="41" y1="35" x2="69" y2="35" stroke="#C7C7CD" stroke-width="1" stroke-dasharray="3 2"/><rect x="34" y="14.74" width="7" height="42.52" rx="2" fill="rgba(0,0,0,0.08)"/><rect x="35" y="13.74" width="6" height="42.52" rx="2" fill="#2A2A3A"/><rect x="37.10" y="15.74" width="3.00" height="38.52" rx="1" fill="#0A0F2E"/><rect x="68" y="18" width="23" height="36" rx="3" fill="rgba(0,0,0,0.07)"/><rect x="69" y="17" width="22" height="36" rx="3" fill="#C7C7CD"/><rect x="69" y="17" width="6" height="36" rx="3" fill="#B0B0B8"/><rect x="69" y="17" width="22" height="4" rx="2" fill="#B6B6B6"/><rect x="69" y="49" width="22" height="4" rx="2" fill="#B6B6B6"/><rect x="76" y="22" width="12" height="26" rx="2" fill="#D8D8DE"/></svg>`,
+      `<svg xmlns="http://www.w3.org/2000/svg" width="110" height="70" viewBox="0 0 110 70" fill="none"><line x1="41" y1="35" x2="69" y2="35" stroke="#C7C7CD" stroke-width="1" stroke-dasharray="3 2"/><rect x="34" y="13.42" width="7" height="45.16" rx="2" fill="rgba(0,0,0,0.08)"/><rect x="35" y="12.42" width="6" height="45.16" rx="2" fill="#2A2A3A"/><rect x="37.10" y="14.42" width="3.00" height="41.16" rx="1" fill="#0A0F2E"/><rect x="68" y="18" width="23" height="36" rx="3" fill="rgba(0,0,0,0.07)"/><rect x="69" y="17" width="22" height="36" rx="3" fill="#C7C7CD"/><rect x="69" y="17" width="6" height="36" rx="3" fill="#B0B0B8"/><rect x="69" y="17" width="22" height="4" rx="2" fill="#B6B6B6"/><rect x="69" y="49" width="22" height="4" rx="2" fill="#B6B6B6"/><rect x="76" y="22" width="12" height="26" rx="2" fill="#D8D8DE"/></svg>`,
+      `<svg xmlns="http://www.w3.org/2000/svg" width="110" height="70" viewBox="0 0 110 70" fill="none"><line x1="41" y1="35" x2="69" y2="35" stroke="#C7C7CD" stroke-width="1" stroke-dasharray="3 2"/><rect x="34" y="12.10" width="7" height="47.80" rx="2" fill="rgba(0,0,0,0.08)"/><rect x="35" y="11.10" width="6" height="47.80" rx="2" fill="#2A2A3A"/><rect x="37.10" y="13.10" width="3.00" height="43.80" rx="1" fill="#0A0F2E"/><rect x="68" y="18" width="23" height="36" rx="3" fill="rgba(0,0,0,0.07)"/><rect x="69" y="17" width="22" height="36" rx="3" fill="#C7C7CD"/><rect x="69" y="17" width="6" height="36" rx="3" fill="#B0B0B8"/><rect x="69" y="17" width="22" height="4" rx="2" fill="#B6B6B6"/><rect x="69" y="49" width="22" height="4" rx="2" fill="#B6B6B6"/><rect x="76" y="22" width="12" height="26" rx="2" fill="#D8D8DE"/></svg>`,
+      `<svg xmlns="http://www.w3.org/2000/svg" width="110" height="70" viewBox="0 0 110 70" fill="none"><line x1="41" y1="35" x2="69" y2="35" stroke="#C7C7CD" stroke-width="1" stroke-dasharray="3 2"/><rect x="34" y="11" width="7" height="50.00" rx="2" fill="rgba(0,0,0,0.08)"/><rect x="35" y="10.00" width="6" height="50.00" rx="2" fill="#2A2A3A"/><rect x="37.10" y="12.00" width="3.00" height="46.00" rx="1" fill="#0A0F2E"/><rect x="68" y="18" width="23" height="36" rx="3" fill="rgba(0,0,0,0.07)"/><rect x="69" y="17" width="22" height="36" rx="3" fill="#C7C7CD"/><rect x="69" y="17" width="6" height="36" rx="3" fill="#B0B0B8"/><rect x="69" y="17" width="22" height="4" rx="2" fill="#B6B6B6"/><rect x="69" y="49" width="22" height="4" rx="2" fill="#B6B6B6"/><rect x="76" y="22" width="12" height="26" rx="2" fill="#D8D8DE"/></svg>`,
+      `<svg xmlns="http://www.w3.org/2000/svg" width="110" height="70" viewBox="0 0 110 70" fill="none"><line x1="41" y1="35" x2="69" y2="35" stroke="#C7C7CD" stroke-width="1" stroke-dasharray="3 2"/><rect x="34" y="9.90" width="7" height="52.20" rx="2" fill="rgba(0,0,0,0.08)"/><rect x="35" y="8.90" width="6" height="52.20" rx="2" fill="#2A2A3A"/><rect x="37.10" y="10.90" width="3.00" height="48.20" rx="1" fill="#0A0F2E"/><rect x="68" y="18" width="23" height="36" rx="3" fill="rgba(0,0,0,0.07)"/><rect x="69" y="17" width="22" height="36" rx="3" fill="#C7C7CD"/><rect x="69" y="17" width="6" height="36" rx="3" fill="#B0B0B8"/><rect x="69" y="17" width="22" height="4" rx="2" fill="#B6B6B6"/><rect x="69" y="49" width="22" height="4" rx="2" fill="#B6B6B6"/><rect x="76" y="22" width="12" height="26" rx="2" fill="#D8D8DE"/></svg>`,
+      `<svg xmlns="http://www.w3.org/2000/svg" width="110" height="70" viewBox="0 0 110 70" fill="none"><line x1="41" y1="35" x2="69" y2="35" stroke="#C7C7CD" stroke-width="1" stroke-dasharray="3 2"/><rect x="34" y="8.50" width="7" height="55.00" rx="2" fill="rgba(0,0,0,0.08)"/><rect x="35" y="7.50" width="6" height="55.00" rx="2" fill="#2A2A3A"/><rect x="37.10" y="9.50" width="3.00" height="51.00" rx="1" fill="#0A0F2E"/><rect x="68" y="18" width="23" height="36" rx="3" fill="rgba(0,0,0,0.07)"/><rect x="69" y="17" width="22" height="36" rx="3" fill="#C7C7CD"/><rect x="69" y="17" width="6" height="36" rx="3" fill="#B0B0B8"/><rect x="69" y="17" width="22" height="4" rx="2" fill="#B6B6B6"/><rect x="69" y="49" width="22" height="4" rx="2" fill="#B6B6B6"/><rect x="76" y="22" width="12" height="26" rx="2" fill="#D8D8DE"/></svg>`
+    ];
+    const TV_SIZES = [
+      { id: 0, label: '24" – 32"',  inches: [24, 32],  minCm: 122, maxCm: 162 },
+      { id: 1, label: '40" – 43"',  inches: [40, 43],  minCm: 204, maxCm: 218 },
+      { id: 2, label: '48" – 50"',  inches: [48, 50],  minCm: 244, maxCm: 254 },
+      { id: 3, label: '55" – 58"',  inches: [55, 58],  minCm: 278, maxCm: 294 },
+      { id: 4, label: '65"',        inches: [65, 65],  minCm: 318, maxCm: 338 },
+      { id: 5, label: '75" – 77"',  inches: [75, 77],  minCm: 380, maxCm: 392 },
+      { id: 6, label: '83" – 85"',  inches: [83, 85],  minCm: 420, maxCm: 432 },
+      { id: 7, label: '98" – 100"', inches: [98, 100], minCm: 496, maxCm: 510 },
+    ];
+    const CAROUSEL_VISIBLE = 5;
+    function getCardWidth() { const track = dom.carouselTrack; const visible = 5; const gap = 10; const padding = 24; return Math.floor((track.clientWidth - padding - (visible - 1) * gap) / visible); }
+    function getVisibleCount() {
+      const track = dom.carouselTrack; if (!track) return CAROUSEL_VISIBLE;
+      const trackWidth = track.clientWidth;
+      const cardWidth = track.querySelector('.size-card-clpb') ? track.querySelector('.size-card-clpb').offsetWidth + 10 : trackWidth / CAROUSEL_VISIBLE;
+      return Math.max(1, Math.floor(trackWidth / cardWidth));
+    }
+    const TV_SCALES    = [0.50, 0.62, 0.72, 0.82, 0.92, 1.02, 1.13, 1.25];
+    const STAND_SCALES = [0.78, 0.78, 0.78, 0.91, 0.91, 0.91, 1.06, 1.06];
+    const state = { unit: 'cm', distanceCm: 160, inputVal: '160', selectedSize: null, carouselOffset: 0 };
+    const dom = {
+      distanceLine: document.getElementById('distanceLine-clpb'), distanceLabel: document.getElementById('distanceLabel-clpb'),
+      sceneTvGroup: document.getElementById('sceneTvGroup-clpb'), standImg: document.getElementById('standImg-clpb'),
+      tvImg: document.getElementById('tvImg-clpb'), sceneSofa: document.getElementById('sceneSofa-clpb'),
+      distanceInput: document.getElementById('distanceInput-clpb'), unitBtns: document.querySelectorAll('.unit-btn-clpb'),
+      btnMinus: document.getElementById('btnMinus-clpb'), btnPlus: document.getElementById('btnPlus-clpb'),
+      recSize: document.getElementById('recSize-clpb'), recDistance: document.getElementById('recDistance-clpb'),
+      browseBtn: document.getElementById('browseBtn-clpb'), carouselTrack: document.getElementById('carouselTrack-clpb'),
+      arrowLeft: document.getElementById('arrowLeft-clpb'), arrowRight: document.getElementById('arrowRight-clpb'),
+    };
+    function distanceToTvIndex(cm) {
+      for (let i = 0; i < TV_SIZES.length; i++) { if (cm >= TV_SIZES[i].minCm && cm <= TV_SIZES[i].maxCm) return i; }
+      let nearest = 0, nearestDist = Infinity;
+      for (let i = 0; i < TV_SIZES.length; i++) { const mid = (TV_SIZES[i].minCm + TV_SIZES[i].maxCm) / 2; const dist = Math.abs(cm - mid); if (dist < nearestDist) { nearestDist = dist; nearest = i; } }
+      return nearest;
+    }
+    function tvIndexToDistance(idx) { return Math.round((TV_SIZES[idx].minCm + TV_SIZES[idx].maxCm) / 2); }
+    function getActiveSizeIdx() { return state.selectedSize !== null ? state.selectedSize : distanceToTvIndex(state.distanceCm); }
+    function getDistLabel() { return state.unit === 'cm' ? `${state.distanceCm} cm` : `${Math.round(state.distanceCm / 2.54)}"`; }
+    function getTvScale() { return TV_SCALES[getActiveSizeIdx()]; }
+    function getGapPx() { return Math.max(60, Math.min(300, (state.distanceCm - 80) * 0.54)); }
+    function getStandScale() { return STAND_SCALES[getActiveSizeIdx()]; }
+    function renderScene() {
+      const gapPx = getGapPx(), tvScale = getTvScale(), standScale = getStandScale();
+      const offset = Math.min(gapPx * 0.275, 170) + 2;
+      dom.distanceLine.style.width = `${Math.min(gapPx * 0.55, 340)}px`;
+      dom.distanceLabel.textContent = getDistLabel();
+      dom.sceneTvGroup.style.right = `calc(50% + ${offset}px)`;
+      dom.standImg.style.width = `${Math.round(115 * standScale)}px`;
+      dom.standImg.style.height = `${Math.round(170 * standScale)}px`;
+      dom.tvImg.style.width = `${Math.round(68 * tvScale)}px`;
+      dom.tvImg.style.height = `${Math.round(150 * tvScale)}px`;
+      dom.sceneSofa.style.left = `calc(50% + ${offset}px)`;
+    }
+    function renderControls() { dom.unitBtns.forEach(btn => { btn.classList.toggle('active', btn.dataset.unit === state.unit); }); dom.distanceInput.value = state.inputVal; }
+    function renderRecommendation() {
+      const size = TV_SIZES[getActiveSizeIdx()];
+      dom.recSize.textContent = size.label;
+      dom.recDistance.textContent = `Optimalna udaljenost: ${size.minCm} – ${size.maxCm} cm`;
+    }
+    function renderCarousel() {
+      const activeSizeIdx = getActiveSizeIdx(); const track = dom.carouselTrack;
+      const canLeft = activeSizeIdx > 0, canRight = activeSizeIdx < TV_SIZES.length - 1;
+      dom.arrowLeft.className = `carousel-arrow-clpb ${canLeft ? 'enabled' : 'disabled'}`;
+      dom.arrowRight.className = `carousel-arrow-clpb ${canRight ? 'enabled' : 'disabled'}`;
+      dom.arrowLeft.querySelector('svg').setAttribute('stroke', canLeft ? '#fff' : '#C7C7CD');
+      dom.arrowRight.querySelector('svg').setAttribute('stroke', canRight ? '#fff' : '#C7C7CD');
+      if (track.children.length !== TV_SIZES.length) {
+        track.innerHTML = '';
+        TV_SIZES.forEach((size, idx) => {
+          const card = document.createElement('button');
+          card.className = 'size-card-clpb'; card.setAttribute('data-idx', idx);
+          card.innerHTML = MINI_ROOM_SVGS[size.id];
+          const label = document.createElement('span'); label.className = 'size-card-label-clpb'; label.textContent = size.label;
+          card.appendChild(label);
+          card.addEventListener('click', () => { if (!_dragDidDrag) onSelectSize(idx); });
+          track.appendChild(card);
+        });
+      }
+      const cw = getCardWidth();
+      Array.from(track.children).forEach((card, idx) => {
+        card.style.width = `${cw}px`; card.style.minWidth = `${cw}px`;
+        card.className = `size-card-clpb${idx === activeSizeIdx ? ' selected' : ''}`; card.style.borderColor = '';
+      });
+      const firstCard = track.children[0], secondCard = track.children[1];
+      const cardStep = firstCard && secondCard ? secondCard.getBoundingClientRect().left - firstCard.getBoundingClientRect().left : cw + 10;
+      const visible = getVisibleCount(); const maxOff = Math.max(0, TV_SIZES.length - visible);
+      const targetOffset = Math.max(0, Math.min(maxOff, activeSizeIdx - 1));
+      state.carouselOffset = targetOffset;
+      if (!_dragActive) track.scrollTo({ left: targetOffset * cardStep, behavior: 'smooth' });
+    }
+    function renderAll() { renderScene(); renderControls(); renderRecommendation(); renderCarousel(); }
+    function onUnitToggle(newUnit) {
+      if (newUnit === state.unit) return;
+      if (newUnit === 'in') state.inputVal = String(Math.round((parseFloat(state.inputVal) || state.distanceCm) / 2.54));
+      else state.inputVal = String(Math.round((parseFloat(state.inputVal) || Math.round(state.distanceCm / 2.54)) * 2.54));
+      state.unit = newUnit; state.selectedSize = null; renderAll();
+    }
+    function onDistanceInput(rawVal) {
+      const max = state.unit === 'cm' ? 510 : 200; const num = parseFloat(rawVal);
+      if (!isNaN(num) && num > max) {
+        state.inputVal = String(max); state.distanceCm = state.unit === 'cm' ? max : Math.round(max * 2.54);
+        dom.distanceInput.value = state.inputVal; state.selectedSize = null;
+        renderScene(); renderRecommendation(); renderCarousel(); return;
+      }
+      state.inputVal = rawVal;
+      if (!isNaN(num) && num > 0) { state.distanceCm = state.unit === 'cm' ? num : Math.round(num * 2.54); state.selectedSize = null; renderScene(); renderRecommendation(); renderCarousel(); }
+    }
+    function onStep(delta) {
+      const step = state.unit === 'cm' ? 10 : 4, min = state.unit === 'cm' ? 50 : 20, max = state.unit === 'cm' ? 510 : 200;
+      const curr = parseFloat(state.inputVal) || (state.unit === 'cm' ? state.distanceCm : Math.round(state.distanceCm / 2.54));
+      const next = Math.max(min, Math.min(max, curr + delta * step));
+      state.inputVal = String(next); state.distanceCm = state.unit === 'cm' ? next : Math.round(next * 2.54); state.selectedSize = null; renderAll();
+    }
+    function onSelectSize(idx) {
+      state.selectedSize = idx; const mid = tvIndexToDistance(idx); state.distanceCm = mid;
+      state.inputVal = state.unit === 'cm' ? String(mid) : String(Math.round(mid / 2.54)); renderAll();
+    }
+    function onCarouselScroll(delta) {
+      const n = Math.max(0, Math.min(TV_SIZES.length - 1, getActiveSizeIdx() + delta));
+      if (n === getActiveSizeIdx()) return; onSelectSize(n);
+    }
+    dom.unitBtns.forEach(btn => { btn.addEventListener('click', () => onUnitToggle(btn.dataset.unit)); });
+    dom.btnMinus.addEventListener('click', () => onStep(-1));
+    dom.btnPlus.addEventListener('click', () => onStep(1));
+    dom.distanceInput.addEventListener('input', e => onDistanceInput(e.target.value));
+    dom.distanceInput.addEventListener('blur', () => {
+      const min = state.unit === 'cm' ? 50 : 20, max = state.unit === 'cm' ? 510 : 200; const num = parseFloat(state.inputVal);
+      if (!isNaN(num)) { const c = Math.max(min, Math.min(max, num)); state.inputVal = String(c); state.distanceCm = state.unit === 'cm' ? c : Math.round(c * 2.54); state.selectedSize = null; renderAll(); }
+    });
+    dom.arrowLeft.addEventListener('click', () => onCarouselScroll(-1));
+    dom.arrowRight.addEventListener('click', () => onCarouselScroll(1));
+    // prototype glue: "Pregledaj ponudu" applies the size filter on the parent page
+    dom.browseBtn.addEventListener('click', (e) => { e.preventDefault(); try { parent.postMessage({ type: 'bb-tvsize-browse', idx: getActiveSizeIdx() }, '*'); } catch (er) {} });
+    let _dragActive = false, _dragDidDrag = false;
+    renderAll();
+    (function initDrag() {
+      const track = dom.carouselTrack; let startX = 0, startScroll = 0;
+      const CARD_WIDTH = () => { const c1 = track.children[0], c2 = track.children[1]; return c1 && c2 ? c2.getBoundingClientRect().left - c1.getBoundingClientRect().left : getCardWidth() + 10; };
+      function snapToNearest() {
+        const cw = CARD_WIDTH(); const maxOffset = Math.max(0, TV_SIZES.length - getVisibleCount());
+        const snapped = Math.max(0, Math.min(maxOffset, Math.round(track.scrollLeft / cw)));
+        track.scrollTo({ left: snapped * cw, behavior: 'smooth' }); state.carouselOffset = snapped;
+      }
+      track.addEventListener('mousedown', e => { _dragActive = true; _dragDidDrag = false; startX = e.clientX; startScroll = track.scrollLeft; track.classList.add('is-dragging-clpb'); e.preventDefault(); });
+      window.addEventListener('mousemove', e => { if (!_dragActive) return; const dx = e.clientX - startX; if (Math.abs(dx) > 4) _dragDidDrag = true; track.scrollLeft = startScroll - dx; });
+      window.addEventListener('mouseup', () => { if (!_dragActive) return; _dragActive = false; track.classList.remove('is-dragging-clpb'); if (_dragDidDrag) { snapToNearest(); setTimeout(() => { _dragDidDrag = false; }, 50); } });
+      track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; _dragDidDrag = false; }, { passive: true });
+      track.addEventListener('touchmove', e => { if (Math.abs(e.touches[0].clientX - startX) > 4) _dragDidDrag = true; }, { passive: true });
+      track.addEventListener('touchend', () => { if (_dragDidDrag) setTimeout(() => { _dragDidDrag = false; }, 50); });
+    })();
+    window.addEventListener('resize', () => renderCarousel());
+  }
+  // prototype glue: report height so the parent iframe fits the widget
+  const page = document.querySelector('.page-clpb');
+  const post = () => { try { parent.postMessage({ type: 'bb-tvsize-h', h: Math.ceil(page.getBoundingClientRect().height) }, '*'); } catch (e) {} };
+  if (window.ResizeObserver) new ResizeObserver(post).observe(page);
+  window.addEventListener('load', post);
+  initWhenReady();
+})();
+</script>
+</body>
+</html>

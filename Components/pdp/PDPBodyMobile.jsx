@@ -24,7 +24,7 @@ function BrandLink({ size = 13, bare = false }) {
 const TYPE_P = {
   klima: { name: 'Klima uređaj HISENSE Easy Smart 3,5 kW', img: 'images/prod-hisense-klima.webp', price: '529,00', old: '619,00' },
   minimal: { name: 'Brijač PHILIPS S5588/38 Series 5000', img: 'images/prod-philips-brijac.webp', price: '129,99', old: '149,99' },
-  marketplace: { name: 'Madrac DORMEO Memosan Classic, srednje tvrdi', img: 'images/c/i-madraci.webp', price: '389,00', old: '459,00' },
+  marketplace: { name: 'Madrac DORMEO Memosan Classic, srednje tvrdi', img: (window.BB_CIMG_URL || {})['i-madraci.webp'] || 'images/c/i-madraci.webp', price: '389,00', old: '459,00' },
   bundle: { name: 'PlayStation 5 Digital Chassis + dodatni Dual Sense Wireless Controller', img: 'images/pdp/main/ps5-bundle.png', price: '549,99', old: '619,99' }
 };
 const DIMS = [['80 × 200', -80], ['90 × 200', 0], ['140 × 200', 140], ['160 × 200', 190], ['180 × 200', 240]];
@@ -330,25 +330,68 @@ function GaranBadge() {
 
 // ─── BuyBox ───────────────────────────────────────────────────────
 
-// ─── Extra offers (price block) ───────────────────────────────────
+// ─── Promo code box (price block) — same as ProductCard promo box ───
 const OFFERS = [
-  { title: 'Dodatnih 15% popusta na ovaj proizvod uz kod SAMSUNG15 u košarici.', code: 'SAMSUNG15' },
-  { title: 'Uz kupnju dobivate Samsung Galaxy Buds FE slušalice gratis.' },
-  { title: 'Samsung Care+ – 2 godine potpune zaštite uz 50% popusta.' },
-  { title: 'Trade-in: predajte stari mobitel i dobijte do 200 € popusta.' }
+  { tag: 'Promo kod', title: 'Dodatnih 15% popusta uz kod SAMSUNG15', code: 'SAMSUNG15', pct: 15, icon: 'tag' },
+  { tag: 'Poklon', title: 'Samsung Galaxy Buds FE slušalice gratis', img: (window.BB_CIMG_URL || {})['i-slusalice.webp'] || 'images/c/i-slusalice.webp' },
+  { tag: 'Zaštita', title: 'Samsung Care+ 2 godine uz 50% popusta', icon: 'shield' },
+  { tag: 'Otkup', title: 'Trade-in: do 200 € za stari mobitel', img: (window.BB_CIMG_URL || {})['i-smartphone.webp'] || 'images/c/i-smartphone.webp' },
+  { tag: 'Promo kod', title: '5% popusta u Big Bang aplikaciji', code: 'BBAPP5', pct: 5, icon: 'tag' },
+  { tag: 'Jamstvo', title: 'Produljeno jamstvo 3 godine uz 30% popusta', icon: 'shield' }
 ];
-function OffersBox() {
-  const [open, setOpen] = React.useState(false);
-  const [top, ...rest] = OFFERS;
-  const tag = (sz) => <svg width={sz} height={sz} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>;
+// ─── Istaknute akcije (above Opis proizvoda; click opens the deals flyout) ───
+function OfferThumb({ o, s }) {
+  if (o.img) return <img src={o.img} alt="" style={{ width: s, height: s, objectFit: 'contain', flexShrink: 0, borderRadius: 8, background: '#F7F8FA' }} />;
+  const bg = o.icon === 'tag' ? '#E6F5EC' : '#EBF3FE', fg = o.icon === 'tag' ? '#0B7A48' : '#0050A0';
   return (
-    <div style={{ marginTop: 10, borderRadius: 12, background: '#E6F5EC', overflow: 'hidden' }}>
-      <button onClick={() => window.dispatchEvent(new CustomEvent('bb-open-promo'))} aria-haspopup="dialog" style={{ width: '100%', display: 'flex', alignItems: 'flex-start', gap: 10, padding: '12px', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit' }}>
-        <span style={{ flex: 1, minWidth: 0, fontSize: 13, fontWeight: 500, lineHeight: '20px', color: '#101117', display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2, overflow: 'hidden', maxHeight: 40 }}>
-          <span style={{ fontWeight: 700, color: '#0B7A48' }}>Dodatnih 15% popusta</span> na ovaj proizvod uz kod <span style={{ fontWeight: 700 }}>{top.code}</span> u košarici.<span style={{ marginLeft: 4, whiteSpace: 'nowrap', fontSize: 12, fontWeight: 600, color: '#0050A0' }}>{'+' + rest.length + ' dodatne ponude'}</span>
+    <span style={{ width: s, height: s, flexShrink: 0, borderRadius: 8, background: bg, color: fg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      {o.icon === 'tag'
+        ? <svg width={s * .45} height={s * .45} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>
+        : <svg width={s * .45} height={s * .45} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6l8-3z"></path><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg>}
+    </span>
+  );
+}
+let OFFER_N = 4;
+function OffersBox() {
+  const list = OFFERS.slice(0, OFFER_N), shown = list.slice(0, 4);
+  const [copied, setCopied] = React.useState(null);
+  const open = () => window.dispatchEvent(new CustomEvent('bb-open-promo'));
+  const copy = (e, code) => { e.stopPropagation(); try { navigator.clipboard && navigator.clipboard.writeText(code); } catch (er) {} setCopied(code); setTimeout(() => setCopied(null), 1600); };
+  const arrow = <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#545F71" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><polyline points="9 6 15 12 9 18"></polyline></svg>;
+  const row = { display: 'flex', alignItems: 'center', gap: 10, minHeight: 52, boxSizing: 'border-box', minWidth: 0, borderRadius: 8, textAlign: 'left', cursor: 'pointer', fontFamily: 'inherit' };
+  return (
+    <div style={{ marginTop: 14, paddingTop: 14, borderTop: '1px solid #EEF0F3' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, marginBottom: 8 }}>
+        <span style={{ display: 'flex', alignItems: 'baseline', gap: 4, fontSize: 14 }}>
+          <span style={{ fontSize: 14, fontWeight: 600, letterSpacing: '-0.01em', color: '#101117' }}>Istaknute akcije</span>
+          <span style={{ fontSize: 'inherit', fontWeight: 500, color: '#545F71' }}>({list.length})</span>
         </span>
-        <span style={{ color: '#545F71', display: 'flex', alignSelf: 'center', transition: 'transform .2s' }}><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 6 15 12 9 18"></polyline></svg></span>
-      </button>
+        <button onClick={open} style={{ background: 'none', border: 'none', padding: 0, fontSize: 13, fontWeight: 600, color: '#0050A0', cursor: 'pointer', fontFamily: 'inherit' }}>{list.length > 4 ? 'Prikaži sve (' + list.length + ')' : 'Prikaži sve'}</button>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 6 }}>
+        {shown.map((o, i) => o.code ? (
+          <div key={i} role="button" tabIndex={0} onClick={open} style={{ ...row, padding: '0 6px 0 7px', background: '#fff', border: '1px dashed #0B7A48' }}>
+            <span style={{ flexShrink: 0, minWidth: 36, height: 24, padding: '0 4px', boxSizing: 'border-box', borderRadius: 4, background: '#0B7A48', color: '#fff', fontSize: 14, fontWeight: 700, lineHeight: '24px', textAlign: 'center' }}>-{o.pct}%</span>
+            <span style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 1, whiteSpace: 'nowrap' }}>
+              <span style={{ fontSize: 12, fontWeight: 600, lineHeight: '16px', color: '#101117', overflow: 'hidden', textOverflow: 'ellipsis' }}>{o.title}</span>
+              <span style={{ fontSize: 12, lineHeight: '16px', color: '#545F71', overflow: 'hidden', textOverflow: 'ellipsis' }}>uz kod <b style={{ fontWeight: 700 }}>{o.code}</b></span>
+            </span>
+            <button type="button" onClick={(e) => copy(e, o.code)} title="Kopiraj promo kod" aria-label="Kopiraj promo kod" style={{ flexShrink: 0, width: 29, height: 28, padding: 0, border: 'none', borderRadius: 6, background: '#E6F5EC', color: '#0B7A48', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+              {copied === o.code ? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+                : <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path></svg>}
+            </button>
+          </div>
+        ) : (
+          <button key={i} onClick={open} style={{ ...row, padding: 8, background: '#F7F8FA', border: 'none' }}>
+            <OfferThumb o={o} s={36} />
+            <span style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 1 }}>
+              <span style={{ fontSize: 11, fontWeight: 600, lineHeight: '14px', color: '#0050A0' }}>{o.tag}</span>
+              <span style={{ fontSize: 12, fontWeight: 500, lineHeight: '16px', color: '#101117', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{o.title}</span>
+            </span>
+            {arrow}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
@@ -835,7 +878,7 @@ function Accordion({ title, defaultOpen = false, children }) {
 }
 
 function InfoSection({ bundleMode }) {
-  return (
+  return (<>
     <div style={{ background: '#fff', marginTop: 10 }}>
       <Accordion title="Opis proizvoda" defaultOpen={true}>
         {bundleMode ? (
@@ -875,7 +918,7 @@ function InfoSection({ bundleMode }) {
         <button style={{ width: '100%', height: 40, border: `1.5px solid ${T.blue}`, borderRadius: 8, background: '#fff', color: T.blue, fontSize: 13, fontWeight: 600 }}>Pogledaj sve recenzije</button>
       </Accordion>
     </div>
-  );
+  </>);
 }
 
 // ─── Posebne ponude ───────────────────────────────────────────────
@@ -1335,8 +1378,10 @@ function DealsBody() {
     { tag: 'Promo kod', tone: ['#E6F5EC', '#0B7A48'], title: 'Dodatnih 15% popusta na ovaj proizvod', text: 'Upišite kod u košarici. Vrijedi do 31.10.2026. ili do isteka zaliha.', code: 'SAMSUNG15' },
     { tag: 'Poklon', tone: ['#EBF3FE', '#0050A0'], title: 'Samsung Galaxy Buds FE slušalice gratis', text: 'Poklon se automatski dodaje u košaricu uz kupnju uređaja.' },
     { tag: 'Zaštita', tone: ['#EBF3FE', '#0050A0'], title: 'Samsung Care+ 2 godine uz 50% popusta', text: 'Kvar, slučajni pad, voda i razbijen zaslon. Aktivacija unutar 60 dana od kupnje.' },
-    { tag: 'Otkup', tone: ['#EBF3FE', '#0050A0'], title: 'Trade-in: do 200 € za stari mobitel', text: 'Procijenite vrijednost online, a iznos se umanjuje od cijene novog uređaja.' }
-  ];
+    { tag: 'Otkup', tone: ['#EBF3FE', '#0050A0'], title: 'Trade-in: do 200 € za stari mobitel', text: 'Procijenite vrijednost online, a iznos se umanjuje od cijene novog uređaja.' },
+    { tag: 'Promo kod', tone: ['#E6F5EC', '#0B7A48'], title: '5% popusta u Big Bang aplikaciji', text: 'Upišite kod pri kupnji u Big Bang aplikaciji. Ne zbraja se s drugim promo kodovima.', code: 'BBAPP5' },
+    { tag: 'Jamstvo', tone: ['#EBF3FE', '#0050A0'], title: 'Produljeno jamstvo 3 godine uz 30% popusta', text: 'Big Bang produljeno jamstvo (plaćena usluga) — nije EU jamstvo proizvođača.' }
+  ].slice(0, OFFER_N);
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
       {deals.map((d, i) => (
@@ -1370,13 +1415,14 @@ const SHEETS = {
 
 
 let AV = { inStock: true, shown: true };
-function PDPBodyMobile({ bundleMode = false, product = null, availStock = true, availShown = true, productType = 'default', onOpenBrand = null }) {
+function PDPBodyMobile({ bundleMode = false, product = null, availStock = true, availShown = true, offerCount = 4, productType = 'default', onOpenBrand = null }) {
   OPEN_BRAND = onOpenBrand;
   P = product && product.name ? product : null;
   PT = productType === 'bundle' ? 'bundle' : TYPE_P[productType] ? productType : 'default';
   if (PT !== 'default') P = TYPE_P[PT];
   if (PT === 'bundle') bundleMode = true;
   AV = { inStock: availStock !== false, shown: availShown !== false };
+  OFFER_N = Math.max(1, Math.min(6, offerCount || 4));
   const [sheet, setSheet] = React.useState(null);
   React.useEffect(() => { const h = () => setSheet('deals'); window.addEventListener('bb-open-promo', h); return () => window.removeEventListener('bb-open-promo', h); }, []);
   const SheetCfg = sheet ? SHEETS[sheet] : null;

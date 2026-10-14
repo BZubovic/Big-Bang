@@ -31,7 +31,7 @@
       <button onClick="{{ scrollNext }}" style="width:46px;height:46px;border-radius:50%;background:#fff;border:none;display:flex;align-items:center;justify-content:center;color:#101117;transition:background .15s" style-hover="background:#E7E7EE"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
     </div>
   </div>
-  <div ref="{{ trackRef }}" onScroll="{{ onTrackScroll }}" class="nsb" style="display:flex;gap:24px;overflow-x:auto;padding:8px 0 12px max(20px,calc((100% - 1480px) / 2 + 20px))">
+  <div ref="{{ trackRef }}" class="nsb" style="display:flex;gap:24px;overflow-x:auto;padding:8px max(20px,calc((100% - 1480px) / 2 + 20px)) 12px max(20px,calc((100% - 1480px) / 2 + 20px))">
     <sc-for list="{{ products }}" as="p" hint-placeholder-count="0">
       <div style="width:269px;flex-shrink:0;display:flex">
         <dc-import name="Components/ProductCard" variant="desktop" layout="minimal" card="{{ p.card }}" wish="{{ p.wish }}" on-open="{{ p.onOpen }}" on-remove-wish="{{ p.onRemoveWish }}" hint-size="269px,440px" style="width:100%"></dc-import>
@@ -39,7 +39,7 @@
     </sc-for>
   </div>
   <div style="margin:20px max(20px,calc((100% - 1480px) / 2 + 20px)) 0;height:4px;border-radius:2px;background:#D8D8DE;position:relative;overflow:hidden">
-    <div style="{{ progStyle }}"></div>
+    <div data-thumb="" style="position:absolute;top:0;left:0;height:100%;width:22%;border-radius:2px;background:#0050A0;will-change:transform"></div>
   </div>
 </div>
 </sc-if>
@@ -52,7 +52,7 @@
       <a href="#" class="arw" style="font-size:13px;font-weight:600;color:#0050A0;display:flex;align-items:center;gap:5px;white-space:nowrap">Prikaži sve <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
     </sc-if>
   </div>
-  <div class="nsb" ref="{{ trackRef }}" onScroll="{{ onTrackScroll }}" style="display:flex;gap:12px;overflow-x:auto;padding:6px 12px 10px 0">
+  <div class="nsb" ref="{{ trackRef }}" style="display:flex;gap:12px;overflow-x:auto;padding:6px 12px 10px 0">
     <sc-for list="{{ products }}" as="p" hint-placeholder-count="0">
       <div style="width:216px;flex-shrink:0;display:flex">
         <dc-import name="Components/ProductCard" variant="mobile" layout="minimal" card="{{ p.card }}" wish="{{ p.wish }}" on-open="{{ p.onOpen }}" on-remove-wish="{{ p.onRemoveWish }}" hint-size="216px,390px" style="width:100%"></dc-import>
@@ -60,7 +60,7 @@
     </sc-for>
   </div>
   <div style="margin:10px 16px 0 0;height:4px;border-radius:2px;background:#D8D8DE;position:relative;overflow:hidden">
-    <div style="{{ progStyle }}"></div>
+    <div data-thumb="" style="position:absolute;top:0;left:0;height:100%;width:28%;border-radius:2px;background:#0050A0;will-change:transform"></div>
   </div>
 </div>
 </sc-if>
@@ -133,7 +133,7 @@ class Component extends DCLogic {
               options: this.props.noReviews ? 0 : (i % 4 === 1 ? 6 : 0),
               renewedSave: refurb ? '-' + (Math.round(num(p.price) * 0.2)) + ',00 €' : '',
               cashback: i % 5 === 0 ? '100' : '', warranty: i % 5 === 0 ? '5' : '',
-              energy: i % 4 === 2 ? '' : (i % 3 === 1 ? 'G' : 'A'),
+              energy: /^tv |televizor/i.test(p.name || '') ? ['F', 'E', 'G'][i % 3] : (i % 4 === 2 ? '' : (i % 3 === 1 ? 'G' : 'A')),
               pills: i === 1 ? [{ label: 'Besplatna dostava', tone: 'navy' }, { label: 'Razrezana cena', tone: 'blue' }, { label: 'Besplatna montaža', tone: 'blue' }, { label: 'Poklon uz kupnju', tone: 'red' }, { label: 'Dostava 24 h', tone: 'navy' }] : pills,
               rating: rated && !this.props.noReviews ? 4 : 0, reviews: [218, 96, 47, 312, 15, 64][i % 6],
               avail: av.text, availTone: av.tone, seller: 'Big Bang',
@@ -160,8 +160,8 @@ class Component extends DCLogic {
         if (Math.abs(s.prog - frac) > 0.005) this.setState({ prog: frac });
       },
       progStyle: {
-        position: 'absolute', top: 0, left: 0, height: '100%', borderRadius: 2,
-        background: '#0050A0', width: ((mobile ? 28 : 22) + s.prog * (mobile ? 72 : 78)) + '%'
+        position: 'absolute', top: 0, height: '100%', borderRadius: 2,
+        background: '#0050A0', width: (mobile ? 28 : 22) + '%', left: (s.prog * (100 - (mobile ? 28 : 22))) + '%'
       }
     };
   }
