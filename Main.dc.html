@@ -25,6 +25,7 @@
 <script src="energy-rule.js"></script>
 <script src="category-products.js"></script>
 <script src="tv-geo-data.js"></script>
+<script src="tv-size-finder.js"></script>
 <script src="scroll-rail.js"></script>
 </helmet>
 
@@ -49,7 +50,7 @@
 
   <sc-if value="{{ isCategory }}" hint-placeholder-val="{{ false }}">
     <div class="pgin">
-      <dc-import name="Pages/Category-body" variant="desktop" size-finder="{{ sizeFinder }}" on-promos="{{ goPromos }}" on-stores="{{ goStores }}" on-open-brand="{{ openBrand }}" on-brands="{{ goBrands }}" on-contact="{{ goContact }}" card-style="{{ cardStyle }}" level="{{ catLevel }}" minimal="{{ catMinimal }}" cat="{{ category }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,3200px"></dc-import>
+      <dc-import name="Pages/Category-body" variant="desktop" size-finder="{{ sizeFinder }}" promo-var="{{ promoVar }}" on-promos="{{ goPromos }}" on-stores="{{ goStores }}" on-open-brand="{{ openBrand }}" on-brands="{{ goBrands }}" on-contact="{{ goContact }}" card-style="{{ cardStyle }}" level="{{ catLevel }}" minimal="{{ catMinimal }}" cat="{{ category }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,3200px"></dc-import>
     </div>
   </sc-if>
 
@@ -156,8 +157,8 @@
 </sc-if>
 
 <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
-<div style="min-height:100vh;background:#22242E;display:flex;align-items:center;justify-content:center;padding:32px 16px">
-  <div data-bb-frame="mobile" style="width:412px;height:915px;flex-shrink:0;border-radius:36px;overflow:hidden;position:relative;background:#F1F1F4;box-shadow:0 24px 64px rgba(0,0,0,0.45);transform:translate(0)">
+<div style="{{ phoneStageStyle }}">
+  <div data-bb-frame="mobile" style="{{ phoneFrameStyle }}">
 
     <div class="nsb" ref="{{ scrollerRef }}" onScroll="{{ mobScroll }}" style="position:absolute;inset:0;overflow-y:auto;overflow-anchor:none">
       <dc-import name="Components/SiteHeader" on-brands="{{ goBrands }}" cart-count="{{ cartCount }}" on-cart="{{ goCart }}" on-wish="{{ goWish }}" on-contact="{{ goContact }}" on-kitchens="{{ goKitchens }}" on-promos="{{ goPromos }}" on-stores="{{ goStores }}" on-search="{{ doSearch }}" on-open-product="{{ openProduct }}" variant="mobile" menu-open="{{ menuOpen }}" on-toggle-menu="{{ toggleMenu }}" on-logo="{{ goHome }}" logged-in="{{ loggedIn }}" on-account="{{ openAccount }}" hint-size="100%,166px"></dc-import>
@@ -170,7 +171,7 @@
 
       <sc-if value="{{ isCategory }}" hint-placeholder-val="{{ false }}">
         <div class="pgin">
-          <dc-import name="Pages/Category-body" variant="mobile" mob-head="{{ mobHead }}" size-finder="{{ sizeFinder }}" on-promos="{{ goPromos }}" on-stores="{{ goStores }}" on-open-brand="{{ openBrand }}" on-brands="{{ goBrands }}" on-contact="{{ goContact }}" card-style="{{ cardStyle }}" on-overlay="{{ setOverlay }}" level="{{ catLevel }}" minimal="{{ catMinimal }}" cat="{{ category }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,4000px"></dc-import>
+          <dc-import name="Pages/Category-body" variant="mobile" mob-head="{{ mobHead }}" size-finder="{{ sizeFinder }}" promo-var="{{ promoVar }}" on-promos="{{ goPromos }}" on-stores="{{ goStores }}" on-open-brand="{{ openBrand }}" on-brands="{{ goBrands }}" on-contact="{{ goContact }}" card-style="{{ cardStyle }}" on-overlay="{{ setOverlay }}" level="{{ catLevel }}" minimal="{{ catMinimal }}" cat="{{ category }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,4000px"></dc-import>
         </div>
       </sc-if>
 
@@ -422,7 +423,8 @@ class Component extends DCLogic {
       availShown: true,
       offerCount: 4,
       sizeFinder: 'finder',
-      mobHead: 7,
+      mobHead: 4,
+      promoVar: 0,
       stickyCta: true,
       pdpType: 'default',
       brandMany: true,
@@ -439,17 +441,20 @@ class Component extends DCLogic {
 
   // "Export for CMS": the spec lives ONLY in CLAUDE.md ("## Export for CMS"); here we just bundle it with the open page's source + context into a prompt for Claude
   cmsPages = {
-    home: ['Naslovnica', 'Pages/Homepage body.dc.html'], category: ['Kategorija', 'Pages/Category body.dc.html'],
-    search: ['Pretraga', 'Pages/Category body.dc.html'], brand: ['Brend', 'Pages/Category body.dc.html'],
-    product: ['Proizvod (PDP)', 'Pages/Product body.dc.html'], cart: ['Košarica', 'Pages/Cart body.dc.html'],
-    wishlist: ['Popis želja', 'Pages/Wishlist body.dc.html'], auth: ['Prijava', 'Pages/Account body.dc.html'],
-    profile: ['Moj profil', 'Pages/Account body.dc.html'], contact: ['Kontakt', 'Pages/Contact body.dc.html'],
-    stores: ['Prodajna mjesta', 'Pages/Stores body.dc.html'], pay: ['Načini plaćanja', 'Pages/Payment methods body.dc.html'],
-    delivery: ['Načini dostave', 'Pages/Delivery methods body.dc.html'], terms: ['Uvjeti kupnje', 'Pages/Terms body.dc.html'],
-    guarantee: ['Zakonsko jamstvo', 'Pages/Legal guarantee body.dc.html'], brands: ['Brendovi', 'Pages/Brands body.dc.html'],
-    promos: ['Akcije i promocije', 'Pages/Promotions body.dc.html'], kitchens: ['Kuhinje', 'Pages/Kitchens body.dc.html'],
-    kstyle: ['Stil kuhinje', 'Pages/Kitchen style body.dc.html'], ds: ['Design system', 'Pages/Design system body.dc.html']
+    home: ['Naslovnica', 'Pages/Homepage-body.dc.html'], category: ['Kategorija', 'Pages/Category-body.dc.html'],
+    search: ['Pretraga', 'Pages/Category-body.dc.html'], brand: ['Brend', 'Pages/Category-body.dc.html'],
+    product: ['Proizvod (PDP)', 'Pages/Product-body.dc.html'], cart: ['Košarica', 'Pages/Cart-body.dc.html'],
+    wishlist: ['Popis želja', 'Pages/Wishlist-body.dc.html'], auth: ['Prijava', 'Pages/Account-body.dc.html'],
+    profile: ['Moj profil', 'Pages/Account-body.dc.html'], contact: ['Kontakt', 'Pages/Contact-body.dc.html'],
+    stores: ['Prodajna mjesta', 'Pages/Stores-body.dc.html'], pay: ['Načini plaćanja', 'Pages/Payment-methods-body.dc.html'],
+    delivery: ['Načini dostave', 'Pages/Delivery-methods-body.dc.html'], terms: ['Uvjeti kupnje', 'Pages/Terms-body.dc.html'],
+    guarantee: ['Zakonsko jamstvo', 'Pages/Legal-guarantee-body.dc.html'], brands: ['Brendovi', 'Pages/Brands-body.dc.html'],
+    promos: ['Akcije i promocije', 'Pages/Promotions-body.dc.html'], kitchens: ['Kuhinje', 'Pages/Kitchens-body.dc.html'],
+    kstyle: ['Stil kuhinje', 'Pages/Kitchen-style-body.dc.html'], ds: ['Design system', 'Pages/Design-system-body.dc.html']
   };
+
+  // GENERATED copy of the "## Export for CMS" section of CLAUDE.md (the source of truth). After editing that section, regenerate this string from it.
+  cmsSpec = "## Export for CMS (Prototype settings → \"Export for CMS\")\n\nThis section is the **single source of truth** for exporting a page into the Big Bang custom CMS.\nNothing in the app duplicates it: the \"Export for CMS\" button only copies this section verbatim\ninto a prompt together with the open page's key, body file path, state, active tweaks and imported\nfiles — not the page source; Claude reads the files from the project itself. **Claude performs the export** — the user pastes the prompt into Claude's chat in\nthis project; the app itself has no export engine.\n\n### What to export\n- Only the **page body** currently open in the shell (the `Pages/…-body.dc.html` named in the\n  prompt) — never the header, menu, footer, Prototype settings, page skeletons, flyouts or modals\n  that belong to the shell.\n- Export the variant the given prototype tweaks/state select. The page has a desktop and a mobile\n  variant: produce **one responsive markup** (desktop styles first, mobile overrides in\n  `@media (max-width: 767px)`), not two copies. Read the source, render the page in the prototype\n  when helpful, and read every imported file needed to resolve the real markup, text and images.\n- Use the real content (text, images, links) — never placeholders or invented copy.\n\n### HTML structure\n- A standalone HTML **fragment**, not a document: no `\u003c!DOCTYPE\u003e`, `\u003chtml\u003e`, `\u003chead\u003e` or `\u003cbody\u003e`.\n- File order: one `\u003cstyle\u003e` block first, then the HTML markup, then one `\u003cscript\u003e` block (only if\n  JavaScript is required).\n- Clean, semantic, well-formatted vanilla HTML (`section`, `h1`–`h3`, `p`, `ul`, `a`, `button`,\n  `img` with `alt`, `picture`/`video` where used). No React, runtime or editor attributes\n  (`data-dc-*`, `data-cc-id`, `sc-*`, inline event handlers), no inline `style` attributes.\n- Export **section by section**: each top-level `\u003csection\u003e` is fully closed before the next one\n  begins. Keep sections structurally independent; no needless wrappers or nesting.\n- Preserve the original design, content, responsive behaviour and intended functionality.\n\n### CSS\n- All page-specific CSS in the single `\u003cstyle\u003e` tag at the top.\n- Every class uses the page prefix `bb-\u003cpage-key\u003e-` (the page key is given in the prompt, e.g.\n  `bb-kitchens-hero`, `bb-pay-card`) with descriptive, consistent names. Scope every rule to these\n  classes so nothing leaks into the CMS; no bare element, `body`, `html`, `:root` or id selectors.\n- No universal `*` resets, no `@import`, `@font-face`, Google Fonts links or other font loading,\n  no global typography — the CMS provides Inter and global styles.\n- Resolve `styles.css` variables (`--bb-*`) and shared classes (`.bbcta`, `.imz`, `.nsb`, `.arw` …)\n  into prefixed rules, and only for what the export actually uses. Keep hover/focus states.\n\n### JavaScript\n- Vanilla only, in one `\u003cscript\u003e` after the markup, wrapped in an IIFE; no globals, no libraries.\n- Query only inside the exported page root (prefixed classes / `data-bb-\u003cpage-key\u003e-*` hooks); never\n  attach handlers to `document`/`window` that could affect other CMS content beyond what the\n  interaction needs (e.g. a scoped resize/scroll listener is fine).\n- Preserve intended interactions (tabs, accordions, sliders, carousels of non-product content,\n  galleries/lightboxes, in-page anchor navigation, countdowns, hover panels). Skip prototype-only\n  behaviour (navigation between prototype pages, cart flyout, wishlist, Prototype settings).\n- No functionality for global CMS components that are replaced by shortcodes.\n\n### Global CMS components → shortcodes\nThe CMS renders these itself. Never export their markup, CSS, JS or assets:\n- store locators (`StoreLocator`, maps);\n- forms (booking/contact/newsletter forms, inputs with a submit action — e.g. `KitchenBooking`);\n- product carousels (`ProductCarousel`);\n- product grids, listings, dynamic product cards (`ProductCard`), recommendations and any other\n  product-related content.\n\nReplace each one with exactly this placeholder, on its own line:\n\n```\n[SHORTCODE=\"\"]\n```\n\n- It must sit **outside all HTML elements**: close every open element (section/div/main) before it;\n  reopen a wrapper after it only if content follows that needs it. Never inside any tag.\n- One placeholder per component, in the original order. A heading, \"Prikaži sve\" link or scroll\n  rail that belongs to the component goes with it.\n- Do not invent shortcode names or parameters — the value stays empty.\n\n### Assets and deliverable\n- Write the package to `export/cms/\u003cpage-key\u003e/`: exactly **one** HTML file\n  (`\u003cpage-key\u003e.html`) and **one** `assets/` directory — nothing else — then deliver that folder to\n  the user as a ZIP download.\n- Copy every image and video the exported page uses (HTML `src`/`srcset`/`poster`, `\u003cpicture\u003e`\n  sources and CSS `url()`) from `images/…` into `assets/`, keeping original files and names\n  (prefix with the subfolder name if two files would collide). Reference them relatively:\n  `assets/image-name.webp`.\n- Do not include assets used only by omitted global components or by the shell.\n- If an asset cannot be found or copied, say so explicitly in the reply (path + reason) — never\n  silently drop or substitute it.\n\n### Validation (before delivering)\nCheck and report briefly that:\n- no `\u003chtml\u003e`, `\u003chead\u003e` or `\u003cbody\u003e` tags; order is `\u003cstyle\u003e` → HTML → `\u003cscript\u003e`;\n- all tags are properly nested and closed, and each section closes before the next begins;\n- every class uses the `bb-\u003cpage-key\u003e-` prefix; no font imports, universal resets or global styles;\n- every global component is a standalone `[SHORTCODE=\"\"]` line outside the HTML structure, with no\n  leftover markup, CSS, JS or assets of it;\n- all required local assets are in `assets/` and every reference resolves;\n- the export matches the original page's appearance and functionality (open the exported HTML and\n  compare desktop and mobile widths with the prototype);\n- the ZIP holds exactly one HTML file and one `assets/` directory.";
 
   cmsExport = async () => {
     if (this.state.cmsBusy) return;
@@ -457,12 +462,14 @@ class Component extends DCLogic {
     this.setState({ cmsBusy: true, menuOpen: false });
     const get = (p) => fetch(encodeURI(p), { cache: 'no-store' }).then(r => r.ok ? r.text() : Promise.reject(new Error(p + ' ' + r.status)));
     try {
-      const md = await get('CLAUDE.md');
+      // the canvas can't fetch .md files, so fall back to cmsSpec below (a generated copy of the same CLAUDE.md section)
+      const md = await get('CLAUDE.md').catch(() => '');
       const i = md.indexOf('## Export for CMS');
-      if (i < 0) throw new Error('CLAUDE.md nema odjeljak "## Export for CMS"');
-      const j = md.indexOf('\n## ', i + 5);
-      const spec = md.slice(i, j < 0 ? md.length : j).trim();
-      const src = meta[1] ? await get(meta[1]) : '';
+      const j = i < 0 ? -1 : md.indexOf('\n## ', i + 5);
+      const spec = i > -1 ? md.slice(i, j < 0 ? md.length : j).trim() : this.cmsSpec;
+      if (!spec) throw new Error('Nema uputa za export');
+      // the page source only feeds the import list below, so a failed read must not stop the export
+      const src = meta[1] ? await get(meta[1]).catch((err) => { console.warn(err); return ''; }) : '';
       const deps = [...new Set([].concat(
         [...src.matchAll(/<dc-import[^>]*\sname="([^"{]+)"/g)].map(m => m[1] + '.dc.html'),
         [...src.matchAll(/<x-import[^>]*\sfrom="\.?\/?([^"]+)"/g)].map(m => m[1]),
@@ -477,7 +484,7 @@ class Component extends DCLogic {
         '',
         '## Page context',
         '- Page key / class prefix slug: `' + key + '`',
-        '- Page body file (read it from the project): `' + (meta[1] || '—') + '` (rendered by the shell `index.dc.html`; header, menu, footer and Prototype settings are NOT part of the page)',
+        '- Page body file (read it from the project): `' + (meta[1] || '—') + '` (rendered by the shell `Main.dc.html`; header, menu, footer and Prototype settings are NOT part of the page)',
         '- Viewport open in the prototype: ' + s.tw.viewport + ' (export BOTH the desktop and the mobile variant as one responsive markup)',
         Object.keys(ctx).length ? '- Page state: `' + JSON.stringify(ctx) + '`' : null,
         '- Active prototype tweaks (export the variant these select): `' + JSON.stringify(s.tw) + '`',
@@ -519,6 +526,13 @@ class Component extends DCLogic {
   scrollerRef = React.createRef();
 
   componentDidMount() {
+    /* opened on a real phone: the Mobile view fills the browser (no grey stage, no rounded frame) */
+    this.onPhoneCheck = () => {
+      const on = window.innerWidth <= 600;
+      if (on !== this.state.realPhone) this.setState({ realPhone: on });
+    };
+    window.addEventListener('resize', this.onPhoneCheck);
+    this.onPhoneCheck();
     this.onWinScroll = () => {
       if (this.rafPending) return;
       this.rafPending = true;
@@ -539,6 +553,7 @@ class Component extends DCLogic {
   }
 
   componentWillUnmount() {
+    window.removeEventListener('resize', this.onPhoneCheck);
     window.removeEventListener('scroll', this.onWinScroll);
     if (this.cartTimer) clearTimeout(this.cartTimer);
   }
@@ -700,7 +715,14 @@ class Component extends DCLogic {
     const s = this.state;
     const tw = s.tw;
     const mobile = tw.viewport === 'Mobile';
+    const phone = !!s.realPhone;
     return {
+      phoneStageStyle: phone
+        ? { minHeight: '100dvh', background: '#F1F1F4', display: 'block', padding: 0 }
+        : { minHeight: '100vh', background: '#22242E', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '32px 16px' },
+      phoneFrameStyle: phone
+        ? { width: '100%', height: '100dvh', borderRadius: 0, overflow: 'hidden', position: 'relative', background: '#F1F1F4', transform: 'translate(0)' }
+        : { width: 412, height: 915, flexShrink: 0, borderRadius: 36, overflow: 'hidden', position: 'relative', background: '#F1F1F4', boxShadow: '0 24px 64px rgba(0,0,0,0.45)', transform: 'translate(0)' },
       isDesktop: !mobile && s.page !== 'ds',
       isMobile: mobile && s.page !== 'ds',
       isHome: s.page === 'home',
@@ -773,7 +795,8 @@ class Component extends DCLogic {
       availShown: tw.availShown,
       offerCount: tw.offerCount || 4,
       sizeFinder: tw.sizeFinder || 'finder',
-      mobHead: tw.mobHead || 7,
+      mobHead: tw.mobHead || 4,
+      promoVar: tw.promoVar || 0,
       stickyCta: true,
       pdpType: tw.pdpType || 'default',
       brandMany: tw.brandMany !== false,
@@ -878,7 +901,12 @@ class Component extends DCLogic {
         if (s.page === 'category' && ((s.category && s.category.level) || 1) === 3) {
           list.push(pair('Prikaz proizvoda', 'Uobičajeno', 'Minimalno', tw.catMinimal === false,
             () => this.setTweak('catMinimal', false), () => this.setTweak('catMinimal', true)));
-          if (mobile) list.push(trio('Zaglavlje (mobitel)', [1, 2, 3, 4, 5, 6, 7].map(n => [String(n), (tw.mobHead || 7) === n, () => this.setTweak('mobHead', n)])));
+          if (mobile) list.push(trio('Zaglavlje (mobitel)', [1, 2, 3, 4, 5, 6, 7, 8].map(n => [String(n), (tw.mobHead || 4) === n, () => this.setTweak('mobHead', n)])));
+          if (s.category && s.category.l3 === 'Stolna računala') list.push({
+            label: 'Promo kod (kartica)', seg: false, sel: true, value: String(tw.promoVar || 0),
+            onChange: (e) => this.setTweak('promoVar', Number(e.target.value)),
+            options: [['0', 'Trenutno'], ['1', '1 · Sniženje + kod (ljestvica)'], ['2', '2 · Tamnoplavo s tirkiznim iznosom'], ['3', '3 · Lime oznaka EXTRA'], ['4', '4 · Linija za rezanje'], ['5', '5 · Podijeljena pilula'], ['6', '6 · Oblačić prema cijeni'], ['7', '7 · Polje „Promo kod”'], ['8', '8 · Zelena oznaka „Uštedi još”'], ['9', '9 · Zastavica s iznosom'], ['10', '10 · Etiketa'], ['11', '11 · Tirkizna traka'], ['12', '12 · Iznos s oznakom EXTRA'], ['13', '13 · Tamnoplavi obrub'], ['14', '14 · Žig EXTRA'], ['15', '15 · Ikona + „Kopiraj”'], ['16', '16 · Gumb s kodom'], ['17', '17 · Presavijeni kut'], ['18', '18 · Prugasta traka'], ['19', '19 · Kod + iznos u traci'], ['20', '20 · Samo tekst'], ['21', '21 · Crveni + zeleni bedž'], ['22', '22 · Spojeni bedž'], ['23', '23 · Jedan crveni bedž s oba iznosa'], ['24', '24 · Utišani crveni (tekst)'], ['25', '25 · Bez bedža, rečenica ispod cijene'], ['26', '26 · Ljestvica dva bedža'], ['27', '27 · Zeleni bedž ispod cijene'], ['28', '28 · Kratki bedževi jednake težine'], ['29', '29 · Tablica ušteda'], ['30', '30 · Crveni ostaje + tanki zeleni red']].map(o => ({ value: o[0], label: o[1] }))
+          });
           if (s.category && s.category.l3 === 'Televizori') list.push(pair('Vodič za dijagonalu', 'Kalkulator', 'Tablica', (tw.sizeFinder || 'finder') === 'finder',
             () => this.setTweak('sizeFinder', 'finder'), () => this.setTweak('sizeFinder', 'table')));
         }

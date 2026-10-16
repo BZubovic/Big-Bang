@@ -67,6 +67,10 @@ Components row). Differences from the original project archive:
   images as assets again and swapping the paths back.
 - Not carried over: `export/`, `screenshots/`, `_ds/`, `export-head.txt`,
   `export-assets.json`, `robots.txt`.
+- **The canvas can't fetch `.md` files.** The Export for CMS button therefore uses `cmsSpec` in `Main.dc.html`, a
+  generated copy of the Export for CMS section below — regenerate it whenever that section changes.
+- **Iframes can't load project `.html` files by relative path** on the canvas ("not found"). A
+  plain-HTML widget is shipped as a JS string and loaded with `srcdoc` (see `tv-size-finder.js`).
 - Keep this file current: when a file, convention or shared pattern changes, update the
   matching section here in the same publish.
 
@@ -82,7 +86,8 @@ Components row). Differences from the original project archive:
 - Double-row widgets (TV promo, "Široka ponuda") are **477px** tall: portrait banner
   269×477, two card rows of 226.5px with a 24px gap.
 - Section titles: 24px / 600 desktop, 17px / 600 mobile. Product card prices are 800 (extra bold); "Uštedi" badge 12px / 600 desktop (10px mobile vertical/minimal, 11px mobile list); labels (Besplatna dostava …) 600.
-- Mobile is previewed in a 412×915 phone frame; the `viewport` tweak switches it.
+- Mobile is previewed in a 412×915 phone frame; the `viewport` tweak switches it. Opened on a real phone (window ≤ 600px wide) the
+  Mobile view drops the grey stage and the rounded frame and fills the browser (100% × 100dvh), header at the top.
 
 ## Files
 
@@ -152,6 +157,9 @@ Components/TvGeo.dc.html       GEO sections for TV i audio (L1) → Televizori i
                                keep the generic layout); emits BreadcrumbList / ItemList / Organization JSON-LD
 Components/tv-size-finder.html plain-HTML "Pronađi savršenu veličinu TV-a" widget (team's original code, iframe in
                                TvGeo L3; Prototype settings → Vodič za dijagonalu → Kalkulator). Posts size → grid filter.
+tv-size-finder.js              the same widget as a string (window.BB_TVSIZE_HTML); TvGeo puts it into its iframe with
+                               srcdoc, because the canvas can't open an .html file by relative path in an iframe. After
+                               editing tv-size-finder.html, regenerate this file from it.
 Components/GeoFaq.dc.html      GLOBAL FAQ block (desktop sticky intro + accordion / mobile accordion). Answers are
                                always in the HTML (collapsed visually only) and it emits FAQPage JSON-LD.
                                40–80 words per answer. Use it for every new GEO category page.
@@ -213,6 +221,7 @@ class-based behaviours that inline styles cannot express:
 | `body[data-cardhover="card"]` | whole card scales 1.02 instead of the image |
 | `.bbcta` | **every filled CTA button**: navy `#002D73` fill, brand blue `#0050A0` on hover |
 | `.arw` | nudges the arrow inside "Prikaži sve" links 2px right |
+| `.bbsearch` | header search inputs (`type="search"`): hides the browser's own clear ✕ / search decorations |
 
 **Filled CTA buttons are always navy `#002D73` and brand blue `#0050A0` on hover** — add
 `class="bbcta"` (`className="bbcta"` in JSX) to every solid primary button anywhere on the
@@ -239,6 +248,18 @@ Mount them with `<dc-import>`; the path prefix `Components/` is part of the name
 strip), `mobile-bar` (55px condensed bar that slides in from the top once the mobile
 page is scrolled past 120px — pass `scrolled="{{ mobScrolled }}"`).
 Also takes `cart-count`.
+Mobile search focus (variant `mobile` only, since 16.10.2026.): focusing the field turns the header
+into a full-screen search screen — the top row (hamburger, logo, icons) goes away, the search bar lifts to
+the top of the screen at ~80% width with a white "Zatvori" text button on its right (closes the screen),
+and a 100%-height white sheet replaces the old dark backdrop; popular terms / results (SearchPanel) fill
+the space between the bar and a simulated Android keyboard (Samsung Keyboard, dark theme, number row +
+QWERTY, "English (UK)" space bar — matched to a screenshot of the client's phone) that rises from the
+bottom. The keyboard types into the field (shift, !#1 symbols, backspace, "Go" submits); tapping the list or
+its ⌄ button hides it, tapping the field shows it again. Keyboard colours are simulated device chrome, not
+site tokens. Desktop search is unchanged.
+All header search inputs are marked as search fields (`type="search"`, `name="q"`, `role="searchbox"`,
+`inputmode`/`enterkeyhint="search"`, `autocomplete="off"`, password-manager ignore flags) so phone autofill
+doesn't offer saved passwords or cards; keep these attributes on any new search field.
 
 ### SiteMenu
 ```html
@@ -314,6 +335,11 @@ FINAL DESIGN (08.10.2026., spacing / type re-measured 13.10.2026. from the desig
   (`card.gallery`), title 16/22, rating + options, labels (below; at ≥1320px card width inline between rating and options), `card.spec` (2 lines), price row (price · old · Uštedi · rate),
   promo box, anchor; right column with availability, seller, energy, Usporedi / Spremi and outline "Dodaj u košaricu"
   (BBCart). Mobile: labels stacked above the image, stickers top-right, no buttons, square corners, full width.
+PROTOTYPE TEST: prop `promoVar` (1–30) swaps the vertical promo box (VD / VM only) for one of thirty test designs
+(`codeV1`…`codeV30`; 21–30 also restyle or hide the red Uštedi badge via `saveStd` / `svNN`); 0 / unset = the final dashed box above. Only Stolna računala passes it (Main → Category body
+→ card cell), from Prototype settings → „Promo kod (kartica)”. Do not use it elsewhere until a design is chosen.
+LEGAL: never show the price after a promo code is applied (no "cijena s kodom", no final/basket price). Show only
+the nominal saving ("-103,80 €") and/or the percentage.
 Radii 12 desktop / 8 mobile. `card`: `{ img, gallery?, name, spec?, price, old?, disc?, rate?, cashback?, warranty?, gift?,
 energy?, pills?: [{ label, tone: 'navy'|'orange'|'lime'|'red'|'blue' }], rating?, reviews?, options?, avail, availTone?:
 'in'|'wait'|'out', seller?, codePct?, promoCode?, renewedSave?, priceTag?, priceTagTone?, anchor?, anchorDate?, noAnchor? }`.
@@ -509,7 +535,8 @@ Check and report briefly that:
 
 ## Image assets
 
-Original file → asset URL used in the code (category thumbnails: `images-c-assets.js`).
+Original file → asset URL used in the code (category thumbnails: `images-c-assets.js`; the TV size
+finder's three scene images were bigbang.hr URLs in the original widget).
 
 ```
 images/b2b-meeting.png  /_blob/c8c2a0ae3d12621d8efedb672bfb7515
@@ -747,6 +774,9 @@ images/tile-projektori.webp  /_blob/44c0c149593651adf29ea9db33b79928
 images/tile-trake-trcanje.webp  /_blob/e1e772e3b1c2c60fbaa266564f18ac77
 images/tile-trampolini.webp  /_blob/d70826befe673a6c6ae24825a8797939
 images/tile-visokotle-cni.webp  /_blob/dd26508146ec9fe2c0838184e58f5671
+images/tv-size/sofa.png  /_blob/db6ad74868edc89e3afa09696f7ccb30
+images/tv-size/stand.png  /_blob/337ea8285a1a7f95c6b8186d3d08abb9
+images/tv-size/tv.png  /_blob/66405aa8c2d3c752c6a401a28443df9e
 images/tv/hisense-qled-e7s.png  /_blob/d2411c3a40260d54c9f7b8bdbc4607c5
 images/tv/hisense-uled-u7.png  /_blob/f1d34de070da3676276ad83af5bb2540
 images/tv/hisense-uled-u8.png  /_blob/0c6bf94041665aea429bf6f9adb705c9
@@ -761,4 +791,7 @@ images/usp-dostava.svg  /_blob/fcd43fca9995492bac817f2829365f63
 images/usp-povrat.svg  /_blob/8a31e4b7054bbdf8c6897351a50bd4ce
 images/usp-preuzimanje.svg  /_blob/e1283c943efc7a030747b259507f5575
 images/usp-rate.svg  /_blob/ff6ff10c1f1719f6ab93f5eb2b5d16e4
+https://www.bigbang.hr/upload/2026/05/stand_69f9917539e9d.png  /_blob/337ea8285a1a7f95c6b8186d3d08abb9
+https://www.bigbang.hr/upload/2026/05/tv_69f991754139b.png  /_blob/66405aa8c2d3c752c6a401a28443df9e
+https://www.bigbang.hr/upload/2026/05/sofa_69f9917531744.png  /_blob/db6ad74868edc89e3afa09696f7ccb30
 ```

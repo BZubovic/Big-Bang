@@ -81,6 +81,7 @@ html { scrollbar-gutter: stable }
 .bbcopy[data-copied] .ic-copy{display:none}
 .bbcopy[data-copied] .ic-ok{display:block}
 .bbcopy:hover{background:rgba(11,122,72,0.12) !important}
+.bbcopy.bbcopy-nv:hover{background:#0050A0 !important}
 .bbcopy:focus-visible{outline:2px solid #0B7A48;outline-offset:1px}
 
 /* brand directory (Pages/Brands body) — chip / letter hover, search focus */
@@ -104,3 +105,11 @@ html { scrollbar-gutter: stable }
 .bbnum::-webkit-inner-spin-button, .bbnum::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 .bbnum { -moz-appearance: textfield; appearance: textfield; }
 .bbnum:focus { border-color: #002D73 !important; }
+
+/* header search fields (type="search"): hide the browser's own clear ✕ and search decorations —
+   the header draws its own clear button */
+.bbsearch { -webkit-appearance: none; appearance: none; }
+.bbsearch::-webkit-search-cancel-button,
+.bbsearch::-webkit-search-decoration,
+.bbsearch::-webkit-search-results-button,
+.bbsearch::-webkit-search-results-decoration { -webkit-appearance: none; display: none; }

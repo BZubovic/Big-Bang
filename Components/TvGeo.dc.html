@@ -10,6 +10,7 @@
 <helmet>
 <link rel="stylesheet" href="styles.css">
 <script src="tv-geo-data.js"></script>
+<script src="tv-size-finder.js"></script>
 <script src="stores-data.js"></script>
 <script src="catimg.js"></script>
 </helmet>
@@ -230,7 +231,7 @@
   </section>
   </sc-if>
   <sc-if value="{{ finderOn }}" hint-placeholder-val="{{ false }}">
-  <section data-sec="dijagonala" style="max-width:1480px;margin:52px auto 0;padding:0 20px;box-sizing:border-box"><iframe src="Components/tv-size-finder.html" title="Pronađi savršenu veličinu TV-a" scrolling="no" style="{{ finderStyle }}"></iframe></section>
+  <section data-sec="dijagonala" style="max-width:1480px;margin:52px auto 0;padding:0 20px;box-sizing:border-box"><iframe ref="{{ finderRef }}" title="Pronađi savršenu veličinu TV-a" scrolling="no" style="{{ finderStyle }}"></iframe></section>
   </sc-if>
 
   <section data-sec="tehnologije" style="max-width:1480px;margin:52px auto 0;padding:0 20px;box-sizing:border-box">
@@ -591,7 +592,7 @@
   </section>
   </sc-if>
   <sc-if value="{{ finderOn }}" hint-placeholder-val="{{ false }}">
-  <section data-sec="dijagonala" style="padding:40px 12px 0"><iframe src="Components/tv-size-finder.html" title="Pronađi savršenu veličinu TV-a" scrolling="no" style="{{ finderStyle }}"></iframe></section>
+  <section data-sec="dijagonala" style="padding:40px 12px 0"><iframe ref="{{ finderRef }}" title="Pronađi savršenu veličinu TV-a" scrolling="no" style="{{ finderStyle }}"></iframe></section>
   </sc-if>
 
   <section data-sec="tehnologije" style="padding:40px 0 0 12px">
@@ -738,6 +739,12 @@
 class Component extends DCLogic {
   state = { dist: 250, compat: 2, use: 0, ready: !!window.BB_TVGEO, finderH: 0 };
   FINDER_FILTERS = ['Do 32" (81 cm)', '43" (108 cm)', '50" (127 cm)', '55" (139 cm)', '65" (164 cm)', '75" (189 cm)', '85" (215 cm)', '98" (248 cm)'];
+  // the finder is loaded with srcdoc from tv-size-finder.js (relative .html iframes 404 on the canvas)
+  setFinder = (el) => {
+    if (!el) return;
+    const load = () => { if (window.BB_TVSIZE_HTML && el.getAttribute('data-loaded') !== '1') { el.setAttribute('data-loaded', '1'); el.srcdoc = window.BB_TVSIZE_HTML; return true; } return el.getAttribute('data-loaded') === '1'; };
+    if (!load()) { const t = setInterval(() => { if (load() || !el.isConnected) clearInterval(t); }, 80); }
+  };
   onMsg = (e) => {
     const d = e && e.data; if (!d || typeof d !== 'object') return;
     if (d.type === 'bb-tvsize-h' && d.h && Math.abs(d.h - this.state.finderH) > 1) this.setState({ finderH: d.h });
@@ -767,7 +774,7 @@ class Component extends DCLogic {
     const lvl = this.props.level || 'l1';
     const pd = (fn) => (e) => { if (e && e.preventDefault) e.preventDefault(); fn(); };
     const finder = (this.props.sizeFinder || 'finder') === 'finder';
-    const base = { finderOn: finder, finderOff: !finder, finderStyle: { display: 'block', width: '100%', border: 'none', height: this.state.finderH || (mobile ? 760 : 820), background: 'transparent' }, isDesktop: !mobile, isMobile: mobile, isL1: lvl === 'l1', isL2: lvl === 'l2', isL3: lvl === 'l3', isFunnel: lvl !== 'l3', noop: pd(() => {}) };
+    const base = { finderRef: this.setFinder, finderOn: finder, finderOff: !finder, finderStyle: { display: 'block', width: '100%', border: 'none', height: this.state.finderH || (mobile ? 760 : 820), background: 'transparent' }, isDesktop: !mobile, isMobile: mobile, isL1: lvl === 'l1', isL2: lvl === 'l2', isL3: lvl === 'l3', isFunnel: lvl !== 'l3', noop: pd(() => {}) };
     if (!D) return Object.assign(base, { isL1: false, isL2: false, isL3: false, isFunnel: false, faq: [], bestList: [], sponsList: [] });
     const L = D[lvl];
     const s = this.state;

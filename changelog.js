@@ -1,6 +1,53 @@
 /* Prototype change log — one entry per piece of work, not per prompt.
    Shown in the "Prototype settings" panel via "View logs". */
 window.BB_CHANGELOG = [
+  { date: '16.10.2026.', title: 'Mobilna pretraga — cijeli ekran i tipkovnica', changes: [
+    'Mobitel: kad se klikne u tražilicu, gornji dio headera (izbornik, logo, ikone) nestaje, a tražilica se podiže na vrh ekrana',
+    'Tražilica u fokusu zauzima oko 80 % širine, a desno od nje je gumb „Zatvori” za izlaz iz pretrage',
+    'Umjesto tamne pozadine, popularne pretrage i rezultati sada se prikazuju na bijeloj pozadini preko cijele visine ekrana',
+    'U prototipu se pri fokusu odozdo podiže simulirana Android tipkovnica (hrvatski QWERTZ) koja upisuje u tražilicu; tipka za pretragu pokreće pretragu',
+    'Dodir na popis ili strelica na tipkovnici skriva tipkovnicu, a dodir na polje je vraća',
+    'Desktop pretraga ostaje nepromijenjena',
+    'Uklonjen „skok” pri podizanju tražilice: traka i bijela pozadina ispod nje podižu se zajedno, gornji red headera nestaje postupno, a polje se glatko sužava dok se pojavljuje „Zatvori”',
+    'Uklonjeno „odskakivanje” trake pretrage na početku podizanja — traka se sada samo glatko podiže',
+    'Mobitel: „Prikaži sve rezultate” više nije zalijepljen za dno — nalazi se na kraju popisa rezultata i pomiče se s njim',
+    'Tražilica je označena kao polje za pretragu: mobitel više ne nudi spremljene lozinke ni kartice pri kliku, a tipka Enter na tipkovnici prikazuje „Traži”',
+    'Prototip otvoren na mobitelu u prikazu Mobile sada ispunjava cijeli preglednik — bez sivog okvira i zaobljenih rubova, header je uz vrh ekrana',
+    'Simulirana tipkovnica sada izgleda kao Samsung tipkovnica u tamnoj temi: traka s ikonama, red s brojevima, QWERTY raspored, razmaknica „English (UK)”, plavi „Go” i donja traka za navigaciju'
+  ] },
+  { date: '14.10.2026.', title: 'Export for CMS ponovno radi', changes: [
+    'Gumb „Export for CMS” u postavkama prototipa više ne javlja grešku: tražio je datoteke stranica sa starim nazivima (s razmacima umjesto crtica)',
+    'Ako se izvor stranice ne može pročitati, prompt se svejedno sastavi (samo bez popisa uvezenih datoteka)',
+    'Upute za export (iz CLAUDE.md) sada su ugrađene u prototip, jer on ne može učitati .md datoteku (greška „CLAUDE.md 404”)'
+  ] },
+  { date: '14.10.2026.', title: 'Stolna računala — test prikaza promo koda na karticama', changes: [
+    'Postavke prototipa na kategoriji Stolna računala: novi izbornik „Promo kod (kartica)” s trenutnim izgledom i 30 varijanti (samo za testiranje)',
+    'Varijante ističu promo kod kao dodatni popust na već sniženu cijenu, uvijek kao nominalni iznos (-X €)',
+    'Varijante ostaju u visini postojećeg okvira promo koda (44 px desktop / 39 px mobitel); kompaktni red je niži',
+    'Dok je odabrana varijanta, nekoliko kartica na toj kategoriji dobiva promo kod (-10 %, -15 %, -20 %) i u minimalnom prikazu, da se varijante vide',
+    'Vrijedi za karticu u mreži (desktop i mobitel); popis i ostale stranice zadržavaju trenutni izgled',
+    'Pravno: varijante ne prikazuju cijenu nakon primjene koda — samo nominalni iznos popusta (npr. -103,80 €)',
+    'Svih 10 varijanti zamijenjeno novim izgledima: ljestvica sniženje + kod, tamnoplavo s tirkiznim iznosom, lime oznaka EXTRA, linija za rezanje, podijeljena pilula, oblačić prema cijeni, polje „Promo kod”, zelena oznaka „Uštedi još”, zastavica s iznosom i etiketa',
+    'Dodano još 10 varijanti (11–20): tirkizna traka, iznos s oznakom EXTRA, tamnoplavi obrub, žig EXTRA, ikona s poveznicom „Kopiraj”, gumb s kodom, presavijeni kut, prugasta traka, kod + iznos u traci i samo tekst (najniži)',
+    'Varijante 21–30 rješavaju odnos s crvenim bedžom „Uštedi”: promo kod je spojen s njim ili mu je jednak po težini (dva bedža, spojeni bedž, jedan bedž s oba iznosa, utišani crveni, rečenica ispod cijene, ljestvica, zeleni bedž ispod cijene, kratki bedževi, tablica ušteda, tanki zeleni red); okvir promo koda je niži ili ga nema'
+  ] },
+  { date: '14.10.2026.', title: 'Televizori — kalkulator dijagonale ponovno radi', changes: [
+    'Vodič za dijagonalu (Kalkulator) na stranici Televizori ponovno se prikazuje na desktopu i mobitelu umjesto poruke „not found”',
+    'Originalne ilustracije u kalkulatoru (TV stalak, televizor, sofa) ponovno se prikazuju — sada se učitavaju iz prototipa umjesto s bigbang.hr'
+  ] },
+  { date: '14.10.2026.', title: 'Kategorija razine 3 (mobitel) — nove varijante zaglavlja', changes: [
+    'Postavke prototipa: zaglavlja 2–6 popisa proizvoda na mobitelu zamijenjena su s pet novih izgleda; 1 i 7 ostaju nepromijenjeni',
+    'Zaglavlje 2: plutajuća tamnoplava traka „Filteri | Sortiraj” na dnu zaslona prati skrolanje do kraja popisa; iznad mreže broj proizvoda, odabrano sortiranje i prekidač prikaza',
+    'Zaglavlje 3: ljepljiva bijela traka s okruglim gumbom filtera, odabranim filterima (uklanjaju se dodirom na ×) ili brzim filterima kad ništa nije odabrano, te ikonom sortiranja desno',
+    'Zaglavlje 4: ljepljiva traka s tri jednaka gumba (ikona iznad natpisa) — Filteri, Sortiraj i Mreža / Popis',
+    'Zaglavlje 5: potkategorije kao pločice s brojem proizvoda, jedan široki gumb „Filtriraj i sortiraj” i poveznica „Sortirano: …” uz broj proizvoda',
+    'Zaglavlje 6: tamnoplava traka preko cijele širine s Filterima, trenutačnim sortiranjem i promjenom prikaza',
+    'Zaglavlja 2, 4, 5 i 6 prikazuju odabrane filtere kao uklonjive oznake s „Očisti sve”',
+    'Novo zaglavlje 8: gumbi Filteri, Sortiraj i Mreža / Popis (ikona iznad natpisa) na tamnoplavoj traci preko cijele širine',
+    'Zaglavlje 4 je novo zadano zaglavlje popisa proizvoda na mobitelu (umjesto 7)',
+    'Zaglavlje 4: potkategorije i gumb za povratak zaobljeni kao na desktopu (pilule, okrugla strelica)',
+    'Pilule potkategorija i gumb za povratak na kategoriji razine 3 imaju bijeli obrub (desktop i mobitel); na prijelaz mišem obrub ostaje plav'
+  ] },
   { date: '14.10.2026.', title: 'Prijenos prototipa na novo platno — slike', changes: [
     'Sve slike i videozapisi prototipa ponovno se prikazuju (naslovnice, banneri, proizvodi, kuhinje, logotipi, EU oznake)',
     'Kartice proizvoda na stranicama kategorija, pretrage i brenda ponovno prikazuju slike proizvoda',
