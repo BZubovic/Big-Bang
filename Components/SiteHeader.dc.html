@@ -244,76 +244,6 @@
             <dc-import name="Components/SearchPanel" term="" mode="popular" popular="{{ popularTerms }}" mobile="{{ true }}" on-all="{{ submitQ }}" hint-size="100%,100%" style="{{ mobPanelStyle }}"></dc-import>
           </sc-if>
         </div>
-        <div onMouseDown="{{ keepFocus }}" style="{{ kbStyle }}">
-          <div style="height:44px;background:#151519;display:flex;align-items:center;justify-content:space-between;padding:0 8px 0 28px">
-            <span style="display:flex;width:33px;height:33px;border-radius:50%;background:#2C2D2F;align-items:center;justify-content:center;color:#F2F2F4;flex-shrink:0"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M8.3 14.2c.9 1.4 2.2 2.1 3.7 2.1s2.8-.7 3.7-2.1"></path><circle cx="9" cy="9.8" r=".9" fill="currentColor"></circle><circle cx="15" cy="9.8" r=".9" fill="currentColor"></circle></svg></span>
-            <span style="display:flex;width:33px;height:33px;border-radius:50%;background:#2C2D2F;align-items:center;justify-content:center;color:#F2F2F4;flex-shrink:0"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4.5h9.5A2.5 2.5 0 0 1 20 7v9.5"></path><rect x="4" y="8" width="12" height="12" rx="2.5"></rect><path d="M7.2 17.2 10 10.6l2.8 6.6M8.2 15h3.6"></path></svg></span>
-            <span style="display:flex;width:33px;height:33px;border-radius:50%;background:#2C2D2F;align-items:center;justify-content:center;color:#F2F2F4;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17.5" rx="2.5"></rect><line x1="9" y1="7" x2="15" y2="7"></line></svg></span>
-            <span style="display:flex;width:33px;height:33px;border-radius:50%;background:#2C2D2F;align-items:center;justify-content:center;color:#F2F2F4;flex-shrink:0"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg></span>
-            <span style="display:flex;width:33px;height:33px;align-items:center;justify-content:center;color:#F2F2F4"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.7"></circle><circle cx="12" cy="12" r="1.7"></circle><circle cx="19" cy="12" r="1.7"></circle></svg></span>
-          </div>
-          <div style="display:flex;gap:6px;padding:0 7px;height:39px;margin-top:9px">
-            <sc-for list="{{ kbRow0 }}" as="k" hint-placeholder-count="10">
-              <button onMouseDown="{{ k.onDown }}" onClick="{{ k.onPress }}" style="{{ k.style }}">
-                <sc-if value="{{ k.isText }}" hint-placeholder-val="{{ true }}"><span>{{ k.label }}</span></sc-if>
-                <sc-if value="{{ k.isSpace }}" hint-placeholder-val="{{ false }}"><span style="display:flex;width:100%;align-items:center;justify-content:space-between;padding:0 22px;box-sizing:border-box"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"></polyline></svg><span style="font-size:12.5px;color:#E8E8EA;letter-spacing:0">English (UK)</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 5 16 12 9 19"></polyline></svg></span></sc-if>
-                <sc-if value="{{ k.isShiftOff }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3.5 3.5 12.5h4.5v7h8v-7h4.5z"></path></svg></sc-if>
-                <sc-if value="{{ k.isShiftOn }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3.5 3.5 12.5h4.5v7h8v-7h4.5z"></path></svg></sc-if>
-                <sc-if value="{{ k.isBack }}" hint-placeholder-val="{{ false }}"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5.5H9.2a1.5 1.5 0 0 0-1.1.5L3 12l5.1 6a1.5 1.5 0 0 0 1.1.5H20a1.5 1.5 0 0 0 1.5-1.5V7A1.5 1.5 0 0 0 20 5.5z"></path><line x1="16.5" y1="9.5" x2="11.5" y2="14.5"></line><line x1="11.5" y1="9.5" x2="16.5" y2="14.5"></line></svg></sc-if>
-              </button>
-            </sc-for>
-          </div>
-          <div style="display:flex;gap:6px;padding:0 7px;height:47px;margin-top:13px">
-            <sc-for list="{{ kbRow1 }}" as="k" hint-placeholder-count="10">
-              <button onMouseDown="{{ k.onDown }}" onClick="{{ k.onPress }}" style="{{ k.style }}">
-                <sc-if value="{{ k.isText }}" hint-placeholder-val="{{ true }}"><span>{{ k.label }}</span></sc-if>
-                <sc-if value="{{ k.isSpace }}" hint-placeholder-val="{{ false }}"><span style="display:flex;width:100%;align-items:center;justify-content:space-between;padding:0 22px;box-sizing:border-box"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"></polyline></svg><span style="font-size:12.5px;color:#E8E8EA;letter-spacing:0">English (UK)</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 5 16 12 9 19"></polyline></svg></span></sc-if>
-                <sc-if value="{{ k.isShiftOff }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3.5 3.5 12.5h4.5v7h8v-7h4.5z"></path></svg></sc-if>
-                <sc-if value="{{ k.isShiftOn }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3.5 3.5 12.5h4.5v7h8v-7h4.5z"></path></svg></sc-if>
-                <sc-if value="{{ k.isBack }}" hint-placeholder-val="{{ false }}"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5.5H9.2a1.5 1.5 0 0 0-1.1.5L3 12l5.1 6a1.5 1.5 0 0 0 1.1.5H20a1.5 1.5 0 0 0 1.5-1.5V7A1.5 1.5 0 0 0 20 5.5z"></path><line x1="16.5" y1="9.5" x2="11.5" y2="14.5"></line><line x1="11.5" y1="9.5" x2="16.5" y2="14.5"></line></svg></sc-if>
-              </button>
-            </sc-for>
-          </div>
-          <div style="display:flex;gap:6px;padding:0 7px;height:47px;margin-top:13px">
-            <sc-for list="{{ kbRow2 }}" as="k" hint-placeholder-count="9">
-              <button onMouseDown="{{ k.onDown }}" onClick="{{ k.onPress }}" style="{{ k.style }}">
-                <sc-if value="{{ k.isText }}" hint-placeholder-val="{{ true }}"><span>{{ k.label }}</span></sc-if>
-                <sc-if value="{{ k.isSpace }}" hint-placeholder-val="{{ false }}"><span style="display:flex;width:100%;align-items:center;justify-content:space-between;padding:0 22px;box-sizing:border-box"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"></polyline></svg><span style="font-size:12.5px;color:#E8E8EA;letter-spacing:0">English (UK)</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 5 16 12 9 19"></polyline></svg></span></sc-if>
-                <sc-if value="{{ k.isShiftOff }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3.5 3.5 12.5h4.5v7h8v-7h4.5z"></path></svg></sc-if>
-                <sc-if value="{{ k.isShiftOn }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3.5 3.5 12.5h4.5v7h8v-7h4.5z"></path></svg></sc-if>
-                <sc-if value="{{ k.isBack }}" hint-placeholder-val="{{ false }}"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5.5H9.2a1.5 1.5 0 0 0-1.1.5L3 12l5.1 6a1.5 1.5 0 0 0 1.1.5H20a1.5 1.5 0 0 0 1.5-1.5V7A1.5 1.5 0 0 0 20 5.5z"></path><line x1="16.5" y1="9.5" x2="11.5" y2="14.5"></line><line x1="11.5" y1="9.5" x2="16.5" y2="14.5"></line></svg></sc-if>
-              </button>
-            </sc-for>
-          </div>
-          <div style="display:flex;gap:6px;padding:0 7px;height:47px;margin-top:13px">
-            <sc-for list="{{ kbRow3 }}" as="k" hint-placeholder-count="9">
-              <button onMouseDown="{{ k.onDown }}" onClick="{{ k.onPress }}" style="{{ k.style }}">
-                <sc-if value="{{ k.isText }}" hint-placeholder-val="{{ true }}"><span>{{ k.label }}</span></sc-if>
-                <sc-if value="{{ k.isSpace }}" hint-placeholder-val="{{ false }}"><span style="display:flex;width:100%;align-items:center;justify-content:space-between;padding:0 22px;box-sizing:border-box"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"></polyline></svg><span style="font-size:12.5px;color:#E8E8EA;letter-spacing:0">English (UK)</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 5 16 12 9 19"></polyline></svg></span></sc-if>
-                <sc-if value="{{ k.isShiftOff }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3.5 3.5 12.5h4.5v7h8v-7h4.5z"></path></svg></sc-if>
-                <sc-if value="{{ k.isShiftOn }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3.5 3.5 12.5h4.5v7h8v-7h4.5z"></path></svg></sc-if>
-                <sc-if value="{{ k.isBack }}" hint-placeholder-val="{{ false }}"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5.5H9.2a1.5 1.5 0 0 0-1.1.5L3 12l5.1 6a1.5 1.5 0 0 0 1.1.5H20a1.5 1.5 0 0 0 1.5-1.5V7A1.5 1.5 0 0 0 20 5.5z"></path><line x1="16.5" y1="9.5" x2="11.5" y2="14.5"></line><line x1="11.5" y1="9.5" x2="16.5" y2="14.5"></line></svg></sc-if>
-              </button>
-            </sc-for>
-          </div>
-          <div style="display:flex;gap:6px;padding:0 7px;height:47px;margin-top:13px">
-            <sc-for list="{{ kbRow4 }}" as="k" hint-placeholder-count="5">
-              <button onMouseDown="{{ k.onDown }}" onClick="{{ k.onPress }}" style="{{ k.style }}">
-                <sc-if value="{{ k.isText }}" hint-placeholder-val="{{ true }}"><span>{{ k.label }}</span></sc-if>
-                <sc-if value="{{ k.isSpace }}" hint-placeholder-val="{{ false }}"><span style="display:flex;width:100%;align-items:center;justify-content:space-between;padding:0 22px;box-sizing:border-box"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"></polyline></svg><span style="font-size:12.5px;color:#E8E8EA;letter-spacing:0">English (UK)</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 5 16 12 9 19"></polyline></svg></span></sc-if>
-                <sc-if value="{{ k.isShiftOff }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3.5 3.5 12.5h4.5v7h8v-7h4.5z"></path></svg></sc-if>
-                <sc-if value="{{ k.isShiftOn }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M12 3.5 3.5 12.5h4.5v7h8v-7h4.5z"></path></svg></sc-if>
-                <sc-if value="{{ k.isBack }}" hint-placeholder-val="{{ false }}"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5.5H9.2a1.5 1.5 0 0 0-1.1.5L3 12l5.1 6a1.5 1.5 0 0 0 1.1.5H20a1.5 1.5 0 0 0 1.5-1.5V7A1.5 1.5 0 0 0 20 5.5z"></path><line x1="16.5" y1="9.5" x2="11.5" y2="14.5"></line><line x1="11.5" y1="9.5" x2="16.5" y2="14.5"></line></svg></sc-if>
-              </button>
-            </sc-for>
-          </div>
-          <div style="height:54px;margin-top:9px;position:relative;color:#E6E6E8">
-            <span style="position:absolute;left:8px;top:13px;width:28px;height:28px;display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="12" rx="3"></rect><path d="M5 11a7 7 0 0 0 14 0"></path><line x1="12" y1="18" x2="12" y2="21.5"></line></svg></span>
-            <span style="position:absolute;left:77px;top:13px;width:28px;height:28px;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="6" y1="5" x2="6" y2="19"></line><line x1="12" y1="5" x2="12" y2="19"></line><line x1="18" y1="5" x2="18" y2="19"></line></svg></span>
-            <span style="position:absolute;left:193px;top:13px;width:28px;height:28px;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4.5" y="4.5" width="15" height="15" rx="4.5"></rect></svg></span>
-            <button onMouseDown="{{ keepFocus }}" onClick="{{ hideKb }}" style="position:absolute;left:307px;top:11px;width:32px;height:32px;background:none;border:none;color:#E6E6E8;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 9 12 16 19 9"></polyline></svg></button>
-          </div>
-        </div>
       </sc-if>
     </div>
   </div>
@@ -418,7 +348,7 @@ const SPROD = [
 
 class Component extends DCLogic {
   moreRef = React.createRef();
-  state = { q: '', open: false, focused: false, mobTop: 116, moreOpen: false, lift: 0, liftFrom: 52, kb: false, shift: false, sym: false, kbDown: '' };
+  state = { q: '', open: false, focused: false, mobTop: 116, moreOpen: false, lift: 0, liftFrom: 52 };
   mobInputRef = (el) => { this.mobInput = el || this.mobInput; };
 
   rootRef = (el) => { this.root = el || this.root; };
@@ -447,7 +377,7 @@ class Component extends DCLogic {
       if (this.root && this.root.contains(t)) return;
       const panel = document.querySelector('[data-bb-searchpanel]');
       if (panel && panel.contains(t)) return;
-      this.setState({ open: false, focused: false, lift: 0, kb: false });
+      this.setState({ open: false, focused: false, lift: 0 });
     };
     document.addEventListener('mousedown', this.onDocDown, true);
     this._moreDown = (e) => { if (this.state.moreOpen && this.moreRef.current && !this.moreRef.current.contains(e.target)) this.setState({ moreOpen: false }); };
@@ -475,14 +405,13 @@ class Component extends DCLogic {
     const v = e.target.value;
     this.setState({ q: v, open: v.trim().length > 0, focused: true });
   };
-  clearQ = (e) => { if (e) e.preventDefault(); this.setState({ q: '', open: false, focused: false, lift: 0, kb: false }); };
-  closeQ = (e) => { if (e) e.preventDefault(); this.setState({ open: false, focused: false, lift: 0, kb: false }); };
+  clearQ = (e) => { if (e) e.preventDefault(); this.setState({ q: '', open: false, focused: false, lift: 0 }); };
+  closeQ = (e) => { if (e) e.preventDefault(); this.setState({ open: false, focused: false, lift: 0 }); };
   onFocusQ = () => {
     this.measureMob();
     if (this.props.variant === 'mobile') {
-      /* mobile: the search bar lifts to the top of the screen, a white sheet covers the
-         page and a simulated Android keyboard rises from the bottom */
-      if (this.state.focused) { this.setState({ kb: true }); return; }
+      /* mobile: the search bar lifts to the top of the screen and a white sheet covers the page */
+      if (this.state.focused) return;
       let from = 52;
       const el = this.mobSearch;
       if (el && el.isConnected) {
@@ -493,7 +422,7 @@ class Component extends DCLogic {
         from = Math.max(0, Math.round((el.getBoundingClientRect().top - base) / (scale || 1) - 10));
       }
       /* commit the start position first, then animate on the next painted frame */
-      this.setState({ focused: true, open: this.state.q.trim().length > 0, lift: 1, liftFrom: from, kb: true, shift: false, sym: false }, () => {
+      this.setState({ focused: true, open: this.state.q.trim().length > 0, lift: 1, liftFrom: from }, () => {
         if (this.mobSearch) void this.mobSearch.offsetHeight;
         requestAnimationFrame(() => requestAnimationFrame(() => { if (this.state.focused && this.state.lift === 1) this.setState({ lift: 2 }); }));
       });
@@ -501,135 +430,44 @@ class Component extends DCLogic {
     }
     this.setState({ focused: true, open: this.state.q.trim().length > 0 });
   };
-  /* tapping outside the field (the list) dismisses the keyboard, like on a phone;
-     the search screen stays open until "Zatvori" */
-  onBlurMob = () => { if (this.state.kb) this.setState({ kb: false }); };
+  /* the search screen stays open until "Zatvori" */
+  onBlurMob = () => {};
   keepFocus = (e) => { if (e) e.preventDefault(); };
-  hideKb = (e) => { if (e) e.preventDefault(); if (this.mobInput) this.mobInput.blur(); this.setState({ kb: false }); };
   closeMobQ = (e) => {
     if (e) e.preventDefault();
     if (this.mobInput) this.mobInput.blur();
-    this.setState({ open: false, focused: false, lift: 0, kb: false });
+    this.setState({ open: false, focused: false, lift: 0 });
   };
   clearMobQ = (e) => {
     if (e) e.preventDefault();
-    this.setState({ q: '', open: false, kb: true }, () => { if (this.mobInput) this.mobInput.focus({ preventScroll: true }); });
-  };
-  /* simulated keyboard: types into the field at the caret */
-  pressKey = (def) => {
-    const k = def.k;
-    if (k === 'shift') { this.setState(st => ({ shift: !st.shift })); return; }
-    if (k === 'sym') { this.setState({ sym: true, shift: false }); return; }
-    if (k === 'abc') { this.setState({ sym: false }); return; }
-    if (k === 'go') { this.submitQ(); return; }
-    if (k === 'noop' || k === 'spacer') return;
-    const q = this.state.q;
-    const el = this.mobInput;
-    let a = el && typeof el.selectionStart === 'number' ? el.selectionStart : q.length;
-    let b = el && typeof el.selectionEnd === 'number' ? el.selectionEnd : q.length;
-    let v, pos;
-    if (k === 'back') {
-      if (a === b && a > 0) a -= 1;
-      v = q.slice(0, a) + q.slice(b); pos = a;
-    } else {
-      let ch = k === 'space' ? ' ' : def.t;
-      if (this.state.shift && !this.state.sym) ch = ch.toUpperCase();
-      v = q.slice(0, a) + ch + q.slice(b); pos = a + ch.length;
-    }
-    this.setState({ q: v, open: v.trim().length > 0, shift: false }, () => {
-      if (el) { try { el.focus({ preventScroll: true }); el.setSelectionRange(pos, pos); } catch (err) {} }
-    });
+    this.setState({ q: '', open: false }, () => { if (this.mobInput) this.mobInput.focus({ preventScroll: true }); });
   };
   submitQ = (e) => {
     if (e) e.preventDefault();
     const t = this.state.q.trim();
     if (!t) return;
     if (this.mobInput) this.mobInput.blur();
-    this.setState({ open: false, focused: false, lift: 0, kb: false });
+    this.setState({ open: false, focused: false, lift: 0 });
     (this.props.onSearch || (() => {}))(t);
   };
   pickTerm = (t) => (e) => {
     if (e) e.preventDefault();
-    this.setState({ q: t, open: false, focused: false, lift: 0, kb: false });
+    this.setState({ q: t, open: false, focused: false, lift: 0 });
     (this.props.onSearch || (() => {}))(t);
   };
   openProd = (p) => (e) => {
     if (e) e.preventDefault();
-    this.setState({ open: false, focused: false, lift: 0, kb: false });
+    this.setState({ open: false, focused: false, lift: 0 });
     (this.props.onOpenProduct || (() => {}))({ img: p.img, name: p.name, price: p.price, old: p.old || '' });
   };
 
-  /* mobile search screen: lifted bar, full-height white sheet, simulated Android keyboard */
+  /* mobile search screen: lifted bar, full-height white sheet */
   mobSearchVals() {
     const st = this.state;
     const on = st.focused;
     const up = st.lift === 2;
     const move = up ? 'transform .3s cubic-bezier(.2,.7,.3,1)' : 'none';
-    const kbOn = on && up && st.kb;
-    const KB_H = 395;
     const ease = 'cubic-bezier(.2,.7,.3,1)';
-    /* Samsung Keyboard, dark theme (matched to the reference screenshot) */
-    const mk = (def, i) => {
-      const id = (def.k || 'c') + ':' + (def.t || '') + ':' + i;
-      const down = st.kbDown === id;
-      const fn = ['shift', 'back', 'sym', 'abc', 'noop', 'go'].indexOf(def.k) > -1;
-      const go = def.k === 'go';
-      const space = def.k === 'space';
-      const spacer = def.k === 'spacer';
-      const shiftOn = def.k === 'shift' && st.shift;
-      let label = def.t || '';
-      if (!def.k && st.shift && !st.sym) label = label.toUpperCase();
-      if (go) label = 'Go';
-      return {
-        label: label,
-        isText: !!label && !space && def.k !== 'shift' && def.k !== 'back',
-        isSpace: space,
-        isShiftOff: def.k === 'shift' && !shiftOn,
-        isShiftOn: shiftOn,
-        isBack: def.k === 'back',
-        onDown: (e) => {
-          if (e) e.preventDefault();
-          if (spacer) return;
-          this.setState({ kbDown: id });
-          clearTimeout(this._kbT);
-          this._kbT = setTimeout(() => this.setState({ kbDown: '' }), 140);
-        },
-        onPress: (e) => { if (e) e.preventDefault(); this.pressKey(def); },
-        style: {
-          flex: (def.f || 1) + ' 1 0px', minWidth: 0, height: '100%', position: 'relative',
-          border: 'none', borderRadius: 6, padding: 0,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          visibility: spacer ? 'hidden' : 'visible',
-          background: fn ? (down ? '#2B2B31' : '#151519') : (down ? '#46474A' : '#2C2D2F'),
-          color: go ? '#5F94FD' : '#F4F4F6',
-          fontFamily: 'Roboto,"SamsungOne","Segoe UI",Inter,sans-serif',
-          fontSize: go ? 19 : (def.k === 'sym' || def.k === 'abc' || def.k === 'noop' ? 18 : 21),
-          fontWeight: 400, letterSpacing: 0, lineHeight: 1,
-          cursor: 'pointer', userSelect: 'none', WebkitUserSelect: 'none',
-          WebkitTapHighlightColor: 'transparent'
-        }
-      };
-    };
-    const L = (str) => str.split(' ').map(t => ({ t: t }));
-    const nums = L('1 2 3 4 5 6 7 8 9 0');
-    let rows;
-    if (!st.sym) {
-      rows = [
-        nums,
-        L('q w e r t y u i o p'),
-        [{ k: 'spacer', f: 0.45 }].concat(L('a s d f g h j k l'), [{ k: 'spacer', f: 0.45 }]),
-        [{ k: 'shift', f: 1.45 }].concat(L('z x c v b n m'), [{ k: 'back', f: 1.45 }]),
-        [{ k: 'sym', t: '!#1', f: 1.6 }, { t: '?' }, { k: 'space', f: 5.7 }, { t: '.' }, { k: 'go', f: 1.6 }]
-      ];
-    } else {
-      rows = [
-        nums,
-        L('+ × ÷ = / _ < > [ ]'),
-        L('! @ # € % ^ & * ( )'),
-        [{ k: 'noop', t: '1/2', f: 1.45 }].concat(L('- \' " : ; ,'), [{ t: '?' }], [{ k: 'back', f: 1.45 }]),
-        [{ k: 'abc', t: 'ABC', f: 1.6 }, { t: ',' }, { k: 'space', f: 5.7 }, { t: '.' }, { k: 'go', f: 1.6 }]
-      ];
-    }
     return {
       mobRootStyle: {
         background: '#0050A0', padding: '10px 16px 12px', position: 'relative', zIndex: on ? 1000 : 25
@@ -671,21 +509,11 @@ class Component extends DCLogic {
         pointerEvents: up ? 'auto' : 'none'
       },
       mobResultsStyle: {
-        position: 'absolute', left: 0, right: 0, top: 62, bottom: kbOn ? KB_H : 0, zIndex: 1,
+        position: 'absolute', left: 0, right: 0, top: 62, bottom: 0, zIndex: 1,
         background: '#FFFFFF', overflow: 'hidden', overscrollBehavior: 'contain',
         transform: 'translateY(' + (up ? 0 : st.liftFrom) + 'px)',
-        transition: up ? move + ', bottom .28s ' + ease : 'none'
+        transition: move
       },
-      kbStyle: {
-        position: 'absolute', left: 0, right: 0, bottom: 0, height: KB_H, zIndex: 3,
-        background: '#000000', boxSizing: 'border-box', overflow: 'hidden',
-        transform: kbOn ? 'translateY(0)' : 'translateY(100%)',
-        transition: 'transform .3s ' + ease,
-        userSelect: 'none', WebkitUserSelect: 'none'
-      },
-      kbRow0: rows[0].map(mk), kbRow1: rows[1].map((d, i) => mk(d, 100 + i)),
-      kbRow2: rows[2].map((d, i) => mk(d, 200 + i)), kbRow3: rows[3].map((d, i) => mk(d, 300 + i)),
-      kbRow4: rows[4].map((d, i) => mk(d, 400 + i))
     };
   }
 
@@ -718,14 +546,14 @@ class Component extends DCLogic {
       mobPanelStyle: { position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 },
       mobInputRef: this.mobInputRef,
       mobShowClear: q.length > 0,
-      keepFocus: this.keepFocus, hideKb: this.hideKb,
+      keepFocus: this.keepFocus,
       closeMobQ: this.closeMobQ, clearMobQ: this.clearMobQ, onBlurMob: this.onBlurMob,
       ...this.mobSearchVals(),
       onQ: this.onQ, clearQ: this.clearQ, closeQ: this.closeQ,
       onFocusQ: this.onFocusQ, submitQ: this.submitQ,
       onKeyQ: (e) => {
         if (e.key === 'Enter') this.submitQ(e);
-        else if (e.key === 'Escape') { if (this.mobInput) this.mobInput.blur(); this.setState({ open: false, focused: false, lift: 0, kb: false }); }
+        else if (e.key === 'Escape') { if (this.mobInput) this.mobInput.blur(); this.setState({ open: false, focused: false, lift: 0 }); }
       },
       sugg: terms.slice(0, 4).map(t => ({ label: t, onClick: this.pickTerm(t) })),
       sitems: hits.slice(0, 4).map(p => ({

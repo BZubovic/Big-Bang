@@ -414,7 +414,8 @@ class Component extends DCLogic {
     tw: {
       deptBento: true,
       card: 'v2',
-      viewport: this.props.viewport === 'Mobile' ? 'Mobile' : 'Desktop',
+      /* opened on a phone (window ≤ 600px): Mobile is the default view; it can still be switched in Prikaz */
+      viewport: this.props.viewport === 'Mobile' || (typeof window !== 'undefined' && window.innerWidth <= 600) ? 'Mobile' : 'Desktop',
       bundle: !!this.props.bundleMode,
       klub: (this.props.statusClanstva || 'UAU klub član') !== 'Nije član',
       newUser: (this.props.vrstaUporabnika || 'Postojeći kupac') === 'Novi kupac',
@@ -530,6 +531,11 @@ class Component extends DCLogic {
     this.onPhoneCheck = () => {
       const on = window.innerWidth <= 600;
       if (on !== this.state.realPhone) this.setState({ realPhone: on });
+      /* first time the page is seen at phone width (e.g. the frame sized itself after load): default to Mobile once */
+      if (on && !this._phoneDefaulted) {
+        this._phoneDefaulted = true;
+        if (this.state.tw.viewport !== 'Mobile') this.setTweak('viewport', 'Mobile');
+      }
     };
     window.addEventListener('resize', this.onPhoneCheck);
     this.onPhoneCheck();

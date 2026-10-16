@@ -13,7 +13,9 @@ window.BB_CHANGELOG = [
     'Mobitel: „Prikaži sve rezultate” više nije zalijepljen za dno — nalazi se na kraju popisa rezultata i pomiče se s njim',
     'Tražilica je označena kao polje za pretragu: mobitel više ne nudi spremljene lozinke ni kartice pri kliku, a tipka Enter na tipkovnici prikazuje „Traži”',
     'Prototip otvoren na mobitelu u prikazu Mobile sada ispunjava cijeli preglednik — bez sivog okvira i zaobljenih rubova, header je uz vrh ekrana',
-    'Simulirana tipkovnica sada izgleda kao Samsung tipkovnica u tamnoj temi: traka s ikonama, red s brojevima, QWERTY raspored, razmaknica „English (UK)”, plavi „Go” i donja traka za navigaciju'
+    'Simulirana tipkovnica sada izgleda kao Samsung tipkovnica u tamnoj temi: traka s ikonama, red s brojevima, QWERTY raspored, razmaknica „English (UK)”, plavi „Go” i donja traka za navigaciju',
+    'Simulirana tipkovnica uklonjena iz prototipa — na mobitelu se koristi prava tipkovnica uređaja, a rezultati pretrage zauzimaju cijeli ekran ispod tražilice',
+    'Prototip otvoren na mobitelu sada se automatski otvara u prikazu Mobile (u postavkama se i dalje može prebaciti na Desktop)'
   ] },
   { date: '14.10.2026.', title: 'Export for CMS ponovno radi', changes: [
     'Gumb „Export for CMS” u postavkama prototipa više ne javlja grešku: tražio je datoteke stranica sa starim nazivima (s razmacima umjesto crtica)',

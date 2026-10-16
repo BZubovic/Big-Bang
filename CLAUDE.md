@@ -88,6 +88,7 @@ Components row). Differences from the original project archive:
 - Section titles: 24px / 600 desktop, 17px / 600 mobile. Product card prices are 800 (extra bold); "Uštedi" badge 12px / 600 desktop (10px mobile vertical/minimal, 11px mobile list); labels (Besplatna dostava …) 600.
 - Mobile is previewed in a 412×915 phone frame; the `viewport` tweak switches it. Opened on a real phone (window ≤ 600px wide) the
   Mobile view drops the grey stage and the rounded frame and fills the browser (100% × 100dvh), header at the top.
+  On a phone the prototype also **opens in Mobile by default** (the Prikaz switch can still go to Desktop).
 
 ## Files
 
@@ -252,11 +253,7 @@ Mobile search focus (variant `mobile` only, since 16.10.2026.): focusing the fie
 into a full-screen search screen — the top row (hamburger, logo, icons) goes away, the search bar lifts to
 the top of the screen at ~80% width with a white "Zatvori" text button on its right (closes the screen),
 and a 100%-height white sheet replaces the old dark backdrop; popular terms / results (SearchPanel) fill
-the space between the bar and a simulated Android keyboard (Samsung Keyboard, dark theme, number row +
-QWERTY, "English (UK)" space bar — matched to a screenshot of the client's phone) that rises from the
-bottom. The keyboard types into the field (shift, !#1 symbols, backspace, "Go" submits); tapping the list or
-its ⌄ button hides it, tapping the field shows it again. Keyboard colours are simulated device chrome, not
-site tokens. Desktop search is unchanged.
+the screen below the bar (the list scrolls; "Prikaži sve rezultate" is its last row). Desktop search is unchanged.
 All header search inputs are marked as search fields (`type="search"`, `name="q"`, `role="searchbox"`,
 `inputmode`/`enterkeyhint="search"`, `autocomplete="off"`, password-manager ignore flags) so phone autofill
 doesn't offer saved passwords or cards; keep these attributes on any new search field.
