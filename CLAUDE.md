@@ -106,7 +106,8 @@ eu-guarantee.js                GLOBAL EU guarantee module — window.BBEU: the h
 garan-data.js                  producer-supplied GARAN data (window.BB_GARAN.forProduct)
 images/eu/                     official EU artwork: legal-guarantee-notice-hr.svg,
                                garan-label-colour.svg, garan-label-nested.svg
-Components/pdp/PDPBody.jsx         PDP desktop body (imported React, not a DC)
+Components/pdp/PDPBody.jsx         PDP desktop body (imported React, not a DC) + sticky CTA bar,
+                                   shown only once the buy-box CTA has scrolled above the header
 Components/pdp/PDPBodyMobile.jsx   PDP mobile body + sticky CTA
 Components/SiteHeader.dc.html      header bars
 Components/SiteMenu.dc.html        hamburger / mega menu + mobile drawer
@@ -171,6 +172,25 @@ scroll-rail.js                 GLOBAL (loaded by the shell): scroll indicators �
                                slides with the nearest preceding horizontal track (no React state, never fills);
                                mouse-drag on every horizontal scroller. Tracks pad right to the 1480 wrapper edge.
 stores-data.js                 store list (window.BB_STORES) shared by both
+Pages/Seller-bigbang-body.dc.html  "Big Bang" seller page (1P, page key `seller`). ALL its content (copy, figures, delivery,
+                               reviews, FAQ, company data) is in the `DATA` const of its own script — do not move it to a separate
+                               data file (a page-only helmet data file left the page empty on the canvas). Kept deliberately
+                               lean (trimmed ~50% on 16.10.2026. — don't re-add removed blocks without asking): hero + badge +
+                               4 key benefits + trust bar; "Tko je Big Bang?" (lead, one paragraph, "Big Bang ukratko" facts);
+                               "Zašto…" (6 short USPs); stores (StoreLocator, nearest store, services + holiday hours);
+                               delivery (4 options, installation list, 5-row Big Bang vs drugi prodavatelji table); reviews
+                               (rating summary line + 6 placeholder reviews + verified-only note); category tiles (open the
+                               category page via onOpenCategory), bestsellers by category and Akcije (ProductCarousel, show-all
+                               off), brand slider; contact + company data; GeoFaq (6). Removed: full catalogue with filters/search,
+                               rating breakdown cards, customer photos, Novosti, awards/partners, payments/after-sales cards,
+                               big-appliance steps, Click & Collect stock check, timeline/values/video. GEO: every H2 is a
+                               question with a factual answer-first lead; "Podaci ažurirani" date at the bottom. Sets title/meta +
+                               one JSON-LD graph (WebPage, BreadcrumbList, Organization with AggregateRating/Review/OfferCatalog/
+                               MerchantReturnPolicy, ElectronicsStore per store). Tracked clicks push `seller_page_click` to
+                               window.dataLayer. Opened by shell `goSeller`, `window.BBOpenSeller()` (PDP "Prodaje i šalje: Big Bang",
+                               cart "Trgovac: Big Bang")
+                               and footer "O nama" / "Službena Big Bang trgovina". TBC values are marked in DATA.
+seller-bigbang-data.js         superseded stub (content moved into the page) — safe to delete
 changelog.js                   prototype change log — MUST be updated every working day
                                (see "Change log" below)
 Pages/Design-system-body.dc.html  THE DESIGN SYSTEM PAGE — colours, type, spacing,
@@ -332,11 +352,15 @@ FINAL DESIGN (08.10.2026., spacing / type re-measured 13.10.2026. from the desig
   (`card.gallery`), title 16/22, rating + options, labels (below; at ≥1320px card width inline between rating and options), `card.spec` (2 lines), price row (price · old · Uštedi · rate),
   promo box, anchor; right column with availability, seller, energy, Usporedi / Spremi and outline "Dodaj u košaricu"
   (BBCart). Mobile: labels stacked above the image, stickers top-right, no buttons, square corners, full width.
-PROTOTYPE TEST: prop `promoVar` (1–30) swaps the vertical promo box (VD / VM only) for one of thirty test designs
-(`codeV1`…`codeV30`; 21–30 also restyle or hide the red Uštedi badge via `saveStd` / `svNN`); 0 / unset = the final dashed box above. Only Stolna računala passes it (Main → Category body
-→ card cell), from Prototype settings → „Promo kod (kartica)”. Do not use it elsewhere until a design is chosen.
+PROTOTYPE TEST: prop `promoVar` (1–20) swaps the vertical promo box (VD / VM only) for one of twenty test designs
+(`codeV1`…`codeV20`), all built on the final dashed box and showing the total saving as „Uštedi do X €"
+(sale + code); 5 also turns the red Uštedi badge into „Uštedi do" (`saveStd` / `saveDo`), 13 adds a green outline
+badge next to it (`svPlus`), 14 uses the `.bbtip` hover tooltip from styles.css. 0 / unset = the box above.
+Only Stolna računala passes it (Main → Category body → card cell), from Prototype settings → „Promo kod (kartica)".
+Stolna računala also keeps its own „Prikaz proizvoda" choice (`catMinimalPc`, default Uobičajeno).
 LEGAL: never show the price after a promo code is applied (no "cijena s kodom", no final/basket price). Show only
-the nominal saving ("-103,80 €") and/or the percentage.
+the nominal saving ("-103,80 €"), the percentage, or the total saving as "Uštedi do X €" ("up to", because the
+code has conditions — e.g. a specific card).
 Radii 12 desktop / 8 mobile. `card`: `{ img, gallery?, name, spec?, price, old?, disc?, rate?, cashback?, warranty?, gift?,
 energy?, pills?: [{ label, tone: 'navy'|'orange'|'lime'|'red'|'blue' }], rating?, reviews?, options?, avail, availTone?:
 'in'|'wait'|'out', seller?, codePct?, promoCode?, renewedSave?, priceTag?, priceTagTone?, anchor?, anchorDate?, noAnchor? }`.
@@ -416,6 +440,7 @@ the mobile scroll position survive every switch.
   in state and switches `page` to `product`. The PDP bodies read it through their
   `product` prop and feed the gallery, title, breadcrumb, buy box and sticky bar,
   falling back to the Galaxy S24+ demo product when absent.
+- **Big Bang seller page**: shell `goSeller()`; anywhere else call `window.BBOpenSeller()` (set by the shell on mount).
 - **Cart**: header cart icon (any variant) → `onCart` → shell `goCart()`; the flyout's
   "Pregled košarice" reaches the same method through `window.BBCart.setCartHandler`.
 - **Add to cart**: any add-to-cart button calls `window.BBCart.open({ img, name, price, old, qty })`
@@ -691,6 +716,7 @@ images/l3-hladnjak-samsung.png  /_blob/73a1b432417f85d7026acaa113c41f69
 images/l3-perilica-samsung.png  /_blob/b827d7b6f017f98ba323fbf6aa8cba68
 images/l3-ploca-indukcija.png  /_blob/c64c1b61ddc9e719a867f189b185a36d
 images/logo-dark.svg  /_blob/848e55eb25f4194696b460b05f50cd4d
+images/big-bang-logo-primary.png  /_blob/34f084320ff7828f9f7a170ca914d4bf   (primary logo: white wordmark on #0050A0, 640×237 — seller page hero)
 images/logo-white.svg  /_blob/4c12a966ca931e932c5dd80bc36cb2ca
 images/map-placeholder.png  /_blob/e10b8add015214771fcc91f0289c8a71
 images/offer-best-1.webp  /_blob/8b80cf8cd49abfdbc5daa743d25e5cc4

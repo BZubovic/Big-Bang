@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="stores-data.js"></script>
+<script src="category-products.js"></script>
+</helmet>
+
+<div ref="{{ rootRef }}" style="{{ S.page }}">
+
+  <div style="{{ S.wrapTop }}">
+    <dc-import name="Components/Breadcrumbs" variant="{{ v }}" items="{{ crumbs }}" hint-size="100%,40px"></dc-import>
+  </div>
+
+  <!-- ═══ 1. HERO ═══ -->
+  <section data-sec="top" style="{{ S.wrapHero }}">
+    <div style="{{ S.hero }}">
+      <div style="{{ S.heroText }}">
+        <div style="{{ S.heroLogoRow }}">
+          <div style="{{ S.logoBox }}"><img src="images/logo-bigbang-blue.png" alt="Big Bang logotip" width="640" height="237" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+          <span style="{{ S.badge }}">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+            Službeni prodavatelj Big Bang
+          </span>
+        </div>
+        <h1 style="{{ S.h1 }}">{{ hero.title }}</h1>
+        <p style="{{ S.heroClaim }}">{{ hero.claim }}</p>
+        <ul style="{{ S.heroList }}">
+          <sc-for list="{{ hero.points }}" as="x" hint-placeholder-count="4">
+            <li style="{{ S.heroLi }}">
+              <span style="{{ S.checkDot }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12.5 10 17.5 19 7"></polyline></svg></span>
+              <span><b style="color:#101117;font-weight:700">{{ x.b }}</b> {{ x.t }}</span>
+            </li>
+          </sc-for>
+        </ul>
+        <div style="{{ S.heroCtas }}">
+          <a href="#ponuda" onClick="{{ goOffer }}" class="bbcta" style="{{ S.ctaFill }}">
+            Istraži ponudu
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </a>
+          <a href="#trgovine" onClick="{{ goStoresSec }}" style="{{ S.ctaLine }}" style-hover="background:#EBF3FE">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>
+            Pronađi trgovinu
+          </a>
+        </div>
+      </div>
+      <div style="{{ S.heroImgBox }}">
+        <img src="{{ heroImg }}" alt="Savjetnik Big Banga pomaže kupcima pri odabiru uređaja" style="width:100%;height:100%;object-fit:cover;display:block">
+        <div style="{{ S.heroImgChip }}">
+          <span style="{{ S.starsBox }}"><span style="color:#D5D9E0">★★★★★</span><span style="{{ avgFill }}">★★★★★</span></span>
+          <b style="color:#101117">{{ rating.avg }}</b><span style="color:#545F71">· {{ rating.count }} provjerenih ocjena</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="{{ S.stats }}">
+      <sc-for list="{{ stats }}" as="x" hint-placeholder-count="5">
+        <div style="{{ S.stat }}">
+          <div style="{{ S.statV }}">{{ x.v }}<sc-if value="{{ x.star }}" hint-placeholder-val="{{ false }}"><span style="color:#F5A623;margin-left:4px">★</span></sc-if></div>
+          <div style="{{ S.statL }}">{{ x.l }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <nav aria-label="Na ovoj stranici" style="{{ S.navBar }}">
+    <div class="nsb" style="{{ S.navInner }}">
+      <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="6">
+        <a href="#" onClick="{{ n.click }}" style="{{ n.style }}">{{ n.label }}</a>
+      </sc-for>
+    </div>
+  </nav>
+
+  <!-- ═══ O NAMA ═══ -->
+  <section data-sec="onama" style="{{ S.wrap }}">
+    <h2 style="{{ S.h2 }}">Tko je Big Bang?</h2>
+    <div style="{{ S.storyGrid }}">
+      <div style="{{ S.card }}">
+        <p style="{{ S.pLead }}">{{ about.lead }}</p>
+        <p style="{{ S.p0 }}">{{ about.text }}</p>
+      </div>
+      <div style="{{ S.card }}">
+        <h3 style="{{ S.h3 }}">Big Bang ukratko</h3>
+        <dl style="{{ S.factGrid }}">
+          <sc-for list="{{ about.facts }}" as="f" hint-placeholder-count="5">
+            <div style="{{ S.factRow }}"><dt style="color:#545F71">{{ f.k }}</dt><dd style="margin:0;font-weight:600;color:#101117;text-align:right">{{ f.v }}</dd></div>
+          </sc-for>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ZAŠTO ═══ -->
+  <section data-sec="zasto" style="{{ S.wrap }}">
+    <h2 style="{{ S.h2 }}">Zašto kupiti izravno od Big Banga?</h2>
+    <p style="{{ S.lead }}">{{ whyLead }}</p>
+    <div style="{{ S.uspGrid }}">
+      <sc-for list="{{ usps }}" as="u" hint-placeholder-count="6">
+        <div style="{{ S.uspCard }}">
+          <span style="{{ S.icTile }}"><img src="{{ u.icon }}" alt="" width="24" height="24" style="display:block"></span>
+          <h3 style="{{ S.uspT }}">{{ u.t }}</h3>
+          <div style="{{ S.uspS }}">{{ u.s }}</div>
+        </div>
+      </sc-for>
+    </div>
+
+  </section>
+
+  <!-- ═══ 2. TRGOVINE ═══ -->
+  <section data-sec="trgovine" style="{{ S.wrap }}">
+    <div style="{{ S.titleRow }}">
+      <h2 style="{{ S.h2row }}">Gdje se nalaze Big Bang trgovine?</h2>
+      <a href="#" onClick="{{ allStores }}" class="arw" style="{{ S.link }}">Sva prodajna mjesta <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+    </div>
+    <p style="{{ S.lead }}">{{ storesLead }}</p>
+
+    <div style="{{ S.card }}">
+      <dc-import name="Components/StoreLocator" variant="{{ v }}" hide-head="{{ true }}" city="{{ mapCity }}" on-show-store="{{ onMapStore }}" hint-size="100%,520px"></dc-import>
+    </div>
+
+    <div style="{{ S.storeGrid }}">
+      <div style="{{ S.card }}">
+        <h3 style="{{ S.h3 }}">Najbliža trgovina</h3>
+        <p style="{{ S.small }}">Pronađite trgovinu najbližu vašoj lokaciji ili odaberite grad.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+          <button onClick="{{ locate }}" class="bbcta" style="{{ S.btnSm }}">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path><circle cx="12" cy="12" r="8"></circle></svg>
+            {{ locLabel }}
+          </button>
+          <select onChange="{{ pickCity }}" value="{{ nearCity }}" aria-label="Odaberi grad" style="{{ S.select }}">
+            <option value="">Odaberi grad</option>
+            <sc-for list="{{ cities }}" as="c" hint-placeholder-count="8"><option value="{{ c }}">{{ c }}</option></sc-for>
+          </select>
+        </div>
+        <sc-if value="{{ locMsg }}" hint-placeholder-val="{{ false }}"><p style="font-size:12.5px;color:#8B95A5;margin-top:8px">{{ locMsg }}</p></sc-if>
+        <sc-if value="{{ hasNear }}" hint-placeholder-val="{{ true }}">
+          <div style="{{ S.nearBox }}">
+            <div style="font-size:15px;font-weight:700;color:#101117">{{ near.name }}</div>
+            <sc-if value="{{ near.dist }}" hint-placeholder-val="{{ false }}"><div style="font-size:12.5px;font-weight:600;color:#0B7A48;margin-top:2px">{{ near.dist }}</div></sc-if>
+            <div style="font-size:13px;color:#545F71;margin-top:6px">{{ near.address }}</div>
+            <div style="font-size:13px;color:#545F71;margin-top:2px">{{ near.hours }}</div>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:10px">
+              <a href="{{ near.tel }}" onClick="{{ near.telClick }}" style="font-size:13.5px;font-weight:600;color:#0050A0">{{ near.phone }}</a>
+              <a href="{{ near.dir }}" onClick="{{ near.dirClick }}" target="_blank" rel="noopener" style="font-size:13.5px;font-weight:600;color:#0050A0">Navigacija ↗</a>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="{{ S.card }}">
+        <h3 style="{{ S.h3 }}">Usluge u trgovinama</h3>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:12px">
+          <sc-for list="{{ storeServices }}" as="x" hint-placeholder-count="4">
+            <div style="display:flex;gap:10px">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1FB549" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><polyline points="5 12.5 10 17.5 19 7"></polyline></svg>
+              <div><div style="font-size:14px;font-weight:600;color:#101117">{{ x.t }}</div><div style="font-size:12.5px;line-height:1.45;color:#545F71">{{ x.s }}</div></div>
+            </div>
+          </sc-for>
+        </div>
+        <h3 style="{{ S.h3sub }}">Radno vrijeme blagdanima</h3>
+        <sc-for list="{{ holidays }}" as="h" hint-placeholder-count="5">
+          <div style="{{ S.holRow }}"><span><b style="color:#101117;font-weight:600">{{ h.d }}</b> {{ h.n }}</span><span style="white-space:nowrap">{{ h.h }}</span></div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 3. DOSTAVA I USLUGE ═══ -->
+  <section data-sec="usluge" style="{{ S.wrap }}">
+    <h2 style="{{ S.h2 }}">Kako Big Bang dostavlja i koje usluge nudi?</h2>
+    <p style="{{ S.lead }}">{{ deliveryLead }}</p>
+
+    <div style="{{ S.delGrid }}">
+      <sc-for list="{{ delivery }}" as="d" hint-placeholder-count="4">
+        <div style="{{ S.delCard }}">
+          <h3 style="font-size:15px;font-weight:700;color:#101117;margin:0">{{ d.t }}</h3>
+          <div style="font-size:13px;color:#545F71">{{ d.time }}</div>
+          <div style="{{ S.delPrice }}">{{ d.price }}</div>
+          <div style="font-size:12.5px;color:#545F71;line-height:1.4">{{ d.note }}</div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="{{ S.twoCol }}">
+      <div style="{{ S.card }}">
+        <h3 style="{{ S.h3 }}">Montaža i dodatne usluge</h3>
+        <div style="display:flex;flex-direction:column;margin-top:8px">
+          <sc-for list="{{ install }}" as="x" hint-placeholder-count="4">
+            <div style="{{ S.listRow }}">
+              <div style="min-width:0"><div style="font-size:14px;font-weight:600;color:#101117">{{ x.t }}</div><div style="font-size:12.5px;color:#545F71">{{ x.s }}</div></div>
+              <span style="font-size:14px;font-weight:700;color:#101117;white-space:nowrap">{{ x.p }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    <div style="{{ S.card }}">
+      <h3 style="{{ S.h3 }}">Big Bang ili drugi prodavatelji na tržnici</h3>
+      <div style="overflow-x:auto;margin-top:14px">
+        <table style="{{ S.table }}">
+          <thead>
+            <tr>
+              <th scope="col" style="{{ S.th }}"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Usporedba</span></th>
+              <th scope="col" style="{{ S.thBB }}">Big Bang</th>
+              <th scope="col" style="{{ S.th }}">Drugi prodavatelji</th>
+            </tr>
+          </thead>
+          <tbody>
+            <sc-for list="{{ compare }}" as="c" hint-placeholder-count="7">
+              <tr>
+                <th scope="row" style="{{ S.tdK }}">{{ c.k }}</th>
+                <td style="{{ S.tdBB }}"><span style="display:flex;gap:8px;align-items:flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1FB549" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><polyline points="5 12.5 10 17.5 19 7"></polyline></svg>{{ c.bb }}</span></td>
+                <td style="{{ S.td }}">{{ c.mp }}</td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+      <a href="#" onClick="{{ openNotice }}" style="display:inline-block;margin-top:12px;font-size:13.5px;font-weight:600;color:#0050A0;text-decoration:underline;text-underline-offset:2px">Vaša prava na zakonsko jamstvo</a>
+    </div>
+    </div>
+  </section>
+
+  <!-- ═══ 4. RECENZIJE ═══ -->
+  <section data-sec="recenzije" style="{{ S.wrap }}">
+    <h2 style="{{ S.h2 }}">Kakva su iskustva kupaca s Big Bangom?</h2>
+    <p style="{{ S.lead }}">{{ reviewsLead }}</p>
+
+    <div style="{{ S.revHead }}">
+      <div style="{{ S.revSummary }}"><span style="{{ S.starsBoxLg }}"><span style="color:#D5D9E0">★★★★★</span><span style="{{ avgFill }}">★★★★★</span></span><b style="font-size:20px;color:#101117">{{ rating.avg }}</b><span style="font-size:14px;color:#545F71">od 5 · {{ rating.count }} provjerenih ocjena</span></div>
+      <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;gap:10px">
+          <button onClick="{{ revPrev }}" aria-label="Prethodne recenzije" style="{{ S.arrow }}" style-hover="background:#E7E7EE"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+          <button onClick="{{ revNext }}" aria-label="Sljedeće recenzije" style="{{ S.arrow }}" style-hover="background:#E7E7EE"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+        </div>
+      </sc-if>
+    </div>
+    <div ref="{{ revRef }}" class="nsb" style="{{ S.revTrack }}">
+      <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="4">
+        <article style="{{ S.revCard }}">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px">
+            <span style="{{ S.starsBox }}" aria-label="{{ r.aria }}"><span style="color:#D5D9E0">★★★★★</span><span style="{{ r.fill }}">★★★★★</span></span>
+            <span style="{{ S.verified }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12.5 10 17.5 19 7"></polyline></svg>Provjerena kupnja</span>
+          </div>
+          <h4 style="font-size:15px;font-weight:700;color:#101117;margin:12px 0 0">{{ r.h }}</h4>
+          <p style="font-size:14px;line-height:1.55;color:#353B47;margin:6px 0 0;flex:1">{{ r.t }}</p>
+          <div style="display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:12px;border-top:1px solid #EEF0F3">
+            <span style="{{ S.avatar }}">{{ r.ini }}</span>
+            <div style="min-width:0">
+              <div style="font-size:13.5px;font-weight:700;color:#101117">{{ r.n }} <span style="font-weight:400;color:#8B95A5">· {{ r.d }}</span></div>
+              <div style="font-size:12.5px;color:#545F71;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Kupljeno: {{ r.p }}</div>
+            </div>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+
+    <p style="{{ S.legalNote }}">Prikazujemo samo recenzije kupaca s potvrđenom kupnjom kod Big Banga.</p>
+  </section>
+
+  <!-- ═══ 5. PONUDA ═══ -->
+  <section data-sec="ponuda" style="{{ S.wrap }}">
+    <h2 style="{{ S.h2 }}">Što Big Bang prodaje?</h2>
+    <p style="{{ S.lead }}">{{ offerLead }}</p>
+
+    <div style="{{ S.catGrid }}">
+      <sc-for list="{{ cats }}" as="c" hint-placeholder-count="12">
+        <a href="#" onClick="{{ c.click }}" class="imz" style="{{ S.catTile }}">
+          <div style="{{ S.catImg }}"><div class="pimg" style="{{ c.imgStyle }}"></div></div>
+          <span style="{{ S.catLabel }}">{{ c.label }}</span>
+          <span style="{{ S.catCount }}">{{ c.countLabel }}</span>
+        </a>
+      </sc-for>
+    </div>
+
+    <div style="{{ S.titleRowTop }}">
+      <h2 style="{{ S.h2row }}">Najprodavanije po kategoriji</h2>
+      <a href="#" onClick="{{ bestAll }}" class="arw" style="{{ S.link }}">Prikaži sve: {{ bestCat }} <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+    </div>
+    <div class="nsb" style="{{ S.tabs }}">
+      <sc-for list="{{ bestTabs }}" as="t" hint-placeholder-count="8">
+        <button onClick="{{ t.click }}" style="{{ t.style }}">{{ t.label }}</button>
+      </sc-for>
+    </div>
+  </section>
+  <div style="{{ S.carPull }}">
+    <dc-import name="Components/ProductCarousel" variant="{{ v }}" title="" show-all="{{ false }}" products="{{ bestList }}" on-open-product="{{ openProduct }}" hint-size="100%,560px"></dc-import>
+  </div>
+  <dc-import name="Components/ProductCarousel" variant="{{ v }}" title="Akcije Big Banga" show-all="{{ false }}" products="{{ saleList }}" on-open-product="{{ openProduct }}" hint-size="100%,560px"></dc-import>
+
+  <section style="{{ S.wrap }}">
+    <div style="{{ S.titleRow }}">
+      <h2 style="{{ S.h2row }}">Brendovi u ponudi Big Banga</h2>
+      <a href="#" onClick="{{ goBrands }}" class="arw" style="{{ S.link }}">Svi brendovi <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+    </div>
+    <div class="nsb" style="{{ S.brandTrack }}">
+      <sc-for list="{{ brandSlider }}" as="b" hint-placeholder-count="10">
+        <a href="#" onClick="{{ b.click }}" class="imz" style="{{ S.brandTile }}" style-hover="color:#0050A0">
+          <sc-if value="{{ b.logo }}" hint-placeholder-val="{{ false }}"><img src="{{ b.logo }}" alt="{{ b.name }}" loading="lazy" style="max-width:100%;max-height:34px;object-fit:contain;display:block"></sc-if>
+          <sc-if value="{{ b.noLogo }}" hint-placeholder-val="{{ true }}"><span>{{ b.name }}</span></sc-if>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ═══ 6. KONTAKT ═══ -->
+  <section data-sec="kontakt" style="{{ S.wrap }}">
+    <h2 style="{{ S.h2 }}">Kako kontaktirati Big Bang?</h2>
+    <p style="{{ S.lead }}">{{ contactLead }}</p>
+    <div style="{{ S.supGrid }}">
+      <sc-for list="{{ support }}" as="x" hint-placeholder-count="3">
+        <a href="{{ x.href }}" onClick="{{ x.click }}" style="{{ S.supCard }}" style-hover="color:#0050A0">
+          <span style="{{ S.icTileSm }}"><img src="{{ x.icon }}" alt="" width="22" height="22" style="display:block"></span>
+          <div style="min-width:0"><div style="font-size:13px;color:#545F71">{{ x.t }}</div><div style="font-size:16px;font-weight:700;color:inherit;overflow:hidden;text-overflow:ellipsis">{{ x.v }}</div><div style="font-size:12.5px;color:#8B95A5">{{ x.s }}</div></div>
+        </a>
+      </sc-for>
+    </div>
+    <div style="{{ S.compCard }}">
+      <h3 style="{{ S.h3 }}">Podaci o prodavatelju</h3>
+      <dl style="{{ S.compGrid }}">
+        <sc-for list="{{ company }}" as="c" hint-placeholder-count="6">
+          <div><dt style="font-size:11.5px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#8B95A5">{{ c.k }}</dt><dd style="font-size:14px;color:#101117;margin:4px 0 0">{{ c.v }}</dd></div>
+        </sc-for>
+      </dl>
+    </div>
+  </section>
+
+  <dc-import name="Components/GeoFaq" variant="{{ v }}" title="Kupnja od Big Banga — česta pitanja" items="{{ faq }}" hint-size="100%,860px"></dc-import>
+
+  <div style="{{ S.updated }}">Podaci na stranici ažurirani: {{ updated }}</div>
+</div>
+</x-dc>
+
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1480,&quot;height&quot;:3200},&quot;variant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;desktop&quot;,&quot;mobile&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;onHome&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;},&quot;onStores&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;},&quot;onBrands&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;},&quot;onOpenBrand&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(name: string) =&gt; void&quot;},&quot;onOpenProduct&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(p: any) =&gt; void&quot;},&quot;onOpenCategory&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(name: string) =&gt; void&quot;}}">
+/* Big Bang seller page (1P). All page content lives in DATA below (the page does not depend on a separate
+   data file loading). Products: category-products.js; stores: stores-data.js (both also loaded by the shell).
+   Values marked TBC are placeholders business must confirm. GA4: tracked clicks push
+   { event: 'seller_page_click', seller, click_type, click_label } to window.dataLayer. */
+const UPDATED = '16.10.2026.';
+const DATA = {
+  seo: {
+    title: 'Big Bang — službena trgovina tehnike | 17 trgovina, dostava i montaža',
+    description: 'Kupujte izravno od Big Banga: 17 trgovina u 13 gradova, dostava 1–3 dana (besplatno iznad 100 €), montaža, povrat 30 dana i do 36 rata bez kamata.',
+    url: 'https://www.bigbang.hr/prodavatelj/big-bang'
+  },
+  hero: {
+    title: 'Kupujte izravno od Big Banga',
+    claim: 'Big Bang je službeni prodavatelj na bigbang.hr: proizvode s oznakom „Prodaje i šalje: Big Bang” prodajemo, dostavljamo i servisiramo sami — uz stručni savjet u 17 trgovina diljem Hrvatske.',
+    points: [
+      { b: 'Povrat 30 dana', t: '— i u bilo kojoj trgovini' },
+      { b: 'Dostava 1–3 dana', t: '— besplatno iznad 100 €' },
+      { b: 'Montaža i priključak', t: '— TV na zid, klima, bijela tehnika' },
+      { b: 'Do 36 rata', t: '— bez kamata karticama banaka' }
+    ],
+    img: 'images/b2b-meeting.png'
+  },
+  stats: [ /* TBC */
+    { v: '30+', l: 'godina na tržištu' },
+    { v: '17', l: 'trgovina u 13 gradova' },
+    { v: '25.000+', l: 'proizvoda u ponudi' },
+    { v: '1 mil.+', l: 'zadovoljnih kupaca' },
+    { v: '4,8 / 5', l: 'prosječna ocjena kupaca', star: true }
+  ],
+  about: {
+    lead: 'Big Bang je trgovac potrošačkom elektronikom i kućanskim aparatima koji u Hrvatskoj posluje kroz 17 trgovina u 13 gradova i web trgovinu bigbang.hr. Iza robne marke Big Bang stoji tvrtka Sancta Domenica d.o.o. iz Svete Nedelje, osnovana 1991. godine.',
+    text: 'Danas u službenoj ponudi imamo više od 25.000 proizvoda svjetskih brendova. O kupcu brinemo i nakon kupnje: vlastitom dostavom velikih aparata, montažom, servisom i reklamacijama u svakoj trgovini.',
+    facts: [ /* TBC */
+      { k: 'Pravna osoba', v: 'Sancta Domenica d.o.o.' },
+      { k: 'Osnovano', v: '1991., Sveta Nedelja' },
+      { k: 'Trgovine', v: '17 u 13 gradova' },
+      { k: 'Asortiman', v: '25.000+ proizvoda' },,
+      { k: 'Podrška', v: '01 6655 555, svaki dan 8–20 h' }
+    ]
+  },
+  whyLead: 'Kod proizvoda s oznakom „Prodaje i šalje: Big Bang” sve rješavate kod jednog prodavatelja — od savjeta i dostave do povrata i servisa.',
+  usps: [
+    { ic: 'advice', t: 'Stručni savjet', s: 'U trgovini, telefonom ili chatom' },
+    { ic: 'shield', t: 'Službeno jamstvo', s: '2 godine + produljeno jamstvo' },
+    { ic: 'truck', t: 'Brza dostava', s: 'Besplatno iznad 100 €' },
+    { ic: 'tool', t: 'Montaža i priključak', s: 'TV na zid, klima, bijela tehnika' },
+    { ic: 'card', t: 'Rate bez kamata', s: 'Do 36 rata karticama banaka' },
+    { ic: 'return', t: 'Povrat 30 dana', s: 'Besplatno, u trgovini ili kurirom' }
+  ],
+  partners: ['Samsung', 'Apple', 'LG', 'Sony', 'Philips', 'Bosch', 'Gorenje', 'Xiaomi', 'Lenovo', 'HP', 'Dyson', 'Hisense'],
+  holidays: [ /* TBC */
+    { d: '1. 11.', n: 'Svi sveti', h: 'Zatvoreno' },
+    { d: '18. 11.', n: 'Dan sjećanja na Vukovar', h: 'Zatvoreno' },
+    { d: '24. 12.', n: 'Badnjak', h: '9–15 h' },
+    { d: '25. i 26. 12.', n: 'Božić i Sv. Stjepan', h: 'Zatvoreno' },
+    { d: '31. 12.', n: 'Stara godina', h: '9–15 h' }
+  ],
+  storeServices: [
+    { t: 'Savjetovanje i demo', s: 'Isprobajte televizore, laptope i mobitele prije kupnje.' },
+    { t: 'Preuzimanje narudžbi', s: 'Click & Collect — SMS s kodom kad je narudžba spremna.' },
+    { t: 'Reklamacije i servis', s: 'Predaja uređaja na servis u bilo kojoj trgovini.' },
+    { t: 'Povrat proizvoda', s: 'Online kupnju možete vratiti i u trgovini.' }
+  ],
+  deliveryLead: 'Standardna dostava traje 1–3 radna dana i stoji 4,99 €, a iznad 100 € je besplatna. Velike aparate dostavljamo s unosom u dom, priključkom i odvozom starog uređaja.',
+  delivery: [ /* TBC prices / thresholds */
+    { t: 'Standardna dostava', time: '1–3 radna dana', price: '4,99 €', note: 'Besplatno za narudžbe iznad 100 €' },
+    { t: 'Brza dostava', time: 'Sljedeći radni dan', price: '9,99 €', note: 'Za narudžbe do 14 h, mali paketi' },
+    { t: 'Paketomati', time: '1–2 radna dana', price: '2,99 €', note: 'BoxNow, GLS i Paket24 — 24/7' },
+    { t: 'Osobno preuzimanje', time: 'Već za 2 sata', price: 'Besplatno', note: 'U jednoj od 17 trgovina' }
+  ],
+  install: [
+    { t: 'TV na zid', p: 'od 49 €', s: 'Nosač, montaža i skrivanje kabela.' },
+    { t: 'Montaža klima uređaja', p: 'od 249 €', s: 'Standardna montaža s 3 m cijevi.' },
+    { t: 'Ugradbena tehnika', p: 'od 39 €', s: 'Pećnice, ploče, nape i perilice posuđa.' },
+    { t: 'Postavljanje uređaja', p: 'od 19,99 €', s: 'Laptop, mobitel, prijenos podataka.' }
+  ],
+  compare: [
+    { k: 'Povrat proizvoda', bb: '30 dana, i u trgovini', mp: '14 dana, kod prodavatelja' },
+    { k: 'Dostava', bb: 'Besplatno iznad 100 €, unos u dom i montaža', mp: 'Ovisi o prodavatelju, odvojeni paketi' },
+    { k: 'Osobno preuzimanje', bb: '17 trgovina, već za 2 sata', mp: 'Nije moguće' },
+    { k: 'Reklamacije i jamstvo', bb: 'U bilo kojoj Big Bang trgovini', mp: 'Izravno kod prodavatelja' },
+    { k: 'Plaćanje na rate', bb: 'Do 36 rata bez kamata', mp: 'Ovisi o prodavatelju' }
+  ],
+  rating: { avg: '4,8', count: '12.486', dist: [82, 12, 3, 1, 2] }, /* TBC */
+  google: { avg: '4,6', count: '8.900+' },
+  reviews: [ /* PLACEHOLDER reviews — replace with real verified reviews before launch (Omnibus) */
+    { n: 'Marija K.', d: '12.10.2026.', p: 'Perilica rublja BOSCH Serie 6, 9 kg', r: 5, h: 'Dostava, priključak i odvoz u jednom danu', t: 'Dostava točno u dogovoreno vrijeme. Dečki su perilicu unijeli u kupaonicu, spojili je i odvezli staru. Sve bez ijedne brige.' },
+    { n: 'Ivan P.', d: '08.10.2026.', p: 'TV SAMSUNG Neo QLED 55"', r: 5, h: 'Savjet uživo pa montaža sutradan', t: 'Savjetnik u Arena centru pokazao mi je razliku između modela uživo. Montaža na zid bila je sutradan, uredno i brzo.' },
+    { n: 'Ana M.', d: '02.10.2026.', p: 'Laptop LENOVO IdeaPad Slim 5', r: 4, h: 'Click & Collect isti dan', t: 'Naručila sam online i preuzela u trgovini isti dan. Prijenos podataka sa starog laptopa odradili su na licu mjesta.' },
+    { n: 'Tomislav B.', d: '27.09.2026.', p: 'Klima uređaj Hisense 3,5 kW', r: 5, h: 'Klima montirana za tjedan dana', t: 'Montaža klime tjedan dana od narudžbe, majstori čisti i ljubazni. Rate na 24 bez kamata su presudile.' },
+    { n: 'Petra Š.', d: '21.09.2026.', p: 'Usisavač Dyson V15', r: 5, h: 'Povrat bez ikakvih pitanja', t: 'Prvi model vratila sam u trgovini bez ikakvih pitanja i uzela jači. Novac za razliku odmah su obračunali.' },
+    { n: 'Luka V.', d: '15.09.2026.', p: 'Mobitel Samsung Galaxy S24', r: 4, h: 'Brzo do paketomata', t: 'Paket je stigao u paketomat sljedeći dan, cijena je bila odlična. Jedino bih volio više boja na zalihi.' }
+  ],
+  offerLead: 'Big Bang u službenoj ponudi ima više od 25.000 proizvoda u 12 kategorija — od televizora, mobitela i laptopa do bijele tehnike i klima uređaja — uz brendove Samsung, Apple, LG, Bosch i Philips.',
+  cats: [ /* counts TBC */
+    { label: 'Televizori', q: 'Televizori', img: 'images/cat-televizori.webp', count: 486 },
+    { label: 'Pametni telefoni', q: 'Pametni telefoni', img: 'images/cat-mobiteli.webp', count: 312 },
+    { label: 'Laptopi', q: 'Laptopi', img: 'images/cat-laptopi.webp', count: 428 },
+    { label: 'Stolna računala', q: 'Stolna računala', img: 'images/cat-stolna-racunala.webp', count: 164 },
+    { label: 'Pametni satovi', q: 'Pametni satovi', img: 'images/cat-pametni-satovi.webp', count: 158 },
+    { label: 'Audio oprema', q: 'Audio oprema', img: 'images/cat-audio.webp', count: 734 },
+    { label: 'Gaming', q: 'Gaming', img: 'images/cat-gaming.webp', count: 382 },
+    { label: 'Hladnjaci', q: 'Hladnjaci', img: 'images/cat-hladnjaci.webp', count: 276 },
+    { label: 'Perilice rublja', q: 'Perilice rublja', img: 'images/cat-perilice.webp', count: 214 },
+    { label: 'Pranje posuđa', q: 'Pranje posuđa', img: 'images/cat-pranje-posuda.webp', count: 132 },
+    { label: 'Klimatizacija', q: 'Klimatizacija i grijanje', img: 'images/cat-klima.webp', count: 196 },
+    { label: 'Mali kućanski aparati', q: 'Mali kućanski aparati', img: 'images/cat-mali-aparati.webp', count: 1248 }
+  ],
+  contactLead: 'Korisnička podrška Big Banga dostupna je svaki dan od 8 do 20 h na 01 6655 555 i na podrska@bigbang.hr.',
+  support: [
+    { t: 'Pozivni centar', v: '01 6655 555', href: 'tel:016655555', s: 'Svaki dan 8–20 h', ic: 'phone' },
+    { t: 'E-mail', v: 'podrska@bigbang.hr', href: 'mailto:podrska@bigbang.hr', s: 'Odgovor unutar 24 h', ic: 'mail' },
+    { t: 'Chat', v: 'Pokreni chat', href: '', s: 'Pon–Sub 8–20 h', ic: 'chat', chat: true }
+  ],
+  company: [
+    { k: 'Naziv društva', v: 'Sancta Domenica d.o.o.' },
+    { k: 'Robna marka', v: 'Big Bang' },
+    { k: 'Sjedište', v: 'Dr. Franje Tuđmana 69, 10431 Sveta Nedelja' },
+    { k: 'OIB', v: '15721232640' },
+    { k: 'MBS', v: '080011754' },
+    { k: 'Registarski sud', v: 'Trgovački sud u Zagrebu' }
+  ],
+  faq: [
+    { q: 'Tko stoji iza Big Banga u Hrvatskoj?', a: 'Big Bang je robna marka pod kojom posluje Sancta Domenica d.o.o. iz Svete Nedelje, trgovac tehnikom osnovan 1991. godine. Tvrtka ima 17 trgovina u 13 hrvatskih gradova i web trgovinu bigbang.hr, a proizvode s oznakom „Prodaje i šalje: Big Bang” prodaje, dostavlja i servisira sama.' },
+    { q: 'Koliko košta dostava kad kupujem od Big Banga?', a: 'Standardna dostava proizvoda koje prodaje Big Bang košta 4,99 €, a za narudžbe iznad 100 € je besplatna. Brza dostava sljedeći radni dan dostupna je za male pakete naručene do 14 h. Velike kućanske aparate dostavljamo s unosom u dom, a uz nadoplatu i s priključkom te odvozom starog uređaja.' },
+    { q: 'Mogu li vratiti proizvod kupljen online?', a: 'Da. Proizvode koje prodaje Big Bang možete vratiti u roku od 30 dana bez navođenja razloga — u bilo kojoj od naših 17 trgovina ili kurirom. Proizvod vratite u originalnom pakiranju sa svim dodacima, a novac vraćamo na isti način plaćanja u roku od 14 dana.' },
+    { q: 'Kako funkcionira jamstvo i reklamacija?', a: 'Svi novi proizvodi imaju zakonsko jamstvo od 2 godine. Reklamaciju možete predati u bilo kojoj Big Bang trgovini ili putem korisničke podrške, bez obzira na to gdje ste kupili. Uz dodatnu plaćenu uslugu Big Bang Asistenca ili Zaštita Plus dobivate prioritetnu podršku i zaštitu od slučajnih oštećenja.' },
+    { q: 'Gdje se nalazi najbliža Big Bang trgovina?', a: 'Big Bang ima 17 trgovina: pet u Zagrebu i okolici (uključujući Westgate u Zaprešiću) te po jednu u Svetoj Nedelji, Splitu, Rijeci, Osijeku, Zadru, Varaždinu, Puli, Slavonskom Brodu, Dubrovniku, Karlovcu, Šibeniku i Čakovcu. Većina radi od ponedjeljka do subote od 9 do 21 h, a trgovine u trgovačkim centrima i nedjeljom od 10 do 20 h.' },
+    { q: 'Po čemu se razlikuje kupnja od Big Banga i od drugih prodavatelja?', a: 'Kod proizvoda s oznakom „Prodaje i šalje: Big Bang” kupujete izravno od nas: povrat je 30 dana, reklamaciju rješavate u našim trgovinama, a dostupni su osobno preuzimanje, montaža i rate. Proizvode drugih prodavatelja na tržnici šalje i fakturira taj prodavatelj, prema svojim uvjetima.' }
+  ]
+};
+
+const KNOWN_BRANDS = ['Samsung', 'LG', 'Hisense', 'Philips', 'Apple', 'Xiaomi', 'Huawei', 'Lenovo', 'HP', 'ASUS', 'Acer', 'Bosch', 'Gorenje', 'Sony', 'Dyson', 'Krups', 'Braun', 'Oral-B', 'GoPro', 'DJI', 'Insta360', 'Nintendo', 'JBL', 'Nutribullet', 'Beko', 'Whirlpool', 'Electrolux', 'Candy', 'Midea', 'Tefal', 'Rowenta', 'Bose', 'Sonos', 'Marshall', 'Gree', 'Vivax', 'Siemens', 'AEG', 'Haier', 'FlexStrike', 'Logitech', 'Microsoft'];
+const LOGOS = { Samsung: 'images/brands/samsung.png' };
+const PRICE_OPTS = [{ v: '', l: 'Cijena: sve', min: 0, max: 1e9 }, { v: 'a', l: 'Do 100 €', min: 0, max: 100 }, { v: 'b', l: '100 – 300 €', min: 100, max: 300 }, { v: 'c', l: '300 – 700 €', min: 300, max: 700 }, { v: 'd', l: '700 – 1.200 €', min: 700, max: 1200 }, { v: 'e', l: 'Iznad 1.200 €', min: 1200, max: 1e9 }];
+const NAV = [{ id: 'onama', label: 'O nama' }, { id: 'zasto', label: 'Zašto Big Bang' }, { id: 'trgovine', label: 'Trgovine' }, { id: 'usluge', label: 'Dostava i usluge' }, { id: 'recenzije', label: 'Recenzije' }, { id: 'ponuda', label: 'Ponuda' }, { id: 'kontakt', label: 'Kontakt' }];
+const ICONS = {
+  advice: '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9 11h6M9 14h4"/>',
+  shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>',
+  truck: '<path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/>',
+  tool: '<path d="M14.7 6.3a4 4 0 0 0-5.2 5.2L3 18l3 3 6.5-6.5a4 4 0 0 0 5.2-5.2l-2.5 2.5-2.6-.4-.4-2.6z"/>',
+  card: '<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/>',
+  return: '<path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/>',
+  phone: '<path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5L17 13l4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3.5 6.5 12 13 20.5 6.5"/>',
+  chat: '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><circle cx="8.5" cy="12" r=".6"/><circle cx="12" cy="12" r=".6"/><circle cx="15.5" cy="12" r=".6"/>'
+};
+const num = (s) => parseFloat(String(s || '').replace(/[^\d,]/g, '').replace(',', '.')) || 0;
+const fmt = (n) => n.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' €';
+const hash = (s) => { let h = 7; for (const ch of String(s)) h = (h * 31 + ch.charCodeAt(0)) % 100003; return h; };
+const brandOf = (name) => { const n = String(name || '').toLowerCase(); for (const b of KNOWN_BRANDS) { if (new RegExp('(^|[^a-z])' + b.toLowerCase().replace(/[-+]/g, '\\$&') + '([^a-z]|$)').test(n)) return b; } return 'Ostalo'; };
+const svgURI = (inner) => 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#002D73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + inner + '</svg>');
+const DAYN = ['Ned', 'Pon', 'Uto', 'Sri', 'Čet', 'Pet', 'Sub'];
+const todayHours = (st) => {
+  const h = st.hours || ''; const dow = new Date().getDay();
+  const sun = h.match(/Ned\s*(\d+)–(\d+)/); const wk = h.match(/Pon–Sub\s*(\d+)–(\d+)/);
+  if (dow === 0) return 'Danas (' + DAYN[0] + '): ' + (sun ? sun[1] + '–' + sun[2] + ' h' : 'zatvoreno');
+  return 'Danas (' + DAYN[dow] + '): ' + (wk ? wk[1] + '–' + wk[2] + ' h' : h);
+};
+const km = (a, b) => { const R = 6371, r = Math.PI / 180, dLa = (b.lat - a.lat) * r, dLo = (b.lng - a.lng) * r; const x = Math.sin(dLa / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dLo / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(x)); };
+const toOH = (h) => { const o = []; const wk = String(h).match(/Pon–Sub\s*(\d+)–(\d+)/); const sun = String(h).match(/Ned\s*(\d+)–(\d+)/); if (wk) o.push('Mo-Sa ' + wk[1].padStart(2, '0') + ':00-' + wk[2] + ':00'); if (sun) o.push('Su ' + sun[1] + ':00-' + sun[2] + ':00'); return o; };
+
+class Component extends DCLogic {
+  state = { tick: 0, sec: '', bestIdx: 0, catF: '', brandF: '', priceF: '', storeF: '', sortF: 'pop', q: '', qApplied: '', shown: 0, mapCity: '', near: -1, nearKm: '', locMsg: '', locBusy: false, stockIdx: 0 };
+  root = null;
+  rootRef = (el) => { if (el) this.root = el; };
+  revRef = React.createRef();
+
+  componentDidMount() {
+    /* products + stores come from shell-loaded scripts; re-render once they are there */
+    if (!(window.BBCatProducts && window.BB_STORES)) {
+      let n = 0;
+      this.iv = setInterval(() => { if ((window.BBCatProducts && window.BB_STORES) || ++n > 80) { clearInterval(this.iv); this._pool = null; this.setState({ tick: n }); this.seo(); } }, 100);
+    }
+    this.seo();
+  }
+  componentWillUnmount() {
+    clearInterval(this.iv);
+    if (this.prevTitle != null) document.title = this.prevTitle;
+    if (this.metaEl) { if (this.metaCreated) this.metaEl.remove(); else this.metaEl.setAttribute('content', this.prevDesc || ''); }
+    const ld = document.getElementById('bb-ld-seller'); if (ld) ld.remove();
+  }
+
+  /* SEO / GEO: title, meta description and one JSON-LD graph — WebPage + BreadcrumbList + Organization
+     (AggregateRating, Reviews, OfferCatalog, ContactPoint) + ElectronicsStore per store. FAQPage comes from GeoFaq. */
+  seo() {
+    const D = DATA, stores = window.BB_STORES || [];
+    if (this.prevTitle == null) {
+      this.prevTitle = document.title;
+      let m = document.querySelector('meta[name="description"]');
+      if (!m) { m = document.createElement('meta'); m.setAttribute('name', 'description'); document.head.appendChild(m); this.metaCreated = true; } else this.prevDesc = m.getAttribute('content');
+      this.metaEl = m;
+    }
+    document.title = D.seo.title; this.metaEl.setAttribute('content', D.seo.description);
+    const org = D.seo.url + '#org';
+    const ld = { '@context': 'https://schema.org', '@graph': [
+      { '@type': 'WebPage', '@id': D.seo.url, url: D.seo.url, name: D.seo.title, description: D.seo.description, inLanguage: 'hr-HR', dateModified: '2026-10-16', about: { '@id': org }, breadcrumb: { '@id': D.seo.url + '#bc' } },
+      { '@type': 'BreadcrumbList', '@id': D.seo.url + '#bc', itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Big Bang', item: 'https://www.bigbang.hr/' },
+        { '@type': 'ListItem', position: 2, name: 'Prodavatelji', item: 'https://www.bigbang.hr/prodavatelji' },
+        { '@type': 'ListItem', position: 3, name: 'Big Bang', item: D.seo.url } ] },
+      { '@type': 'Organization', '@id': org, name: 'Big Bang', legalName: 'Sancta Domenica d.o.o.', url: 'https://www.bigbang.hr', logo: 'https://www.bigbang.hr/logo.svg', taxID: '15721232640', foundingDate: '1991', foundingLocation: 'Sveta Nedelja, Hrvatska', numberOfLocations: stores.length || 17, areaServed: 'HR',
+        description: D.about.lead,
+        address: { '@type': 'PostalAddress', streetAddress: 'Dr. Franje Tuđmana 69', postalCode: '10431', addressLocality: 'Sveta Nedelja', addressCountry: 'HR' },
+        contactPoint: [{ '@type': 'ContactPoint', telephone: '+385-1-6655-555', email: 'podrska@bigbang.hr', contactType: 'customer service', availableLanguage: 'hr', hoursAvailable: { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], opens: '08:00', closes: '20:00' } }],
+        aggregateRating: { '@type': 'AggregateRating', ratingValue: D.rating.avg.replace(',', '.'), reviewCount: D.rating.count.replace(/\./g, ''), bestRating: '5', worstRating: '1' },
+        review: D.reviews.map(r => ({ '@type': 'Review', author: { '@type': 'Person', name: r.n }, datePublished: r.d.split('.').slice(0, 3).reverse().join('-'), name: r.h, reviewBody: r.t, reviewRating: { '@type': 'Rating', ratingValue: r.r, bestRating: 5 } })),
+        hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Službena ponuda Big Banga', itemListElement: D.cats.map(c => ({ '@type': 'OfferCatalog', name: c.label, numberOfItems: c.count })) },
+        hasMerchantReturnPolicy: { '@type': 'MerchantReturnPolicy', applicableCountry: 'HR', returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow', merchantReturnDays: 30, returnMethod: ['https://schema.org/ReturnInStore', 'https://schema.org/ReturnByMail'], returnFees: 'https://schema.org/FreeReturn' } }
+    ].concat(stores.map(st => ({ '@type': 'ElectronicsStore', name: st.name, parentOrganization: { '@id': org }, telephone: st.phone, openingHours: toOH(st.hours),
+        address: { '@type': 'PostalAddress', streetAddress: st.address, addressLocality: st.city, addressCountry: 'HR' },
+        geo: { '@type': 'GeoCoordinates', latitude: st.lat, longitude: st.lng } }))) };
+    let el = document.getElementById('bb-ld-seller');
+    if (!el) { el = document.createElement('script'); el.type = 'application/ld+json'; el.id = 'bb-ld-seller'; document.head.appendChild(el); }
+    el.textContent = JSON.stringify(ld);
+  }
+
+  track = (type, label) => { try { (window.dataLayer = window.dataLayer || []).push({ event: 'seller_page_click', seller: 'Big Bang', click_type: type, click_label: String(label || '') }); } catch (e) {} };
+
+  scrollToSec = (id) => {
+    const el = this.root && this.root.querySelector('[data-sec="' + id + '"]'); if (!el) return;
+    let node = el.parentElement, cont = null;
+    while (node && node !== document.body && node !== document.documentElement) {
+      const oy = getComputedStyle(node).overflowY;
+      if ((oy === 'auto' || oy === 'scroll') && node.scrollHeight > node.clientHeight) { cont = node; break; }
+      node = node.parentElement;
+    }
+    const r = el.getBoundingClientRect();
+    if (cont) { const cr = cont.getBoundingClientRect(); cont.scrollBy({ top: r.top - cr.top - 120, behavior: 'smooth' }); }
+    else window.scrollBy({ top: r.top - 140, behavior: 'smooth' });
+  };
+  go = (id, type) => (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ sec: id }); if (type) this.track(type, id); this.scrollToSec(id); };
+
+  pool() {
+    if (this._pool) return this._pool;
+    const CP = window.BBCatProducts; if (!CP) return [];
+    const seen = {}, out = [], STORES = window.BB_STORES || [];
+    DATA.cats.forEach(c => (CP.forCat({ name: c.q, l3: c.q }) || []).forEach(p => {
+      if (seen[p.name]) return; seen[p.name] = 1;
+      const price = num(p.price), old = num(p.old), h = hash(p.name);
+      const stores = STORES.map((st, i) => ({ i, n: (hash(p.name + i) % 7) - 1 })).filter(x => x.n > 0);
+      out.push(Object.assign({}, p, { cat: c.label, brand: brandOf(p.name), pn: price, on: old, pct: old ? (old - price) / old : 0, pop: h % 1000, inStores: stores }));
+    }));
+    if (out.length) this._pool = out;
+    return out;
+  }
+  cardOf = (p) => {
+    const energyOk = window.BBEnergy ? window.BBEnergy.allowed(p.name) : false;
+    const h = hash(p.name);
+    return {
+      img: p.img, name: p.name, price: p.price, old: p.old || '', disc: p.on ? fmt(p.on - p.pn).replace(',00 €', ' €') : '',
+      rate: fmt(p.pn / 12) + ' / 12 rata', rating: 4 + (h % 10) / 10, reviews: 12 + h % 240,
+      avail: p.inStores.length ? 'Dostupno u ' + p.inStores.length + ' trgovina' : 'Dostupno online', availTone: 'in', seller: 'Big Bang',
+      pills: p.pn >= 100 ? [{ label: 'Besplatna dostava', tone: 'blue' }] : [],
+      energy: energyOk ? (/^tv /i.test(p.name) ? 'F' : 'B') : ''
+    };
+  };
+  open = (p) => () => { this.track('product', p.name); if (this.props.onOpenProduct) this.props.onOpenProduct(p); };
+
+  locate = () => {
+    this.track('cta', 'najbliza_trgovina');
+    if (!navigator.geolocation) { this.setState({ locMsg: 'Vaš preglednik ne podržava lokaciju — odaberite grad.' }); return; }
+    this.setState({ locBusy: true, locMsg: '' });
+    navigator.geolocation.getCurrentPosition((pos) => {
+      const me = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+      let best = -1, bd = 1e9; (window.BB_STORES || []).forEach((st, i) => { const d = km(me, st); if (d < bd) { bd = d; best = i; } });
+      this.setState({ locBusy: false, near: best, nearKm: best > -1 ? '≈ ' + (bd < 10 ? bd.toFixed(1).replace('.', ',') : Math.round(bd)) + ' km od vas' : '', mapCity: best > -1 ? window.BB_STORES[best].city : '' });
+    }, () => this.setState({ locBusy: false, locMsg: 'Lokacija nije dostupna — odaberite grad iz popisa.' }), { timeout: 8000 });
+  };
+
+  renderVals() {
+    const p = this.props, s = this.state, D = DATA;
+    const mobile = p.variant === 'mobile';
+    const STORES = window.BB_STORES || [];
+    const st = (d, m) => mobile ? Object.assign({}, d, m || {}) : d;
+    const pad = mobile ? '0 12px' : '0 20px';
+    const S = {
+      page: { background: '#F1F1F4', fontFamily: 'Inter,sans-serif', color: '#101117', paddingBottom: mobile ? 32 : 56 },
+      wrapTop: { maxWidth: 1480, margin: '0 auto', padding: mobile ? '12px 12px 0' : '18px 20px 0', boxSizing: 'border-box' },
+      wrapHero: { maxWidth: 1480, margin: '0 auto', padding: pad, boxSizing: 'border-box' },
+      wrap: { maxWidth: 1480, margin: mobile ? '32px auto 0' : '56px auto 0', padding: pad, boxSizing: 'border-box' },
+      carPull: { marginTop: mobile ? -36 : -52 },
+      hero: st({ display: 'grid', gridTemplateColumns: 'minmax(0,1.1fr) minmax(0,1fr)', gap: 24, background: '#fff', borderRadius: 16, padding: 24, alignItems: 'stretch', marginTop: 12 }, { gridTemplateColumns: '1fr', gap: 16, padding: 16, borderRadius: 12, marginTop: 8 }),
+      heroText: st({ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '20px 12px 20px 20px' }, { padding: 0, order: 2 }),
+      heroLogoRow: { display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' },
+      logoBox: st({ width: 162, height: 60, flexShrink: 0, borderRadius: 8, overflow: 'hidden' }, { width: 119, height: 44, borderRadius: 6 }),
+      badge: st({ display: 'inline-flex', alignItems: 'center', gap: 6, background: '#10DFBA', color: '#002D73', fontSize: 13, fontWeight: 700, padding: '6px 12px', borderRadius: 16 }, { fontSize: 11.5, padding: '5px 10px' }),
+      h1: st({ fontSize: 44, fontWeight: 700, letterSpacing: '-0.03em', lineHeight: 1.1, color: '#101117', margin: '20px 0 0', textWrap: 'balance' }, { fontSize: 28, margin: '14px 0 0' }),
+      heroClaim: st({ fontSize: 17, lineHeight: 1.55, color: '#545F71', margin: '14px 0 0', maxWidth: 600, textWrap: 'pretty' }, { fontSize: 14.5, margin: '10px 0 0' }),
+      heroList: st({ listStyle: 'none', margin: '20px 0 0', padding: 0, display: 'grid', gridTemplateColumns: 'repeat(2,minmax(0,1fr))', gap: '10px 20px', maxWidth: 620 }, { gridTemplateColumns: '1fr', gap: 8, margin: '14px 0 0' }),
+      heroLi: st({ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 14.5, lineHeight: 1.45, color: '#545F71' }, { fontSize: 13.5 }),
+      checkDot: { width: 20, height: 20, borderRadius: 10, background: '#10DFBA', color: '#002D73', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 1 },
+      heroCtas: st({ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 28 }, { marginTop: 18, flexDirection: 'column' }),
+      ctaFill: { height: 52, padding: '0 28px', borderRadius: 26, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8, fontSize: 16, fontWeight: 700, textDecoration: 'none' },
+      ctaLine: { height: 52, padding: '0 28px', borderRadius: 26, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8, fontSize: 16, fontWeight: 700, background: '#fff', border: '1.5px solid #0050A0', color: '#0050A0', cursor: 'pointer', fontFamily: 'inherit', textDecoration: 'none' },
+      heroImgBox: st({ position: 'relative', borderRadius: 12, overflow: 'hidden', minHeight: 420, background: '#E9EAEE' }, { minHeight: 0, height: 200, order: 1 }),
+      heroImgChip: st({ position: 'absolute', left: 16, bottom: 16, display: 'flex', alignItems: 'center', gap: 8, background: '#fff', borderRadius: 24, padding: '8px 14px', fontSize: 13.5, boxShadow: '0 6px 18px rgba(16,17,23,0.14)' }, { left: 10, bottom: 10, fontSize: 12, padding: '6px 10px' }),
+      starsBox: { position: 'relative', display: 'inline-block', fontSize: 15, letterSpacing: 1, lineHeight: 1 },
+      starsBoxLg: { position: 'relative', display: 'inline-block', fontSize: 22, letterSpacing: 2, lineHeight: 1 },
+      stats: st({ display: 'grid', gridTemplateColumns: 'repeat(5,minmax(0,1fr))', gap: 16, marginTop: 16 }, { gridTemplateColumns: 'repeat(2,minmax(0,1fr))', gap: 8, marginTop: 8 }),
+      stat: st({ background: '#fff', borderRadius: 12, padding: '20px 22px' }, { padding: '14px' }),
+      statV: st({ fontSize: 30, fontWeight: 800, letterSpacing: '-0.03em', color: '#002D73' }, { fontSize: 22 }),
+      statL: st({ fontSize: 13.5, color: '#545F71', marginTop: 2 }, { fontSize: 12 }),
+      navBar: st({ position: 'sticky', top: 72, zIndex: 20, marginTop: 24, background: '#F1F1F4', padding: '10px 0' }, { top: 55, marginTop: 16, padding: '8px 0' }),
+      navInner: { maxWidth: 1480, margin: '0 auto', padding: pad, display: 'flex', gap: 8, overflowX: 'auto', boxSizing: 'border-box' },
+      card: st({ background: '#fff', borderRadius: 12, padding: '28px 32px', minWidth: 0, boxSizing: 'border-box' }, { padding: '20px 16px' }),
+      h2: st({ fontSize: 24, fontWeight: 600, letterSpacing: '-0.02em', lineHeight: 1.25, color: '#101117', margin: '0 0 8px', textWrap: 'balance' }, { fontSize: 17, margin: '0 0 6px' }),
+      h2row: st({ fontSize: 24, fontWeight: 600, letterSpacing: '-0.02em', lineHeight: 1.25, color: '#101117', margin: 0, display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }, { fontSize: 17 }),
+      titleRow: st({ display: 'flex', alignItems: 'baseline', gap: 22, flexWrap: 'wrap', marginBottom: 8 }, { gap: '4px 14px', marginBottom: 6 }),
+      titleRowTop: st({ display: 'flex', alignItems: 'baseline', gap: 22, flexWrap: 'wrap', margin: '48px 0 14px' }, { gap: '4px 14px', margin: '32px 0 10px' }),
+      offerHead: st({ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 20, flexWrap: 'wrap', marginBottom: 8 }, { flexDirection: 'column', alignItems: 'stretch', gap: 10 }),
+      lead: st({ fontSize: 15.5, lineHeight: 1.6, color: '#545F71', margin: '0 0 20px', maxWidth: 920, textWrap: 'pretty' }, { fontSize: 14, margin: '0 0 14px' }),
+      h3: st({ fontSize: 18, fontWeight: 600, letterSpacing: '-0.01em', color: '#101117', margin: 0 }, { fontSize: 16 }),
+      h3sub: st({ fontSize: 16, fontWeight: 600, color: '#101117', margin: '24px 0 10px' }, { fontSize: 15, margin: '20px 0 8px' }),
+      h3top: st({ fontSize: 18, fontWeight: 600, color: '#101117', margin: '32px 0 14px' }, { fontSize: 16, margin: '24px 0 10px' }),
+      pLead: st({ fontSize: 17, lineHeight: 1.6, fontWeight: 500, color: '#101117', margin: '0 0 12px', textWrap: 'pretty' }, { fontSize: 15 }),
+      p0: st({ fontSize: 15, lineHeight: 1.65, color: '#545F71', margin: 0, textWrap: 'pretty' }, { fontSize: 14 }),
+      revSummary: { display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' },
+      p: st({ fontSize: 15, lineHeight: 1.65, color: '#545F71', margin: '0 0 12px', textWrap: 'pretty' }, { fontSize: 14 }),
+      small: { fontSize: 13.5, lineHeight: 1.5, color: '#545F71', margin: '6px 0 0' },
+      link: { display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: mobile ? 13.5 : 15, fontWeight: 600, color: '#0050A0', whiteSpace: 'nowrap' },
+      quote: st({ margin: '20px 0 0', padding: '18px 22px', background: '#F7F8FA', borderRadius: 12, fontSize: 18, fontWeight: 600, lineHeight: 1.45, color: '#002D73', fontStyle: 'normal' }, { fontSize: 15.5, padding: '14px 16px' }),
+      storyGrid: st({ display: 'grid', gridTemplateColumns: 'minmax(0,1.4fr) minmax(0,1fr)', gap: 16, alignItems: 'stretch' }, { gridTemplateColumns: '1fr', gap: 8 }),
+      aboutSide: { display: 'flex', flexDirection: 'column', gap: mobile ? 8 : 16, minWidth: 0 },
+      storyImg: st({ width: '100%', minHeight: 220, borderRadius: 12, border: 'none', background: '#E9EAEE', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 6, cursor: 'pointer', fontFamily: 'inherit', padding: 16 }, { minHeight: 180 }),
+      playBtn: { width: 56, height: 56, borderRadius: 28, background: '#10DFBA', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 6, paddingLeft: 3, boxSizing: 'border-box' },
+      factGrid: { margin: '10px 0 0', display: 'flex', flexDirection: 'column' },
+      factRow: { display: 'flex', justifyContent: 'space-between', gap: 16, padding: '9px 0', fontSize: 13.5, borderBottom: '1px solid #EEF0F3' },
+      timeline: { listStyle: 'none', margin: '12px 0 0', padding: 0, display: 'flex', flexDirection: 'column', gap: 12 },
+      tlItem: { display: 'flex', gap: 14, alignItems: 'baseline' },
+      tlYear: { flexShrink: 0, minWidth: 58, fontSize: 14, fontWeight: 800, color: '#002D73' },
+      values: st({ display: 'grid', gridTemplateColumns: 'repeat(3,minmax(0,1fr))', gap: 12 }, { gridTemplateColumns: '1fr', gap: 8 }),
+      valueBox: { background: '#F7F8FA', borderRadius: 12, padding: '14px 16px' },
+      uspGrid: st({ display: 'grid', gridTemplateColumns: 'repeat(6,minmax(0,1fr))', gap: 16 }, { gridTemplateColumns: 'repeat(2,minmax(0,1fr))', gap: 8 }),
+      uspCard: st({ background: '#fff', borderRadius: 12, padding: '22px 20px', display: 'flex', flexDirection: 'column', gap: 4 }, { padding: '14px' }),
+      uspT: { fontSize: mobile ? 14.5 : 16, fontWeight: 700, color: '#101117', lineHeight: 1.3, margin: 0 },
+      uspS: { fontSize: mobile ? 12.5 : 13.5, lineHeight: 1.4, color: '#545F71' },
+      uspD: { fontSize: 14, lineHeight: 1.55, color: '#545F71', margin: '6px 0 0' },
+      icTile: { width: 44, height: 44, borderRadius: 12, background: '#10DFBA', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginBottom: 8 },
+      icTileSm: { width: 44, height: 44, borderRadius: 12, background: '#10DFBA', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
+      awardsRow: st({ background: '#fff', borderRadius: 12, padding: '24px 32px', marginTop: 16 }, { padding: '18px 16px', marginTop: 8 }),
+      awardsList: st({ display: 'grid', gridTemplateColumns: 'repeat(3,minmax(0,1fr))', gap: 16, marginTop: 14 }, { gridTemplateColumns: '1fr', gap: 8, marginTop: 12 }),
+      award: { display: 'flex', alignItems: 'center', gap: 12, background: '#F7F8FA', borderRadius: 12, padding: '14px 16px' },
+      awardIc: { width: 40, height: 40, borderRadius: 10, background: '#EEF3FA', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
+      partnersHead: { fontSize: 13, fontWeight: 600, color: '#545F71', margin: '20px 0 10px' },
+      partners: { display: 'flex', gap: 10, overflowX: 'auto' },
+      partnerTile: { flexShrink: 0, minWidth: mobile ? 96 : 112, height: 52, padding: '0 16px', borderRadius: 10, background: '#F7F8FA', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15, fontWeight: 800, letterSpacing: '-0.02em', color: '#101117', textDecoration: 'none' },
+      storeGrid: st({ display: 'grid', gridTemplateColumns: 'repeat(2,minmax(0,1fr))', gap: 16, marginTop: 16 }, { gridTemplateColumns: '1fr', gap: 8, marginTop: 8 }),
+      btnSm: { height: 40, padding: '0 16px', borderRadius: 20, display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 14, fontWeight: 700, cursor: 'pointer', fontFamily: 'inherit' },
+      select: { height: 40, padding: '0 12px', borderRadius: 20, border: '1px solid #D5D9E0', background: '#fff', fontFamily: 'inherit', fontSize: 14, color: '#101117', cursor: 'pointer', maxWidth: '100%' },
+      selectFull: { width: '100%', height: 42, padding: '0 12px', marginTop: 6, borderRadius: 10, border: '1px solid #D5D9E0', background: '#fff', fontFamily: 'inherit', fontSize: 14, color: '#101117' },
+      nearBox: { background: '#F7F8FA', borderRadius: 12, padding: '14px 16px', marginTop: 14 },
+      holRow: { display: 'flex', justifyContent: 'space-between', gap: 12, padding: '7px 0', fontSize: 13, color: '#545F71', borderBottom: '1px solid #EEF0F3' },
+      delGrid: st({ display: 'grid', gridTemplateColumns: 'repeat(4,minmax(0,1fr))', gap: 16 }, { gridTemplateColumns: 'repeat(2,minmax(0,1fr))', gap: 8 }),
+      delCard: st({ background: '#fff', borderRadius: 12, padding: '22px', display: 'flex', flexDirection: 'column', gap: 4 }, { padding: '14px' }),
+      delPrice: st({ fontSize: 22, fontWeight: 800, letterSpacing: '-0.03em', color: '#002D73', margin: '8px 0 2px' }, { fontSize: 18 }),
+      twoCol: st({ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) minmax(0,1fr)', gap: 16, marginTop: 16, marginBottom: 16 }, { gridTemplateColumns: '1fr', gap: 8, marginTop: 8, marginBottom: 8 }),
+      steps: st({ display: 'grid', gridTemplateColumns: 'repeat(3,minmax(0,1fr))', gap: 12, marginTop: 16 }, { gridTemplateColumns: '1fr', gap: 8 }),
+      stepBox: { background: '#F7F8FA', borderRadius: 12, padding: 16, display: 'flex', flexDirection: 'column', gap: 4 },
+      stepNum: { width: 28, height: 28, borderRadius: 14, background: '#002D73', color: '#fff', fontSize: 13, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 6 },
+      listRow: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, padding: '12px 0', borderBottom: '1px solid #EEF0F3' },
+      payGrid: st({ display: 'grid', gridTemplateColumns: 'repeat(2,minmax(0,1fr))', gap: 10, marginTop: 14 }, { gridTemplateColumns: '1fr', gap: 8 }),
+      payBox: { background: '#F7F8FA', borderRadius: 12, padding: '14px 16px' },
+      table: { width: '100%', minWidth: mobile ? 520 : 0, borderCollapse: 'collapse', fontSize: mobile ? 13 : 14 },
+      th: { position: 'relative', textAlign: 'left', padding: '12px 14px', fontSize: 13, fontWeight: 600, color: '#545F71', borderBottom: '1px solid #E4E4EA' },
+      thBB: { textAlign: 'left', padding: '12px 14px', fontSize: 13, fontWeight: 700, color: '#fff', background: '#002D73', borderRadius: '10px 10px 0 0' },
+      tdK: { textAlign: 'left', padding: '12px 14px', fontWeight: 600, color: '#101117', borderBottom: '1px solid #EEF0F3', width: mobile ? 130 : '26%', verticalAlign: 'top' },
+      tdBB: { padding: '12px 14px', color: '#101117', fontWeight: 600, background: '#EEF3FA', borderBottom: '1px solid #E1E8F3', verticalAlign: 'top' },
+      td: { padding: '12px 14px', color: '#545F71', borderBottom: '1px solid #EEF0F3', verticalAlign: 'top' },
+      rateGrid: st({ display: 'grid', gridTemplateColumns: 'repeat(3,minmax(0,1fr))', gap: 16 }, { gridTemplateColumns: '1fr', gap: 8 }),
+      bigScore: st({ fontSize: 56, fontWeight: 800, letterSpacing: '-0.04em', color: '#101117', lineHeight: 1 }, { fontSize: 44 }),
+      extRow: { display: 'flex', alignItems: 'center', gap: 12, marginTop: 14 },
+      gTile: { width: 40, height: 40, borderRadius: 10, background: '#F7F8FA', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, fontWeight: 800, color: '#0050A0', flexShrink: 0 },
+      legalNote: { margin: '12px 0 0', fontSize: 12, lineHeight: 1.5, color: '#8B95A5', background: '#F7F8FA', borderRadius: 10, padding: '10px 12px' },
+      revHead: st({ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '32px 0 14px' }, { margin: '24px 0 10px' }),
+      arrow: { width: 46, height: 46, borderRadius: '50%', background: '#fff', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#101117', cursor: 'pointer' },
+      revTrack: st({ display: 'flex', gap: 16, overflowX: 'auto', scrollSnapType: 'x mandatory', paddingBottom: 4 }, { gap: 8, margin: '0 -12px', padding: '0 12px 4px', scrollPaddingLeft: 12 }),
+      revCard: st({ flex: '0 0 calc((100% - 48px) / 4)', minWidth: 280, background: '#fff', borderRadius: 12, padding: '20px 22px', display: 'flex', flexDirection: 'column', scrollSnapAlign: 'start', boxSizing: 'border-box' }, { flex: '0 0 84%', minWidth: 0, padding: 16 }),
+      verified: { display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11.5, fontWeight: 600, color: '#0B7A48', background: '#E6F5EC', padding: '3px 8px', borderRadius: 10, whiteSpace: 'nowrap' },
+      avatar: { width: 34, height: 34, borderRadius: 17, background: '#EEF3FA', color: '#002D73', fontSize: 13, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
+      ugc: st({ display: 'flex', gap: 12, overflowX: 'auto' }, { gap: 8, margin: '0 -12px', padding: '0 12px' }),
+      ugcTile: st({ flex: '0 0 200px', margin: 0, background: '#fff', borderRadius: 12, padding: 10, boxSizing: 'border-box' }, { flex: '0 0 140px', padding: 8 }),
+      ugcPh: st({ height: 180, borderRadius: 8, background: '#E9EAEE', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 6 }, { height: 124 }),
+      ugcCap: { fontSize: 12, color: '#545F71', padding: '8px 2px 2px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' },
+      searchBox: st({ display: 'flex', alignItems: 'center', gap: 10, width: 420, height: 48, padding: '0 18px', background: '#fff', borderRadius: 24, border: '1px solid #D5D9E0', boxSizing: 'border-box' }, { width: '100%', height: 46 }),
+      catGrid: st({ display: 'grid', gridTemplateColumns: 'repeat(6,minmax(0,1fr))', gap: 16 }, { gridTemplateColumns: 'repeat(3,minmax(0,1fr))', gap: 8 }),
+      catTile: st({ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, padding: '18px 10px 16px', background: '#fff', borderRadius: 12, color: '#101117', textDecoration: 'none' }, { padding: '10px 6px 12px' }),
+      catImg: st({ width: '100%', height: 120, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 6, boxSizing: 'border-box' }, { height: 76 }),
+      catLabel: st({ fontSize: 15, fontWeight: 600, textAlign: 'center', lineHeight: 1.3, marginTop: 6 }, { fontSize: 12, marginTop: 2 }),
+      catCount: st({ fontSize: 12.5, color: '#8B95A5' }, { fontSize: 11 }),
+      tabs: { display: 'flex', gap: 8, overflowX: 'auto', margin: mobile ? '0 -12px' : 0, padding: mobile ? '0 12px' : 0 },
+      countPill: { background: '#E4E4EA', color: '#545F71', fontSize: 13, fontWeight: 600, padding: '4px 12px', borderRadius: 16, letterSpacing: 0 },
+      filterBar: st({ background: '#fff', borderRadius: 12, padding: '16px 20px', margin: '16px 0' }, { padding: 12, margin: '12px 0 8px' }),
+      chipRow: { display: 'flex', gap: 8, overflowX: 'auto' },
+      filterRow: { display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 12, alignItems: 'center' },
+      activeChip: { display: 'inline-flex', alignItems: 'center', gap: 6, height: 32, padding: '0 12px', borderRadius: 16, border: 'none', background: '#002D73', color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' },
+      grid: st({ display: 'grid', gridTemplateColumns: 'repeat(5,minmax(0,1fr))', gap: 24 }, { gridTemplateColumns: 'repeat(2,minmax(0,1fr))', gap: 8 }),
+      empty: { background: '#fff', borderRadius: 12, padding: 32, textAlign: 'center', fontSize: 14, color: '#545F71' },
+      brandTrack: { display: 'flex', gap: mobile ? 8 : 16, overflowX: 'auto', marginTop: 8 },
+      brandTile: st({ flexShrink: 0, width: 168, height: 88, padding: '0 18px', borderRadius: 12, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 19, fontWeight: 800, letterSpacing: '-0.03em', color: '#101117', textDecoration: 'none', boxSizing: 'border-box' }, { width: 120, height: 64, fontSize: 15 }),
+      supGrid: st({ display: 'grid', gridTemplateColumns: 'repeat(3,minmax(0,1fr))', gap: 16 }, { gridTemplateColumns: '1fr', gap: 8 }),
+      supCard: st({ display: 'flex', alignItems: 'center', gap: 14, background: '#fff', borderRadius: 12, padding: '20px 22px', color: '#101117', textDecoration: 'none', cursor: 'pointer' }, { padding: '14px 16px' }),
+      compCard: st({ background: '#fff', borderRadius: 12, padding: '28px 32px', marginTop: 16 }, { padding: '20px 16px', marginTop: 8 }),
+      compGrid: st({ display: 'grid', gridTemplateColumns: 'repeat(3,minmax(0,1fr))', gap: '18px 24px', margin: '16px 0 0' }, { gridTemplateColumns: '1fr 1fr', gap: '14px 12px' }),
+      updated: { maxWidth: 1480, margin: mobile ? '20px auto 0' : '28px auto 0', padding: pad, boxSizing: 'border-box', fontSize: 12.5, color: '#8B95A5' }
+    };
+    const chip = (on) => ({ flexShrink: 0, height: mobile ? 36 : 40, padding: mobile ? '0 14px' : '0 18px', borderRadius: 20, border: on ? '1px solid #002D73' : '1px solid #D5D9E0', background: on ? '#002D73' : '#fff', color: on ? '#fff' : '#101117', fontSize: mobile ? 13 : 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', whiteSpace: 'nowrap', textDecoration: 'none' });
+    const fill = (r) => ({ position: 'absolute', left: 0, top: 0, width: (r / 5 * 100) + '%', overflow: 'hidden', whiteSpace: 'nowrap', color: '#F5A623' });
+
+    /* products */
+    const POOL = this.pool();
+    const ready = POOL.length > 0;
+    const bestCat = D.cats[s.bestIdx] || D.cats[0];
+    const bestList = POOL.filter(x => x.cat === bestCat.label).sort((a, b) => b.pop - a.pop).slice(0, 12);
+    const saleList = POOL.filter(x => x.on).sort((a, b) => b.pct - a.pct).slice(0, 12);
+    const newList = POOL.filter((x, i) => i % 3 === 1).slice(0, 12);
+    const pr = PRICE_OPTS.find(o => o.v === s.priceF) || PRICE_OPTS[0];
+    const qq = s.qApplied.toLowerCase().trim();
+    let list = POOL.filter(x => (!s.catF || x.cat === s.catF) && (!s.brandF || x.brand === s.brandF) && x.pn >= pr.min && x.pn < pr.max
+      && (!s.storeF || (s.storeF === 'any' ? x.inStores.length > 0 : x.inStores.some(y => String(y.i) === s.storeF)))
+      && (!qq || qq.split(/\s+/).every(w => x.name.toLowerCase().indexOf(w) > -1 || x.cat.toLowerCase().indexOf(w) > -1)));
+    const sorters = { pop: (a, b) => b.pop - a.pop, asc: (a, b) => a.pn - b.pn, desc: (a, b) => b.pn - a.pn, disc: (a, b) => b.pct - a.pct, name: (a, b) => a.name.localeCompare(b.name, 'hr') };
+    list = list.slice().sort(sorters[s.sortF] || sorters.pop);
+    const page = mobile ? 8 : 10;
+    const shown = Math.min(list.length, (s.shown || page));
+    const brandCounts = {}; POOL.forEach(x => { if (x.brand !== 'Ostalo') brandCounts[x.brand] = (brandCounts[x.brand] || 0) + 1; });
+    const brandNames = Object.keys(brandCounts).sort((a, b) => brandCounts[b] - brandCounts[a]);
+    const setF = (patch, type, label) => { this.track(type || 'filter', label); this.setState(Object.assign({ shown: 0 }, patch)); };
+    const catPick = (label) => (e) => { if (e && e.preventDefault) e.preventDefault(); this.track('category', label); if (p.onOpenCategory) p.onOpenCategory(label); };
+    const active = [];
+    if (s.catF) active.push({ label: s.catF, click: () => setF({ catF: '' }) });
+    if (s.brandF) active.push({ label: s.brandF, click: () => setF({ brandF: '' }) });
+    if (s.priceF) active.push({ label: pr.l, click: () => setF({ priceF: '' }) });
+    if (s.storeF) active.push({ label: s.storeF === 'any' ? 'Na zalihi u trgovini' : 'Zaliha: ' + ((STORES[+s.storeF] || {}).name || '').replace('Big Bang ', ''), click: () => setF({ storeF: '' }) });
+    if (s.qApplied) active.push({ label: '„' + s.qApplied + '”', click: () => setF({ q: '', qApplied: '' }) });
+
+    /* stores */
+    const cities = []; STORES.forEach(x => { if (cities.indexOf(x.city) < 0) cities.push(x.city); });
+    const zg = STORES.filter(x => x.city === 'Zagreb').length;
+    const storesLead = 'Big Bang ima ' + (STORES.length || 17) + ' trgovina u ' + (cities.length || 13) + ' gradova, od Zagreba i Splita do Osijeka i Dubrovnika. Većina radi Pon–Sub 9–21 h, a u trgovačkim centrima i nedjeljom 10–20 h.';
+    const nearIdx = s.near > -1 ? s.near : 0;
+    const ns = STORES[nearIdx];
+    const near = ns ? {
+      name: ns.name, address: ns.address, hours: todayHours(ns), phone: ns.phone, tel: 'tel:' + String(ns.phone).replace(/\s/g, ''),
+      dir: 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(ns.name + ', ' + ns.address),
+      dist: s.near > -1 ? s.nearKm : '', telClick: () => this.track('store_call', ns.name), dirClick: () => this.track('store_navigation', ns.name)
+    } : {};
+    const stockProds = (saleList.length ? saleList : POOL).slice(0, 8).map((x, i) => ({ i: String(i), name: x.name, ref: x }));
+    const sp = (stockProds[+s.stockIdx] || {}).ref;
+    const stockRows = sp ? STORES.slice(0, mobile ? 5 : 6).map((x, i) => {
+      const hit = sp.inStores.find(y => y.i === i); const n = hit ? hit.n : 0;
+      const tone = n > 2 ? ['#E6F5EC', '#0B7A48'] : n > 0 ? ['#FFF4E5', '#B25E00'] : ['#F1F1F4', '#545F71'];
+      return { store: x.name.replace('Big Bang ', ''), label: n > 2 ? 'Na zalihi' : n > 0 ? 'Još ' + n + ' kom' : 'Za 2–3 dana',
+        row: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 10, padding: '8px 0', fontSize: 13, color: '#101117', borderBottom: '1px solid #EEF0F3' },
+        tag: { flexShrink: 0, fontSize: 11.5, fontWeight: 700, padding: '3px 8px', borderRadius: 6, background: tone[0], color: tone[1] } };
+    }) : [];
+    const avg = num(D.rating.avg);
+    const reviewsLead = 'Kupci Big Banga kupnju u prosjeku ocjenjuju s ' + D.rating.avg + ' od 5 na temelju ' + D.rating.count + ' provjerenih ocjena.';
+
+    return {
+      v: mobile ? 'mobile' : 'desktop', isDesktop: !mobile, isMobile: mobile, S,
+      rootRef: this.rootRef, revRef: this.revRef, updated: UPDATED,
+      crumbs: [{ label: mobile ? 'Početna' : 'Big Bang', onClick: (e) => { if (e) e.preventDefault(); if (p.onHome) p.onHome(); } }, { label: 'Prodavatelji', onClick: (e) => { if (e) e.preventDefault(); } }, { label: 'Big Bang' }],
+      hero: D.hero, heroImg: D.hero.img, rating: D.rating, google: D.google, avgFill: fill(avg),
+      stats: D.stats.map(x => ({ v: x.v, l: x.l, star: !!x.star })),
+      goOffer: this.go('ponuda', 'cta'), goStoresSec: this.go('trgovine', 'cta'),
+      navItems: NAV.map(n => ({ label: n.label, click: this.go(n.id, 'anchor'), style: chip(s.sec === n.id) })),
+      about: D.about,
+      whyLead: D.whyLead,
+      usps: D.usps.map(u => ({ t: u.t, s: u.s, icon: svgURI(ICONS[u.ic] || ICONS.shield) })),
+      partners: D.partners.map(n => ({ name: n, logo: LOGOS[n] || '', noLogo: !LOGOS[n], click: (e) => { if (e) e.preventDefault(); this.track('brand', n); if (p.onOpenBrand) p.onOpenBrand(n); } })),
+
+      storesLead,
+      allStores: (e) => { if (e) e.preventDefault(); this.track('store', 'sva_prodajna_mjesta'); if (p.onStores) p.onStores(); },
+      mapCity: s.mapCity,
+      onMapStore: (x, i) => { this.track('store', x && x.name); this.setState({ near: i, nearKm: '' }); },
+      locate: this.locate, locLabel: s.locBusy ? 'Tražim…' : 'Koristi moju lokaciju', locMsg: s.locMsg,
+      cities, nearCity: s.mapCity,
+      pickCity: (e) => { const c = e.target.value; const i = STORES.findIndex(x => x.city === c); this.track('store_city', c); this.setState({ mapCity: c, near: i, nearKm: '' }); },
+      hasNear: !!ns, near,
+      stockProds, stockIdx: String(s.stockIdx), stockRows,
+      pickStockProd: (e) => { this.track('stock_check', e.target.value); this.setState({ stockIdx: +e.target.value }); },
+      storeServices: D.storeServices, holidays: D.holidays,
+
+      deliveryLead: D.deliveryLead,
+      delivery: D.delivery, install: D.install, compare: D.compare,
+      openNotice: (e) => { if (e) e.preventDefault(); if (window.BBEU) window.BBEU.openNotice(); },
+
+      reviewsLead,
+      reviews: D.reviews.map(r => Object.assign({}, r, { fill: fill(r.r), aria: 'Ocjena ' + r.r + ' od 5', ini: r.n.split(' ').map(w => w.charAt(0)).join('') })),
+      revPrev: () => { const el = this.revRef.current; if (el) el.scrollBy({ left: -el.clientWidth, behavior: 'smooth' }); },
+      revNext: () => { const el = this.revRef.current; if (el) el.scrollBy({ left: el.clientWidth, behavior: 'smooth' }); },
+
+      offerLead: D.offerLead,
+      q: s.q,
+      onQ: (e) => this.setState({ q: e.target.value }),
+      onQKey: (e) => { if (e.key === 'Enter') { this.track('search', s.q); this.setState({ qApplied: s.q, catF: '', shown: 0 }, () => this.scrollToSec('katalog')); } },
+      cats: D.cats.map(c => ({ label: c.label, countLabel: c.count.toLocaleString('hr-HR') + ' proizvoda', click: catPick(c.label, true),
+        imgStyle: { width: '100%', height: '100%', backgroundImage: 'url("' + c.img + '")', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' } })),
+      bestTabs: D.cats.map((c, i) => ({ label: c.label, style: chip(i === s.bestIdx), click: () => { this.track('bestseller_tab', c.label); this.setState({ bestIdx: i }); } })),
+      bestCat: bestCat.label, bestAll: catPick(bestCat.label, true),
+      bestList, saleList, newList,
+      openProduct: (x) => { this.track('product', x && x.name); if (p.onOpenProduct) p.onOpenProduct(x); },
+
+      catChips: [{ label: 'Sve kategorije', on: !s.catF, click: () => setF({ catF: '' }, 'category', 'sve') }].concat(D.cats.map(c => ({ label: c.label, on: s.catF === c.label, click: catPick(c.label, false) }))).map(c => Object.assign(c, { style: chip(c.on) })),
+      brandF: s.brandF, brandOpts: brandNames.map(b => ({ name: b, label: b + ' (' + brandCounts[b] + ')' })),
+      setBrand: (e) => setF({ brandF: e.target.value }, 'filter_brand', e.target.value),
+      priceF: s.priceF, priceOpts: PRICE_OPTS.map(o => ({ v: o.v, l: o.l })),
+      setPrice: (e) => setF({ priceF: e.target.value }, 'filter_price', e.target.value),
+      storeF: s.storeF, storeOpts: STORES.map((x, i) => ({ v: String(i), l: 'Zaliha: ' + x.name.replace('Big Bang ', '') })),
+      setStore: (e) => setF({ storeF: e.target.value }, 'filter_store', e.target.value),
+      sortF: s.sortF, setSort: (e) => setF({ sortF: e.target.value }, 'sort', e.target.value),
+      hasActive: active.length > 0, activeChips: active,
+      clearAll: () => setF({ catF: '', brandF: '', priceF: '', storeF: '', q: '', qApplied: '' }, 'filter_clear', ''),
+      resultLabel: list.length + ' proizvoda',
+      noResults: ready && list.length === 0,
+      gridCards: list.slice(0, shown).map(x => ({ card: this.cardOf(x), open: this.open(x) })),
+      hasMore: shown < list.length, shownLabel: 'Prikazano ' + shown + ' od ' + list.length,
+      loadMore: () => { this.track('load_more', shown); this.setState({ shown: shown + page }); },
+
+      brandSlider: brandNames.concat(D.partners.filter(n => brandNames.indexOf(n) < 0)).slice(0, 16).map(n => ({ name: n, logo: LOGOS[n] || '', noLogo: !LOGOS[n], click: (e) => { if (e) e.preventDefault(); this.track('brand', n); if (p.onOpenBrand) p.onOpenBrand(n); } })),
+      goBrands: (e) => { if (e) e.preventDefault(); this.track('brand', 'svi_brendovi'); if (p.onBrands) p.onBrands(); },
+
+      contactLead: D.contactLead,
+      support: D.support.map(x => ({ t: x.t, v: x.v, s: x.s, href: x.href || '#', icon: svgURI(ICONS[x.ic]),
+        click: (e) => { this.track('contact', x.t); if (x.chat && e) e.preventDefault(); } })),
+      faq: D.faq, company: D.company
+    };
+  }
+}
+</script>
+</body>
+</html>

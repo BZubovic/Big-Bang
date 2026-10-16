@@ -35,7 +35,7 @@
         <sc-for list="{{ groups }}" as="g" hint-placeholder-count="2">
           <section style="background:#fff;border-radius:16px;overflow:hidden">
             <header style="display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;padding:18px 24px;border-bottom:1px solid #E3E4E9">
-              <span style="font-size:16px;font-weight:700;letter-spacing:-0.01em;color:#101117">{{ g.no }} Trgovac: {{ g.seller }}</span>
+              <span style="font-size:16px;font-weight:700;letter-spacing:-0.01em;color:#101117">{{ g.no }} Trgovac: <sc-if value="{{ g.own }}" hint-placeholder-val="{{ true }}"><a href="#" onClick="{{ g.openSeller }}" style="color:#0050A0;text-decoration:underline;text-underline-offset:3px" style-hover="color:#002D73">{{ g.seller }}</a></sc-if><sc-if value="{{ g.notOwn }}" hint-placeholder-val="{{ false }}">{{ g.seller }}</sc-if></span>
               <span style="{{ g.tagStyle }}">{{ g.tag }}</span>
             </header>
 
@@ -279,7 +279,7 @@
     <sc-for list="{{ groups }}" as="g" hint-placeholder-count="2">
       <section style="background:#fff;border-radius:14px;overflow:hidden">
         <header style="display:flex;align-items:center;gap:9px;padding:13px 14px;border-bottom:1px solid #E3E4E9">
-          <div style="font-size:14px;font-weight:700;letter-spacing:-0.01em;color:#101117;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0">{{ g.no }} Trgovac: {{ g.seller }}</div>
+          <div style="font-size:14px;font-weight:700;letter-spacing:-0.01em;color:#101117;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0">{{ g.no }} Trgovac: <sc-if value="{{ g.own }}" hint-placeholder-val="{{ true }}"><a href="#" onClick="{{ g.openSeller }}" style="color:#0050A0;text-decoration:underline;text-underline-offset:3px">{{ g.seller }}</a></sc-if><sc-if value="{{ g.notOwn }}" hint-placeholder-val="{{ false }}">{{ g.seller }}</sc-if></div>
           <span style="{{ g.tagStyleMob }}">{{ g.tag }}</span>
         </header>
 
@@ -770,6 +770,8 @@ class Component extends DCLogic {
       return {
         no: String(gi + 1) + '.',
         seller: seller,
+        own: !!own, notOwn: !own,
+        openSeller: (e) => { if (e) e.preventDefault(); if (window.BBOpenSeller) window.BBOpenSeller(); },
         tag: own ? 'Prodaje i dostavlja Big Bang' : 'Prodavatelj na Big Bang tržnici',
         tagStyle: { background: own ? '#0050A0' : '#E4E4EA', color: own ? '#fff' : '#545F71', fontSize: 11.5, fontWeight: 700, padding: '4px 10px', borderRadius: 5, whiteSpace: 'nowrap' },
         tagStyleMob: { background: own ? '#0050A0' : '#E4E4EA', color: own ? '#fff' : '#545F71', fontSize: 10, fontWeight: 700, padding: '3px 7px', borderRadius: 4, whiteSpace: 'nowrap', flexShrink: 0 },

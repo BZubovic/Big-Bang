@@ -102,6 +102,12 @@
     </div>
   </sc-if>
 
+  <sc-if value="{{ isSeller }}" hint-placeholder-val="{{ false }}">
+    <div class="pgin">
+      <dc-import name="Pages/Seller-bigbang-body" variant="desktop" on-home="{{ goHome }}" on-stores="{{ goStores }}" on-brands="{{ goBrands }}" on-open-brand="{{ openBrand }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" hint-size="100%,7600px"></dc-import>
+    </div>
+  </sc-if>
+
   <sc-if value="{{ isPay }}" hint-placeholder-val="{{ false }}">
     <div class="pgin">
       <dc-import name="Pages/Payment-methods-body" variant="desktop" on-home="{{ goHome }}" on-nav="{{ goInfo }}" hint-size="100%,3000px"></dc-import>
@@ -220,6 +226,12 @@
       <sc-if value="{{ isStores }}" hint-placeholder-val="{{ false }}">
         <div class="pgin">
           <dc-import name="Pages/Stores-body" variant="mobile" on-home="{{ goHome }}" hint-size="100%,2000px"></dc-import>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isSeller }}" hint-placeholder-val="{{ false }}">
+        <div class="pgin">
+          <dc-import name="Pages/Seller-bigbang-body" variant="mobile" on-home="{{ goHome }}" on-stores="{{ goStores }}" on-brands="{{ goBrands }}" on-open-brand="{{ openBrand }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" hint-size="100%,11000px"></dc-import>
         </div>
       </sc-if>
 
@@ -431,6 +443,7 @@ class Component extends DCLogic {
       brandMany: true,
       brandTiles: 'pills',
       catMinimal: true,
+      catMinimalPc: false,
       cartEmpty: false,
       wishEmpty: false,
       kitActivity: 'razstavne',
@@ -447,7 +460,7 @@ class Component extends DCLogic {
     product: ['Proizvod (PDP)', 'Pages/Product-body.dc.html'], cart: ['Košarica', 'Pages/Cart-body.dc.html'],
     wishlist: ['Popis želja', 'Pages/Wishlist-body.dc.html'], auth: ['Prijava', 'Pages/Account-body.dc.html'],
     profile: ['Moj profil', 'Pages/Account-body.dc.html'], contact: ['Kontakt', 'Pages/Contact-body.dc.html'],
-    stores: ['Prodajna mjesta', 'Pages/Stores-body.dc.html'], pay: ['Načini plaćanja', 'Pages/Payment-methods-body.dc.html'],
+    stores: ['Prodajna mjesta', 'Pages/Stores-body.dc.html'], seller: ['Prodavatelj Big Bang', 'Pages/Seller-bigbang-body.dc.html'], pay: ['Načini plaćanja', 'Pages/Payment-methods-body.dc.html'],
     delivery: ['Načini dostave', 'Pages/Delivery-methods-body.dc.html'], terms: ['Uvjeti kupnje', 'Pages/Terms-body.dc.html'],
     guarantee: ['Zakonsko jamstvo', 'Pages/Legal-guarantee-body.dc.html'], brands: ['Brendovi', 'Pages/Brands-body.dc.html'],
     promos: ['Akcije i promocije', 'Pages/Promotions-body.dc.html'], kitchens: ['Kuhinje', 'Pages/Kitchens-body.dc.html'],
@@ -527,6 +540,7 @@ class Component extends DCLogic {
   scrollerRef = React.createRef();
 
   componentDidMount() {
+    window.BBOpenSeller = this.goSeller;
     /* opened on a real phone: the Mobile view fills the browser (no grey stage, no rounded frame) */
     this.onPhoneCheck = () => {
       const on = window.innerWidth <= 600;
@@ -614,6 +628,12 @@ class Component extends DCLogic {
     this.setState({ menuOpen: false, page: 'contact' }, this.toTop);
   };
 
+  // Big Bang seller page (1P) — also reachable from anywhere via window.BBOpenSeller (PDP, cart, footer)
+  goSeller = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    this.setState({ menuOpen: false, page: 'seller' }, this.toTop);
+  };
+
   openBrand = (name) => {
     this.setState({ menuOpen: false, page: 'brand', brand: name || 'Samsung' }, this.toTop);
   };
@@ -640,6 +660,7 @@ class Component extends DCLogic {
   // footer "Usluge i uvjeti" pages; only Načini plaćanja is built so far
   goInfo = (key) => {
     if (key === 'contact') { this.setState({ menuOpen: false, page: 'contact' }, this.toTop); return; }
+    if (key === 'seller') { this.goSeller(); return; }
     if (key !== 'pay' && key !== 'delivery' && key !== 'terms' && key !== 'guarantee') return;
     this.setState({ menuOpen: false, page: key }, this.toTop);
   };
@@ -742,6 +763,8 @@ class Component extends DCLogic {
       isPay: s.page === 'pay',
       isContact: s.page === 'contact',
       isStores: s.page === 'stores',
+      isSeller: s.page === 'seller',
+      goSeller: this.goSeller,
       goStores: this.goStores,
       cardStyle: tw.card || 'v2',
       deptLayout: tw.deptBento ? 'bento' : 'cards',
@@ -802,12 +825,13 @@ class Component extends DCLogic {
       offerCount: tw.offerCount || 4,
       sizeFinder: tw.sizeFinder || 'finder',
       mobHead: tw.mobHead || 4,
-      promoVar: tw.promoVar || 0,
+      promoVar: (tw.promoVar > 0 && tw.promoVar <= 20) ? tw.promoVar : 0,
       stickyCta: true,
       pdpType: tw.pdpType || 'default',
       brandMany: tw.brandMany !== false,
       brandTiles: tw.brandTiles === 'tiles' ? 'tiles' : 'pills',
-      catMinimal: tw.catMinimal !== false,
+      // Stolna računala keeps its own choice and starts on Uobičajeno; every other L3 starts on Minimalno
+      catMinimal: (s.category && s.category.l3 === 'Stolna računala') ? tw.catMinimalPc === true : tw.catMinimal !== false,
       cartUnavailable: tw.cartUnavailable,
       cartEmpty: tw.cartEmpty,
 
@@ -905,13 +929,14 @@ class Component extends DCLogic {
           });
         }
         if (s.page === 'category' && ((s.category && s.category.level) || 1) === 3) {
-          list.push(pair('Prikaz proizvoda', 'Uobičajeno', 'Minimalno', tw.catMinimal === false,
-            () => this.setTweak('catMinimal', false), () => this.setTweak('catMinimal', true)));
+          const pcMin = s.category && s.category.l3 === 'Stolna računala';
+          list.push(pair('Prikaz proizvoda', 'Uobičajeno', 'Minimalno', pcMin ? tw.catMinimalPc !== true : tw.catMinimal === false,
+            () => this.setTweak(pcMin ? 'catMinimalPc' : 'catMinimal', false), () => this.setTweak(pcMin ? 'catMinimalPc' : 'catMinimal', true)));
           if (mobile) list.push(trio('Zaglavlje (mobitel)', [1, 2, 3, 4, 5, 6, 7, 8].map(n => [String(n), (tw.mobHead || 4) === n, () => this.setTweak('mobHead', n)])));
           if (s.category && s.category.l3 === 'Stolna računala') list.push({
-            label: 'Promo kod (kartica)', seg: false, sel: true, value: String(tw.promoVar || 0),
+            label: 'Promo kod (kartica)', seg: false, sel: true, value: String((tw.promoVar > 0 && tw.promoVar <= 20) ? tw.promoVar : 0),
             onChange: (e) => this.setTweak('promoVar', Number(e.target.value)),
-            options: [['0', 'Trenutno'], ['1', '1 · Sniženje + kod (ljestvica)'], ['2', '2 · Tamnoplavo s tirkiznim iznosom'], ['3', '3 · Lime oznaka EXTRA'], ['4', '4 · Linija za rezanje'], ['5', '5 · Podijeljena pilula'], ['6', '6 · Oblačić prema cijeni'], ['7', '7 · Polje „Promo kod”'], ['8', '8 · Zelena oznaka „Uštedi još”'], ['9', '9 · Zastavica s iznosom'], ['10', '10 · Etiketa'], ['11', '11 · Tirkizna traka'], ['12', '12 · Iznos s oznakom EXTRA'], ['13', '13 · Tamnoplavi obrub'], ['14', '14 · Žig EXTRA'], ['15', '15 · Ikona + „Kopiraj”'], ['16', '16 · Gumb s kodom'], ['17', '17 · Presavijeni kut'], ['18', '18 · Prugasta traka'], ['19', '19 · Kod + iznos u traci'], ['20', '20 · Samo tekst'], ['21', '21 · Crveni + zeleni bedž'], ['22', '22 · Spojeni bedž'], ['23', '23 · Jedan crveni bedž s oba iznosa'], ['24', '24 · Utišani crveni (tekst)'], ['25', '25 · Bez bedža, rečenica ispod cijene'], ['26', '26 · Ljestvica dva bedža'], ['27', '27 · Zeleni bedž ispod cijene'], ['28', '28 · Kratki bedževi jednake težine'], ['29', '29 · Tablica ušteda'], ['30', '30 · Crveni ostaje + tanki zeleni red']].map(o => ({ value: o[0], label: o[1] }))
+            options: [['0', 'Trenutno'], ['1', '1 · Uštedi do (naslov)'], ['2', '2 · Kod + ukupno ispod'], ['3', '3 · Natpis na rubu'], ['4', '4 · Traka „Ukupna ušteda”'], ['5', '5 · Crveni bedž „Uštedi do”'], ['6', '6 · Ukupno umjesto gumba'], ['7', '7 · Raščlamba ispod'], ['8', '8 · Oznaka „do -X %”'], ['9', '9 · Zvjezdica s uvjetom'], ['10', '10 · Traka udjela'], ['11', '11 · Jezičak „Uštedi do” na vrhu'], ['12', '12 · Tekst ispod okvira'], ['13', '13 · Zeleni bedž uz crveni'], ['14', '14 · Info oblačić'], ['15', '15 · Dvobojna oznaka %'], ['16', '16 · Zelena podloga'], ['17', '17 · Raščlamba + kod na gumbu'], ['18', '18 · Veliki iznos lijevo'], ['19', '19 · Tamnoplava verzija'], ['20', '20 · Bez okvira']].map(o => ({ value: o[0], label: o[1] }))
           });
           if (s.category && s.category.l3 === 'Televizori') list.push(pair('Vodič za dijagonalu', 'Kalkulator', 'Tablica', (tw.sizeFinder || 'finder') === 'finder',
             () => this.setTweak('sizeFinder', 'finder'), () => this.setTweak('sizeFinder', 'table')));

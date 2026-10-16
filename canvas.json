@@ -275,6 +275,15 @@
       "w": 1480,
       "x": 6240,
       "y": 4000
+    },
+    "Pages/Seller-bigbang-body.dc.html": {
+      "expand": "fill",
+      "h": 3200,
+      "is_interactive": true,
+      "title": "Seller Big Bang body",
+      "w": 1480,
+      "x": 26520,
+      "y": 4000
     }
   },
   "createdOnFiles": {
@@ -321,6 +330,7 @@
     "Pages/Promotions-body.dc.html",
     "Pages/Brands-body.dc.html",
     "Pages/Stores-body.dc.html",
+    "Pages/Seller-bigbang-body.dc.html",
     "Pages/Contact-body.dc.html",
     "Pages/Kitchens-body.dc.html",
     "Pages/Kitchen-style-body.dc.html",

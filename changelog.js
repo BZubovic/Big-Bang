@@ -1,6 +1,51 @@
 /* Prototype change log — one entry per piece of work, not per prompt.
    Shown in the "Prototype settings" panel via "View logs". */
 window.BB_CHANGELOG = [
+  { date: '16.10.2026.', title: 'Stranica prodavatelja Big Bang — sažetija', changes: [
+    'Sadržaj stranice skraćen otprilike za pola: ostale su samo ključne informacije za kupce i pretraživače',
+    'Uklonjeno: cijela ponuda s filtrima i pretragom, kartice s raspodjelom ocjena i vanjskim ocjenama, fotografije kupaca, karusel „Novo u ponudi”, certifikati i partneri, kartice plaćanja i postprodaje, provjera zalihe po trgovinama, vremenska crta, vrijednosti i video',
+    'O nama: uvodni odlomak, jedan kratak odlomak i „Big Bang ukratko”; Zašto kupiti: šest kratkih prednosti u jednom redu',
+    'Recenzije: prosječna ocjena u jednom retku iznad šest izdvojenih recenzija i napomena o provjerenim kupnjama',
+    'Usporedba s drugim prodavateljima sažeta na pet redaka i smještena uz montažu; česta pitanja svedena na šest',
+    'Klik na kategoriju sada otvara stranicu te kategorije'
+  ] },
+  { date: '16.10.2026.', title: 'Stolna računala — još 10 varijanti promo koda (11–20)', changes: [
+    'Postavke prototipa → Promo kod (kartica): dodane varijante 11–20, sve na temelju izvornog okvira s kodom i s ukupnom uštedom „Uštedi do X €”',
+    'Novi izgledi: jezičak na vrhu okvira, tekst ispod okvira, zeleni bedž uz crveni, info oblačić s raščlambom i uvjetima, dvobojna oznaka postotaka, zelena podloga, raščlamba uz kod na gumbu, veliki iznos lijevo, tamnoplava verzija i verzija bez okvira',
+    'I dalje se nigdje ne prikazuje cijena nakon primjene koda'
+  ] },
+  { date: '16.10.2026.', title: 'Stolna računala — nove varijante promo koda s ukupnom uštedom', changes: [
+    'Kategorija Stolna računala sada se otvara u prikazu proizvoda „Uobičajeno” (ostale kategorije ostaju na „Minimalno”)',
+    'Uklonjene sve dosadašnje testne varijante promo koda (1–30); ostaje izvorni izgled',
+    'Novih 10 varijanti na temelju izvornog okvira s kodom: prikazuju ukupnu uštedu (sniženje + kod) kao „Uštedi do X €”, jer kod vrijedi uz uvjete',
+    'Pravno: nigdje se ne prikazuje cijena nakon primjene koda — samo nominalni iznos koda, postotak ili „Uštedi do”',
+    'Varijanta 5 mijenja crveni bedž u „Uštedi do X €”; ostale ga ne diraju'
+  ] },
+  { date: '16.10.2026.', title: 'Stranica proizvoda (desktop) – ljepljiva traka za košaricu', changes: [
+    'Ljepljiva traka s gumbom „Dodaj u košaricu” pojavljuje se tek kad se stranica pomakne ispod glavnog gumba „Dodaj u košaricu”, a ne odmah na vrhu stranice'
+  ] },
+  { date: '16.10.2026.', title: 'TV i audio — novi uvodni tekst', changes: [
+    'Kategorija TV i audio (L1): novi kratki opis ispod naslova, od sadržajnog tima'
+  ] },
+  { date: '16.10.2026.', title: 'Nova stranica prodavatelja Big Bang', changes: [
+    'Nova stranica „Big Bang” za službenog prodavatelja (1P): naslovni dio s logotipom, oznakom „Službeni prodavatelj Big Bang”, gumbima „Istraži ponudu” i „Pronađi trgovinu” te ključnim brojkama',
+    'Sekcije: o nama i vrijednosti, šest razloga za kupnju, certifikati i partnerski brendovi, ljepljiva navigacija po stranici',
+    'Trgovine: karta svih poslovnica, najbliža trgovina prema lokaciji ili gradu (adresa, radno vrijeme, telefon, navigacija), provjera zalihe po trgovinama, usluge u trgovinama i radno vrijeme blagdanima',
+    'Dostava i usluge: opcije dostave s rokovima i cijenama, dostava velikih aparata (unos, priključak, odvoz starog), montaža, plaćanje i rate, povrat i jamstvo te usporedba „Big Bang ili drugi prodavatelji”',
+    'Recenzije: prosječna ocjena, raspodjela i ocjene po kategoriji, izdvojene provjerene recenzije, Google ocjena i fotografije kupaca',
+    'Ponuda: kategorije s brojem proizvoda, najprodavanije po kategoriji, akcije, novosti, cijeli katalog Big Banga s filtrima (kategorija, brend, cijena, zaliha u trgovini), sortiranjem i pretragom te brendovi u ponudi',
+    'Kontakt i podrška, česta pitanja, podaci o prodavatelju i traka korisničke podrške',
+    'Poveznice na stranicu: „Prodaje i šalje: Big Bang” na stranici proizvoda, „Trgovac: Big Bang” u košarici te „O nama” i nova „Službena Big Bang trgovina” u podnožju',
+    'Brojke, cijene dostave, ocjene i recenzije su privremene i čekaju potvrdu poslovanja',
+    'Popravak: stranica prodavatelja više nije prazna — naslovni dio, O nama, Zašto kupiti, recenzije, kategorije i karuseli proizvoda ponovno prikazuju sadržaj',
+    'Naslovni dio: kratak opis prodavatelja i četiri ključne prednosti (povrat 30 dana, dostava, montaža, rate)',
+    'O nama: uvodni odlomak, priča tvrtke, misija, vrijednosti, „Big Bang ukratko”, „Kroz godine” i mjesto za video',
+    'Zašto kupiti: šest prednosti s kratkim objašnjenjem',
+    'Osam primjera izdvojenih recenzija (s naslovom, inicijalima i kupljenim proizvodom) i mjesta za fotografije kupaca',
+    'Uklonjeni suvišni nadnaslovi i dvostruki naslovi; poveznice „Sva prodajna mjesta”, „Prikaži sve” i „Svi brendovi” stoje odmah uz naslov',
+    'GEO: naslovi sekcija u obliku pitanja s kratkim činjeničnim odgovorom ispod, datum ažuriranja na dnu, prošireni strukturirani podaci (stranica, putanja, recenzije, katalog, pravila povrata, radno vrijeme trgovina) i dva nova česta pitanja',
+    'Naslovni dio stranice prodavatelja: primarni Big Bang logotip (bijeli natpis na plavoj podlozi) umjesto crnog okvira'
+  ] },
   { date: '16.10.2026.', title: 'Mobilna pretraga — cijeli ekran i tipkovnica', changes: [
     'Mobitel: kad se klikne u tražilicu, gornji dio headera (izbornik, logo, ikone) nestaje, a tražilica se podiže na vrh ekrana',
     'Tražilica u fokusu zauzima oko 80 % širine, a desno od nje je gumb „Zatvori” za izlaz iz pretrage',

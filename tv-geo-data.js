@@ -45,7 +45,7 @@
     cat: CAT,
 
     l1: {
-      intro: 'TV i audio u Big Bangu: televizori od 32″ do 98″, soundbarovi i kućna kina, slušalice, projektori i Hi-Fi oprema na jednom mjestu. Ovdje birate ekran za dnevni boravak, zvuk za filmove ili slušalice za put i trening. Uz većinu uređaja dostupni su montaža na zid, odvoz starog uređaja, plaćanje na do 36 rata i dostava velikih televizora do vrata u 1–3 radna dana.',
+      intro: 'U Big Bangu pronađi sve za vrhunski doživljaj slike i zvuka na jednom mjestu; od televizora različitih veličina do soundbarova, kućnih kina, slušalica, projektora, Hi-Fi opreme i kablova. Otkrij uređaje za svaki prostore i doživi UAU iskustvo kupnje uz brzu isporuku, mogućnost plaćanja na rate i veliki izbor televizora online i u poslovnicama. Dodatne usluge poput montaže televizora na zid i odvoza starog uređaja čine kupnju još jednostavnijom i bezbrižnijom.',
       guides: [
         { key: 'tv', img: 'images/guide-tv.png', eyebrow: 'Televizori', title: 'Kako odabrati televizor', points: ['Za 2,5 m udaljenosti: 65″ do 75″', 'OLED za tamnu sobu, QLED za svijetlu', '120 Hz i HDMI 2.1 za PS5 i Xbox'], date: '13.10.2026.', read: '6 min', count: 'Televizori (1.284)' },
         { key: 'soundbar', img: 'images/blog-tv-watching.png', eyebrow: 'Soundbarovi', title: 'Kako odabrati soundbar', points: ['Spojite ga na HDMI eARC ulaz', 'Središnji kanal (3.1) za jasan dijalog', 'Dolby Atmos za filmski zvuk'], date: '09.10.2026.', read: '4 min', count: 'Soundbarovi (212)' },

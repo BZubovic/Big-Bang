@@ -717,7 +717,7 @@ function BuyBoxExtras({ type = 'default', seller, offerCount, fromPrice, onAllOf
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap', fontSize: 13, color: '#545F71' }}>
-        <span>Prodaje i šalje: <b style={{ color: '#101117' }}>{seller}</b></span>
+        <span>Prodaje i šalje: {seller === 'Big Bang' ? <a href="#" onClick={(e) => { e.preventDefault(); if (window.BBOpenSeller) window.BBOpenSeller(); }} style={{ color: '#0050A0', fontWeight: 700, textDecoration: 'underline', textUnderlineOffset: 2 }}>Big Bang</a> : <b style={{ color: '#101117' }}>{seller}</b>}</span>
         {offerCount > 0 && <button onClick={onAllOffers} style={{ background: 'none', border: 'none', padding: 0, fontSize: 13, fontWeight: 600, color: '#0050A0', textDecoration: 'underline', textUnderlineOffset: 2, cursor: 'pointer', fontFamily: 'inherit' }}>Još {offerCount} ponuda od {fromPrice} €</button>}
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 6, background: '#fff', border: '1px solid #E3E4E9', borderRadius: 12, padding: '16px 8px' }}>
