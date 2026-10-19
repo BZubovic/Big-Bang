@@ -177,15 +177,16 @@ Pages/Seller-bigbang-body.dc.html  "Big Bang" seller page (1P, page key `seller`
                                data file (a page-only helmet data file left the page empty on the canvas). Kept deliberately
                                lean (trimmed ~50% on 16.10.2026. — don't re-add removed blocks without asking): hero + badge +
                                4 key benefits + trust bar; "Tko je Big Bang?" (lead, one paragraph, "Big Bang ukratko" facts);
-                               "Zašto…" (6 short USPs); stores (StoreLocator, nearest store, services + holiday hours);
+                               "Zašto…" (6 short USPs); stores (StoreLocator, then two cards: services | holiday hours; no nearest-store widget);
                                delivery (4 options, installation list, 5-row Big Bang vs drugi prodavatelji table); reviews
-                               (rating summary line + 6 placeholder reviews + verified-only note); category tiles (open the
-                               category page via onOpenCategory), bestsellers by category and Akcije (ProductCarousel, show-all
+                               (rating summary line + 6 placeholder reviews — stars, verified badge, title, text ONLY; never show reviewer
+                               name/initials, date or purchased product (legal) + verified-only note); category tiles (open the
+                               category page via onOpenCategory), "Najprodavanije" (top products across all categories, no category pills) and Akcije (ProductCarousel, show-all
                                off), brand slider; contact + company data; GeoFaq (6). Removed: full catalogue with filters/search,
                                rating breakdown cards, customer photos, Novosti, awards/partners, payments/after-sales cards,
                                big-appliance steps, Click & Collect stock check, timeline/values/video. GEO: every H2 is a
                                question with a factual answer-first lead; "Podaci ažurirani" date at the bottom. Sets title/meta +
-                               one JSON-LD graph (WebPage, BreadcrumbList, Organization with AggregateRating/Review/OfferCatalog/
+                               one JSON-LD graph (WebPage, BreadcrumbList, Organization with AggregateRating (no Review items — legal)/OfferCatalog/
                                MerchantReturnPolicy, ElectronicsStore per store). Tracked clicks push `seller_page_click` to
                                window.dataLayer. Opened by shell `goSeller`, `window.BBOpenSeller()` (PDP "Prodaje i šalje: Big Bang",
                                cart "Trgovac: Big Bang")
@@ -372,7 +373,9 @@ energy?, pills?: [{ label, tone: 'navy'|'orange'|'lime'|'red'|'blue' }], rating?
 ```
 Pass a plain product array; the component decorates it (pills, stars, cashback badge,
 energy label, price split, monthly rate, promo code), renders the track, the arrows
-and the scroll progress bar. `step` sets the arrow scroll distance.
+and the scroll progress bar. `step` sets the arrow scroll distance. `hide-head="{{ true }}"` hides
+the component's own title / Prikaži sve / arrows row so the page can draw them itself and scroll the track
+(the `.nsb` element inside the import) — used by the seller page's "Najprodavanije".
 
 Product shape:
 ```js
@@ -717,6 +720,7 @@ images/l3-perilica-samsung.png  /_blob/b827d7b6f017f98ba323fbf6aa8cba68
 images/l3-ploca-indukcija.png  /_blob/c64c1b61ddc9e719a867f189b185a36d
 images/logo-dark.svg  /_blob/848e55eb25f4194696b460b05f50cd4d
 images/big-bang-logo-primary.png  /_blob/34f084320ff7828f9f7a170ca914d4bf   (primary logo: white wordmark on #0050A0, 640×237 — seller page hero)
+images/seller-hero-store.webp  /_blob/d327b332af2a09fd9c9485aa84f39998   (Big Bang Mega Store facade with mascots, 1400×819 — seller page hero image; facade shows SI copy and 4,6 / 2.894 rating)
 images/logo-white.svg  /_blob/4c12a966ca931e932c5dd80bc36cb2ca
 images/map-placeholder.png  /_blob/e10b8add015214771fcc91f0289c8a71
 images/offer-best-1.webp  /_blob/8b80cf8cd49abfdbc5daa743d25e5cc4

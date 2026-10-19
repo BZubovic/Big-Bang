@@ -1,6 +1,17 @@
 /* Prototype change log — one entry per piece of work, not per prompt.
    Shown in the "Prototype settings" panel via "View logs". */
 window.BB_CHANGELOG = [
+  { date: '19.10.2026.', title: 'Stranica prodavatelja Big Bang — naslovna slika i strelice', changes: [
+    'Naslovni dio: nova fotografija Big Bang Mega Storea s maskotama umjesto privremene slike',
+    'Uklonjena oznaka ocjene preko slike jer slika već prikazuje ocjenu na fasadi; prosječna ocjena ostaje u traci s brojkama i kod recenzija',
+    'Najprodavanije po kategoriji: strelice karusela premještene u isti red s naslovom i poveznicom „Prikaži sve”',
+    'Karusel proizvoda: nova opcija za skrivanje vlastitog zaglavlja (naslov i strelice) kad ih stranica prikazuje sama',
+    'Recenzije: iz pravnih razloga uklonjeni inicijali, ime, datum i kupljeni proizvod — kartica prikazuje samo ocjenu, oznaku provjerene kupnje, naslov i tekst; iz strukturiranih podataka uklonjene pojedinačne recenzije (ostaje prosječna ocjena)',
+    'Trgovine: uklonjen okvir „Najbliža trgovina”; „Usluge u trgovinama” i „Radno vrijeme blagdanima” sada su dva zasebna stupca ispod karte',
+    'Dostava i usluge: uklonjena poveznica „Vaša prava na zakonsko jamstvo” ispod usporedbe s drugim prodavateljima',
+    'Karusel „Najprodavanije po kategoriji” postao je „Najprodavanije”: uklonjeni gumbi kategorija i poveznica „Prikaži sve”, a karusel prikazuje najprodavanije proizvode iz svih kategorija',
+    'Kontakt: uklonjena kartica „Chat” jer Big Bang nema chat (ostaju pozivni centar i e-mail u dva stupca); u prednosti „Stručni savjet” uklonjeno spominjanje chata'
+  ] },
   { date: '16.10.2026.', title: 'Stranica prodavatelja Big Bang — sažetija', changes: [
     'Sadržaj stranice skraćen otprilike za pola: ostale su samo ključne informacije za kupce i pretraživače',
     'Uklonjeno: cijela ponuda s filtrima i pretragom, kartice s raspodjelom ocjena i vanjskim ocjenama, fotografije kupaca, karusel „Novo u ponudi”, certifikati i partneri, kartice plaćanja i postprodaje, provjera zalihe po trgovinama, vremenska crta, vrijednosti i video',

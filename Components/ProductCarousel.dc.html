@@ -16,6 +16,7 @@
 
 <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
 <div style="width:100%;margin:52px 0 0;overflow:hidden">
+  <sc-if value="{{ showHead }}" hint-placeholder-val="{{ true }}">
   <div style="display:flex;align-items:center;justify-content:space-between;gap:24px;padding-left:max(20px,calc((100% - 1480px) / 2 + 20px));padding-right:max(20px,calc((100% - 1480px) / 2 + 20px));margin-bottom:18px">
     <div style="display:flex;align-items:baseline;gap:22px;min-width:0">
       <h2 style="font-size:24px;font-weight:600;color:#101117;letter-spacing:-0.02em">{{ title }}</h2>
@@ -31,6 +32,7 @@
       <button onClick="{{ scrollNext }}" style="width:46px;height:46px;border-radius:50%;background:#fff;border:none;display:flex;align-items:center;justify-content:center;color:#101117;transition:background .15s" style-hover="background:#E7E7EE"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
     </div>
   </div>
+  </sc-if>
   <div ref="{{ trackRef }}" class="nsb" style="display:flex;gap:24px;overflow-x:auto;padding:8px max(20px,calc((100% - 1480px) / 2 + 20px)) 12px max(20px,calc((100% - 1480px) / 2 + 20px))">
     <sc-for list="{{ products }}" as="p" hint-placeholder-count="0">
       <div style="width:269px;flex-shrink:0;display:flex">
@@ -46,12 +48,14 @@
 
 <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
 <div style="padding:36px 0 0 12px">
+  <sc-if value="{{ showHead }}" hint-placeholder-val="{{ true }}">
   <div style="display:flex;align-items:center;justify-content:space-between;padding-right:12px;margin-bottom:12px">
     <h2 style="font-size:18px;font-weight:600;letter-spacing:-0.02em">{{ title }}</h2>
     <sc-if value="{{ showAll }}" hint-placeholder-val="{{ true }}">
       <a href="#" class="arw" style="font-size:13px;font-weight:600;color:#0050A0;display:flex;align-items:center;gap:5px;white-space:nowrap">Prikaži sve <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
     </sc-if>
   </div>
+  </sc-if>
   <div class="nsb" ref="{{ trackRef }}" style="display:flex;gap:12px;overflow-x:auto;padding:6px 12px 10px 0">
     <sc-for list="{{ products }}" as="p" hint-placeholder-count="0">
       <div style="width:216px;flex-shrink:0;display:flex">
@@ -70,6 +74,7 @@
   &quot;onRemoveWish&quot;: { &quot;editor&quot;: null, &quot;tsType&quot;: &quot;(p: any) =&gt; void&quot; },
   &quot;wishlist&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot; },
   &quot;showAll&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; },
+  &quot;hideHead&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot; },
   &quot;$preview&quot;: {
     &quot;width&quot;: 1480,
     &quot;height&quot;: 560
@@ -150,6 +155,7 @@ class Component extends DCLogic {
       isMobile: mobile,
       title: this.props.title || '',
       showAll: this.props.showAll !== false && !this.props.wishlist,
+      showHead: !this.props.hideHead,
       products: (() => { const ps = list.map(decorate); const rr = ps.some(p => p.card.rating), ro = ps.some(p => p.card.options), rp = ps.some(p => { const c = p.card; return (c.codePct > 0 || !!c.renewedSave); }); ps.forEach(p => { p.card.rowRating = rr; p.card.rowOptions = ro; p.card.rowPromo = rp; }); return ps; })(),
       trackRef: this.trackRef,
       scrollPrev: () => this.scrollBy(-1),

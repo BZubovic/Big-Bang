@@ -55,11 +55,7 @@
         </div>
       </div>
       <div style="{{ S.heroImgBox }}">
-        <img src="{{ heroImg }}" alt="Savjetnik Big Banga pomaže kupcima pri odabiru uređaja" style="width:100%;height:100%;object-fit:cover;display:block">
-        <div style="{{ S.heroImgChip }}">
-          <span style="{{ S.starsBox }}"><span style="color:#D5D9E0">★★★★★</span><span style="{{ avgFill }}">★★★★★</span></span>
-          <b style="color:#101117">{{ rating.avg }}</b><span style="color:#545F71">· {{ rating.count }} provjerenih ocjena</span>
-        </div>
+        <img src="{{ heroImg }}" alt="Big Bang Mega Store — ulaz u trgovinu s maskotama koje nose kupljene proizvode" width="1400" height="819" fetchpriority="high" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block">
       </div>
     </div>
 
@@ -130,34 +126,6 @@
 
     <div style="{{ S.storeGrid }}">
       <div style="{{ S.card }}">
-        <h3 style="{{ S.h3 }}">Najbliža trgovina</h3>
-        <p style="{{ S.small }}">Pronađite trgovinu najbližu vašoj lokaciji ili odaberite grad.</p>
-        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
-          <button onClick="{{ locate }}" class="bbcta" style="{{ S.btnSm }}">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path><circle cx="12" cy="12" r="8"></circle></svg>
-            {{ locLabel }}
-          </button>
-          <select onChange="{{ pickCity }}" value="{{ nearCity }}" aria-label="Odaberi grad" style="{{ S.select }}">
-            <option value="">Odaberi grad</option>
-            <sc-for list="{{ cities }}" as="c" hint-placeholder-count="8"><option value="{{ c }}">{{ c }}</option></sc-for>
-          </select>
-        </div>
-        <sc-if value="{{ locMsg }}" hint-placeholder-val="{{ false }}"><p style="font-size:12.5px;color:#8B95A5;margin-top:8px">{{ locMsg }}</p></sc-if>
-        <sc-if value="{{ hasNear }}" hint-placeholder-val="{{ true }}">
-          <div style="{{ S.nearBox }}">
-            <div style="font-size:15px;font-weight:700;color:#101117">{{ near.name }}</div>
-            <sc-if value="{{ near.dist }}" hint-placeholder-val="{{ false }}"><div style="font-size:12.5px;font-weight:600;color:#0B7A48;margin-top:2px">{{ near.dist }}</div></sc-if>
-            <div style="font-size:13px;color:#545F71;margin-top:6px">{{ near.address }}</div>
-            <div style="font-size:13px;color:#545F71;margin-top:2px">{{ near.hours }}</div>
-            <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:10px">
-              <a href="{{ near.tel }}" onClick="{{ near.telClick }}" style="font-size:13.5px;font-weight:600;color:#0050A0">{{ near.phone }}</a>
-              <a href="{{ near.dir }}" onClick="{{ near.dirClick }}" target="_blank" rel="noopener" style="font-size:13.5px;font-weight:600;color:#0050A0">Navigacija ↗</a>
-            </div>
-          </div>
-        </sc-if>
-      </div>
-
-      <div style="{{ S.card }}">
         <h3 style="{{ S.h3 }}">Usluge u trgovinama</h3>
         <div style="display:flex;flex-direction:column;gap:12px;margin-top:12px">
           <sc-for list="{{ storeServices }}" as="x" hint-placeholder-count="4">
@@ -167,7 +135,11 @@
             </div>
           </sc-for>
         </div>
-        <h3 style="{{ S.h3sub }}">Radno vrijeme blagdanima</h3>
+      </div>
+
+      <div style="{{ S.card }}">
+        <h3 style="{{ S.h3 }}">Radno vrijeme blagdanima</h3>
+        <div style="margin-top:8px"></div>
         <sc-for list="{{ holidays }}" as="h" hint-placeholder-count="5">
           <div style="{{ S.holRow }}"><span><b style="color:#101117;font-weight:600">{{ h.d }}</b> {{ h.n }}</span><span style="white-space:nowrap">{{ h.h }}</span></div>
         </sc-for>
@@ -225,7 +197,6 @@
           </tbody>
         </table>
       </div>
-      <a href="#" onClick="{{ openNotice }}" style="display:inline-block;margin-top:12px;font-size:13.5px;font-weight:600;color:#0050A0;text-decoration:underline;text-underline-offset:2px">Vaša prava na zakonsko jamstvo</a>
     </div>
     </div>
   </section>
@@ -253,13 +224,6 @@
           </div>
           <h4 style="font-size:15px;font-weight:700;color:#101117;margin:12px 0 0">{{ r.h }}</h4>
           <p style="font-size:14px;line-height:1.55;color:#353B47;margin:6px 0 0;flex:1">{{ r.t }}</p>
-          <div style="display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:12px;border-top:1px solid #EEF0F3">
-            <span style="{{ S.avatar }}">{{ r.ini }}</span>
-            <div style="min-width:0">
-              <div style="font-size:13.5px;font-weight:700;color:#101117">{{ r.n }} <span style="font-weight:400;color:#8B95A5">· {{ r.d }}</span></div>
-              <div style="font-size:12.5px;color:#545F71;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Kupljeno: {{ r.p }}</div>
-            </div>
-          </div>
         </article>
       </sc-for>
     </div>
@@ -283,17 +247,17 @@
     </div>
 
     <div style="{{ S.titleRowTop }}">
-      <h2 style="{{ S.h2row }}">Najprodavanije po kategoriji</h2>
-      <a href="#" onClick="{{ bestAll }}" class="arw" style="{{ S.link }}">Prikaži sve: {{ bestCat }} <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-    </div>
-    <div class="nsb" style="{{ S.tabs }}">
-      <sc-for list="{{ bestTabs }}" as="t" hint-placeholder-count="8">
-        <button onClick="{{ t.click }}" style="{{ t.style }}">{{ t.label }}</button>
-      </sc-for>
+      <h2 style="{{ S.h2row }}">Najprodavanije</h2>
+      <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;gap:14px;margin-left:auto;align-self:center">
+          <button onClick="{{ bestPrev }}" aria-label="Prethodni proizvodi" style="{{ S.arrow }}" style-hover="background:#E7E7EE"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+          <button onClick="{{ bestNext }}" aria-label="Sljedeći proizvodi" style="{{ S.arrow }}" style-hover="background:#E7E7EE"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+        </div>
+      </sc-if>
     </div>
   </section>
-  <div style="{{ S.carPull }}">
-    <dc-import name="Components/ProductCarousel" variant="{{ v }}" title="" show-all="{{ false }}" products="{{ bestList }}" on-open-product="{{ openProduct }}" hint-size="100%,560px"></dc-import>
+  <div data-best-car="" style="{{ S.carPull }}">
+    <dc-import name="Components/ProductCarousel" variant="{{ v }}" title="" show-all="{{ false }}" hide-head="{{ true }}" products="{{ bestList }}" on-open-product="{{ openProduct }}" hint-size="100%,560px"></dc-import>
   </div>
   <dc-import name="Components/ProductCarousel" variant="{{ v }}" title="Akcije Big Banga" show-all="{{ false }}" products="{{ saleList }}" on-open-product="{{ openProduct }}" hint-size="100%,560px"></dc-import>
 
@@ -361,7 +325,7 @@ const DATA = {
       { b: 'Montaža i priključak', t: '— TV na zid, klima, bijela tehnika' },
       { b: 'Do 36 rata', t: '— bez kamata karticama banaka' }
     ],
-    img: 'images/b2b-meeting.png'
+    img: 'images/seller-bigbang-store.webp'
   },
   stats: [ /* TBC */
     { v: '30+', l: 'godina na tržištu' },
@@ -383,7 +347,7 @@ const DATA = {
   },
   whyLead: 'Kod proizvoda s oznakom „Prodaje i šalje: Big Bang” sve rješavate kod jednog prodavatelja — od savjeta i dostave do povrata i servisa.',
   usps: [
-    { ic: 'advice', t: 'Stručni savjet', s: 'U trgovini, telefonom ili chatom' },
+    { ic: 'advice', t: 'Stručni savjet', s: 'U trgovini ili telefonom' },
     { ic: 'shield', t: 'Službeno jamstvo', s: '2 godine + produljeno jamstvo' },
     { ic: 'truck', t: 'Brza dostava', s: 'Besplatno iznad 100 €' },
     { ic: 'tool', t: 'Montaža i priključak', s: 'TV na zid, klima, bijela tehnika' },
@@ -426,13 +390,13 @@ const DATA = {
   ],
   rating: { avg: '4,8', count: '12.486', dist: [82, 12, 3, 1, 2] }, /* TBC */
   google: { avg: '4,6', count: '8.900+' },
-  reviews: [ /* PLACEHOLDER reviews — replace with real verified reviews before launch (Omnibus) */
-    { n: 'Marija K.', d: '12.10.2026.', p: 'Perilica rublja BOSCH Serie 6, 9 kg', r: 5, h: 'Dostava, priključak i odvoz u jednom danu', t: 'Dostava točno u dogovoreno vrijeme. Dečki su perilicu unijeli u kupaonicu, spojili je i odvezli staru. Sve bez ijedne brige.' },
-    { n: 'Ivan P.', d: '08.10.2026.', p: 'TV SAMSUNG Neo QLED 55"', r: 5, h: 'Savjet uživo pa montaža sutradan', t: 'Savjetnik u Arena centru pokazao mi je razliku između modela uživo. Montaža na zid bila je sutradan, uredno i brzo.' },
-    { n: 'Ana M.', d: '02.10.2026.', p: 'Laptop LENOVO IdeaPad Slim 5', r: 4, h: 'Click & Collect isti dan', t: 'Naručila sam online i preuzela u trgovini isti dan. Prijenos podataka sa starog laptopa odradili su na licu mjesta.' },
-    { n: 'Tomislav B.', d: '27.09.2026.', p: 'Klima uređaj Hisense 3,5 kW', r: 5, h: 'Klima montirana za tjedan dana', t: 'Montaža klime tjedan dana od narudžbe, majstori čisti i ljubazni. Rate na 24 bez kamata su presudile.' },
-    { n: 'Petra Š.', d: '21.09.2026.', p: 'Usisavač Dyson V15', r: 5, h: 'Povrat bez ikakvih pitanja', t: 'Prvi model vratila sam u trgovini bez ikakvih pitanja i uzela jači. Novac za razliku odmah su obračunali.' },
-    { n: 'Luka V.', d: '15.09.2026.', p: 'Mobitel Samsung Galaxy S24', r: 4, h: 'Brzo do paketomata', t: 'Paket je stigao u paketomat sljedeći dan, cijena je bila odlična. Jedino bih volio više boja na zalihi.' }
+  reviews: [ /* PLACEHOLDER reviews — rating, title and text only: no name, date or purchased product may be shown (legal) */
+    { r: 5, h: 'Dostava, priključak i odvoz u jednom danu', t: 'Dostava točno u dogovoreno vrijeme. Dečki su perilicu unijeli u kupaonicu, spojili je i odvezli staru. Sve bez ijedne brige.' },
+    { r: 5, h: 'Savjet uživo pa montaža sutradan', t: 'Savjetnik u Arena centru pokazao mi je razliku između modela uživo. Montaža na zid bila je sutradan, uredno i brzo.' },
+    { r: 4, h: 'Click & Collect isti dan', t: 'Naručila sam online i preuzela u trgovini isti dan. Prijenos podataka sa starog laptopa odradili su na licu mjesta.' },
+    { r: 5, h: 'Klima montirana za tjedan dana', t: 'Montaža klime tjedan dana od narudžbe, majstori čisti i ljubazni. Rate na 24 bez kamata su presudile.' },
+    { r: 5, h: 'Povrat bez ikakvih pitanja', t: 'Prvi model vratila sam u trgovini bez ikakvih pitanja i uzela jači. Novac za razliku odmah su obračunali.' },
+    { r: 4, h: 'Brzo do paketomata', t: 'Paket je stigao u paketomat sljedeći dan, cijena je bila odlična. Jedino bih volio više boja na zalihi.' }
   ],
   offerLead: 'Big Bang u službenoj ponudi ima više od 25.000 proizvoda u 12 kategorija — od televizora, mobitela i laptopa do bijele tehnike i klima uređaja — uz brendove Samsung, Apple, LG, Bosch i Philips.',
   cats: [ /* counts TBC */
@@ -452,8 +416,7 @@ const DATA = {
   contactLead: 'Korisnička podrška Big Banga dostupna je svaki dan od 8 do 20 h na 01 6655 555 i na podrska@bigbang.hr.',
   support: [
     { t: 'Pozivni centar', v: '01 6655 555', href: 'tel:016655555', s: 'Svaki dan 8–20 h', ic: 'phone' },
-    { t: 'E-mail', v: 'podrska@bigbang.hr', href: 'mailto:podrska@bigbang.hr', s: 'Odgovor unutar 24 h', ic: 'mail' },
-    { t: 'Chat', v: 'Pokreni chat', href: '', s: 'Pon–Sub 8–20 h', ic: 'chat', chat: true }
+    { t: 'E-mail', v: 'podrska@bigbang.hr', href: 'mailto:podrska@bigbang.hr', s: 'Odgovor unutar 24 h', ic: 'mail' }
   ],
   company: [
     { k: 'Naziv društva', v: 'Sancta Domenica d.o.o.' },
@@ -525,7 +488,7 @@ class Component extends DCLogic {
   }
 
   /* SEO / GEO: title, meta description and one JSON-LD graph — WebPage + BreadcrumbList + Organization
-     (AggregateRating, Reviews, OfferCatalog, ContactPoint) + ElectronicsStore per store. FAQPage comes from GeoFaq. */
+     (AggregateRating, OfferCatalog, ContactPoint; no individual Review items — reviewer data may not be shown) + ElectronicsStore per store. FAQPage comes from GeoFaq. */
   seo() {
     const D = DATA, stores = window.BB_STORES || [];
     if (this.prevTitle == null) {
@@ -547,7 +510,6 @@ class Component extends DCLogic {
         address: { '@type': 'PostalAddress', streetAddress: 'Dr. Franje Tuđmana 69', postalCode: '10431', addressLocality: 'Sveta Nedelja', addressCountry: 'HR' },
         contactPoint: [{ '@type': 'ContactPoint', telephone: '+385-1-6655-555', email: 'podrska@bigbang.hr', contactType: 'customer service', availableLanguage: 'hr', hoursAvailable: { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], opens: '08:00', closes: '20:00' } }],
         aggregateRating: { '@type': 'AggregateRating', ratingValue: D.rating.avg.replace(',', '.'), reviewCount: D.rating.count.replace(/\./g, ''), bestRating: '5', worstRating: '1' },
-        review: D.reviews.map(r => ({ '@type': 'Review', author: { '@type': 'Person', name: r.n }, datePublished: r.d.split('.').slice(0, 3).reverse().join('-'), name: r.h, reviewBody: r.t, reviewRating: { '@type': 'Rating', ratingValue: r.r, bestRating: 5 } })),
         hasOfferCatalog: { '@type': 'OfferCatalog', name: 'Službena ponuda Big Banga', itemListElement: D.cats.map(c => ({ '@type': 'OfferCatalog', name: c.label, numberOfItems: c.count })) },
         hasMerchantReturnPolicy: { '@type': 'MerchantReturnPolicy', applicableCountry: 'HR', returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow', merchantReturnDays: 30, returnMethod: ['https://schema.org/ReturnInStore', 'https://schema.org/ReturnByMail'], returnFees: 'https://schema.org/FreeReturn' } }
     ].concat(stores.map(st => ({ '@type': 'ElectronicsStore', name: st.name, parentOrganization: { '@id': org }, telephone: st.phone, openingHours: toOH(st.hours),
@@ -571,6 +533,11 @@ class Component extends DCLogic {
     const r = el.getBoundingClientRect();
     if (cont) { const cr = cont.getBoundingClientRect(); cont.scrollBy({ top: r.top - cr.top - 120, behavior: 'smooth' }); }
     else window.scrollBy({ top: r.top - 140, behavior: 'smooth' });
+  };
+  bestScroll = (dir) => {
+    const el = this.root && this.root.querySelector('[data-best-car] .nsb');
+    if (el) el.scrollBy({ left: dir * Math.max(300, el.clientWidth - 160), behavior: 'smooth' });
+    this.track('bestseller_arrow', dir > 0 ? 'next' : 'prev');
   };
   go = (id, type) => (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ sec: id }); if (type) this.track(type, id); this.scrollToSec(id); };
 
@@ -622,7 +589,7 @@ class Component extends DCLogic {
       wrapTop: { maxWidth: 1480, margin: '0 auto', padding: mobile ? '12px 12px 0' : '18px 20px 0', boxSizing: 'border-box' },
       wrapHero: { maxWidth: 1480, margin: '0 auto', padding: pad, boxSizing: 'border-box' },
       wrap: { maxWidth: 1480, margin: mobile ? '32px auto 0' : '56px auto 0', padding: pad, boxSizing: 'border-box' },
-      carPull: { marginTop: mobile ? -36 : -52 },
+      carPull: { marginTop: mobile ? -24 : -38 },
       hero: st({ display: 'grid', gridTemplateColumns: 'minmax(0,1.1fr) minmax(0,1fr)', gap: 24, background: '#fff', borderRadius: 16, padding: 24, alignItems: 'stretch', marginTop: 12 }, { gridTemplateColumns: '1fr', gap: 16, padding: 16, borderRadius: 12, marginTop: 8 }),
       heroText: st({ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '20px 12px 20px 20px' }, { padding: 0, order: 2 }),
       heroLogoRow: { display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' },
@@ -720,7 +687,6 @@ class Component extends DCLogic {
       revTrack: st({ display: 'flex', gap: 16, overflowX: 'auto', scrollSnapType: 'x mandatory', paddingBottom: 4 }, { gap: 8, margin: '0 -12px', padding: '0 12px 4px', scrollPaddingLeft: 12 }),
       revCard: st({ flex: '0 0 calc((100% - 48px) / 4)', minWidth: 280, background: '#fff', borderRadius: 12, padding: '20px 22px', display: 'flex', flexDirection: 'column', scrollSnapAlign: 'start', boxSizing: 'border-box' }, { flex: '0 0 84%', minWidth: 0, padding: 16 }),
       verified: { display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11.5, fontWeight: 600, color: '#0B7A48', background: '#E6F5EC', padding: '3px 8px', borderRadius: 10, whiteSpace: 'nowrap' },
-      avatar: { width: 34, height: 34, borderRadius: 17, background: '#EEF3FA', color: '#002D73', fontSize: 13, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
       ugc: st({ display: 'flex', gap: 12, overflowX: 'auto' }, { gap: 8, margin: '0 -12px', padding: '0 12px' }),
       ugcTile: st({ flex: '0 0 200px', margin: 0, background: '#fff', borderRadius: 12, padding: 10, boxSizing: 'border-box' }, { flex: '0 0 140px', padding: 8 }),
       ugcPh: st({ height: 180, borderRadius: 8, background: '#E9EAEE', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 6 }, { height: 124 }),
@@ -741,7 +707,7 @@ class Component extends DCLogic {
       empty: { background: '#fff', borderRadius: 12, padding: 32, textAlign: 'center', fontSize: 14, color: '#545F71' },
       brandTrack: { display: 'flex', gap: mobile ? 8 : 16, overflowX: 'auto', marginTop: 8 },
       brandTile: st({ flexShrink: 0, width: 168, height: 88, padding: '0 18px', borderRadius: 12, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 19, fontWeight: 800, letterSpacing: '-0.03em', color: '#101117', textDecoration: 'none', boxSizing: 'border-box' }, { width: 120, height: 64, fontSize: 15 }),
-      supGrid: st({ display: 'grid', gridTemplateColumns: 'repeat(3,minmax(0,1fr))', gap: 16 }, { gridTemplateColumns: '1fr', gap: 8 }),
+      supGrid: st({ display: 'grid', gridTemplateColumns: 'repeat(2,minmax(0,1fr))', gap: 16 }, { gridTemplateColumns: '1fr', gap: 8 }),
       supCard: st({ display: 'flex', alignItems: 'center', gap: 14, background: '#fff', borderRadius: 12, padding: '20px 22px', color: '#101117', textDecoration: 'none', cursor: 'pointer' }, { padding: '14px 16px' }),
       compCard: st({ background: '#fff', borderRadius: 12, padding: '28px 32px', marginTop: 16 }, { padding: '20px 16px', marginTop: 8 }),
       compGrid: st({ display: 'grid', gridTemplateColumns: 'repeat(3,minmax(0,1fr))', gap: '18px 24px', margin: '16px 0 0' }, { gridTemplateColumns: '1fr 1fr', gap: '14px 12px' }),
@@ -754,7 +720,9 @@ class Component extends DCLogic {
     const POOL = this.pool();
     const ready = POOL.length > 0;
     const bestCat = D.cats[s.bestIdx] || D.cats[0];
-    const bestList = POOL.filter(x => x.cat === bestCat.label).sort((a, b) => b.pop - a.pop).slice(0, 12);
+    /* bestsellers across all categories: top products taken round-robin per category so the row stays varied */
+    const byCat = D.cats.map(c => POOL.filter(x => x.cat === c.label).sort((a, b) => b.pop - a.pop));
+    const bestList = []; for (let r = 0; bestList.length < 12 && r < 4; r++) byCat.forEach(l => { if (l[r] && bestList.length < 12) bestList.push(l[r]); });
     const saleList = POOL.filter(x => x.on).sort((a, b) => b.pct - a.pct).slice(0, 12);
     const newList = POOL.filter((x, i) => i % 3 === 1).slice(0, 12);
     const pr = PRICE_OPTS.find(o => o.v === s.priceF) || PRICE_OPTS[0];
@@ -830,7 +798,7 @@ class Component extends DCLogic {
       openNotice: (e) => { if (e) e.preventDefault(); if (window.BBEU) window.BBEU.openNotice(); },
 
       reviewsLead,
-      reviews: D.reviews.map(r => Object.assign({}, r, { fill: fill(r.r), aria: 'Ocjena ' + r.r + ' od 5', ini: r.n.split(' ').map(w => w.charAt(0)).join('') })),
+      reviews: D.reviews.map(r => Object.assign({}, r, { fill: fill(r.r), aria: 'Ocjena ' + r.r + ' od 5', })),
       revPrev: () => { const el = this.revRef.current; if (el) el.scrollBy({ left: -el.clientWidth, behavior: 'smooth' }); },
       revNext: () => { const el = this.revRef.current; if (el) el.scrollBy({ left: el.clientWidth, behavior: 'smooth' }); },
 
@@ -841,6 +809,7 @@ class Component extends DCLogic {
       cats: D.cats.map(c => ({ label: c.label, countLabel: c.count.toLocaleString('hr-HR') + ' proizvoda', click: catPick(c.label, true),
         imgStyle: { width: '100%', height: '100%', backgroundImage: 'url("' + c.img + '")', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', mixBlendMode: 'multiply' } })),
       bestTabs: D.cats.map((c, i) => ({ label: c.label, style: chip(i === s.bestIdx), click: () => { this.track('bestseller_tab', c.label); this.setState({ bestIdx: i }); } })),
+      bestPrev: () => this.bestScroll(-1), bestNext: () => this.bestScroll(1),
       bestCat: bestCat.label, bestAll: catPick(bestCat.label, true),
       bestList, saleList, newList,
       openProduct: (x) => { this.track('product', x && x.name); if (p.onOpenProduct) p.onOpenProduct(x); },
