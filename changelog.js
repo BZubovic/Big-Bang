@@ -1,6 +1,107 @@
 /* Prototype change log — one entry per piece of work, not per prompt.
    Shown in the "Prototype settings" panel via "View logs". */
 window.BB_CHANGELOG = [
+  { date: '28.10.2026.', title: 'Stranica proizvoda (desktop) – ljepljiva traka bez cijene', changes: [
+    'Ljepljiva traka za košaricu više ne prikazuje cijenu: slika, naziv proizvoda i gumb „Dodaj u košaricu”'
+  ] },
+  { date: '28.10.2026.', title: 'Kuhinje i stilovi kuhinja – bez zvjezdica ocjene', changes: [
+    'Uklonjene zvjezdice i ocjena „[4,x/5 · Y ocen strank]” na stranici Kuhinje (naslovni dio na desktopu i mobitelu, rezervacija termina) i na stranicama stilova kuhinja (obrazac za rezervaciju)',
+    'Uklonjene zvjezdice s kartica mišljenja kupaca na stranici Kuhinje',
+    'Export for CMS: Kuhinje i tri stila kuhinja (klasične, rustikalne, moderne) izvezeni bez zvjezdica, s poveznicama /kuhinje/, /kuhinje-klasicne/, /kuhinje-rusticne/ i /kuhinje-moderne/; video na naslovnom dijelu Kuhinja bez zvuka',
+    'Export for CMS: na stranicama stilova kuhinja uklonjen dodatni okvir oko obrasca za rezervaciju (CMS obrazac crta svoju karticu)',
+    'Export for CMS: CSS izvoza sada je jači od stilova trgovine — gumbi lokacija i popis razstavnih kuhinja više ne izgledaju kao sivi zadani gumbi, a naslov na vrhu stranice Kuhinje ostaje bijel; pravilo je zapisano za sve buduće izvoze'
+  ] },
+  { date: '23.10.2026.', title: 'Export for CMS — nova verzija vodiča CMS developera (3.26.1022.30)', changes: [
+    'Vodič CMS developera zamijenjen novom verzijom 3.26.1022.30; pravila exporta usklađena s njegovim izmjenama',
+    'Naslov i „Prikaži sve” liste proizvoda sada idu u sam shortcode (ROW_TITLE / LINK_SHOW_ALL za ručne SKU-ove, TITLE / SHOW_ALL za kategorije i brandove), bez zasebnog HTML naslova; cijela lista se skriva kad nema proizvoda. Naslov koji je dio dizajniranog bloka (banner, oznake, kartice) ostaje naš HTML',
+    'Raspored i kartica proizvoda prema prototipu: PRODUCT_PRESENTATION, CARD_TYPE, broj proizvoda u retku na desktopu i mobitelu, broj redaka i ukupni limit; traka proizvoda može ići do desnog ili do oba ruba ekrana',
+    'Naše vlastite trake (kartice, kategorije) koje izlaze izvan širine sadržaja označavaju se za CMS (data-rail-extent / data-rail-track) i grade po modelu iz vodiča',
+    'UAU ponude: oznaka i benefit izdvojene ponude (CARD_BADGE_TEXT / CARD_BENEFIT_TEXT) prenose se iz prototipa',
+    'Poslovnice: šifre iz tablice svih poslovnica u vodiču, bez prefiksa kanala; šifre salona kuhinja provjerene',
+    'Ograničenja uvoza (10.000 elemenata, 10 razina blokova) dodana u provjeru exporta',
+    'Iz Landing page generatora preuzeta iskustva sa stvarnih uvoza: kartice s tekstom u odlomcima, CSS i skripta bez oslanjanja na strukturu roditelja, ručno postavljanje „Puna širina” nakon uvoza dok CMS to ne popravi, razmak 16 px na mobitelu; dodan alat za provjeru shortcodeova prema katalogu vodiča'
+  ] },
+  { date: '23.10.2026.', title: 'Naslovnica – novi slider „Izdvojeno za tebe”', changes: [
+    'Novi slider proizvoda na dnu naslovnice (desktop i mobitel), s karticama u izgledu „Kartica V3”',
+    'Promo kod u izgledu kao na Stolnim računalima: najveći kod (s „do” kad ih je više), „Uvjeti ›” otvara panel sa svim promo kodovima proizvoda',
+    'Kartice bez dostupnosti, prodavača i rata; bez praznog prostora za ocjene i opcije (prikazuju se samo kad ih proizvod ima, ostalo se pomiče gore); ocjene odmah ispod naslova u jednom redu; cijena, promo kod i datum cijene na dnu kartice, poravnati u cijelom redu; bez naljepnica na slici; najviše 3 oznake gore lijevo, energetska oznaka i „Informacijski list” dolje desno na slici'
+  ] },
+  { date: '22.10.2026.', title: 'Stolna računala – varijante kartice proizvoda V1 / V2 / V3 (prototip)', changes: [
+    'Nova postavka prototipa „Kartica” (V1 / V2 / V3), samo na Stolnim računalima',
+    'V1: trenutna kartica',
+    'V2: bez reda dostupnosti, reda „Prodaje:” i iznosa rata',
+    'V3: kao V2, bez naljepnica na slici (povrat novca, jamstvo); oznake su gore lijevo na slici, a energetska oznaka i „Informacijski list” u dva reda dolje desno na slici'
+  ] },
+  { date: '22.10.2026.', title: 'Stolna računala – više promo kodova na kartici proizvoda', changes: [
+    'Proizvodi mogu imati više promo kodova; kartica prikazuje samo najveći, s „do” ispred iznosa (npr. „do -103,80 €”)',
+    '„Uvjeti ›” na kartici više ne otvara skočni prozor, nego bočni panel (na mobitelu donji panel) „Promo kodovi” sa svim dostupnim promo kodovima tog proizvoda, od najvećeg',
+    'Svaki kod u panelu: postotak, iznos i „dodatno uz kod” u jednom redu, naziv i puni uvjeti, kod s gumbom „Kopiraj kod” — isti izgled kao na stranici proizvoda'
+  ] },
+  { date: '22.10.2026.', title: 'Stranica proizvoda – Istaknute akcije u punom prikazu', changes: [
+    'Zadano 6 istaknutih akcija (postavka „Istaknute akcije” u postavkama prototipa); u okviru su prikazane prve 4 uz „Prikaži sve (6)”',
+    'Dva promo koda: 15 % (SAMSUNG15) i 10 % (BIGBANG10), svaki u svom okviru s iznosom uštede i poveznicom „Uvjeti”',
+    '„Prikaži sve”, „Uvjeti” na promo kodu i klik na bilo koju akciju (poklon, zaštita, otkup, jamstvo) otvaraju isti prikaz „Istaknute akcije” sa svim promo kodovima i njihovim uvjetima te svim ostalim pogodnostima',
+    'Isto ponašanje i izgled okvira i punog prikaza na desktopu i mobitelu',
+    'Okvir promo koda u „Istaknutim akcijama”: iznos i „dodatno uz kod*” u jednom redu, sa zvjezdicom iza „kod”',
+    'Kartica promo koda u punom prikazu: postotak, iznos i „dodatno uz kod” u jednom redu, zatim naziv i puni uvjeti (opis akcije), pa kod s gumbom „Kopiraj kod”; uklonjena nova cijena i uvjeti na otvaranje',
+    'Okvir promo koda više ne otvara zaseban skočni prozor uvjeta',
+    '„Prikaži sve”, okvir promo koda i strelica na svakoj akciji otvaraju isti puni prikaz „Istaknute akcije”, pomaknut na odabranu akciju',
+    'Puni prikaz: zasebne grupe „Promo kodovi” i „Ostale pogodnosti”, za više promo kodova i drugih akcija',
+    'Svaki promo kod: postotak i iznos uštede, nova cijena, uvjet i rok, kod s gumbom „Kopiraj kod” te uvjeti koji se otvaraju na mjestu (za odabrani kod odmah otvoreni)',
+    'Ostale pogodnosti (poklon, zaštita, otkup, jamstvo) sa sličicom, nazivom i kratkim opisom'
+  ] },
+  { date: '22.10.2026.', title: 'Export for CMS — univerzalna pravila za sve stranice', changes: [
+    'Export sada cijelu stranicu omata u jedan omotač pune širine, tako da je CMS uvozi kao raspored pune širine; sve sekcije unutra ostaju zasebne sekcije',
+    'CMS elementi prema specifikaciji developera samo za obrasce, proizvode, blog objave i poslovnice; sve ostalo (hero, navigacija, kartice, slideri, galerije, harmonike, odbrojavanja, recenzije…) export gradi točno kao u prototipu, s istim interakcijama na desktopu i mobitelu',
+    'Gumb „Export for CMS” u promptu navodi strukturu stranice i prepoznaje samo te četiri vrste CMS elemenata na bilo kojoj stranici',
+    'Pravila exporta sada pokrivaju i stranice s bočnom navigacijom (npr. Načini plaćanja): bočni izbornik ostaje zalijepljen uz sekcije na desktopu, a na mobitelu postaje zalijepljeni red oznaka; kartice koje mijenjaju cijele sekcije (Web trgovina / Poslovnice) rade kao u prototipu',
+    'Prvi export s bočnom navigacijom: Načini plaćanja — izgled na desktopu i mobitelu jednak prototipu, prekidač Web trgovina / Poslovnice, bočni izbornik koji prati sekciju na ekranu, kopiranje IBAN-a s kvačicom i pitanja kod kojih je otvoreno samo jedno'
+  ] },
+  { date: '22.10.2026.', title: 'Export for CMS — usklađeno s vodičem CMS developera (Page Builder)', changes: [
+    'Postavke prototipa → „Export for CMS” sada priprema prompt iz vodiča CMS developera („HTML, ZIP i shortcodeovi”, poglavlje 6) i sam ispunjava naziv stranice, jezik i kanal (Kuhinje i Stil kuhinje: slovenski / SI, ostalo hrvatski / HR), redoslijed sekcija i izvore proizvoda',
+    'Prompt automatski navodi dinamičke dijelove stranice i CMS element u koji se pretvaraju (proizvodi, obrazac rezervacije, poslovnice, newsletter, odbrojavanje)',
+    'Vodič CMS developera spremljen je u projekt kao zasebna datoteka; prompt ga više ne kopira, pa je kraći i uvijek prati najnoviju verziju vodiča',
+    'Export sada daje ZIP spreman za uvoz u Page Builder: index.html (cijeli HTML dokument) i mapa images/, stvarni shortcodeovi (CATALOGPRODUCT, QUESTIONNAIRE, STORE_LOCATOR…) umjesto praznih [SHORTCODE=""] oznaka, hero zone s punom širinom i jedan responzivni markup bez dupliranih desktop / mobilnih kopija',
+    'Zabilježene stvarne CMS vrijednosti za Kuhinje (upitnik za rezervaciju termina i šifre salona kuhinja) iz datoteke koju je vratio CMS developer',
+    'Prvi export po novom formatu: Kuhinje — razstavne kuhinje izgledaju kao u prototipu (kartice salona, velika fotografija s prekidačem Fotografija / Tloris i popis kuhinja), obrazac i saloni kao CMS elementi; navigacija po stranici kao u prototipu (oznake preko naslovne slike, bijela traka koja se pri pomicanju zalijepi ispod zaglavlja i prati aktivnu sekciju), donja traka „Rezerviraj termin” na mobitelu, kartice stilova se šire na prelazak mišem (desktop) i dodir (mobitel), pitanja se otvaraju jedno po jedno'
+  ] },
+  { date: '22.10.2026.', title: 'Stolna računala — novi dizajni promo koda s uvjetima (pravni razlozi)', changes: [
+    'Uklonjeno svih 20 dosadašnjih varijanti promo koda iz Postavki prototipa',
+    'Postavke prototipa → „Promo kod (kartica)”: 10 novih dizajna — Naslov + uvjet u okviru, Kupon s podnožjem uvjeta, Zvjezdica i fusnota, Proširivi uvjeti, Kupon s perforacijom, Uvjet kao naslov, Cijena s kodom, Plavi naslovni pojas, Tekstualno bez okvira, Popis uvjeta',
+    'Svaki dizajn prikazuje postotak popusta, iznos u eurima, „dodatno uz kod”, naziv koda, gumb za kopiranje i uvjet kupona (za koga vrijedi), a puni uvjeti otvaraju se jednim klikom u novom prozoru „Uvjeti promo koda” (na mobitelu kao donji list)',
+    'Na mobitelu je naziv koda u vlastitom redu kako se nikad ne bi skratio; uvjet se nikad ne skraćuje na jedan red',
+    'Primjeri kupona na stranici: VISA10 (Visa uz Apple / Google Pay), UAU20 (članovi UAU Kluba, online) i MASTER15 (Mastercard kreditne kartice, 12+ rata), svaki s rokom i punim uvjetima',
+    'Svih 10 novih dizajna više nema naziv koda ni gumb za kopiranje na kartici — ostaju postotak, iznos, „dodatno uz kod” i uvjet; kod i kopiranje vidljivi su samo u prozoru „Uvjeti promo koda” (kupon s perforacijom sada umjesto koda prikazuje naziv akcije)',
+    'Dizajn 8 (Plavi naslovni pojas): uklonjena rečenica s uvjetom ispod okvira — uvjeti su dostupni preko poveznice „Uvjeti” u plavom pojasu; na mjestu gumba za kopiranje sada je poveznica „Uvjeti ›” (iz pravnih razloga bez „Cijena s kodom”), a plavi pojas prikazuje samo naziv akcije',
+    'Dizajn 8 sada je zelen (zeleni pojas s nazivom akcije i zeleni okvir, poveznica „Uvjeti ›” tamnoplava #002D73) i zove se „Zeleni naslovni pojas”; to je sada zadani prikaz promo koda na stranici Stolna računala („Trenutno” i ostali dizajni i dalje su dostupni u Postavkama prototipa)',
+    'Dizajn 8: uklonjen zeleni pojas s naslovom — sada je jedan red u zelenom okviru: postotak, iznos s „dodatno uz kod” i tamnoplava poveznica „Uvjeti ›” desno',
+    'Prozor „Uvjeti promo koda” prema novom predlošku: zeleni puni okvir s postotkom, iznosom i „dodatno uz kod”, desno gumb „Kopiraj kod” s nazivom koda ispod; puni uvjeti u zelenom info okviru (bez zasebnog kratkog uvjeta); kraća napomena o upisu koda; gumb „Razumijem” zaobljen, tamnoplavi okvir i tekst; veći gumb za zatvaranje',
+    'Stranica proizvoda (desktop i mobitel), „Istaknute akcije”: retci s promo kodom sada izgledaju kao zadani okvir na karticama — zeleni puni okvir, postotak, iznos u eurima s „dodatno uz kod” i tamnoplava poveznica „Uvjeti ›”; bez naziva koda i gumba za kopiranje u retku; klik otvara prozor „Uvjeti promo koda” (SAMSUNG15 i BBAPP5 dobili su pune uvjete)'
+  ] },
+  { date: '21.10.2026.', title: 'Stolna računala — test poravnanja cijene na kartici', changes: [
+    'Postavke prototipa → „Poravnanje cijene (kartica)”: Rezervirano (dosadašnji izgled) ili Na dnu',
+    'Na dnu: kartica više ne čuva prazno mjesto za Uštedi bedž, obroke, promo kod i energetski razred — prikazuje samo ono što proizvod ima, a cijeli blok s cijenom (sve ispod prodavatelja) spušta se na dno kartice, do energetskog razreda ili sidrene cijene',
+    'Vrijedi za prikaz Uobičajeno i Minimalno, desktop i mobitel; ostale kategorije ostaju nepromijenjene',
+    'Stolna računala sada prikazuju „najgori slučaj”: susjedne kartice imaju različite podatke u bloku s cijenom — s ili bez stare cijene i bedža Uštedi, s ili bez obroka, s ili bez promo koda (svih 8 kombinacija se izmjenjuje), pa se redovi nikad ne poklapaju',
+    'Najgori slučaj: energetski razred s poveznicom „Informacijski list” sada je na dvije od svake tri kartice, a na trećoj ga nema (samo za ovaj test — računala inače nemaju energetsku oznaku)'
+  ] },
+  { date: '20.10.2026.', title: 'Promo kod — „dodatno uz kod”', changes: [
+    'U svim okvirima s promo kodom tekst „uz kod” sada glasi „dodatno uz kod”: kartice proizvoda (mreža, popis, karuseli, popis želja, svi testni dizajni promo koda), stranica proizvoda (desktop i mobitel) i početna stranica',
+    'Početna stranica, kartice uz banner s televizorima: iznos uštede i „dodatno uz kod KOD” sada su u jednom redu unutar okvira s promo kodom'
+  ] },
+  { date: '20.10.2026.', title: 'Kartica proizvoda — obroci iznad promo koda', changes: [
+    'Na svim karticama proizvoda (mreža kategorije i popis, desktop i mobitel) red s obrocima („ili 25,99 € / 12 rata”) sada stoji iznad okvira s promo kodom, a promo kod ispod njega',
+    'Popis kategorije na desktopu: obroci više nisu u retku s cijenom nego u vlastitom redu između cijene i promo koda',
+    'Kartice u karuselima proizvoda (i na popisu želja) sada također prikazuju obroke, iznad promo koda',
+    'Kartice u karuselima proizvoda (i na popisu želja) ponovno prikazuju dostupnost (točkica i „Na zalihi” i sl.) ispod naziva, iznad prodavatelja'
+  ] },
+  { date: '19.10.2026.', title: 'Aktivni filteri, kvadratići i radio gumbi u plavoj boji', changes: [
+    'Aktivni filteri (desktop: bočna traka; mobitel: popis filtera i red ispod zaglavlja) sada su plave pilule (#0050A0) s bijelim tekstom i ×; na prijelaz mišem tamnoplavo',
+    'Kategorija razine 3 na mobitelu: zaglavlje 4 je odabrani izgled; aktivni filteri ispod njega idu u jednom redu koji se pomiče vodoravno',
+    'Označeni kvadratići u filterima i radio gumbi u sortiranju sada su plavi (#0050A0) umjesto tamnoplavih',
+    'Odabrane pilule filtera na stranicama brendova također plave',
+    'Mobitel: ploha s filterima i ploha za sortiranje sada se otvaraju preko zaglavlja stranice, a ne ispod njega (kategorija, pretraga i brend)'
+  ] },
   { date: '19.10.2026.', title: 'Stranica prodavatelja Big Bang — naslovna slika i strelice', changes: [
     'Naslovni dio: nova fotografija Big Bang Mega Storea s maskotama umjesto privremene slike',
     'Uklonjena oznaka ocjene preko slike jer slika već prikazuje ocjenu na fasadi; prosječna ocjena ostaje u traci s brojkama i kod recenzija',

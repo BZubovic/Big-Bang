@@ -67,8 +67,8 @@ Components row). Differences from the original project archive:
   images as assets again and swapping the paths back.
 - Not carried over: `export/`, `screenshots/`, `_ds/`, `export-head.txt`,
   `export-assets.json`, `robots.txt`.
-- **The canvas can't fetch `.md` files.** The Export for CMS button therefore uses `cmsSpec` in `Main.dc.html`, a
-  generated copy of the Export for CMS section below — regenerate it whenever that section changes.
+- **The canvas can't fetch `.md` files.** The Export for CMS button therefore does not load any spec: its
+  prompt tells Claude to read `cms-page-builder-guide.md` and "Export for CMS" below from the project.
 - **Iframes can't load project `.html` files by relative path** on the canvas ("not found"). A
   plain-HTML widget is shipped as a JS string and loaded with `srcdoc` (see `tv-size-finder.js`).
 - Keep this file current: when a file, convention or shared pattern changes, update the
@@ -113,7 +113,7 @@ Components/SiteHeader.dc.html      header bars
 Components/SiteMenu.dc.html        hamburger / mega menu + mobile drawer
 Components/SiteFooter.dc.html      footer
 Components/ProductCard.dc.html     THE product card — layout vertical (category grid, natural height 594 desktop / 499 mobile),
-                                   minimal (all carousels, natural height 456 desktop (451 wishlist) / 406 mobile) and horizontal (category
+                                   minimal (all carousels, natural height ~508 desktop (~503 wishlist) / ~453 mobile) and horizontal (category
                                    list view, full width × 321, × 295 when ≥1320px wide / 372 mobile); never hand-roll a card
 Components/ProductCarousel.dc.html product row (desktop + mobile)
 Components/PromoCard.dc.html     THE promotion card — layout vertical | side | side-rev, size md | lg;
@@ -132,11 +132,13 @@ terms-data.js                  Uvjeti kupnje legal text as data (chapters + bloc
 Components/InfoPageHead.dc.html    white intro block for every "Usluge i uvjeti" page
 Components/InfoAnchorNav.dc.html   left column: the page's own section anchors (sticky)
 Pages/Kitchens-body.dc.html    "Kuhinje" campaign landing (header nav link) — own sticky in-page
-                               anchor bar, booking form, giveaway countdown; photos in images/kuhinje/
+                               anchor bar, booking form, giveaway countdown; photos in images/kuhinje/.
+                               No star ratings anywhere on the Kuhinje pages (hero, booking, reviews) — removed 28.10.2026.;
+                               the hero video is always muted
 Pages/Kitchen-style-body.dc.html  Kitchen style showcase (prop kitchenStyle: klasicne|rusticne|moderne) — collections
                                data in its logic class (STYLES), images in images/kuhinje/stili/; opened from the
                                Kuhinje landing "Poglej primere" (shell openKStyle)
-Components/KitchenBooking.dc.html  shared "Rezervacija termina" form block (desktop / mobile)
+Components/KitchenBooking.dc.html  shared "Rezervacija termina" form block (desktop / mobile); no star rating line
 Pages/Brands-body.dc.html     "Brendovi" (header ••• dropdown) — featured logo tiles, searchable A–Ž brand directory
                                with category chips, letter jump and A–Ž / popularity sort; data in brands-data.js
 brands-data.js                 brand list + categories + featured (window.BB_BRANDS); logos in images/brands/
@@ -168,6 +170,11 @@ Components/GeoFaq.dc.html      GLOBAL FAQ block (desktop sticky intro + accordio
 category-products.js           category → product pool (window.BBCatProducts.forCat / forSearch / forBrand) —
                                the category listing and its carousels only show products of the clicked category
 energy-rule.js                 window.BBEnergy.allowed(name) — energy label only for phones, TVs + white goods
+promo-terms.js                 GLOBAL promo-code terms dialog — window.BBPromo.open({ title, pct, save, code, cond, period,
+                               terms, mobile }): desktop centred modal / mobile bottom sheet in the phone frame. Loaded by
+                               the shell and ProductCard. window.BBPromo.openAll({ codes: [{ pct, code, title, terms, cond,
+                               period }], price, cur, mobile }): flyout with ALL promo codes of a product (desktop right-side
+                               540px flyout / mobile bottom sheet), highest first, same card as the PDP „Istaknute akcije" view.
 scroll-rail.js                 GLOBAL (loaded by the shell): scroll indicators — a `data-thumb` bar inside a rail
                                slides with the nearest preceding horizontal track (no React state, never fills);
                                mouse-drag on every horizontal scroller. Tracks pad right to the 1480 wrapper edge.
@@ -192,6 +199,12 @@ Pages/Seller-bigbang-body.dc.html  "Big Bang" seller page (1P, page key `seller`
                                cart "Trgovac: Big Bang")
                                and footer "O nama" / "Službena Big Bang trgovina". TBC values are marked in DATA.
 seller-bigbang-data.js         superseded stub (content moved into the page) — safe to delete
+cms-page-builder-guide.md      CMS developer's Page Builder guide (HTML, ZIP, shortcodes) — verbatim, never edit
+                               by hand; the spec for "Export for CMS" (see that section)
+cms-spec.js                    unused stub (old Export for CMS spec) — safe to delete
+tools/check-shortcodes.py.txt  checks every shortcode in an export (or page) against the guide's catalog —
+                               `python3 tools/check-shortcodes.py.txt <path/to/index.html>`; same tool as the
+                               Landing page generator canvas
 changelog.js                   prototype change log — MUST be updated every working day
                                (see "Change log" below)
 Pages/Design-system-body.dc.html  THE DESIGN SYSTEM PAGE — colours, type, spacing,
@@ -344,21 +357,57 @@ FINAL DESIGN (08.10.2026., spacing / type re-measured 13.10.2026. from the desig
   (the FIRST one whole, the SECOND ellipsised, overflow collapses into a "+N" chip; on hover (`.bbpl` in styles.css) the first label ellipsises and the second shows in full; hovering "+N" slides the visible labels off left and reveals the hidden ones); title 15/23 / 500 (mobile 14/20);
   stars (13px, mobile 12px) + "4.0(218)" 12px (mobile 11); "Dostupno još N opcija →" 12px (mobile 11); availability; "Prodaje: …";
   red "Uštedi 400 €" badge (12/600 × 21px, mobile 10/600 × 20px); price 20/800 (mobile 17/800, mobile list 18/800, letter-spacing -0.04em)
-  with the old price (15px, mobile 12px) struck through to its right (#545F71), vertically centred on the price; dashed green promo box (-20% chip, saving,
-  "uz kod CODE", copy button #E6F5EC); "ili 25,99 € / 12 rata" (mobile without "ili"); energy label + "Informacijski
+  with the old price (15px, mobile 12px) struck through to its right (#545F71), vertically centred on the price; "ili 25,99 € / 12 rata" (mobile without "ili");
+  dashed green promo box BELOW the rate line (-20% chip, saving, "dodatno uz kod CODE" ("dodatno" on every promo box since 20.10.2026., incl. PDP and homepage), copy button #E6F5EC; rate above promo since 20.10.2026.); energy label + "Informacijski
   list" (#888); "Cijena na <date> <anchor>" (#545F71). Every slot keeps its height so rows line up.
-- `minimal` — every ProductCarousel: title, seller, Uštedi badge, price, promo box, energy, anchor line. No rating,
-  options, availability or rate line. `wish` shows only the trash button.
+- `minimal` — every ProductCarousel: title, availability (dot + text, back since 20.10.2026.), seller, Uštedi badge, price, rate line (desktop "ili …", since 20.10.2026.), promo box, energy, anchor line. No rating
+  or options. `wish` shows only the trash button.
 - `horizontal` — category list view: stickers column (cashback, warranty, gift), image with dot gallery
-  (`card.gallery`), title 16/22, rating + options, labels (below; at ≥1320px card width inline between rating and options), `card.spec` (2 lines), price row (price · old · Uštedi · rate),
-  promo box, anchor; right column with availability, seller, energy, Usporedi / Spremi and outline "Dodaj u košaricu"
+  (`card.gallery`), title 16/22, rating + options, labels (below; at ≥1320px card width inline between rating and options), `card.spec` (2 lines), price row (price · old · Uštedi),
+  rate line, promo box, anchor; right column with availability, seller, energy, Usporedi / Spremi and outline "Dodaj u košaricu"
   (BBCart). Mobile: labels stacked above the image, stickers top-right, no buttons, square corners, full width.
-PROTOTYPE TEST: prop `promoVar` (1–20) swaps the vertical promo box (VD / VM only) for one of twenty test designs
-(`codeV1`…`codeV20`), all built on the final dashed box and showing the total saving as „Uštedi do X €"
-(sale + code); 5 also turns the red Uštedi badge into „Uštedi do" (`saveStd` / `saveDo`), 13 adds a green outline
-badge next to it (`svPlus`), 14 uses the `.bbtip` hover tooltip from styles.css. 0 / unset = the box above.
+PROTOTYPE TEST (LEGAL, since 22.10.2026.): prop `promoVar` (1–10) swaps the vertical promo box (VD / VM only) for one of ten
+designs (`pv1`…`pv10`). The old 20 „Uštedi do" designs were removed for legal reasons. RULE for every promo-code design:
+it must show % discount, € amount, „dodatno uz kod" AND the coupon's condition (who it is for, e.g. only Visa cards);
+since 22.10.2026. the ten designs carry NO code name and NO copy button on the card, and the terms dialog (per the 22.10.2026. mockup): title + grey round close; solid green deal box (chip, amount, „dodatno uz kod"; right a green „Kopiraj kod ⧉" button → „Kopirano ✓" with the code name in grey bold under it); the full legal terms in the light-green info box; short grey note; pill „Razumijem" button with navy border + text — the condition is never cut to one line, and the full terms are always one tap away
+(`openTerms` → `window.BBPromo.open`, promo-terms.js; 4 expands them inline via `toggleTerms`). Coupon data on the card: `promoTitle`, `promoCond` (short condition), `promoPeriod`,
+`promoPoints` (3 short points, design 10), `promoTerms` (full legal text). Each design has a fixed height (`promoH`)
+so the reserved empty slot in „Rezervirano" matches. 1 Naslov + uvjet u okviru · 2 Kupon s podnožjem uvjeta ·
+3 Zvjezdica i fusnota · 4 Proširivi uvjeti · 5 Kupon s perforacijom · 6 Uvjet kao naslov · 7 Cijena s kodom ·
+8 Zeleni naslovni pojas — DEFAULT on Stolna računala since 22.10.2026. (tweak `promoVar` default 8; since 22.10. NO title band — one row in a solid green #0B7A48 1px border, 46px high: chip, amount + „dodatno uz kod", „Uvjeti ›" link navy #002D73 on the right;no condition line, by request — title only in the navy band, „Uvjeti ›" link on the right of the
+discount row where the copy button was; NEVER „Cijena s kodom" — not allowed for legal reasons) · 9 Tekstualno, bez okvira · 10 Popis uvjeta. 0 = the box above („Trenutno").
 Only Stolna računala passes it (Main → Category body → card cell), from Prototype settings → „Promo kod (kartica)".
+Its worst-case data uses three example coupons (VISA10, UAU20, MASTER15) with full terms (`PROMO_TERMS` in Category body).
+Since 22.10.2026. every promo card there carries SEVERAL codes (`card.promoCodes`, sets cycle `i % 3`); design 8 shows only
+the highest (`codePct` / `promoCode` = the top one) with „do" before the amount (`promoDo`, only when >1 code), and its
+„Uvjeti ›" (`openCodes`) opens `BBPromo.openAll` listing all the product's codes — no single-code terms pop-up.
+PDP „Istaknute akcije" (`OffersBox` in PDPBody.jsx + PDPBodyMobile.jsx, same on desktop and mobile) uses the same look for
+promo-code rows: green border, chip, € amount (product price × pct) + „dodatno uz kod", navy „Uvjeti ›"; no code / copy
+in the row. Default 6 actions (tweak `offerCount`), two codes (SAMSUNG15 15 %, BIGBANG10 10 %) first. „Prikaži sve",
+„Uvjeti" and every row open ONE full view (`DealsBody`, title „Istaknute akcije", scrolled to the tapped row): „Promo
+kodovi" cards (chip + amount + „dodatno uz kod" in one row, title, full terms as the description, code + „Kopiraj kod")
+then „Ostale pogodnosti" (thumb, tag, title, text). Data in `OFFERS` (promoTitle / promoTerms / text).
 Stolna računala also keeps its own „Prikaz proizvoda" choice (`catMinimalPc`, default Uobičajeno).
+PROTOTYPE TEST: prop `priceBottom` (vertical + minimal only) — instead of reserving empty row slots under the seller
+(Uštedi badge, rate line, promo box, energy), only the elements a card actually has are shown and the whole price
+block is pushed to the card bottom (`spTop` spacer above the badge instead of `spMid` above the rate line), so it ends
+flush with the anchor line. Only Stolna računala passes it, from Prototype settings → „Poravnanje cijene (kartica)"
+(Rezervirano / Na dnu; tweak `priceBottom`, Main → Category body → card cell).
+PROTOTYPE TEST (since 22.10.2026.): Stolna računala → Prototype settings → „Kartica" V1 / V2 / V3 (tweak `cardLean`
+1–3, Main → Category body `card-lean` → `cardVar`). V1 = current card. V2 = `card.lean`: ProductCard hides the availability
+and „Prodaje:" rows (`showAvailSeller`, vertical + minimal) and the instalment line (`rataShow`, rate dropped).
+V3 = V2 + `card.v3` (vertical VD / VM only): no image stickers (cashback, warranty; `showStickers`), labels stacked
+left-aligned at the TOP LEFT of the image, where the stickers were, max 3 (`pillsTop`, replaces the bottom label
+row `pillsBottom`), energy label + „Informacijski list" in two rows at the BOTTOM RIGHT of the image (energy row under the
+price removed, `energySlot` false). V3 reserves no empty rows for reviews / options (`ratingSlot` / `optionsSlot` only
+when the card itself has them), and the title is only as tall as it is (max 2 lines, `titleH46` / `titleH40`), so the
+stars and the content below move up. The price block (Uštedi badge slot, price, promo slot,
+anchor; slots still reserved per row) is pushed to the card bottom (`spTop`) so prices line up across the row.
+WORST CASE DATA (Stolna računala only, Category body `decorate`): every card cycles through the 8 combinations of
+old price / Uštedi, instalments and promo code (`i % 8`), so neighbouring cards never carry the same price block;
+refurb, good-deal and KM cards keep their own data. Energy label + Informacijski list on two cards of every three
+(`i % 3 !== 1`, A / G) via card flag `forceEnergy`, which bypasses energy-rule.js — PROTOTYPE TEST ONLY; real PCs get
+no energy label.
 LEGAL: never show the price after a promo code is applied (no "cijena s kodom", no final/basket price). Show only
 the nominal saving ("-103,80 €"), the percentage, or the total saving as "Uštedi do X €" ("up to", because the
 code has conditions — e.g. a specific card).
@@ -376,6 +425,12 @@ energy label, price split, monthly rate, promo code), renders the track, the arr
 and the scroll progress bar. `step` sets the arrow scroll distance. `hide-head="{{ true }}"` hides
 the component's own title / Prikaži sve / arrows row so the page can draw them itself and scroll the track
 (the `.nsb` element inside the import) — used by the seller page's "Najprodavanije".
+`v3="{{ true }}"` (since 23.10.2026.) renders the cards as „Kartica V3" (layout vertical + `card.lean` + `card.v3`: no
+stock / seller / instalments, no image stickers, labels top left, energy label + Informacijski list bottom right of the
+image) — used by the homepage's last slider „Izdvojeno za tebe" (hotList), desktop + mobile.
+With v3 the carousel also passes `promo-var` 8 (the Stolna računala default promo look) and gives cards 1–3 coupons
+(VISA10 / UAU20 / MASTER15, copy of `PROMO_TERMS` in Category body — keep both in sync) as `promoCodes`; the card shows the
+highest („do" when >1) and „Uvjeti ›" opens `BBPromo.openAll`.
 
 Product shape:
 ```js
@@ -467,96 +522,342 @@ the mobile scroll position survive every switch.
 
 ## Export for CMS (Prototype settings → "Export for CMS")
 
-This section is the **single source of truth** for exporting a page into the Big Bang custom CMS.
-Nothing in the app duplicates it: the "Export for CMS" button only copies this section verbatim
-into a prompt together with the open page's key, body file path, state, active tweaks and imported
-files — not the page source; Claude reads the files from the project itself. **Claude performs the export** — the user pastes the prompt into Claude's chat in
-this project; the app itself has no export engine.
+Exports the page body open in the shell as a ZIP that imports into the Big Bang CMS **Page Builder**
+(Izradi / uvezi → Uvezi sadržaj). The rules below apply to **every page**; nothing in them is
+specific to one page.
+
+### Sources and precedence
+- **`cms-page-builder-guide.md`** is the CMS developer's guide "HTML, ZIP i shortcodeovi — vodič za
+  izradu stranice uz AI" (MarkerCMS **3.26.1022.30**, 22.10.2026., received 23.10.2026.), converted verbatim to Markdown.
+  It is authoritative for the document format, the ZIP package, the import limits and **every
+  shortcode, attribute and option** (its chapter 9 catalog). Read the whole file before each export.
+- This section holds the Big Bang / canvas rules on top of the guide. Where the two disagree, the
+  guide wins.
+- When the CMS developer sends a new guide, convert it to Markdown and replace
+  `cms-page-builder-guide.md` whole (same name), update the version above, and update `CMS_PROMPT`
+  in `Main.dc.html` if chapter 6 ("Prompt za AI alat") changed. Never edit the guide by hand.
+- The **Landing page generator** canvas keeps an exact copy of this section and of the guide (its
+  "Export for CMS on this canvas" maps the terms). After changing either here, copy them there too.
+
+### The two kinds of content
+1. **CMS elements — only these four groups.** They are exported exactly as the guide specifies, as
+   shortcodes; the CMS renders them, with live data:
+   - **Forms** — anything that collects the visitor's data and sends it (booking, contact,
+     enquiry, lead forms): `QUESTIONNAIRE`; newsletter sign-up: `SIGNUP`.
+   - **Products** — product carousels, grids, listings, product cards, deal blocks: `CATALOGPRODUCT`
+     or `CMSWIDGET TYPE="PRODUCTS"`.
+   - **Blog posts** — lists of real blog posts or editorial promotion posts: `BLOG_POSTS` /
+     `PROMOTIONS`.
+   - **Store locators** — store lists and store maps: `STORE_LOCATOR`.
+2. **Everything else is ours** and is built by hand in HTML, CSS and (where needed) JS so it looks
+   and behaves **exactly like the prototype** on desktop and mobile: heroes, videos, banners,
+   navigation, tabs, sliders and rails, galleries, spotlights, accordions and FAQs, countdowns,
+   reviews, category and promo tiles, USP rows, info boxes, tables, calculators and finders. Never
+   swap these for a CMS element (no `COUNTDOWN`, `FAQ`, `NAVIGATION`, `CONTENT_ITEMS`, `REVIEWS`,
+   `HEADING`, `TEXT`, `IMAGE`, `BUTTON`… shortcodes), and never simplify them.
+
+A control that only filters or calculates on the page (a size finder, a filter, a search box that
+stays on the page) is not a form — it is ours.
+
+### How the button works
+The button builds a prompt for the open page and shows it for copying or as a `.md` download. It
+does not include the spec or the page source. The prompt contains:
+- the guide's chapter 6 prompt, copied word for word, with the bracketed fields filled in
+  automatically: page name, language and channel, visual guidelines, section order, product sources,
+  resources and links;
+- the page context: key and class prefix, body file, viewport, page state, active tweaks, imported
+  files, and the parts found in the source that belong to the four CMS element groups;
+- an instruction to read this section and the guide from the project.
+
+The user pastes the prompt into Claude's chat in this project. **Claude performs the export** — the
+app has no export engine.
 
 ### What to export
-- Only the **page body** currently open in the shell (the `Pages/…-body.dc.html` named in the
-  prompt) — never the header, menu, footer, Prototype settings, page skeletons, flyouts or modals
-  that belong to the shell.
-- Export the variant the given prototype tweaks/state select. The page has a desktop and a mobile
-  variant: produce **one responsive markup** (desktop styles first, mobile overrides in
-  `@media (max-width: 767px)`), not two copies. Read the source, render the page in the prototype
-  when helpful, and read every imported file needed to resolve the real markup, text and images.
-- Use the real content (text, images, links) — never placeholders or invented copy.
+- Only the **page body** named in the prompt (`Pages/…-body.dc.html`) — never the header, menu,
+  footer, Prototype settings, skeletons or the shell's flyouts and modals (the CMS storefront
+  renders its own).
+- Export the variant the prompt's page state and tweaks select.
+- **Read the page as it renders.** Render the shell with that page open at 1480px and 390px (the
+  local render below) and take the markup, text, sizes, colours, spacing and states from what is
+  actually shown, plus every imported file and the page's data in its logic class.
+- **One responsive markup, one copy of everything.** Desktop styles first, mobile overrides in
+  `@media (max-width: 767px)`. When the prototype's mobile layout differs (a grid that becomes a
+  rail, a list that becomes stacked cards), restyle the same markup in the media query. Never ship a
+  desktop copy and a mobile copy side by side hidden by `display:none`: that duplicates the h1, the
+  content and every CMS element. A small decoration that exists on one breakpoint only may be hidden
+  with a media query.
+- Real content from the source (text, images, links, prices of non-catalog items) — never invented
+  copy.
+- Language and channel come from the prompt: `kitchens` and `kstyle` are **Slovenian / SI
+  (bigbang.si)**; every other page is **Croatian / HR (bigbang.hr)**. Category and brand names in
+  shortcodes use the page language.
 
-### HTML structure
-- A standalone HTML **fragment**, not a document: no `<!DOCTYPE>`, `<html>`, `<head>` or `<body>`.
-- File order: one `<style>` block first, then the HTML markup, then one `<script>` block (only if
-  JavaScript is required).
-- Clean, semantic, well-formatted vanilla HTML (`section`, `h1`–`h3`, `p`, `ul`, `a`, `button`,
-  `img` with `alt`, `picture`/`video` where used). No React, runtime or editor attributes
-  (`data-dc-*`, `data-cc-id`, `sc-*`, inline event handlers), no inline `style` attributes.
-- Export **section by section**: each top-level `<section>` is fully closed before the next one
-  begins. Keep sections structurally independent; no needless wrappers or nesting.
-- Preserve the original design, content, responsive behaviour and intended functionality.
+### Package
+```
+<page-key>.zip
+├── index.html
+└── images/…        same subfolders as the project
+```
+- `index.html` is a full UTF-8 document like the guide's chapter 3 example: `<!doctype html>`,
+  `<html lang="hr|sl">`, `<meta charset="utf-8">`, the viewport meta, `<title>`, **one** `<style>` in
+  `<head>`, the page structure below in `<body>`, and at most **one** `<script>` at the end of
+  `<body>`. No other files (no `styles/` folder, no extra HTML documents).
+- Limits from the guide: ZIP ≤ 100 MB, HTML ≤ 1 MB, and the CSS and the JS each ≤ 100,000 UTF-8 bytes
+  (the CMS moves them into the version's Global CSS / Global JS). The import also caps the
+  structure: at most **10,000 source nodes, 5,000 editable nodes and 10 block levels** after it
+  automatically groups consecutive decorative wrappers (classes, ids and spacing are kept; images,
+  texts, links and shortcodes stay separately editable; sections are never merged into one rich
+  text). Keep the DOM lean — no wrapper `div` that carries no style or hook. A ZIP delivered in the chat must
+  also stay under the 30 MB attachment limit: resize photos larger than 2000px on the long side to
+  2000px (JPEG quality ~82) and say so in the reply.
+- **Assets:** canvas files reference `/_blob/<id>`. Map each id back to its `images/…` path with
+  "Image assets" below (category thumbnails: `images-c-assets.js` → `images/c/<name>`), fetch the
+  bytes (Artifact read with the asset id as `path`), and store them in the ZIP under that same path,
+  keeping file names. Reference them relatively in `src`, `srcset`, `poster`, `<source>` and CSS
+  `url()`. MP4/WebM video may go in the ZIP. Leave out assets of the shell and of parts that became
+  CMS elements. An asset that cannot be found → say so in the reply (path + reason); never drop or
+  substitute it silently.
+
+### Page structure
+```html
+<main class="bb-<key>">
+  <div class="bb-<key>-page" data-import-width="full">
+    <section id="hero" class="bb-<key>-section bb-<key>-hero">
+      <div class="bb-<key>-inner">…</div>
+    </section>
+    <section id="…" class="bb-<key>-section …">…</section>
+    …
+  </div>
+</main>
+```
+- **One full-width wrapper around everything.** `data-import-width="full"` sits only on the
+  `bb-<key>-page` wrapper, so the CMS imports the page as one full-width layout. No section carries
+  the attribute.
+- **Every section stays a standalone `<section>`** directly inside the wrapper, one after the other,
+  each fully closed before the next begins. Keep the prototype's sections and order:
+  `data-sec="x"` becomes `id="x"` on the section; a band without a `data-sec` still gets its own
+  section with a descriptive id.
+- Section backgrounds therefore run edge to edge on their own; drop the prototype's
+  `margin: 0 calc(50% - 50vw)` bleed tricks. Each section's content sits in
+  `<div class="bb-<key>-inner">` with the prototype's content width — 1480px max-width with 20px side
+  padding (1440px of content), or the narrower width that section uses in the prototype (a modifier
+  such as `bb-<key>-inner--narrow`).
+- The page sits **below the storefront header**: no negative top margins pulling it under the
+  header.
+- **Sidebar layouts** (a sticky side navigation next to a column of sections, e.g. the info pages
+  with `InfoAnchorNav` such as Načini plaćanja): the page head stays the first section; the body
+  becomes one layout block directly inside the wrapper —
+  `<div class="bb-<key>-body"><div class="bb-<key>-inner bb-<key>-layout"><aside>…nav…</aside><div class="bb-<key>-col">…sections…</div></div></div>`
+  — with every section still a standalone `<section id>` inside the column. The side nav keeps the
+  prototype's CSS `position: sticky` at `top: calc(var(--bb-<key>-sticky-top) + 16px)` on desktop and
+  becomes the sticky chip row at `var(--bb-<key>-sticky-top)` on mobile (same markup, restyled).
+- **Tabs that swap whole sections** (e.g. Web trgovina / Poslovnice): all sections are in the
+  markup; those of the other tabs carry `hidden` and a `data-bb-<key>-show="<tab>|both"` hook, so the
+  import preview shows the first tab. The script switches them, swaps the matching nav links and
+  resets the prototype's state (first nav link current, first FAQ open).
+- **Our own rails that run past the content width** (a card or category rail scrolling to the
+  right screen edge, or to both edges): the rail's zone (its section, inside the full-width wrapper)
+  carries `data-rail-extent="viewport_end"` or `"viewport_both"`, the title stays in
+  `bb-<key>-inner`, and the scrolling list is the zone's **direct child** with `data-rail-track`. The
+  attributes only mark the rail for the CMS; the look comes from our CSS, built on the guide's
+  chapter 4 model: the track is `width: 100%` of the zone with an inset of
+  `max(20px, calc((100% - 1480px) / 2 + 20px))` (12px on mobile) — as left padding / margin for
+  `viewport_end`, as `padding-inline` for `viewport_both` — so the first card lines up with the
+  content. Style the track by its `bb-<key>-` class (not `> [data-rail-track]`), cards set their own
+  `width` with `flex: none`. Never `100vw` widths, negative margins or a script that repositions the
+  rail — they fight the builder (seen on the Landing page generator's imports).
+- Small text that differs between the prototype's desktop and mobile variants (a label, one clause)
+  is written once with `<span class="bb-<key>-desk">…</span><span class="bb-<key>-mob">…</span>`;
+  a block the mobile variant leaves out gets `bb-<key>-desk`. Whole blocks are never duplicated.
+- **Fixed and sticky elements** of the prototype (a sticky in-page navigation bar, a mobile bottom
+  call-to-action bar) are kept and driven by the page script: a `position: fixed` element slides in
+  at `top: var(--bb-<key>-sticky-top)` (56px on `.bb-<key>` — the storefront header height) or at the
+  bottom, at the same scroll point as in the prototype. An in-page navigation highlights the
+  section in view and scrolls smoothly to the section clicked, with `scroll-margin-top` on the
+  sections.
+
+### HTML
+- Semantic vanilla HTML (`section`, `h1`–`h3`, `p`, `ul`, `a`, `button`, `figure`, `img` with real
+  `alt`, `picture` / `video`). Exactly one `h1`. No React, runtime or editor attributes (`data-dc-*`,
+  `data-cc-id`, `sc-*`, `hint-*`, inline event handlers) and no inline `style` attributes.
+- Block content never sits inside inline elements (no `h3` or `p` inside a `span`).
+- **Links:** real storefront URLs only (`https://www.bigbang.hr/…` or `https://www.bigbang.si/…`, or
+  their root-relative paths). In-page navigation uses `href="#<section-id>"`. Never `href="#"`: a
+  destination you cannot determine gets `href="/zamijeni-poveznicu/"` and goes on the replacement
+  list. Text placeholders from the prototype (e.g. "[4,x/5 · Y ocen strank]") are written as
+  `[ZAMIJENI: …]` and listed, never left silently.
 
 ### CSS
-- All page-specific CSS in the single `<style>` tag at the top.
-- Every class uses the page prefix `bb-<page-key>-` (the page key is given in the prompt, e.g.
-  `bb-kitchens-hero`, `bb-pay-card`) with descriptive, consistent names. Scope every rule to these
-  classes so nothing leaks into the CMS; no bare element, `body`, `html`, `:root` or id selectors.
-- No universal `*` resets, no `@import`, `@font-face`, Google Fonts links or other font loading,
-  no global typography — the CMS provides Inter and global styles.
-- Resolve `styles.css` variables (`--bb-*`) and shared classes (`.bbcta`, `.imz`, `.nsb`, `.arw` …)
-  into prefixed rules, and only for what the export actually uses. Keep hover/focus states.
+- Everything in the single `<style>`. Every class uses the prefix `bb-<page-key>-` with descriptive
+  names (`bb-kitchens-hero`, `bb-home-deals-card`; not generated names like `s1`, `s2`). Scope every
+  rule under `.bb-<key>`.
+- **Every selector literally starts with the root class** — `.bb-<key> .bb-<key>-tab`, `.bb-<key> .bb-<key>-hero h1`
+  (as the CMS developer writes `.bbbf .bbbf-x`), never a bare `.bb-<key>-tab`. The storefront's own CSS
+  styles `button`, `a` and `h1`–`h4` inside the CMS content with selectors like `.cms-section button`; a
+  single-class rule loses to them (Kuhinje import, 28.10.2026.: salon tabs and showroom rows came out as
+  default grey buttons, the hero h1 turned dark). Element resets become `.bb-<key> h2, .bb-<key> p…`
+  (one class + element) so component rules still win. Anything that only inherits (heading font and colour,
+  a button's font) is set explicitly: `.bb-<key>.bb-<key> :is(h1, h2, h3, h4) { font-family: inherit; color: inherit; }`
+  and a `font-family` / `font-size` on every button class.
+- Element resets (margins of `h1`–`h4`, `p`, `ul`…) go inside `:where()` —
+  `.bb-<key>-section :where(h2, p) { margin: 0 }` — so they never outweigh the component classes.
+- Custom properties go on `:page` (the CMS content root, per the guide) or on `.bb-<key>` — never
+  `:root`, `html`, `body`, bare element or id selectors, and no `*` resets (set `box-sizing` and
+  margins on the prefixed classes that need them).
+- No `@import`, `@font-face`, Google Fonts or other font loading. The CMS provides Inter.
+- Resolve `styles.css` variables (`--bb-*`) and shared classes (`.bbcta`, `.imz`, `.nsb`, `.arw`…)
+  into prefixed rules, only for what the page uses. Keep every hover, focus, active and transition
+  of the prototype. `@keyframes` are fine (the CMS isolates their names per version).
+- **CMS element wrappers:** each shortcode sits in its own
+  `<div class="bb-<key>-widget bb-<key>-<name>">`. The wrapper may carry the surrounding card
+  background and padding of the design, plus this reset:
+  `.bb-<key>-widget > .cms-section { padding: 0; margin: 0; width: 100%; max-width: none; }`
 
 ### JavaScript
-- Vanilla only, in one `<script>` after the markup, wrapped in an IIFE; no globals, no libraries.
-- Query only inside the exported page root (prefixed classes / `data-bb-<page-key>-*` hooks); never
-  attach handlers to `document`/`window` that could affect other CMS content beyond what the
-  interaction needs (e.g. a scoped resize/scroll listener is fine).
-- Preserve intended interactions (tabs, accordions, sliders, carousels of non-product content,
-  galleries/lightboxes, in-page anchor navigation, countdowns, hover panels). Skip prototype-only
-  behaviour (navigation between prototype pages, cart flyout, wishlist, Prototype settings).
-- No functionality for global CMS components that are replaced by shortcodes.
+- **Every interaction of the prototype is kept**, on desktop and mobile: tabs, spotlight and photo
+  switchers, sliders and rails with arrows, hover-to-expand panels (desktop hover; mobile tap —
+  the last one opened stays open), accordions (single-open where the prototype is single-open:
+  `<details name="…">`), countdowns, toggles, sticky / fixed bars and their scroll behaviour, active
+  states. Use CSS or native HTML where that reproduces the prototype exactly (`<details>`,
+  `scroll-snap`, `:hover`); otherwise the page script. **The design never changes to avoid
+  JavaScript.**
+- The markup ships in the prototype's first state (first tab, first item, first card open, photo
+  view), so the page is complete in the import preview, where scripts don't run.
+- One inline `<script>` at the end of `<body>`, vanilla, wrapped in an IIFE, no globals, querying
+  only inside `.bb-<key>` through `data-bb-<key>-*` hooks; state classes carry the prefix too
+  (`bb-<key>-card--on`). Scroll / resize listeners on `window` only where the behaviour needs them
+  (passive, throttled with `requestAnimationFrame`). No network, storage, external scripts or
+  libraries (the CMS runtime blocks them). Never leave hooks or state classes without the script
+  that uses them.
+- A lightbox becomes a link that opens the full image in a new tab (`target="_blank"`).
+- Skip prototype-only behaviour: navigation between prototype pages, cart flyout, wishlist,
+  Prototype settings, tracking pushes.
 
-### Global CMS components → shortcodes
-The CMS renders these itself. Never export their markup, CSS, JS or assets:
-- store locators (`StoreLocator`, maps);
-- forms (booking/contact/newsletter forms, inputs with a submit action — e.g. `KitchenBooking`);
-- product carousels (`ProductCarousel`);
-- product grids, listings, dynamic product cards (`ProductCard`), recommendations and any other
-  product-related content.
+### The four CMS element groups → shortcodes
+Each is a shortcode from the guide's catalog, in its own wrapper `div` (see CSS), **exactly once**,
+in the original order. Use only the tags, attributes and options listed in the catalog, in straight
+double quotes, with JSON values in outer single quotes. Never output `[SHORTCODE=""]` (the old
+placeholder), `[MEDIA]`, or invented attributes or values.
 
-Replace each one with exactly this placeholder, on its own line:
+- **A product list's title and "Prikaži sve" link go into the shortcode**, never as separate HTML
+  next to it (the guide: one editable element, and the whole component — title and link included —
+  hides on the web when no product is visible). `CMSWIDGET PRODUCTS`: `ROW_TITLE`, `LINK_SHOW_ALL="true"`,
+  `LINK_SHOW_ALL_URL`, `ROW_CTA_TEXT` ("Prikaži sve" / "Prikaži vse"). Filtered `CATALOGPRODUCT`:
+  `TITLE`, `SHOW_ALL="true"`, `SHOW_ALL_URL__IS`. The SKU form of `CATALOGPRODUCT` takes no title or
+  filters — a titled hand-picked list therefore uses `CMSWIDGET PRODUCTS`. In `CMSWIDGET`, `TITLE` is
+  only an internal name — never the visible title. Other copy around an element (eyebrow, intro
+  paragraph, section background) stays our HTML.
+  **Exception — designed heading:** when the heading is part of a designed block (a section banner,
+  a heading with filter chips, tabs or size pills, a decorated or illustrated title — anything beyond
+  "title + Prikaži sve") it stays our HTML/CSS exactly as in the prototype, and the shortcode gets no
+  title or "Prikaži sve" options.
+- **Layout and card follow the prototype:** `PRODUCT_PRESENTATION` (`slider`, `grid`, `list`,
+  `single`, `double`; `DISPLAY_MODE__IS` is the older name — never both), `CARD_TYPE` (`standard`,
+  `compact`, `detailed`, `minimal`), `ITEMS_PER_ROW_DESKTOP` / `ITEMS_PER_ROW_MOBILE` (1–12) when the
+  prototype's columns differ from the defaults (slider 4/1, grid 5/2, double 2/2, single/list 1/1),
+  `DISPLAY_TOTAL_ROWS` (1–4 or `all`) and `DISPLAY_LIMIT` (1–50 products in total).
+- **Rail width:** `CAROUSEL_EXTENT_DESKTOP="viewport_end"` (to the right edge) or `"viewport_both"`
+  (both edges), with a slider / rail layout, as the prototype's rail runs.
 
-```
-[SHORTCODE=""]
-```
+| Group | In the prototype | In the export |
+|---|---|---|
+| Products | Carousel showing a category / brand / search set | `[CATALOGPRODUCT PRODUCT_CATEGORY__IS="<naziv>" PRODUCT_PRESENTATION="slider" DISPLAY_LIMIT="12" CAROUSEL_EXTENT_DESKTOP="viewport_end" TITLE="…" SHOW_ALL="true" SHOW_ALL_URL__IS="<url>"]`, or with `PRODUCT_BRAND__IS`. Exact names in the page language. |
+| Products | Carousel of hand-picked products | `[CMSWIDGET TYPE="PRODUCTS" PRODUCT_LIST_MODE="manual" BUILDER_PRODUCT_SKUS="<SKU,…>" ROW_TITLE="…" LINK_SHOW_ALL="true" LINK_SHOW_ALL_URL="<url>" ROW_CTA_TEXT="Prikaži sve" PRODUCT_PRESENTATION="slider" CAROUSEL_EXTENT_DESKTOP="viewport_end"]`. Prototype products have no real SKUs: editor placeholders `123456,234567,…` (one per card), listed in the reply. |
+| Products | Product grid / listing | Filtered: `[CATALOGPRODUCT … PRODUCT_PRESENTATION="grid" ITEMS_PER_ROW_DESKTOP="…" DISPLAY_TOTAL_ROWS="all" DISPLAY_LIMIT="…" TITLE="…"]`. By SKUs without a title: `[CATALOGPRODUCT PRODUCT_CODE__IS_IN="…" PRODUCT_PRESENTATION="grid" …]`; with a title: `CMSWIDGET PRODUCTS` with `PRODUCT_PRESENTATION="grid"`. |
+| Products | Deals of the week (1 featured + 8) | `[CATALOGPRODUCT PRODUCT_CODE__IS_IN="<1 SKU>" CARD_DESIGN="bf_flash" CARD_BADGE_TEXT="<oznaka iz prototipa>" CARD_BENEFIT_TEXT="<benefit iz prototipa>"]` + `[CATALOGPRODUCT PRODUCT_CODE__IS_IN="<8 SKUs>" CARD_DESIGN="bf_grid"]`. Badge and benefit texts ≤ 160 characters each, copied from the prototype. The animated "stock" bar and background stay our BF HTML/CSS around the shortcodes (a campaign visual, not real stock). |
+| Forms | Booking, contact, enquiry or lead form | `[CMSWIDGET TYPE="QUESTIONNAIRE" CODE="…"]` (or `ID="…"`, exactly one) — see "Known CMS references". |
+| Forms | Newsletter sign-up | `[CMSWIDGET TYPE="SIGNUP" SIGNUP_PLACEHOLDER="…" SIGNUP_BUTTON_TEXT="…"]` — keeps the e-mail → Nastavi → GDPR flow |
+| Blog posts | List of real blog posts / editorial promotion posts | `[CMSWIDGET TYPE="BLOG_POSTS" NUMBER_OF_ITEMS__IS="…"]` / `[CMSWIDGET TYPE="PROMOTIONS" …]`, with `ID="…"` when the exact posts are known |
+| Store locators | Store list and/or map | `[CMSWIDGET TYPE="STORE_LOCATOR"]` (all public stores of the channel) or with `STORE_ID__IS_IN="…"` — the codes from the guide's table "Šifre svih poslovnica po kanalima" for the page's channel, **without the channel prefix** (HR Sveta Nedelja = `110`, not the database id). The table also lists hidden stores; the public view still respects visibility. |
 
-- It must sit **outside all HTML elements**: close every open element (section/div/main) before it;
-  reopen a wrapper after it only if content follows that needs it. Never inside any tag.
-- One placeholder per component, in the original order. A heading, "Prikaži sve" link or scroll
-  rail that belongs to the component goes with it.
-- Do not invent shortcode names or parameters — the value stays empty.
+Prices, stock and instalments of catalog products are never written as text. They come only from
+the product elements.
 
-### Assets and deliverable
-- Write the package to `export/cms/<page-key>/`: exactly **one** HTML file
-  (`<page-key>.html`) and **one** `assets/` directory — nothing else — then deliver that folder to
-  the user as a ZIP download.
-- Copy every image and video the exported page uses (HTML `src`/`srcset`/`poster`, `<picture>`
-  sources and CSS `url()`) from `images/…` into `assets/`, keeping original files and names
-  (prefix with the subfolder name if two files would collide). Reference them relatively:
-  `assets/image-name.webp`.
-- Do not include assets used only by omitted global components or by the shell.
-- If an asset cannot be found or copied, say so explicitly in the reply (path + reason) — never
-  silently drop or substitute it.
+### How the Page Builder imports (lessons from real imports)
+Learned on the Landing page generator canvas's test imports (guide 3.26.1022.30); they apply to
+every export, because both canvases go through the same importer:
+- **Cards hold block-level children.** An element whose content is only inline (`a`, `span`, `img`,
+  `strong`, `svg`…) imports as one rich-text "HTML objekt" — a row of `<a><img><span>…</span></a>`
+  boxes became one object with all the texts run together. Every card, box, tile or row item is one
+  element (the `<a>` when the whole card links) whose texts are `<p>` (or `h3` for a card title),
+  never bare `span` text next to an icon or image.
+- **The builder wraps imported blocks in its own elements.** So no child (`>`) or sibling (`+`, `~`)
+  selectors, no `:scope >`, `children`, `nextElementSibling` or `parentElement` in the script —
+  style and query only by `bb-<key>-` classes and `data-bb-<key>-*` hooks; shared custom properties
+  sit on the section (they inherit through the wrappers). A card in a row sets its own `width`
+  (with `flex: none`), never `flex-basis` / `flex: 1 …` sizing — the builder's wrapper becomes the
+  flex item and the card collapses. The only allowed `>` is the guide's own
+  `.bb-<key>-widget > .cms-section` reset.
+- **Layout mode per block:** "CMS izgled" or "Prema CSS-u". When an imported block ignores our
+  widths, set Prilagodba izgleda → **Prema CSS-u** on it (and its parent).
+- **Known issue (23.10.2026.):** `data-import-width="full"` is kept under HTML atributi, but
+  Raspored stranice stays "Prema postavkama weba" — the promised conversion to Puna širina does not
+  happen yet, and `<main>` imports as one top-level block with the sections nested in it. Until the
+  CMS developer confirms a fix, the editor sets **Raspored stranice → Puna širina** (Postotak, 100 %)
+  on the page's wrapper block by hand after import; a saved page keeps it. Name this in every reply.
+- **Mobile side spacing:** the builder gives blocks 16px side spacing on mobile. A band that must run
+  edge to edge on mobile either bleeds out of it in the mobile media query
+  (`width: 100vw; max-width: none; margin-left: calc(50% - 50vw)` on that band only) or the editor
+  sets "From side edges" to 0 on that block — say which in the reply.
+- Test every export once more with each card, row and section wrapped in an extra plain `div`
+  (a quick script in the local render): the layout must not change.
+
+### Known CMS references
+Real values provided by the CMS developer. Reuse them; never invent new ones. A value you do not
+have → editor placeholder + replacement list.
+
+| Page | Element | Value | Note |
+|---|---|---|---|
+| Kuhinje (SI) | QUESTIONNAIRE (Rezervacija termina) | `CODE="test-kuhinje-20261015"` | a **test** code; confirm the production code before publishing |
+| Kuhinje (SI) | STORE_LOCATOR (kitchen showrooms) | `STORE_ID__IS_IN="2630,2450,2590,2420,2610,2500"` | checked against the guide's SI store table: Celje Citycenter, Maribor Europark, Ljubljana Rudnik, Kranj Stop Shop, Koper Park center, Mega BTC |
+
+### Local render (for reading and checking)
+The shell renders locally: serve the project's text files with `support.js` → the canvas type's
+`artifact-type/dc-runtime.js`, answer `/_blob/<id>` from the original image files (via "Image
+assets"), open `Main.dc.html` in Chromium (Playwright) and switch to the page. Widths ≤ 600px render
+the mobile variant. Use the rendered DOM and screenshots as the reference, and render the exported
+`index.html` the same way to compare. The prototype's screenshots lose 15px to the canvas
+scrollbar, so compare the export at 1465px / 375px wide (or crop) to line them up pixel for pixel.
+
+### Delivery and reply
+Build the package in the session workspace, test it (below), zip it as `<page-key>.zip` and deliver
+it as a download. The reply is short:
+1. Sections → what each became (our HTML or which CMS element).
+2. The **replacement list** for the editor: placeholder SKUs, questionnaire / store codes, links,
+   `[ZAMIJENI: …]` texts.
+3. What depends on the script (check it in the CMS page preview, not the import preview).
+4. The checks from guide chapter 7, plus the import steps from "How the Page Builder imports"
+   (Puna širina on the wrapper block, Prema CSS-u where needed, mobile side spacing).
 
 ### Validation (before delivering)
-Check and report briefly that:
-- no `<html>`, `<head>` or `<body>` tags; order is `<style>` → HTML → `<script>`;
-- all tags are properly nested and closed, and each section closes before the next begins;
-- every class uses the `bb-<page-key>-` prefix; no font imports, universal resets or global styles;
-- every global component is a standalone `[SHORTCODE=""]` line outside the HTML structure, with no
-  leftover markup, CSS, JS or assets of it;
-- all required local assets are in `assets/` and every reference resolves;
-- the export matches the original page's appearance and functionality (open the exported HTML and
-  compare desktop and mobile widths with the prototype);
-- the ZIP holds exactly one HTML file and one `assets/` directory.
+- Structure: full UTF-8 document with one `<style>` in `<head>`; `<main class="bb-<key>">` holding one
+  `bb-<key>-page` wrapper with `data-import-width="full"`; standalone sections inside it with no
+  `data-import-width` of their own; at most one `<script>` at the end of the body. All tags nested and
+  closed, one `h1`, nothing duplicated for desktop and mobile.
+- Size: HTML ≤ 1 MB; CSS and JS each ≤ 100,000 bytes; ≤ 10,000 element nodes and no more than 10
+  levels of nested blocks (count them; well under the limits is the goal).
+- CSS: every class has the `bb-<key>-` prefix; every selector starts with `.bb-<key>`; no
+  `:root`/`html`/`body`/`*`/id/bare-element selector; no font loading. Test once with storefront-like rules
+  injected (`.cms-section button{…} .cms-section h1{color:#222;font-family:Arial} .cms-section a{color:blue}`
+  around the page): nothing of ours may change.
+- CMS elements: only the four groups; each shortcode in its own wrapper `div`, once; only catalog
+  tags, attributes and options, quoted correctly, limits 1–50; no `[SHORTCODE=""]` or `[MEDIA]`; no
+  leftover markup, CSS, JS or assets of the replaced component; no HTML title or "Prikaži sve" link
+  duplicating a product list's own; `PRODUCT_PRESENTATION` and `DISPLAY_MODE__IS` never together;
+  store codes from the guide's table for the page's channel.
+- Rails: every own rail past the content width has `data-rail-extent` on its zone and
+  `data-rail-track` on the direct child list.
+- Shortcodes: `python3 tools/check-shortcodes.py.txt <index.html>` reports no FIX line.
+- Import-proof: no child / sibling selectors (except the widget reset), no structural DOM walking
+  in the script, cards with block-level text, no `flex-basis` card sizing; the layout survives the
+  extra-`div` wrapping test.
+- Links: no `href="#"`; every `#id` link has its target; placeholders listed; no demo prices, stock
+  or instalments presented as real.
+- Assets: every referenced asset is in the ZIP at its relative path; the ZIP holds only `index.html`
+  and `images/`.
+- Look and behaviour: render at 1480px and 390px (with touch) next to the prototype — same layout,
+  sizes and colours — and try every interaction (tabs, hover / tap, accordions, sliders, sticky bars,
+  in-page links). No horizontal scroll on mobile apart from the shortcode text itself.
 
 ## Image assets
 

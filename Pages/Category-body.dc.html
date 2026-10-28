@@ -142,9 +142,9 @@
             </div>
             <div style="display:flex;flex-wrap:wrap;gap:8px;padding-bottom:16px;border-bottom:1px solid #E4E4EA">
               <sc-for list="{{ chips }}" as="ch" hint-placeholder-count="3">
-                <button onClick="{{ ch.onClick }}" style="display:flex;align-items:center;gap:7px;background:#fff;border:1px solid #E4E4EA;border-radius:16px;padding:5px 11px;font-size:12px;font-weight:500;color:#545F71">
+                <button onClick="{{ ch.onClick }}" style="display:flex;align-items:center;gap:7px;height:30px;box-sizing:border-box;background:#0050A0;border:none;border-radius:15px;padding:0 10px 0 13px;font-family:Inter,sans-serif;font-size:12.5px;font-weight:600;color:#fff;cursor:pointer;white-space:nowrap" style-hover="background:#002D73">
                   {{ ch.label }}
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#545F71" stroke-width="2.6" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg>
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg>
                 </button>
               </sc-for>
             </div>
@@ -213,7 +213,7 @@
                   </a>
                 </sc-if>
                 <sc-if value="{{ cell.isProduct }}" hint-placeholder-val="{{ true }}">
-                  <dc-import name="Components/ProductCard" variant="desktop" layout="{{ cell.cardLayout }}" card="{{ cell.card }}" promo-var="{{ cell.promoVar }}" on-open="{{ cell.openCard }}" hint-size="100%,568px" style="width:100%;height:100%"></dc-import>
+                  <dc-import name="Components/ProductCard" variant="desktop" layout="{{ cell.cardLayout }}" card="{{ cell.card }}" promo-var="{{ cell.promoVar }}" price-bottom="{{ cell.priceBottom }}" on-open="{{ cell.openCard }}" hint-size="100%,568px" style="width:100%;height:100%"></dc-import>
                 </sc-if>
               </sc-for>
             </div>
@@ -476,7 +476,7 @@
     <sc-if value="{{ chipCount }}" hint-placeholder-val="{{ false }}">
     <div class="nsb" style="display:flex;align-items:center;gap:6px;overflow-x:auto;padding:0 12px 12px">
       <sc-for list="{{ chips }}" as="c" hint-placeholder-count="2">
-        <button onClick="{{ c.onClick }}" style="flex-shrink:0;height:32px;padding:0 10px 0 12px;border:none;border-radius:16px;background:#E8F0FA;color:#0050A0;display:flex;align-items:center;gap:6px;font-family:Inter,sans-serif;font-size:12.5px;font-weight:600;white-space:nowrap;cursor:pointer">{{ c.label }}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></button>
+        <button onClick="{{ c.onClick }}" style="flex-shrink:0;height:36px;padding:0 12px 0 15px;border:none;border-radius:18px;background:#0050A0;color:#fff;display:flex;align-items:center;gap:8px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;white-space:nowrap;cursor:pointer" style-hover="background:#002D73">{{ c.label }}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></button>
       </sc-for>
       <button onClick="{{ clearFilters }}" style="flex-shrink:0;height:32px;padding:0 8px;border:none;background:transparent;color:#545F71;font-family:Inter,sans-serif;font-size:12.5px;font-weight:600;text-decoration:underline;white-space:nowrap;cursor:pointer">Očisti sve</button>
     </div>
@@ -532,7 +532,7 @@
     <sc-if value="{{ chipCount }}" hint-placeholder-val="{{ false }}">
     <div class="nsb" style="display:flex;align-items:center;gap:6px;overflow-x:auto;padding:0 12px 12px">
       <sc-for list="{{ chips }}" as="c" hint-placeholder-count="2">
-        <button onClick="{{ c.onClick }}" style="flex-shrink:0;height:32px;padding:0 10px 0 12px;border:none;border-radius:16px;background:#E8F0FA;color:#0050A0;display:flex;align-items:center;gap:6px;font-family:Inter,sans-serif;font-size:12.5px;font-weight:600;white-space:nowrap;cursor:pointer">{{ c.label }}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></button>
+        <button onClick="{{ c.onClick }}" style="flex-shrink:0;height:36px;padding:0 12px 0 15px;border:none;border-radius:18px;background:#0050A0;color:#fff;display:flex;align-items:center;gap:8px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;white-space:nowrap;cursor:pointer" style-hover="background:#002D73">{{ c.label }}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></button>
       </sc-for>
       <button onClick="{{ clearFilters }}" style="flex-shrink:0;height:32px;padding:0 8px;border:none;background:transparent;color:#545F71;font-family:Inter,sans-serif;font-size:12.5px;font-weight:600;text-decoration:underline;white-space:nowrap;cursor:pointer">Očisti sve</button>
     </div>
@@ -558,7 +558,7 @@
     <sc-if value="{{ chipCount }}" hint-placeholder-val="{{ false }}">
     <div class="nsb" style="display:flex;align-items:center;gap:6px;overflow-x:auto;padding:0 12px 12px">
       <sc-for list="{{ chips }}" as="c" hint-placeholder-count="2">
-        <button onClick="{{ c.onClick }}" style="flex-shrink:0;height:32px;padding:0 10px 0 12px;border:none;border-radius:16px;background:#E8F0FA;color:#0050A0;display:flex;align-items:center;gap:6px;font-family:Inter,sans-serif;font-size:12.5px;font-weight:600;white-space:nowrap;cursor:pointer">{{ c.label }}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></button>
+        <button onClick="{{ c.onClick }}" style="flex-shrink:0;height:36px;padding:0 12px 0 15px;border:none;border-radius:18px;background:#0050A0;color:#fff;display:flex;align-items:center;gap:8px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;white-space:nowrap;cursor:pointer" style-hover="background:#002D73">{{ c.label }}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></button>
       </sc-for>
       <button onClick="{{ clearFilters }}" style="flex-shrink:0;height:32px;padding:0 8px;border:none;background:transparent;color:#545F71;font-family:Inter,sans-serif;font-size:12.5px;font-weight:600;text-decoration:underline;white-space:nowrap;cursor:pointer">Očisti sve</button>
     </div>
@@ -584,7 +584,7 @@
     <sc-if value="{{ chipCount }}" hint-placeholder-val="{{ false }}">
     <div class="nsb" style="display:flex;align-items:center;gap:6px;overflow-x:auto;padding:0 12px 12px">
       <sc-for list="{{ chips }}" as="c" hint-placeholder-count="2">
-        <button onClick="{{ c.onClick }}" style="flex-shrink:0;height:32px;padding:0 10px 0 12px;border:none;border-radius:16px;background:#E8F0FA;color:#0050A0;display:flex;align-items:center;gap:6px;font-family:Inter,sans-serif;font-size:12.5px;font-weight:600;white-space:nowrap;cursor:pointer">{{ c.label }}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></button>
+        <button onClick="{{ c.onClick }}" style="flex-shrink:0;height:36px;padding:0 12px 0 15px;border:none;border-radius:18px;background:#0050A0;color:#fff;display:flex;align-items:center;gap:8px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;white-space:nowrap;cursor:pointer" style-hover="background:#002D73">{{ c.label }}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></button>
       </sc-for>
       <button onClick="{{ clearFilters }}" style="flex-shrink:0;height:32px;padding:0 8px;border:none;background:transparent;color:#545F71;font-family:Inter,sans-serif;font-size:12.5px;font-weight:600;text-decoration:underline;white-space:nowrap;cursor:pointer">Očisti sve</button>
     </div>
@@ -610,7 +610,7 @@
     <sc-if value="{{ chipCount }}" hint-placeholder-val="{{ false }}">
     <div class="nsb" style="display:flex;align-items:center;gap:6px;overflow-x:auto;padding:0 12px 12px">
       <sc-for list="{{ chips }}" as="c" hint-placeholder-count="2">
-        <button onClick="{{ c.onClick }}" style="flex-shrink:0;height:32px;padding:0 10px 0 12px;border:none;border-radius:16px;background:#E8F0FA;color:#0050A0;display:flex;align-items:center;gap:6px;font-family:Inter,sans-serif;font-size:12.5px;font-weight:600;white-space:nowrap;cursor:pointer">{{ c.label }}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></button>
+        <button onClick="{{ c.onClick }}" style="flex-shrink:0;height:36px;padding:0 12px 0 15px;border:none;border-radius:18px;background:#0050A0;color:#fff;display:flex;align-items:center;gap:8px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;white-space:nowrap;cursor:pointer" style-hover="background:#002D73">{{ c.label }}<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></button>
       </sc-for>
       <button onClick="{{ clearFilters }}" style="flex-shrink:0;height:32px;padding:0 8px;border:none;background:transparent;color:#545F71;font-family:Inter,sans-serif;font-size:12.5px;font-weight:600;text-decoration:underline;white-space:nowrap;cursor:pointer">Očisti sve</button>
     </div>
@@ -646,7 +646,7 @@
     <sc-if value="{{ isGrid }}" hint-placeholder-val="{{ true }}">
       <div style="padding:0 8px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px">
         <sc-for list="{{ products }}" as="p" hint-placeholder-count="6">
-          <dc-import name="Components/ProductCard" variant="mobile" layout="{{ p.cardLayout }}" card="{{ p.card }}" promo-var="{{ p.promoVar }}" on-open="{{ p.openCard }}" hint-size="100%,485px" style="width:100%;height:100%"></dc-import>
+          <dc-import name="Components/ProductCard" variant="mobile" layout="{{ p.cardLayout }}" card="{{ p.card }}" promo-var="{{ p.promoVar }}" price-bottom="{{ p.priceBottom }}" on-open="{{ p.openCard }}" hint-size="100%,485px" style="width:100%;height:100%"></dc-import>
         </sc-for>
       </div>
     </sc-if>
@@ -808,9 +808,9 @@
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:8px;padding-bottom:16px">
           <sc-for list="{{ chips }}" as="ch" hint-placeholder-count="3">
-            <button onClick="{{ ch.onClick }}" style="display:flex;align-items:center;gap:8px;background:#fff;border:1px solid #E4E4EA;border-radius:18px;padding:8px 14px;font-family:Inter,sans-serif;font-size:13px;color:#545F71">
+            <button onClick="{{ ch.onClick }}" style="display:flex;align-items:center;gap:8px;height:36px;box-sizing:border-box;background:#0050A0;border:none;border-radius:18px;padding:0 13px 0 16px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;color:#fff;white-space:nowrap">
               {{ ch.label }}
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#545F71" stroke-width="2.6" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"></line><line x1="19" y1="5" x2="5" y2="19"></line></svg>
             </button>
           </sc-for>
         </div>
@@ -1154,6 +1154,10 @@ class Component extends DCLogic {
     const isTv = title === 'Televizori';
     // prototype: promo-code card designs, Stolna računala only (Main passes promoVar just there)
     const promoVar = title === 'Stolna računala' ? (Number(this.props.promoVar) || 0) : 0;
+    // prototype: price block pinned to the card bottom instead of reserved row slots, Stolna računala only
+    const priceBottom = title === 'Stolna računala' && this.props.priceBottom === true;
+    // prototype „Kartica” (Stolna računala): 1 = current card, 2 = no stock / seller / instalments, 3 = 2 + no image stickers, labels top right, energy on the image
+    const cardVar = title === 'Stolna računala' ? (this.props.cardLean === true ? 2 : ([1, 2, 3].indexOf(Number(this.props.cardLean)) > -1 ? Number(this.props.cardLean) : 1)) : 1;
     const siblings = node2 ? node2.items.filter(it => it !== l3) : [];
     const rawTop = isTv ? TV_PILLS_TOP : [['Sve u kategoriji', '1.284']].concat(siblings.slice(0, 7).map((n, i) => [n, String(120 + i * 63)]));
     const rawSub = isTv ? TV_PILLS_SUB : siblings.slice(7, 15).map((n, i) => [n, String(60 + i * 41)]);
@@ -1208,7 +1212,7 @@ class Component extends DCLogic {
         const on = !!s.checked[it[0]];
         const box = (sz) => ({
           width: sz, height: sz, borderRadius: 4, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
-          background: on ? '#002D73' : '#fff', border: on ? '1px solid #002D73' : '1px solid #C7C7CD'
+          background: on ? '#0050A0' : '#fff', border: on ? '1px solid #0050A0' : '1px solid #C7C7CD'
         });
         return { label: it[0], count: it[1], checked: on, onClick: () => this.toggleCheck(it[0]), boxStyle: box(18), boxStyleMob: box(22) };
       })
@@ -1218,7 +1222,7 @@ class Component extends DCLogic {
     const chipLabels = Object.keys(s.checked).filter(l => known[l]);
     // ---- brand pills: categories, or at the last level the next filter group in order
     const bpStyle = (on, mob) => ({ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0, whiteSpace: 'nowrap', height: mob ? 40 : 44, padding: mob ? '0 16px' : '0 20px', borderRadius: 22, boxSizing: 'border-box',
-      background: on ? '#002D73' : '#fff', border: on ? '1px solid #002D73' : '1px solid #D5D9E0', color: on ? '#fff' : '#353B47',
+      background: on ? '#0050A0' : '#fff', border: on ? '1px solid #0050A0' : '1px solid #D5D9E0', color: on ? '#fff' : '#353B47',
       fontFamily: 'Inter,sans-serif', fontSize: mob ? 14 : 15, fontWeight: 500, letterSpacing: '-0.01em', textDecoration: 'none', cursor: 'pointer' });
     let brandPills = [], brandPillsLabel = '';
     if (isBrand && bL3) {
@@ -1337,6 +1341,43 @@ class Component extends DCLogic {
           if (mode !== 'sale') card.anchor = card.price;
         }
       }
+      // prototype worst case, Stolna računala only: neighbouring cards carry different price-block info
+      // (old price / Uštedi, instalments, promo code) so rows never match — the 8 combinations cycle, refurb / good-deal / KM cards keep theirs
+      // coupon conditions (legal: the customer must see who a code is for) — shown by the promo designs + BBPromo dialog
+      const PROMO_TERMS = [
+        { promoTitle: 'Iskoristi Visa dodatne uštede', promoCond: 'Samo za plaćanje Visa karticom uz Apple Pay ili Google Pay', promoPeriod: '21.10. – 26.10.2026.',
+          promoPoints: ['Visa kartica uz Apple Pay ili Google Pay', '21.10. – 26.10.2026., jednokratno ili do 36 rata', 'Ne zbraja se s drugim popustima'],
+          promoTerms: 'Iskoristi 10% popusta za plaćanje Visa karticama koristeći Apple ili Google Pay uz promo kod VISA10 u periodu od 21.10. do 26.10.2026. Vrijedi za jednokratno plaćanje i plaćanje do 36 rata i ne zbraja se s drugim promo popustima.' },
+        { promoTitle: 'Dodatna ušteda za članove UAU Kluba', promoCond: 'Samo za prijavljene članove UAU Kluba pri online kupnji', promoPeriod: '21.10. – 31.10.2026.',
+          promoPoints: ['Samo prijavljeni članovi UAU Kluba', 'Online kupnja, 21.10. – 31.10.2026.', 'Jednom po kupcu, ne zbraja se'],
+          promoTerms: 'Iskoristi 20% popusta za članove UAU Kluba uz promo kod UAU20 pri online kupnji u periodu od 21.10. do 31.10.2026. Potrebna je prijava u korisnički račun UAU Kluba. Kod vrijedi jednom po kupcu, ne vrijedi u poslovnicama i ne zbraja se s drugim promo popustima.' },
+        { promoTitle: 'Iskoristi Mastercard dodatne uštede', promoCond: 'Samo za Mastercard kreditne kartice, plaćanje na 12 ili više rata', promoPeriod: '22.10. – 2.11.2026.',
+          promoPoints: ['Mastercard kreditna kartica, 12+ rata', '22.10. – 2.11.2026.', 'Ne zbraja se s drugim popustima'],
+          promoTerms: 'Iskoristi 15% popusta za plaćanje Mastercard kreditnim karticama na 12 ili više rata uz promo kod MASTER15 u periodu od 22.10. do 2.11.2026. Ne vrijedi za debitne kartice ni jednokratno plaćanje i ne zbraja se s drugim promo popustima.' }
+      ];
+      if (title === 'Stolna računala' && level === 3 && !isSearch && !isBrand && !refurb && !goodDeal && !kmCase) {
+        const WC = [[1, 1, 1], [0, 1, 0], [1, 0, 1], [0, 0, 0], [1, 1, 0], [0, 1, 1], [1, 0, 0], [0, 0, 1]][i % 8];
+        const pn = num(card.price);
+        const fmt = (n) => { const [x, y] = n.toFixed(2).split('.'); return x.replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',' + y + ' €'; };
+        const old = WC[0] ? (card.old || p.old || fmt(Math.round(pn * 1.18) - 0.01)) : '';
+        p = Object.assign({}, p, { old: old });
+        Object.assign(card, { old: old, disc: '', priceTag: '', rate: WC[1] ? fmt(pn / 12) + ' / 12 rata' : '',
+          // several promo codes per product (sets cycle); the card shows the highest with „do”, „Uvjeti ›” lists them all
+          ...(WC[2] ? (() => {
+            const ALL = [{ pct: 10, code: 'VISA10' }, { pct: 20, code: 'UAU20' }, { pct: 15, code: 'MASTER15' }]
+              .map((x, k) => ({ pct: x.pct, code: x.code, title: PROMO_TERMS[k].promoTitle, cond: PROMO_TERMS[k].promoCond, period: PROMO_TERMS[k].promoPeriod, terms: PROMO_TERMS[k].promoTerms }));
+            const set = [[0, 2], [1, 0, 2], [2, 0]][i % 3].map(k => ALL[k]);
+            const top = set.slice().sort((a, b) => b.pct - a.pct)[0], k = ALL.indexOf(top);
+            return Object.assign({ codePct: top.pct, promoCode: top.code, promoCodes: set }, PROMO_TERMS[k]);
+          })() : { codePct: 0, promoCode: '' }),
+          reserveCode: false, renewedSave: '', anchor: old || card.price,
+          // energy label + Informacijski list on two cards of every three (own cycle, so it never lines up with the 8 above);
+          // forceEnergy bypasses energy-rule.js for this prototype test only
+          energy: i % 3 !== 1 ? (i % 4 < 2 ? 'A' : 'G') : '', forceEnergy: i % 3 !== 1 });
+      }
+      // prototype „Kartica” V2 / V3 (see cardVar)
+      if (cardVar >= 2) card.lean = true;
+      if (cardVar === 3) card.v3 = true;
       const PT = { navy: ['#002D73', '#fff'], orange: ['#F65F04', '#fff'], red: ['#DA0D00', '#fff'], blue: ['#0050A0', '#fff'], lime: ['#CDD700', '#002D73'] };
       const listPills = cardPills.slice(0, 2).map(pl => ({ label: pl.label, style: { background: PT[pl.tone][0], color: PT[pl.tone][1], fontSize: 13, fontWeight: 600, height: 22, lineHeight: '22px', padding: '0 8px', borderRadius: 4, whiteSpace: 'nowrap' } }));
       const eur = (v) => (/€|KM/.test(String(v)) ? String(v) : String(v) + ' €');
@@ -1374,6 +1415,7 @@ class Component extends DCLogic {
         card: card,
         cardLayout: 'vertical',
         promoVar: promoVar,
+        priceBottom: priceBottom,
         openCard: () => openP(p),
         raw: p,
         garan: garanOf(p),
@@ -1473,7 +1515,7 @@ class Component extends DCLogic {
       const rowOf = (i) => mobile ? Math.floor(i / 2) : (v3 ? (i < 15 ? Math.floor(i / 3) : 5 + Math.floor((i - 15) / 4)) : Math.floor((noBanner ? i : (i < 3 ? i : i + 1)) / 4));
       const rows = {};
       all.forEach((p, i) => { if (!p.card) return; const r = rowOf(i); (rows[r] = rows[r] || []).push(p.card); });
-      Object.values(rows).forEach(cs => { const rr = cs.some(c => c.rating), ro = cs.some(c => c.options && (!window.BBCatProducts || !window.BBCatProducts.optionsAllowed || window.BBCatProducts.optionsAllowed(c.name))), rp = cs.some(c => (c.codePct > 0 || !!c.renewedSave)), re = cs.some(c => !!c.energy && (!window.BBEnergy || window.BBEnergy.allowed(c.name))), rs = cs.some(c => (!!c.old && !c.renewedSave) || !!c.priceTag), rc = cs.some(c => c.codePct > 0 && !c.renewedSave); cs.forEach(c => { c.rowRating = rr; c.rowOptions = ro; c.rowPromo = rp; c.rowEnergy = re; c.rowSave = rs; c.rowCode = rc; }); });
+      Object.values(rows).forEach(cs => { const rr = cs.some(c => c.rating), ro = cs.some(c => c.options && (!window.BBCatProducts || !window.BBCatProducts.optionsAllowed || window.BBCatProducts.optionsAllowed(c.name))), rp = cs.some(c => (c.codePct > 0 || !!c.renewedSave)), re = cs.some(c => !!c.energy && (c.forceEnergy || !window.BBEnergy || window.BBEnergy.allowed(c.name))), rs = cs.some(c => (!!c.old && !c.renewedSave) || !!c.priceTag), rc = cs.some(c => c.codePct > 0 && !c.renewedSave); cs.forEach(c => { c.rowRating = rr; c.rowOptions = ro; c.rowPromo = rp; c.rowEnergy = re; c.rowSave = rs; c.rowCode = rc; }); });
     }
     const gridCells = [];
     all.forEach((p, i) => {
@@ -1579,9 +1621,9 @@ class Component extends DCLogic {
         },
         radioStyle: {
           width: 22, height: 22, borderRadius: '50%', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
-          border: s.sort === o ? '2px solid #002D73' : '2px solid #C7C7CD'
+          border: s.sort === o ? '2px solid #0050A0' : '2px solid #C7C7CD'
         },
-        dotStyle: { width: 11, height: 11, borderRadius: '50%', background: s.sort === o ? '#002D73' : 'transparent', display: 'block' }
+        dotStyle: { width: 11, height: 11, borderRadius: '50%', background: s.sort === o ? '#0050A0' : 'transparent', display: 'block' }
       })),
       products: all,
       gridCells: gridCells,

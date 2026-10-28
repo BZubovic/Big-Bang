@@ -1,0 +1,91 @@
+#!/usr/bin/env python3
+"""Check every CMS shortcode on the canvas pages against cms-page-builder-guide.md (chapter 9 catalog).
+
+Run from the canvas project folder:  python3 tools/check-shortcodes.py.txt  (.txt because the canvas stores no .py files) [Page.dc.html ...]
+For every shortcode found in a page (placeholders `.cms-sc` and any other occurrence) it reports:
+  - the catalog entry it maps to (CATALOGPRODUCT with PRODUCT_CODE__IS_IN -> `products`,
+    other CATALOGPRODUCT -> `products_filtered`, CMSWIDGET TYPE="X" -> `X`),
+  - attributes that entry does not list, legacy names (the guide calls them "Stariji naziv"),
+  - numeric limits outside 1-50, an empty ID="" and the forbidden empty [SHORTCODE=""].
+The guide is the only source of truth; this script only reads it, it never hard-codes options.
+"""
+import re, sys, glob, html, os
+
+GUIDE = 'cms-page-builder-guide.md'
+
+def catalog(text):
+    start = text.index('## 9. Aktualni katalog')
+    entries, cur = {}, None
+    for line in text[start:].split('\n'):
+        m = re.match(r'^####\s.*`([A-Za-z_]+)`\s*$', line)
+        if m:
+            cur = m.group(1); entries[cur] = {'attrs': set(), 'legacy': set()}
+            continue
+        if cur and line.startswith('|'):
+            cells = [c.strip() for c in line.strip('|').split('|')]
+            name = cells[0].strip('` ')
+            if re.fullmatch(r'[A-Z][A-Z0-9_]*', name or ''):
+                entries[cur]['attrs'].add(name)
+                if len(cells) > 1 and 'Stariji naziv' in cells[1]:
+                    entries[cur]['legacy'].add(name)
+    return entries
+
+def shortcodes(src):
+    src = html.unescape(src.split('data-dc-script')[0])
+    return [re.sub(r'\s+', ' ', m.group(0)) for m in re.finditer(r'\[(?:CATALOGPRODUCT|CMSWIDGET|SHORTCODE)\b[^\]<]*\]', src)]
+
+def check(sc, cat):
+    attrs = dict(re.findall(r'([A-Z][A-Z0-9_]*)="([^"]*)"', sc))
+    issues = []
+    if sc.startswith('[SHORTCODE'):
+        return 'SHORTCODE', ['empty [SHORTCODE=""] is forbidden — use a catalog shortcode']
+    if sc.startswith('[CATALOGPRODUCT'):
+        key = 'products' if 'PRODUCT_CODE__IS_IN' in attrs else 'products_filtered'
+    else:
+        key = attrs.pop('TYPE', '?')
+    entry = cat.get(key)
+    if not entry:
+        return key, ['no catalog entry `%s` in the guide' % key]
+    for a, v in attrs.items():
+        if a not in entry['attrs']:
+            issues.append('attribute %s is not in the `%s` catalog entry' % (a, key))
+        elif a in entry['legacy']:
+            issues.append('%s is a legacy name (see the guide) — use the current one' % a)
+        if a in ('NUMBER_OF_ITEMS__IS', 'DISPLAY_LIMIT') and v.isdigit() and not 1 <= int(v) <= 50:
+            issues.append('%s=%s outside 1–50' % (a, v))
+        if a == 'ID' and v == '':
+            issues.append('empty ID="" — leave ID out unless the exact posts are known')
+        if key == 'PRODUCTS' and a == 'TITLE' and 'ROW_TITLE' not in attrs:
+            issues.append('TITLE in CMSWIDGET is only an internal name — the visible list title is ROW_TITLE (CLAUDE.md "CMS shortcodes")')
+        if a in ('LINK_SHOW_ALL', 'SHOW_ALL') and v == 'true' and not (attrs.get('LINK_SHOW_ALL_URL') or attrs.get('SHOW_ALL_URL__IS')):
+            issues.append('%s="true" without a URL — the guide hides the button; add the URL (or … for the editor)' % a)
+        if '…' in v:
+            issues.append('%s still has the placeholder value "…" (editor must fill it)' % a)
+    return key, issues
+
+def main():
+    text = open(GUIDE, encoding='utf-8').read()
+    ver = re.search(r'MarkerCMS\s+([\d.]+)', text)
+    cat = catalog(text)
+    pages = sys.argv[1:] or sorted(p for p in glob.glob('*.dc.html'))
+    print('Guide MarkerCMS %s — %d catalog entries' % (ver.group(1) if ver else '?', len(cat)))
+    bad = 0
+    for p in pages:
+        found = shortcodes(open(p, encoding='utf-8').read())
+        if not found:
+            continue
+        print('\n== %s (%d)' % (p, len(found)))
+        for sc in dict.fromkeys(found):
+            key, issues = check(sc, cat)
+            real = [i for i in issues if 'placeholder value' not in i]
+            tag = '  FIX  ' if real else ('  TODO ' if issues else '  OK   ')
+            print(tag + '[%s] %s' % (key, sc[:150] + ('…' if len(sc) > 150 else '')))
+            for i in issues:
+                print('         - ' + i)
+            bad += bool(real)
+    print('\n%d shortcode(s) need fixing (FIX). TODO = valid, but values shown as "…" are for the editor.' % bad)
+    return 1 if bad else 0
+
+if __name__ == '__main__':
+    os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+    sys.exit(main())

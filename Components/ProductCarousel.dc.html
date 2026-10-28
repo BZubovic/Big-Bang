@@ -36,7 +36,7 @@
   <div ref="{{ trackRef }}" class="nsb" style="display:flex;gap:24px;overflow-x:auto;padding:8px max(20px,calc((100% - 1480px) / 2 + 20px)) 12px max(20px,calc((100% - 1480px) / 2 + 20px))">
     <sc-for list="{{ products }}" as="p" hint-placeholder-count="0">
       <div style="width:269px;flex-shrink:0;display:flex">
-        <dc-import name="Components/ProductCard" variant="desktop" layout="minimal" card="{{ p.card }}" wish="{{ p.wish }}" on-open="{{ p.onOpen }}" on-remove-wish="{{ p.onRemoveWish }}" hint-size="269px,440px" style="width:100%"></dc-import>
+        <dc-import name="Components/ProductCard" variant="desktop" layout="{{ cardLayout }}" promo-var="{{ promoVar }}" card="{{ p.card }}" wish="{{ p.wish }}" on-open="{{ p.onOpen }}" on-remove-wish="{{ p.onRemoveWish }}" hint-size="269px,440px" style="width:100%"></dc-import>
       </div>
     </sc-for>
   </div>
@@ -59,7 +59,7 @@
   <div class="nsb" ref="{{ trackRef }}" style="display:flex;gap:12px;overflow-x:auto;padding:6px 12px 10px 0">
     <sc-for list="{{ products }}" as="p" hint-placeholder-count="0">
       <div style="width:216px;flex-shrink:0;display:flex">
-        <dc-import name="Components/ProductCard" variant="mobile" layout="minimal" card="{{ p.card }}" wish="{{ p.wish }}" on-open="{{ p.onOpen }}" on-remove-wish="{{ p.onRemoveWish }}" hint-size="216px,390px" style="width:100%"></dc-import>
+        <dc-import name="Components/ProductCard" variant="mobile" layout="{{ cardLayout }}" promo-var="{{ promoVar }}" card="{{ p.card }}" wish="{{ p.wish }}" on-open="{{ p.onOpen }}" on-remove-wish="{{ p.onRemoveWish }}" hint-size="216px,390px" style="width:100%"></dc-import>
       </div>
     </sc-for>
   </div>
@@ -75,6 +75,7 @@
   &quot;wishlist&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot; },
   &quot;showAll&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; },
   &quot;hideHead&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot; },
+  &quot;v3&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot; },
   &quot;$preview&quot;: {
     &quot;width&quot;: 1480,
     &quot;height&quot;: 560
@@ -143,7 +144,23 @@ class Component extends DCLogic {
               rating: rated && !this.props.noReviews ? 4 : 0, reviews: [218, 96, 47, 312, 15, 64][i % 6],
               avail: av.text, availTone: av.tone, seller: 'Big Bang',
               codePct: refurb || i % 4 === 3 ? 0 : 20,
-              anchor: p.anchor || p.old || p.price, anchorDate: p.anchorDate || '10.09.2026.'
+              anchor: p.anchor || p.old || p.price, anchorDate: p.anchorDate || '10.09.2026.',
+              // v3: the „Kartica V3” card (vertical layout, no stock / seller / instalments, labels top left, energy on the image)
+              lean: !!this.props.v3, v3: !!this.props.v3,
+              // v3: several promo codes per product like Stolna računala (same coupons as PROMO_TERMS in Category body); card shows the highest
+              ...(this.props.v3 && !refurb && i % 4 !== 3 ? (() => {
+                const ALL = [
+                  { pct: 10, code: 'VISA10', title: 'Iskoristi Visa dodatne uštede', cond: 'Samo za plaćanje Visa karticom uz Apple Pay ili Google Pay', period: '21.10. – 26.10.2026.',
+                    terms: 'Iskoristi 10% popusta za plaćanje Visa karticama koristeći Apple ili Google Pay uz promo kod VISA10 u periodu od 21.10. do 26.10.2026. Vrijedi za jednokratno plaćanje i plaćanje do 36 rata i ne zbraja se s drugim promo popustima.' },
+                  { pct: 20, code: 'UAU20', title: 'Dodatna ušteda za članove UAU Kluba', cond: 'Samo za prijavljene članove UAU Kluba pri online kupnji', period: '21.10. – 31.10.2026.',
+                    terms: 'Iskoristi 20% popusta za članove UAU Kluba uz promo kod UAU20 pri online kupnji u periodu od 21.10. do 31.10.2026. Potrebna je prijava u korisnički račun UAU Kluba. Kod vrijedi jednom po kupcu, ne vrijedi u poslovnicama i ne zbraja se s drugim promo popustima.' },
+                  { pct: 15, code: 'MASTER15', title: 'Iskoristi Mastercard dodatne uštede', cond: 'Samo za Mastercard kreditne kartice, plaćanje na 12 ili više rata', period: '22.10. – 2.11.2026.',
+                    terms: 'Iskoristi 15% popusta za plaćanje Mastercard kreditnim karticama na 12 ili više rata uz promo kod MASTER15 u periodu od 22.10. do 2.11.2026. Ne vrijedi za debitne kartice ni jednokratno plaćanje i ne zbraja se s drugim promo popustima.' }
+                ];
+                const set = [[0, 2], [1, 0, 2], [2], [0]][i % 4].map(k => ALL[k]);
+                const top = set.slice().sort((a, b) => b.pct - a.pct)[0];
+                return { codePct: top.pct, promoCode: top.code, promoCodes: set, promoTitle: top.title, promoCond: top.cond, promoPeriod: top.period, promoTerms: top.terms };
+              })() : {})
             },
             wish: !!this.props.wishlist,
             onOpen: () => open(p),
@@ -151,6 +168,9 @@ class Component extends DCLogic {
           };
         };
     return {
+      cardLayout: this.props.v3 ? 'vertical' : 'minimal',
+      // v3 slider uses the Stolna računala default promo look (design 8: chip, „do” amount, „Uvjeti ›” → all codes flyout)
+      promoVar: this.props.v3 ? 8 : 0,
       isDesktop: !mobile,
       isMobile: mobile,
       title: this.props.title || '',

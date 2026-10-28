@@ -698,12 +698,20 @@ function ConditionFlyout({ condition: initialCondition, selectedIndex, onSelect,
 
 // ─── Promo code box (price block) — same as ProductCard promo box ───
 const OFFERS = [
-  { tag: 'Promo kod', title: 'Dodatnih 15% popusta uz kod SAMSUNG15', code: 'SAMSUNG15', pct: 15, icon: 'tag' },
-  { tag: 'Poklon', title: 'Samsung Galaxy Buds FE slušalice gratis', img: (window.BB_CIMG_URL || {})['i-slusalice.webp'] || 'images/c/i-slusalice.webp' },
-  { tag: 'Zaštita', title: 'Samsung Care+ 2 godine uz 50% popusta', icon: 'shield' },
-  { tag: 'Otkup', title: 'Trade-in: do 200 € za stari mobitel', img: (window.BB_CIMG_URL || {})['i-smartphone.webp'] || 'images/c/i-smartphone.webp' },
-  { tag: 'Promo kod', title: '5% popusta u Big Bang aplikaciji', code: 'BBAPP5', pct: 5, icon: 'tag' },
-  { tag: 'Jamstvo', title: 'Produljeno jamstvo 3 godine uz 30% popusta', icon: 'shield' }
+  { tag: 'Promo kod', title: 'Dodatnih 15% popusta uz kod SAMSUNG15', code: 'SAMSUNG15', pct: 15, icon: 'tag',
+    promoTitle: 'Dodatnih 15% na Samsung uređaje', promoCond: 'Samo za online kupnju, do 31.10.2026. ili do isteka zaliha', promoPeriod: 'do 31.10.2026.',
+    promoTerms: 'Iskoristi dodatnih 15% popusta na ovaj Samsung proizvod uz promo kod SAMSUNG15 pri online kupnji do 31.10.2026. ili do isteka zaliha. Popust se obračunava na cijenu proizvoda, vrijedi za jednokratno plaćanje i plaćanje na rate i ne zbraja se s drugim promo popustima.' },
+  { tag: 'Promo kod', title: 'Dodatnih 10% popusta uz kod BIGBANG10', code: 'BIGBANG10', pct: 10, icon: 'tag',
+    promoTitle: 'Dodatnih 10% za članove UAU kluba', promoCond: 'Za prijavljene članove UAU kluba, online i u poslovnicama', promoPeriod: 'do 30.11.2026.',
+    promoTerms: 'Iskoristi dodatnih 10% popusta na ovaj proizvod uz promo kod BIGBANG10 kao prijavljeni član UAU kluba, online ili u poslovnici, do 30.11.2026. Popust se obračunava na cijenu proizvoda, vrijedi jednom po kupcu i ne zbraja se s drugim promo kodovima — u košarici se primjenjuje samo jedan kod.' },
+  { tag: 'Poklon', title: 'Samsung Galaxy Buds FE slušalice gratis', img: (window.BB_CIMG_URL || {})['i-slusalice.webp'] || 'images/c/i-slusalice.webp',
+    text: 'Poklon se automatski dodaje u košaricu uz kupnju uređaja.' },
+  { tag: 'Zaštita', title: 'Samsung Care+ 2 godine uz 50% popusta', icon: 'shield',
+    text: 'Kvar, slučajni pad, voda i razbijen zaslon. Aktivacija unutar 60 dana od kupnje.' },
+  { tag: 'Otkup', title: 'Trade-in: do 200 € za stari mobitel', img: (window.BB_CIMG_URL || {})['i-smartphone.webp'] || 'images/c/i-smartphone.webp',
+    text: 'Procijenite vrijednost online, a iznos se umanjuje od cijene novog uređaja.' },
+  { tag: 'Jamstvo', title: 'Produljeno jamstvo 3 godine uz 30% popusta', icon: 'shield',
+    text: 'Big Bang produljeno jamstvo (plaćena usluga) — nije EU jamstvo proizvođača.' }
 ];
 // ─── Istaknute akcije (above Opis proizvoda; click opens the deals flyout) ───
 function OfferThumb({ o, s }) {
@@ -717,12 +725,13 @@ function OfferThumb({ o, s }) {
     </span>
   );
 }
-let OFFER_N = 4;
+let OFFER_N = 6;
 function OffersBox() {
   const list = OFFERS.slice(0, OFFER_N), shown = list.slice(0, 4);
-  const [copied, setCopied] = React.useState(null);
-  const open = () => window.dispatchEvent(new CustomEvent('bb-open-promo'));
-  const copy = (e, code) => { e.stopPropagation(); try { navigator.clipboard && navigator.clipboard.writeText(code); } catch (er) {} setCopied(code); setTimeout(() => setCopied(null), 1600); };
+  // "Prikaži sve" and every row (promo code box included) open the full Istaknute akcije sheet;
+  // a row passes its index so the sheet scrolls to it
+  const open = (i) => window.dispatchEvent(new CustomEvent('bb-open-promo', { detail: typeof i === 'number' ? i : null }));
+  const price = dealPrice();
   const arrow = <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#545F71" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><polyline points="9 6 15 12 9 18"></polyline></svg>;
   const row = { display: 'flex', alignItems: 'center', gap: 10, minHeight: 56, boxSizing: 'border-box', minWidth: 0, borderRadius: 8, textAlign: 'left', cursor: 'pointer', fontFamily: 'inherit' };
   return (
@@ -732,23 +741,21 @@ function OffersBox() {
           <span style={{ fontSize: 15, fontWeight: 600, letterSpacing: '-0.01em', color: '#101117' }}>Istaknute akcije</span>
           <span style={{ fontSize: 'inherit', fontWeight: 500, color: '#545F71' }}>({list.length})</span>
         </span>
-        <button onClick={open} style={{ background: 'none', border: 'none', padding: 0, fontSize: 13, fontWeight: 600, color: '#0050A0', cursor: 'pointer', fontFamily: 'inherit' }}>{list.length > 4 ? 'Prikaži sve (' + list.length + ')' : 'Prikaži sve'}</button>
+        <button onClick={() => open()} style={{ background: 'none', border: 'none', padding: 0, fontSize: 13, fontWeight: 600, color: '#0050A0', cursor: 'pointer', fontFamily: 'inherit' }}>{list.length > 4 ? 'Prikaži sve (' + list.length + ')' : 'Prikaži sve'}</button>
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 6 }}>
         {shown.map((o, i) => o.code ? (
-          <div key={i} role="button" tabIndex={0} onClick={open} style={{ ...row, padding: '0 6px 0 7px', background: '#fff', border: '1px dashed #0B7A48' }}>
-            <span style={{ flexShrink: 0, minWidth: 40, height: 24, padding: '0 4px', boxSizing: 'border-box', borderRadius: 4, background: '#0B7A48', color: '#fff', fontSize: 14, fontWeight: 700, lineHeight: '24px', textAlign: 'center' }}>-{o.pct}%</span>
-            <span style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 1, whiteSpace: 'nowrap' }}>
-              <span style={{ fontSize: 13, fontWeight: 600, lineHeight: '17px', color: '#101117', overflow: 'hidden', textOverflow: 'ellipsis' }}>{o.title}</span>
-              <span style={{ fontSize: 12, lineHeight: '16px', color: '#545F71', overflow: 'hidden', textOverflow: 'ellipsis' }}>uz kod <b style={{ fontWeight: 700 }}>{o.code}</b></span>
+          <div key={i} role="button" tabIndex={0} onClick={() => open(i)} style={{ ...row, padding: '0 10px 0 8px', background: '#fff', border: '1px solid #0B7A48' }}>
+            <span style={{ flexShrink: 0, minWidth: 36, height: 24, padding: '0 4px', boxSizing: 'border-box', borderRadius: 4, background: '#0B7A48', color: '#fff', fontSize: 14, fontWeight: 700, lineHeight: '24px', textAlign: 'center' }}>-{o.pct}%</span>
+            <span style={{ flex: 1, minWidth: 0, display: 'flex', alignItems: 'baseline', gap: 6, whiteSpace: 'nowrap' }}>
+              <span style={{ flexShrink: 0, fontSize: 14, fontWeight: 700, lineHeight: '19px', color: '#000' }}>-{fmtEur(price * o.pct / 100)}</span>
+              <span style={{ minWidth: 0, fontSize: 12, lineHeight: '16px', color: '#545F71', overflow: 'hidden', textOverflow: 'ellipsis' }}>dodatno uz kod*</span>
             </span>
-            <button type="button" onClick={(e) => copy(e, o.code)} title="Kopiraj promo kod" aria-label="Kopiraj promo kod" style={{ flexShrink: 0, width: 29, height: 28, padding: 0, border: 'none', borderRadius: 6, background: '#E6F5EC', color: '#0B7A48', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
-              {copied === o.code ? <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
-                : <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path></svg>}
-            </button>
+            <span style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: 2, fontSize: 13, fontWeight: 600, color: '#002D73', textDecoration: 'underline', textUnderlineOffset: 2, whiteSpace: 'nowrap' }}>Uvjeti
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6l6 6-6 6"></path></svg></span>
           </div>
         ) : (
-          <button key={i} onClick={open} style={{ ...row, padding: 8, background: '#F7F8FA', border: 'none' }}>
+          <button key={i} onClick={() => open(i)} style={{ ...row, padding: 8, background: '#F7F8FA', border: 'none' }}>
             <OfferThumb o={o} s={40} />
             <span style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 1 }}>
               <span style={{ fontSize: 11, fontWeight: 600, lineHeight: '14px', color: '#0050A0' }}>{o.tag}</span>
@@ -1881,29 +1888,58 @@ function B2BBody({ onClose }) {
 
 // ─── Sticky side info panel ───────────────────────────────────────
 
+// ─── Istaknute akcije — full view (all promo codes + other promotions) ───
+function dealPrice() { return parseFloat(String(pv('price', '1.299,00')).replace(/\./g, '').replace(',', '.')) || 0; }
+function fmtEur(v) { return v.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €'; }
+let DEAL_FOCUS = null; // index of the row tapped in the box; the sheet scrolls to it
 function DealsBody() {
-  const [copied, setCopied] = React.useState(false);
-  const deals = [
-    { tag: 'Promo kod', tone: ['#E6F5EC', '#0B7A48'], title: 'Dodatnih 15% popusta na ovaj proizvod', text: 'Upišite kod u košarici. Vrijedi do 31.10.2026. ili do isteka zaliha.', code: 'SAMSUNG15' },
-    { tag: 'Poklon', tone: ['#EBF3FE', '#0050A0'], title: 'Samsung Galaxy Buds FE slušalice gratis', text: 'Poklon se automatski dodaje u košaricu uz kupnju uređaja.' },
-    { tag: 'Zaštita', tone: ['#EBF3FE', '#0050A0'], title: 'Samsung Care+ 2 godine uz 50% popusta', text: 'Kvar, slučajni pad, voda i razbijen zaslon. Aktivacija unutar 60 dana od kupnje.' },
-    { tag: 'Otkup', tone: ['#EBF3FE', '#0050A0'], title: 'Trade-in: do 200 € za stari mobitel', text: 'Procijenite vrijednost online, a iznos se umanjuje od cijene novog uređaja.' },
-    { tag: 'Promo kod', tone: ['#E6F5EC', '#0B7A48'], title: '5% popusta u Big Bang aplikaciji', text: 'Upišite kod pri kupnji u Big Bang aplikaciji. Ne zbraja se s drugim promo kodovima.', code: 'BBAPP5' },
-    { tag: 'Jamstvo', tone: ['#EBF3FE', '#0050A0'], title: 'Produljeno jamstvo 3 godine uz 30% popusta', text: 'Big Bang produljeno jamstvo (plaćena usluga) — nije EU jamstvo proizvođača.' }
-  ].slice(0, OFFER_N);
+  const list = OFFERS.slice(0, OFFER_N);
+  const price = dealPrice();
+  const [focus] = React.useState(() => { const f = DEAL_FOCUS; DEAL_FOCUS = null; return f; });
+  const [copied, setCopied] = React.useState(null);
+  const refs = React.useRef({});
+  React.useEffect(() => {
+    const el = focus != null && refs.current[focus];
+    if (!el) return;
+    let sc = el.parentElement;
+    while (sc && !/(auto|scroll)/.test(getComputedStyle(sc).overflowY)) sc = sc.parentElement;
+    if (sc) sc.scrollTop += el.getBoundingClientRect().top - sc.getBoundingClientRect().top - 14;
+  }, []);
+  const copy = (code) => { try { navigator.clipboard && navigator.clipboard.writeText(code); } catch (e) {} setCopied(code); setTimeout(() => setCopied(null), 1600); };
+  const codes = list.map((o, i) => ({ o, i })).filter(x => x.o.code);
+  const other = list.map((o, i) => ({ o, i })).filter(x => !x.o.code);
+  const head = (t, n) => <div style={{ fontSize: 13, fontWeight: 600, color: '#545F71', margin: '2px 0 -2px' }}>{t} ({n})</div>;
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-      {deals.map((d, i) => (
-        <div key={i} style={{ border: '1px solid #E3E4E9', borderRadius: 12, padding: 16, display: 'flex', flexDirection: 'column', gap: 8, background: '#fff' }}>
-          <span style={{ alignSelf: 'flex-start', background: d.tone[0], color: d.tone[1], fontSize: 12, fontWeight: 700, padding: '3px 8px', borderRadius: 4, letterSpacing: '0.02em' }}>{d.tag}</span>
-          <div style={{ fontSize: 15, fontWeight: 700, color: '#101117', lineHeight: 1.35 }}>{d.title}</div>
-          <div style={{ fontSize: 13, color: '#545F71', lineHeight: 1.5 }}>{d.text}</div>
-          {d.code && (
-            <div style={{ marginTop: 4, display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-              <span style={{ border: '1px dashed #9FD0B4', background: '#E6F5EC', color: '#0B7A48', fontSize: 14, fontWeight: 800, letterSpacing: '0.06em', padding: '6px 12px', borderRadius: 6 }}>{d.code}</span>
-              <button onClick={() => { try { navigator.clipboard && navigator.clipboard.writeText(d.code); } catch (e) {} setCopied(true); setTimeout(() => setCopied(false), 1600); }} style={{ background: 'none', border: 'none', padding: 0, fontSize: 13, fontWeight: 600, color: '#0050A0', textDecoration: 'underline', textUnderlineOffset: 2, cursor: 'pointer', fontFamily: 'inherit' }}>{copied ? 'Kopirano' : 'Kopiraj kod'}</button>
-            </div>
-          )}
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+      {codes.length > 0 && head('Promo kodovi', codes.length)}
+      {codes.map(({ o, i }) => (
+        <div key={i} ref={el => (refs.current[i] = el)} style={{ borderRadius: 12, padding: 14, background: '#F7F8FA', display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ flexShrink: 0, minWidth: 40, height: 26, padding: '0 6px', boxSizing: 'border-box', borderRadius: 4, background: '#0B7A48', color: '#fff', fontSize: 14, fontWeight: 700, lineHeight: '26px', textAlign: 'center' }}>-{o.pct}%</span>
+            <span style={{ display: 'flex', alignItems: 'baseline', gap: 6, minWidth: 0, flexWrap: 'wrap' }}>
+              <span style={{ fontSize: 15, fontWeight: 700, lineHeight: '20px', color: '#000', whiteSpace: 'nowrap' }}>-{fmtEur(price * o.pct / 100)}</span>
+              <span style={{ fontSize: 12, lineHeight: '16px', color: '#545F71', whiteSpace: 'nowrap' }}>dodatno uz kod</span>
+            </span>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#101117', lineHeight: 1.35 }}>{o.promoTitle || o.title}</div>
+            {o.promoTerms && <div style={{ fontSize: 12, color: '#545F71', lineHeight: 1.55 }}>{o.promoTerms}</div>}
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ flex: 1, minWidth: 0, height: 40, boxSizing: 'border-box', border: '1px dashed #0B7A48', background: '#fff', color: '#0B7A48', fontSize: 14, fontWeight: 800, letterSpacing: '0.06em', borderRadius: 8, display: 'flex', alignItems: 'center', padding: '0 12px' }}>{o.code}</span>
+            <button onClick={() => copy(o.code)} className="bbcta" style={{ flexShrink: 0, height: 40, padding: '0 16px', borderRadius: 20, border: 'none', color: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>{copied === o.code ? 'Kopirano' : 'Kopiraj kod'}</button>
+          </div>
+        </div>
+      ))}
+      {other.length > 0 && <div style={{ marginTop: codes.length ? 6 : 0 }}>{head('Ostale pogodnosti', other.length)}</div>}
+      {other.map(({ o, i }) => (
+        <div key={i} ref={el => (refs.current[i] = el)} style={{ borderRadius: 12, padding: 12, background: '#F7F8FA', display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+          <OfferThumb o={o} s={44} />
+          <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 3 }}>
+            <span style={{ fontSize: 11, fontWeight: 600, lineHeight: '14px', color: '#0050A0' }}>{o.tag}</span>
+            <span style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.35, color: '#101117' }}>{o.title}</span>
+            {o.text && <span style={{ fontSize: 12, lineHeight: 1.5, color: '#545F71' }}>{o.text}</span>}
+          </div>
         </div>
       ))}
     </div>
@@ -1914,7 +1950,7 @@ const energyOk = () => !window.BBEnergy || window.BBEnergy.allowed(P ? P.name : 
 function SidePanel() {
   const [openId, setOpenId] = React.useState(null);
   React.useEffect(() => {
-    const h = () => setOpenId('deals');
+    const h = (e) => { DEAL_FOCUS = e && typeof e.detail === 'number' ? e.detail : null; setOpenId(null); setTimeout(() => setOpenId('deals'), 0); };
     const p = (e) => { const id = e.detail; if (['delivery', 'pickup', 'promo', 'energy', 'b2b'].includes(id)) setOpenId(id); else if (id === 'alloffers') window.dispatchEvent(new CustomEvent('bb-open-alloffers')); };
     window.addEventListener('bb-open-promo', h); window.addEventListener('bb-open-panel', p);
     return () => { window.removeEventListener('bb-open-promo', h); window.removeEventListener('bb-open-panel', p); };
@@ -1926,7 +1962,7 @@ function SidePanel() {
   { id: 'energy', title: 'Energetski razred', icon: <BBI.Bolt size={20} /> },
   { id: 'b2b', title: 'B2B ponuda i najam opreme', icon: <BBI.Briefcase size={20} /> }].filter(i => i.id !== 'energy' || energyOk());
 
-  const open = openId === 'deals' ? { id: 'deals', title: 'Posebne pogodnosti', icon: <BBI.PromoTag size={20} /> } : items.find(i => i.id === openId);
+  const open = openId === 'deals' ? { id: 'deals', title: 'Istaknute akcije', icon: <BBI.PromoTag size={20} /> } : items.find(i => i.id === openId);
   const Body = openId === 'deals' ? DealsBody
     : openId === 'promo' ? PromoBody
     : openId === 'delivery' ? DeliveryBody
@@ -2365,7 +2401,7 @@ function DesktopStickyBar({ bundleMode, visible }) {
           <img src={img} alt="" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
         </div>
         <div style={{ flex: 1, minWidth: 0, fontSize: 15, fontWeight: 600, color: T.text, letterSpacing: '-0.01em', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{title}</div>
-        <div style={{ fontSize: 22, fontWeight: 700, color: T.red, letterSpacing: '-0.02em', flexShrink: 0 }}>{price} €</div>
+        {/* no price in the sticky bar — the price stays in the buy box */}
         <button onClick={() => window.BBCart && window.BBCart.open({ img: img, name: title, price: price })} className="bbcta" style={{ flexShrink: 0, height: 46, padding: '0 28px', borderRadius: 23, background: T.blue, color: '#fff', border: 'none', fontSize: 14, fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8, letterSpacing: '-0.01em' }}>
           <Icon.Cart /> Dodaj u košaricu
         </button>
@@ -2376,14 +2412,14 @@ function DesktopStickyBar({ bundleMode, visible }) {
 
 
 let AV = { inStock: true, shown: true };
-function PDPBody({ bundleMode = false, product = null, availStock = true, availShown = true, offerCount = 4, stickyCta = true, productType = 'default', onOpenBrand = null }) {
+function PDPBody({ bundleMode = false, product = null, availStock = true, availShown = true, offerCount = 6, stickyCta = true, productType = 'default', onOpenBrand = null }) {
   OPEN_BRAND = onOpenBrand;
   P = product && product.name ? product : null;
   PT = productType === 'bundle' ? 'bundle' : TYPE_P[productType] ? productType : 'default';
   if (PT !== 'default') P = TYPE_P[PT];
   if (PT === 'bundle') bundleMode = true;
   AV = { inStock: availStock !== false, shown: availShown !== false };
-  OFFER_N = Math.max(1, Math.min(6, offerCount || 4));
+  OFFER_N = Math.max(1, Math.min(6, offerCount || 6));
   const [selectedColor] = React.useState('Amber Yellow');
   const ctaRef = React.useRef(null);
   const [showStickyBar, setShowStickyBar] = React.useState(false);

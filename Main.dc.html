@@ -23,6 +23,7 @@
 <script src="garan-data.js"></script>
 <script src="changelog.js"></script>
 <script src="energy-rule.js"></script>
+<script src="promo-terms.js"></script>
 <script src="category-products.js"></script>
 <script src="tv-geo-data.js"></script>
 <script src="tv-size-finder.js"></script>
@@ -50,7 +51,7 @@
 
   <sc-if value="{{ isCategory }}" hint-placeholder-val="{{ false }}">
     <div class="pgin">
-      <dc-import name="Pages/Category-body" variant="desktop" size-finder="{{ sizeFinder }}" promo-var="{{ promoVar }}" on-promos="{{ goPromos }}" on-stores="{{ goStores }}" on-open-brand="{{ openBrand }}" on-brands="{{ goBrands }}" on-contact="{{ goContact }}" card-style="{{ cardStyle }}" level="{{ catLevel }}" minimal="{{ catMinimal }}" cat="{{ category }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,3200px"></dc-import>
+      <dc-import name="Pages/Category-body" variant="desktop" size-finder="{{ sizeFinder }}" promo-var="{{ promoVar }}" price-bottom="{{ priceBottom }}" card-lean="{{ cardLean }}" on-promos="{{ goPromos }}" on-stores="{{ goStores }}" on-open-brand="{{ openBrand }}" on-brands="{{ goBrands }}" on-contact="{{ goContact }}" card-style="{{ cardStyle }}" level="{{ catLevel }}" minimal="{{ catMinimal }}" cat="{{ category }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,3200px"></dc-import>
     </div>
   </sc-if>
 
@@ -176,19 +177,19 @@
       </sc-if>
 
       <sc-if value="{{ isCategory }}" hint-placeholder-val="{{ false }}">
-        <div class="pgin">
-          <dc-import name="Pages/Category-body" variant="mobile" mob-head="{{ mobHead }}" size-finder="{{ sizeFinder }}" promo-var="{{ promoVar }}" on-promos="{{ goPromos }}" on-stores="{{ goStores }}" on-open-brand="{{ openBrand }}" on-brands="{{ goBrands }}" on-contact="{{ goContact }}" card-style="{{ cardStyle }}" on-overlay="{{ setOverlay }}" level="{{ catLevel }}" minimal="{{ catMinimal }}" cat="{{ category }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,4000px"></dc-import>
+        <div class="pgin" style="{{ pgOverlayStyle }}">
+          <dc-import name="Pages/Category-body" variant="mobile" mob-head="{{ mobHead }}" size-finder="{{ sizeFinder }}" promo-var="{{ promoVar }}" price-bottom="{{ priceBottom }}" card-lean="{{ cardLean }}" on-promos="{{ goPromos }}" on-stores="{{ goStores }}" on-open-brand="{{ openBrand }}" on-brands="{{ goBrands }}" on-contact="{{ goContact }}" card-style="{{ cardStyle }}" on-overlay="{{ setOverlay }}" level="{{ catLevel }}" minimal="{{ catMinimal }}" cat="{{ category }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,4000px"></dc-import>
         </div>
       </sc-if>
 
       <sc-if value="{{ isSearch }}" hint-placeholder-val="{{ false }}">
-        <div class="pgin">
+        <div class="pgin" style="{{ pgOverlayStyle }}">
           <dc-import name="Pages/Category-body" variant="mobile" on-promos="{{ goPromos }}" card-style="{{ cardStyle }}" on-overlay="{{ setOverlay }}" search-term="{{ searchTerm }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,4000px"></dc-import>
         </div>
       </sc-if>
 
       <sc-if value="{{ isBrand }}" hint-placeholder-val="{{ false }}">
-        <div class="pgin">
+        <div class="pgin" style="{{ pgOverlayStyle }}">
           <dc-import name="Pages/Category-body" variant="mobile" on-promos="{{ goPromos }}" card-style="{{ cardStyle }}" on-overlay="{{ setOverlay }}" brand="{{ brand }}" on-brands="{{ goBrands }}" many-cats="{{ brandMany }}" tile-style="{{ brandTiles }}" on-open-product="{{ openProduct }}" on-open-category="{{ openCategory }}" on-home="{{ goHome }}" hint-size="100%,4000px"></dc-import>
         </div>
       </sc-if>
@@ -434,10 +435,12 @@ class Component extends DCLogic {
       cartUnavailable: false,
       availStock: true,
       availShown: true,
-      offerCount: 4,
+      offerCount: 6,
       sizeFinder: 'finder',
       mobHead: 4,
-      promoVar: 0,
+      promoVar: 8,
+      priceBottom: false,
+      cardLean: 1,
       stickyCta: true,
       pdpType: 'default',
       brandMany: true,
@@ -453,7 +456,8 @@ class Component extends DCLogic {
 
   setCartCount = (n) => { if (n !== this.state.cartCount) this.setState({ cartCount: n }); };
 
-  // "Export for CMS": the spec lives ONLY in CLAUDE.md ("## Export for CMS"); here we just bundle it with the open page's source + context into a prompt for Claude
+  // "Export for CMS": the spec is NOT in the app. The prompt points Claude to cms-page-builder-guide.md (the CMS developer's guide)
+  // and the "## Export for CMS" section of CLAUDE.md; here we only fill the guide's chapter-6 prompt with the open page's context.
   cmsPages = {
     home: ['Naslovnica', 'Pages/Homepage-body.dc.html'], category: ['Kategorija', 'Pages/Category-body.dc.html'],
     search: ['Pretraga', 'Pages/Category-body.dc.html'], brand: ['Brend', 'Pages/Category-body.dc.html'],
@@ -466,9 +470,22 @@ class Component extends DCLogic {
     promos: ['Akcije i promocije', 'Pages/Promotions-body.dc.html'], kitchens: ['Kuhinje', 'Pages/Kitchens-body.dc.html'],
     kstyle: ['Stil kuhinje', 'Pages/Kitchen-style-body.dc.html'], ds: ['Design system', 'Pages/Design-system-body.dc.html']
   };
+  // pages written for bigbang.si; every other page is Croatian / HR
+  cmsSi = { kitchens: 1, kstyle: 1 };
 
-  // GENERATED copy of the "## Export for CMS" section of CLAUDE.md (the source of truth). After editing that section, regenerate this string from it.
-  cmsSpec = "## Export for CMS (Prototype settings → \"Export for CMS\")\n\nThis section is the **single source of truth** for exporting a page into the Big Bang custom CMS.\nNothing in the app duplicates it: the \"Export for CMS\" button only copies this section verbatim\ninto a prompt together with the open page's key, body file path, state, active tweaks and imported\nfiles — not the page source; Claude reads the files from the project itself. **Claude performs the export** — the user pastes the prompt into Claude's chat in\nthis project; the app itself has no export engine.\n\n### What to export\n- Only the **page body** currently open in the shell (the `Pages/…-body.dc.html` named in the\n  prompt) — never the header, menu, footer, Prototype settings, page skeletons, flyouts or modals\n  that belong to the shell.\n- Export the variant the given prototype tweaks/state select. The page has a desktop and a mobile\n  variant: produce **one responsive markup** (desktop styles first, mobile overrides in\n  `@media (max-width: 767px)`), not two copies. Read the source, render the page in the prototype\n  when helpful, and read every imported file needed to resolve the real markup, text and images.\n- Use the real content (text, images, links) — never placeholders or invented copy.\n\n### HTML structure\n- A standalone HTML **fragment**, not a document: no `\u003c!DOCTYPE\u003e`, `\u003chtml\u003e`, `\u003chead\u003e` or `\u003cbody\u003e`.\n- File order: one `\u003cstyle\u003e` block first, then the HTML markup, then one `\u003cscript\u003e` block (only if\n  JavaScript is required).\n- Clean, semantic, well-formatted vanilla HTML (`section`, `h1`–`h3`, `p`, `ul`, `a`, `button`,\n  `img` with `alt`, `picture`/`video` where used). No React, runtime or editor attributes\n  (`data-dc-*`, `data-cc-id`, `sc-*`, inline event handlers), no inline `style` attributes.\n- Export **section by section**: each top-level `\u003csection\u003e` is fully closed before the next one\n  begins. Keep sections structurally independent; no needless wrappers or nesting.\n- Preserve the original design, content, responsive behaviour and intended functionality.\n\n### CSS\n- All page-specific CSS in the single `\u003cstyle\u003e` tag at the top.\n- Every class uses the page prefix `bb-\u003cpage-key\u003e-` (the page key is given in the prompt, e.g.\n  `bb-kitchens-hero`, `bb-pay-card`) with descriptive, consistent names. Scope every rule to these\n  classes so nothing leaks into the CMS; no bare element, `body`, `html`, `:root` or id selectors.\n- No universal `*` resets, no `@import`, `@font-face`, Google Fonts links or other font loading,\n  no global typography — the CMS provides Inter and global styles.\n- Resolve `styles.css` variables (`--bb-*`) and shared classes (`.bbcta`, `.imz`, `.nsb`, `.arw` …)\n  into prefixed rules, and only for what the export actually uses. Keep hover/focus states.\n\n### JavaScript\n- Vanilla only, in one `\u003cscript\u003e` after the markup, wrapped in an IIFE; no globals, no libraries.\n- Query only inside the exported page root (prefixed classes / `data-bb-\u003cpage-key\u003e-*` hooks); never\n  attach handlers to `document`/`window` that could affect other CMS content beyond what the\n  interaction needs (e.g. a scoped resize/scroll listener is fine).\n- Preserve intended interactions (tabs, accordions, sliders, carousels of non-product content,\n  galleries/lightboxes, in-page anchor navigation, countdowns, hover panels). Skip prototype-only\n  behaviour (navigation between prototype pages, cart flyout, wishlist, Prototype settings).\n- No functionality for global CMS components that are replaced by shortcodes.\n\n### Global CMS components → shortcodes\nThe CMS renders these itself. Never export their markup, CSS, JS or assets:\n- store locators (`StoreLocator`, maps);\n- forms (booking/contact/newsletter forms, inputs with a submit action — e.g. `KitchenBooking`);\n- product carousels (`ProductCarousel`);\n- product grids, listings, dynamic product cards (`ProductCard`), recommendations and any other\n  product-related content.\n\nReplace each one with exactly this placeholder, on its own line:\n\n```\n[SHORTCODE=\"\"]\n```\n\n- It must sit **outside all HTML elements**: close every open element (section/div/main) before it;\n  reopen a wrapper after it only if content follows that needs it. Never inside any tag.\n- One placeholder per component, in the original order. A heading, \"Prikaži sve\" link or scroll\n  rail that belongs to the component goes with it.\n- Do not invent shortcode names or parameters — the value stays empty.\n\n### Assets and deliverable\n- Write the package to `export/cms/\u003cpage-key\u003e/`: exactly **one** HTML file\n  (`\u003cpage-key\u003e.html`) and **one** `assets/` directory — nothing else — then deliver that folder to\n  the user as a ZIP download.\n- Copy every image and video the exported page uses (HTML `src`/`srcset`/`poster`, `\u003cpicture\u003e`\n  sources and CSS `url()`) from `images/…` into `assets/`, keeping original files and names\n  (prefix with the subfolder name if two files would collide). Reference them relatively:\n  `assets/image-name.webp`.\n- Do not include assets used only by omitted global components or by the shell.\n- If an asset cannot be found or copied, say so explicitly in the reply (path + reason) — never\n  silently drop or substitute it.\n\n### Validation (before delivering)\nCheck and report briefly that:\n- no `\u003chtml\u003e`, `\u003chead\u003e` or `\u003cbody\u003e` tags; order is `\u003cstyle\u003e` → HTML → `\u003cscript\u003e`;\n- all tags are properly nested and closed, and each section closes before the next begins;\n- every class uses the `bb-\u003cpage-key\u003e-` prefix; no font imports, universal resets or global styles;\n- every global component is a standalone `[SHORTCODE=\"\"]` line outside the HTML structure, with no\n  leftover markup, CSS, JS or assets of it;\n- all required local assets are in `assets/` and every reference resolves;\n- the export matches the original page's appearance and functionality (open the exported HTML and\n  compare desktop and mobile widths with the prototype);\n- the ZIP holds exactly one HTML file and one `assets/` directory.";
+  // COPY of chapter 6 "Prompt za AI alat" of cms-page-builder-guide.md (fixed lines after the bracketed fields).
+  // Update it when the CMS developer sends a new guide whose chapter 6 changed.
+  CMS_PROMPT = [
+    'Vrati cijeli UTF-8 HTML dokument i popis potrebnih resursa.',
+    'Koristi samo shortcodeove i opcije iz kataloga priloženog vodiču.',
+    'Svaki dinamički izvor postavi u vlastiti HTML element.',
+    'Hero zone označi data-import-width="full", a tekst u njima poravnaj unutarnjim spremnikom.',
+    'Za newsletter koristi SIGNUP s postojećim GDPR tijekom.',
+    'Ne upisuj demonstracijske cijene, zalihe ili rate kao stvarne podatke proizvoda.',
+    'Ako podatak nedostaje, jasno navedi što urednik treba zamijeniti.',
+    'Izbjegni JavaScript kada je dovoljno CSS rješenje; poštuj opisana ograničenja runtimea.',
+    'Na kraju navedi što treba provjeriti pri uvozu i na mobitelu.'
+  ];
 
   cmsExport = async () => {
     if (this.state.cmsBusy) return;
@@ -476,36 +493,69 @@ class Component extends DCLogic {
     this.setState({ cmsBusy: true, menuOpen: false });
     const get = (p) => fetch(encodeURI(p), { cache: 'no-store' }).then(r => r.ok ? r.text() : Promise.reject(new Error(p + ' ' + r.status)));
     try {
-      // the canvas can't fetch .md files, so fall back to cmsSpec below (a generated copy of the same CLAUDE.md section)
-      const md = await get('CLAUDE.md').catch(() => '');
-      const i = md.indexOf('## Export for CMS');
-      const j = i < 0 ? -1 : md.indexOf('\n## ', i + 5);
-      const spec = i > -1 ? md.slice(i, j < 0 ? md.length : j).trim() : this.cmsSpec;
-      if (!spec) throw new Error('Nema uputa za export');
-      // the page source only feeds the import list below, so a failed read must not stop the export
+      // the page source only feeds the automatic fields below, so a failed read must not stop the export
       const src = meta[1] ? await get(meta[1]).catch((err) => { console.warn(err); return ''; }) : '';
-      const deps = [...new Set([].concat(
-        [...src.matchAll(/<dc-import[^>]*\sname="([^"{]+)"/g)].map(m => m[1] + '.dc.html'),
+      const uniq = (a) => [...new Set(a)];
+      const comps = [...src.matchAll(/<dc-import[^>]*\sname="([^"{]+)"/g)].map(m => m[1]);
+      const deps = uniq([].concat(
+        comps.map(c => c + '.dc.html'),
         [...src.matchAll(/<x-import[^>]*\sfrom="\.?\/?([^"]+)"/g)].map(m => m[1]),
         [...src.matchAll(/<script[^>]*\ssrc="([^"]+)"/g)].map(m => m[1])
-      ))];
+      ));
+      const has = (c) => comps.some(n => n.endsWith('/' + c));
+      const secs = uniq([...src.matchAll(/data-sec="([a-z0-9-]+)"/g)].map(m => m[1]));
+      const si = !!this.cmsSi[key];
+
+      // dynamic parts found in the source -> the CMS element they become (rules: CLAUDE.md "Prototype parts → CMS elements")
+      // only the four CMS element groups become shortcodes (CLAUDE.md "The two kinds of content"); everything else is built like the prototype
+      const dyn = [];
+      if (has('ProductCarousel')) dyn.push('proizvodi — ProductCarousel → CATALOGPRODUCT (PRODUCT_PRESENTATION="slider", CAROUSEL_EXTENT_DESKTOP="viewport_end" ili "viewport_both", TITLE / SHOW_ALL) ili CMSWIDGET PRODUCTS (ručni SKU-ovi, ROW_TITLE / LINK_SHOW_ALL) — naslov i „Prikaži sve” unutar shortcoda, ne kao zaseban HTML');
+      if (has('ProductCard')) dyn.push('proizvodi — mreža / popis (ProductCard) → CATALOGPRODUCT (PRODUCT_PRESENTATION="grid", CARD_TYPE, ITEMS_PER_ROW_DESKTOP / _MOBILE prema prototipu) ili CMSWIDGET PRODUCTS kad lista ima naslov');
+      if (has('KitchenBooking') || /type="(email|tel)"/i.test(src)) dyn.push('obrazac — rezervacija / kontakt / upit → CMSWIDGET QUESTIONNAIRE (CODE ili ID — CLAUDE.md „Known CMS references”)');
+      if (/newsletter/i.test(src)) dyn.push('obrazac — prijava na newsletter → CMSWIDGET SIGNUP');
+      if (/blog/i.test(src)) dyn.push('blog objave → CMSWIDGET BLOG_POSTS (samo ako su to stvarne blog objave)');
+      if (key === 'promos' && has('PromoCard')) dyn.push('objave akcija → CMSWIDGET PROMOTIONS (samo ako su to stvarne uredničke objave akcija)');
+      if (has('StoreLocator') || /store-map/.test(src)) dyn.push('poslovnice / karta (StoreLocator) → CMSWIDGET STORE_LOCATOR (STORE_ID__IS_IN iz tablice poslovnica u vodiču, bez prefiksa kanala)');
+
+      const prod = [];
+      if (s.category && s.category.name) prod.push('kategorija „' + s.category.name + '” (PRODUCT_CATEGORY__IS, točan naziv na jeziku stranice)');
+      if (s.brand) prod.push('brand „' + (s.brand.name || s.brand) + '” (PRODUCT_BRAND__IS)');
+      if (s.searchTerm) prod.push('pretraga „' + s.searchTerm + '” — nema shortcode filtra za pretragu; urednik bira izvor');
+      const hasProd = has('ProductCarousel') || has('ProductCard');
+
       const ctx = { product: s.product, category: s.category && { name: s.category.name, level: s.category.level }, searchTerm: s.searchTerm, brand: s.brand, kitchenStyle: s.kStyle };
       Object.keys(ctx).forEach(k => { if (!ctx[k]) delete ctx[k]; });
+
       const prompt = [
         '# Export for CMS — ' + meta[0],
         '',
-        'Claude: export the page below for the Big Bang CMS now. Read the page body file and its imports from the project yourself (the source is not included here). Follow the specification exactly (it is copied verbatim from the "## Export for CMS" section of CLAUDE.md, the single source of truth), validate the result against its checklist and deliver the ZIP archive.',
+        'Claude: izradi CMS export ove stranice sada. Prije rada pročitaj iz projekta: `cms-page-builder-guide.md` (vodič CMS developera — mjerodavan za format, ZIP, shortcodeove i opcije), odjeljak „## Export for CMS” u `CLAUDE.md` (Big Bang pravila) te datoteku stranice i njezine uvoze. Ispuni prompt ispod, prikaži stranicu u prototipu (1480 px i 390 px) kao referencu, isporuči ZIP i provjeri ga prema oba kontrolna popisa.',
         '',
-        '## Page context',
-        '- Page key / class prefix slug: `' + key + '`',
-        '- Page body file (read it from the project): `' + (meta[1] || '—') + '` (rendered by the shell `Main.dc.html`; header, menu, footer and Prototype settings are NOT part of the page)',
-        '- Viewport open in the prototype: ' + s.tw.viewport + ' (export BOTH the desktop and the mobile variant as one responsive markup)',
-        Object.keys(ctx).length ? '- Page state: `' + JSON.stringify(ctx) + '`' : null,
-        '- Active prototype tweaks (export the variant these select): `' + JSON.stringify(s.tw) + '`',
-        deps.length ? '- Files this page imports (read them from the project as needed): ' + deps.map(d => '`' + d + '`').join(', ') : null,
-        '- Shared stylesheet: `styles.css`; images live under `images/`',
+        '## Prompt za AI alat (vodič, poglavlje 6 — polja popunjena automatski)',
         '',
-        spec
+        'Izradi responzivni HTML predložak za Page Builder prema priloženom vodiču.',
+        '',
+        'Kampanja: ' + meta[0] + ' — postojeća stranica webshopa iz prototipa (`' + (meta[1] || '—') + '`); cilj: ista stranica, uređiva u Page Builderu',
+        'Jezik i kanal: ' + (si ? 'slovenski (sl) / SI — bigbang.si' : 'hrvatski (hr) / HR — bigbang.hr'),
+        'Vizualne smjernice: Big Bang design system — Inter (osigurava CMS), boje i komponente iz `styles.css` i `Pages/Design-system-body.dc.html`; referentni dizajn je ova stranica u prototipu (Desktop 1480 px i Mobitel)',
+        'Sekcije: ' + (secs.length ? secs.join(' → ') + ' (redoslijed iz izvora; sadržaj iz datoteke stranice)' : 'redoslijed i sadržaj iz datoteke stranice'),
+        'Proizvodi: ' + (hasProd ? (prod.length ? prod.join('; ') + '; ' : '') + 'ručno odabrani proizvodi prototipa nemaju stvarne SKU-ove — zamjenske šifre 123456,… uz popis za urednika' : 'stranica nema dinamičkih proizvoda'),
+        'Resursi: sve slike i videi stranice; `/_blob/…` → `images/…` prema CLAUDE.md „Image assets”, u ZIP-u pod istim putanjama',
+        'Odredišne poveznice: stvarne poveznice ' + (si ? 'bigbang.si' : 'bigbang.hr') + '; nepoznate kao `/zamijeni-poveznicu/` i na popisu zamjena',
+        '',
+        ...this.CMS_PROMPT,
+        '',
+        '## Kontekst stranice (automatski)',
+        '- Ključ stranice: `' + key + '` → klase `bb-' + key + '-…`, paket `' + key + '.zip` (`index.html` + `images/`)',
+        '- Struktura: `<main class="bb-' + key + '">` → jedan omotač `<div class="bb-' + key + '-page" data-import-width="full">` oko cijele stranice → samostalne `<section>` sekcije bez vlastitog `data-import-width` (CLAUDE.md „Page structure”)',
+        '- Datoteka stranice: `' + (meta[1] || '—') + '` (prikazuje je shell `Main.dc.html`; header, izbornik, footer i Postavke prototipa NISU dio stranice)',
+        '- Viewport otvoren u prototipu: ' + s.tw.viewport + ' (izvezi jedan responzivni markup za Desktop i Mobitel, bez dupliranih kopija)',
+        Object.keys(ctx).length ? '- Stanje stranice: `' + JSON.stringify(ctx) + '`' : null,
+        '- Aktivni tweakovi prototipa (izvezi varijantu koju odabiru): `' + JSON.stringify(s.tw) + '`',
+        dyn.length ? '- CMS elementi (samo obrasci, proizvodi, blog objave i poslovnice) prepoznati u izvoru:\n' + dyn.map(d => '  - ' + d).join('\n') : '- CMS elementi (obrasci, proizvodi, blog objave, poslovnice): nisu prepoznati u izvoru — provjeri datoteku stranice',
+        '- Sve ostalo (hero, navigacija, kartice, slideri, galerije, harmonike, odbrojavanja, recenzije…) je naš HTML/CSS/JS — izgled i ponašanje točno kao u prototipu, na desktopu i mobitelu, uključujući sve interakcije',
+        deps.length ? '- Uvezene datoteke (pročitaj po potrebi): ' + deps.map(d => '`' + d + '`').join(', ') : null,
+        '- Zajednički stil: `styles.css`; slike su canvas asseti (`/_blob/…`)'
       ].filter(l => l !== null).join('\n');
       this.setState({ cmsBusy: false, cms: { page: key, label: meta[0], file: meta[1], prompt }, cmsCopied: false });
     } catch (e) {
@@ -814,6 +864,8 @@ class Component extends DCLogic {
       openProduct: this.openProduct,
       mobScrolled: s.mobScrolled,
       mobBarOn: s.mobScrolled && !s.overlay,
+      // while a page's filter / sort sheet is open, lift the page above the site header so the sheet covers it
+      pgOverlayStyle: s.overlay ? { position: 'relative', zIndex: 1100 } : {},
       setOverlay: this.setOverlay,
       deskScrolled: s.deskScrolled,
       mobScroll: this.mobScroll,
@@ -822,10 +874,12 @@ class Component extends DCLogic {
       bundleMode: tw.pdpType === 'bundle',
       availStock: tw.availStock,
       availShown: tw.availShown,
-      offerCount: tw.offerCount || 4,
+      offerCount: tw.offerCount || 6,
       sizeFinder: tw.sizeFinder || 'finder',
       mobHead: tw.mobHead || 4,
-      promoVar: (tw.promoVar > 0 && tw.promoVar <= 20) ? tw.promoVar : 0,
+      promoVar: (tw.promoVar > 0 && tw.promoVar <= 10) ? tw.promoVar : 0,
+      priceBottom: tw.priceBottom === true,
+      cardLean: tw.cardLean === true ? 2 : (Number(tw.cardLean) || 1),
       stickyCta: true,
       pdpType: tw.pdpType || 'default',
       brandMany: tw.brandMany !== false,
@@ -921,7 +975,7 @@ class Component extends DCLogic {
             () => this.setTweak('availStock', true), () => this.setTweak('availStock', false)));
           list.push(pair('Izloženi primjerak', 'Da', 'Ne', tw.availShown,
             () => this.setTweak('availShown', true), () => this.setTweak('availShown', false)));
-          list.push(trio('Istaknute akcije', [1, 2, 3, 4, 5, 6].map(n => [String(n), (tw.offerCount || 4) === n, () => this.setTweak('offerCount', n)])));
+          list.push(trio('Istaknute akcije', [1, 2, 3, 4, 5, 6].map(n => [String(n), (tw.offerCount || 6) === n, () => this.setTweak('offerCount', n)])));
           list.push({
             label: 'Proizvod', seg: false, sel: true, value: tw.pdpType || 'default',
             onChange: (e) => this.setTweak('pdpType', e.target.value),
@@ -933,10 +987,13 @@ class Component extends DCLogic {
           list.push(pair('Prikaz proizvoda', 'Uobičajeno', 'Minimalno', pcMin ? tw.catMinimalPc !== true : tw.catMinimal === false,
             () => this.setTweak(pcMin ? 'catMinimalPc' : 'catMinimal', false), () => this.setTweak(pcMin ? 'catMinimalPc' : 'catMinimal', true)));
           if (mobile) list.push(trio('Zaglavlje (mobitel)', [1, 2, 3, 4, 5, 6, 7, 8].map(n => [String(n), (tw.mobHead || 4) === n, () => this.setTweak('mobHead', n)])));
+          if (s.category && s.category.l3 === 'Stolna računala') list.push(pair('Poravnanje cijene (kartica)', 'Rezervirano', 'Na dnu', tw.priceBottom !== true,
+            () => this.setTweak('priceBottom', false), () => this.setTweak('priceBottom', true)));
+          if (s.category && s.category.l3 === 'Stolna računala') list.push(trio('Kartica', [1, 2, 3].map(n => ['V' + n, (tw.cardLean === true ? 2 : (Number(tw.cardLean) || 1)) === n, () => this.setTweak('cardLean', n)])));
           if (s.category && s.category.l3 === 'Stolna računala') list.push({
-            label: 'Promo kod (kartica)', seg: false, sel: true, value: String((tw.promoVar > 0 && tw.promoVar <= 20) ? tw.promoVar : 0),
+            label: 'Promo kod (kartica)', seg: false, sel: true, value: String((tw.promoVar > 0 && tw.promoVar <= 10) ? tw.promoVar : 0),
             onChange: (e) => this.setTweak('promoVar', Number(e.target.value)),
-            options: [['0', 'Trenutno'], ['1', '1 · Uštedi do (naslov)'], ['2', '2 · Kod + ukupno ispod'], ['3', '3 · Natpis na rubu'], ['4', '4 · Traka „Ukupna ušteda”'], ['5', '5 · Crveni bedž „Uštedi do”'], ['6', '6 · Ukupno umjesto gumba'], ['7', '7 · Raščlamba ispod'], ['8', '8 · Oznaka „do -X %”'], ['9', '9 · Zvjezdica s uvjetom'], ['10', '10 · Traka udjela'], ['11', '11 · Jezičak „Uštedi do” na vrhu'], ['12', '12 · Tekst ispod okvira'], ['13', '13 · Zeleni bedž uz crveni'], ['14', '14 · Info oblačić'], ['15', '15 · Dvobojna oznaka %'], ['16', '16 · Zelena podloga'], ['17', '17 · Raščlamba + kod na gumbu'], ['18', '18 · Veliki iznos lijevo'], ['19', '19 · Tamnoplava verzija'], ['20', '20 · Bez okvira']].map(o => ({ value: o[0], label: o[1] }))
+            options: [['0', 'Trenutno'], ['1', '1 · Naslov + uvjet u okviru'], ['2', '2 · Kupon s podnožjem uvjeta'], ['3', '3 · Zvjezdica i fusnota'], ['4', '4 · Proširivi uvjeti'], ['5', '5 · Kupon s perforacijom'], ['6', '6 · Uvjet kao naslov'], ['7', '7 · Cijena s kodom'], ['8', '8 · Zeleni naslovni pojas (zadano)'], ['9', '9 · Tekstualno, bez okvira'], ['10', '10 · Popis uvjeta']].map(o => ({ value: o[0], label: o[1] }))
           });
           if (s.category && s.category.l3 === 'Televizori') list.push(pair('Vodič za dijagonalu', 'Kalkulator', 'Tablica', (tw.sizeFinder || 'finder') === 'finder',
             () => this.setTweak('sizeFinder', 'finder'), () => this.setTweak('sizeFinder', 'table')));
