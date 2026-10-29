@@ -358,7 +358,10 @@ FINAL DESIGN (08.10.2026., spacing / type re-measured 13.10.2026. from the desig
   stars (13px, mobile 12px) + "4.0(218)" 12px (mobile 11); "Dostupno još N opcija →" 12px (mobile 11); availability; "Prodaje: …";
   red "Uštedi 400 €" badge (12/600 × 21px, mobile 10/600 × 20px); price 20/800 (mobile 17/800, mobile list 18/800, letter-spacing -0.04em)
   with the old price (15px, mobile 12px) struck through to its right (#545F71), vertically centred on the price; "ili 25,99 € / 12 rata" (mobile without "ili");
-  dashed green promo box BELOW the rate line (-20% chip, saving, "dodatno uz kod CODE" ("dodatno" on every promo box since 20.10.2026., incl. PDP and homepage), copy button #E6F5EC; rate above promo since 20.10.2026.); energy label + "Informacijski
+  promo box BELOW the rate line — SINCE 28.10.2026. EVERY card layout (VD, VM, DM, MM, HD, HM) uses design 8: solid green
+  #0B7A48 1px border, chip, "do"? + saving, "dodatno uz kod", navy "Uvjeti ›" (`openCodes` → `BBPromo.openAll`); no code or
+  copy button on the card (they live in the flyout). `promoVar` 1–10 still previews the other test designs on Stolna računala;
+  rate above promo since 20.10.2026.); energy label + "Informacijski
   list" (#888); "Cijena na <date> <anchor>" (#545F71). Every slot keeps its height so rows line up.
 - `minimal` — every ProductCarousel: title, availability (dot + text, back since 20.10.2026.), seller, Uštedi badge, price, rate line (desktop "ili …", since 20.10.2026.), promo box, energy, anchor line. No rating
   or options. `wish` shows only the trash button.

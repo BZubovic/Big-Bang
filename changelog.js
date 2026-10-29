@@ -1,8 +1,16 @@
 /* Prototype change log — one entry per piece of work, not per prompt.
    Shown in the "Prototype settings" panel via "View logs". */
 window.BB_CHANGELOG = [
+  { date: '28.10.2026.', title: 'Promo kod s „Uvjeti” na svim karticama proizvoda', changes: [
+    'Sve kartice proizvoda na stranici (mreža i popis na kategorijama, karuseli, pretraga, brendovi) prikazuju promo kod kao na Stolnim računalima: postotak, iznos popusta, „dodatno uz kod” i poveznicu „Uvjeti ›”',
+    '„Uvjeti ›” otvara ploču s uvjetima i svim promo kodovima proizvoda; kod se kopira u ploči, pa okvir na kartici više nema gumb za kopiranje',
+    'Kad proizvod ima više kodova, ispred iznosa piše „do” (prikazuje se najveći)',
+    'Okvir je sada puna zelena crta umjesto isprekidane',
+    'Naslovnica: male kartice proizvoda u dvostrukom promo widgetu (TV) također imaju novi okvir s „Uvjeti ›” (desktop i mobitel), u jednom redu da kartice ne narastu'
+  ] },
   { date: '28.10.2026.', title: 'Stranica proizvoda (desktop) – ljepljiva traka bez cijene', changes: [
-    'Ljepljiva traka za košaricu više ne prikazuje cijenu: slika, naziv proizvoda i gumb „Dodaj u košaricu”'
+    'Ljepljiva traka za košaricu više ne prikazuje cijenu: slika, naziv proizvoda i gumb „Dodaj u košaricu”',
+    'Gumb na ljepljivoj traci ima istu ikonu košarice kao glavni gumb „Dodaj u košaricu”'
   ] },
   { date: '28.10.2026.', title: 'Kuhinje i stilovi kuhinja – bez zvjezdica ocjene', changes: [
     'Uklonjene zvjezdice i ocjena „[4,x/5 · Y ocen strank]” na stranici Kuhinje (naslovni dio na desktopu i mobitelu, rezervacija termina) i na stranicama stilova kuhinja (obrazac za rezervaciju)',

@@ -2403,7 +2403,8 @@ function DesktopStickyBar({ bundleMode, visible }) {
         <div style={{ flex: 1, minWidth: 0, fontSize: 15, fontWeight: 600, color: T.text, letterSpacing: '-0.01em', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{title}</div>
         {/* no price in the sticky bar — the price stays in the buy box */}
         <button onClick={() => window.BBCart && window.BBCart.open({ img: img, name: title, price: price })} className="bbcta" style={{ flexShrink: 0, height: 46, padding: '0 28px', borderRadius: 23, background: T.blue, color: '#fff', border: 'none', fontSize: 14, fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8, letterSpacing: '-0.01em' }}>
-          <Icon.Cart /> Dodaj u košaricu
+          {/* same cart icon as the static buy-box button */}
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 4h2l2.4 10.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.76L20 8H6.2"></path><circle cx="9" cy="19" r="1.5"></circle><circle cx="17" cy="19" r="1.5"></circle></svg> Dodaj u košaricu
         </button>
       </div>
     </div>
