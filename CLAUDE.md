@@ -557,6 +557,11 @@ Each page also gets a tab title (`titleOf()`).
   `/nacini-dostave/` · `/uvjeti-koristenja/` · `/zakonsko-jamstvo/` · `/kosarica/` ·
   `/lista-zelja/` · `/prijava/` · `/moj-racun/` (signed out → sign-in) · `/dizajn-sustav/`.
   An unknown address opens the homepage and is corrected to `/`.
+- **Kuhinje channels** (tweak „Kanal”, `tw.kitChannel`): SI (bigbang.si, default) = `/kuhinje/` and
+  `/kuhinje-<stil>/`; HR (bigbang.hr) = `/hr/kuhinje/` and `/hr/kuhinje-<stil>/` (`kitPrefix()`).
+  Opening one of these sets the channel; switching „Kanal” on a Kuhinje page changes the address.
+  `/si/kuhinje…` also opens SI and is corrected to the unprefixed address. Tab titles of the HR
+  channel end in „(HR)”. The channel stays as chosen when you leave and come back to Kuhinje.
 - **Slugs:** lowercase, č/ć→c, š→s, ž→z, đ→d, other characters → `-` (`bbSlug`).
 - **Host setup:** `_redirects` (`/*  /main.dc  200` — Netlify serves `Main.dc.html` for that target) serves the shell for every address that
   is not a real file. A tiny script in `<head>` adds `<base href="/Main.dc.html">` when the address

@@ -1,6 +1,11 @@
 /* Prototype change log — one entry per piece of work, not per prompt.
    Shown in the "Prototype settings" panel via "View logs". */
 window.BB_CHANGELOG = [
+  { date: '02.11.2026.', title: 'Kuhinje – zasebne adrese za SI i HR kanal', changes: [
+    'Objavljena verzija: stranice Kuhinje imaju adresu po kanalu – SI (bigbang.si) /kuhinje/, /kuhinje-klasicne/, /kuhinje-rusticne/, /kuhinje-moderne/; HR (bigbang.hr) /hr/kuhinje/, /hr/kuhinje-klasicne/, /hr/kuhinje-rusticne/, /hr/kuhinje-moderne/',
+    'Poveznica otvara stranicu u pravom kanalu; prebacivanje „Kanal” (SI / HR) u Prototype settings mijenja adresu, a Natrag vraća prethodni kanal',
+    'Naslov kartice preglednika za HR kanal završava s „(HR)”'
+  ] },
   { date: '02.11.2026.', title: 'Kuhinje – nove pogodnosti (30. 10.–30. 11. 2026.)', changes: [
     'SI i HR stranica Kuhinje: popust na drveni dio kuhinje sada je do -66 % (prije -60 %), na značkama u heroju piše „do 30. 11.”',
     'Popust na bijelu tehniku sada je do -30 % (Haier 30 %, Bosch, Hisense, Gorenje, Beko, Whirlpool, Candy i Asko 20 %) umjesto -15 %',

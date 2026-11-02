@@ -715,7 +715,9 @@ class Component extends DCLogic {
   urlOf(s) {
     switch (s.page) {
       case 'kstyle':
-        return '/kuhinje-' + (BB_KSTYLES[s.kStyle] ? s.kStyle : 'klasicne') + '/';
+        return this.kitPrefix(s) + '/kuhinje-' + (BB_KSTYLES[s.kStyle] ? s.kStyle : 'klasicne') + '/';
+      case 'kitchens':
+        return this.kitPrefix(s) + '/kuhinje/';
       case 'category': {
         const c = s.category || {};
         const names = [c.l1, c.l2, c.l3].filter(Boolean);
@@ -745,10 +747,14 @@ class Component extends DCLogic {
     }
   }
 
+  // Kuhinje channel (tweak „Kanal”): SI = /kuhinje/… (bigbang.si, the default), HR = /hr/kuhinje/… (bigbang.hr)
+  kitPrefix(s) { return s.tw && s.tw.kitChannel === 'hr' ? '/hr' : ''; }
+
   titleOf(s) {
     let t = BB_TITLES[s.page];
     if (s.page === 'home') return 'Big Bang';
     if (s.page === 'kstyle') t = BB_KSTYLES[s.kStyle] || 'Kuhinje';
+    if ((s.page === 'kstyle' || s.page === 'kitchens') && s.tw && s.tw.kitChannel === 'hr') t += ' (HR)';
     else if (s.page === 'category') { const c = s.category || {}; t = c.l3 || c.l2 || c.l1 || 'Kategorija'; }
     else if (s.page === 'product') t = (s.product && s.product.name) || 'Proizvod';
     else if (s.page === 'search') t = 'Pretraga' + (s.searchTerm ? ': ' + s.searchTerm : '');
@@ -787,9 +793,12 @@ class Component extends DCLogic {
     const seg = String(pathname || '/').split('/').filter(Boolean).map(x => { try { return decodeURIComponent(x); } catch (e) { return x; } });
     const q = new URLSearchParams(search || '');
     if (!seg.length) return { page: 'home' };
+    // Kuhinje pages per channel: /hr/kuhinje… = HR, /kuhinje… or /si/kuhinje… = SI
+    const ch = (seg[0] === 'hr' || seg[0] === 'si') && /^kuhinje(-|$)/.test(seg[1] || '') ? seg.shift() : '';
     const a = seg[0];
     const k = /^kuhinje-(klasicne|rusticne|moderne)$/.exec(a);
-    if (k) return { page: 'kstyle', kStyle: k[1] };
+    if (k && seg.length === 1) return { page: 'kstyle', kStyle: k[1], kitChannel: ch || 'si' };
+    if (a === 'kuhinje' && seg.length === 1) return { page: 'kitchens', kitChannel: ch || 'si' };
     if (a === 'kategorija') {
       let c = null;
       if (q.get('l1')) {
@@ -823,6 +832,10 @@ class Component extends DCLogic {
       return;
     }
     const st = this.stateOf(location.pathname, location.search);
+    if (st.kitChannel) {   // the channel lives in the tweaks
+      st.tw = Object.assign({}, this.state.tw, { kitChannel: st.kitChannel });
+      delete st.kitChannel;
+    }
     this.routeReady = true;
     this.replaceUrl = true;   // the address already names this page: correct it in place, no new history entry
     this.setState(Object.assign({ menuOpen: false }, st), () => {
