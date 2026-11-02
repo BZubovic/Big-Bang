@@ -785,7 +785,8 @@ class Component extends DCLogic {
     if (a === 'moj-racun' || a === 'prijava') {
       return this.state.loggedIn ? { page: 'profile' } : { page: 'auth', returnPage: 'home', returnProduct: null };
     }
-    if (seg.length === 1) for (const key in BB_PATHS) if (BB_PATHS[key] === '/' + a + '/') return { page: key };
+    const full = '/' + seg.join('/') + '/';
+    for (const key in BB_PATHS) if (BB_PATHS[key] === full) return { page: key };
     return { page: 'home' };   // unknown address → home (the address is corrected to /)
   }
 

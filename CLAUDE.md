@@ -367,7 +367,9 @@ FINAL DESIGN (08.10.2026., spacing / type re-measured 13.10.2026. from the desig
   with the old price (15px, mobile 12px) struck through to its right (#545F71), vertically centred on the price; "ili 25,99 € / 12 rata" (mobile without "ili");
   promo box BELOW the rate line — SINCE 28.10.2026. EVERY card layout (VD, VM, DM, MM, HD, HM) uses design 8: solid green
   #0B7A48 1px border, chip, "do"? + saving, "dodatno uz kod", navy "Uvjeti ›" (`openCodes` → `BBPromo.openAll`); no code or
-  copy button on the card (they live in the flyout). `promoVar` 1–10 still previews the other test designs on Stolna računala;
+  copy button on the card (they live in the flyout). Since 02.11.2026. the WHOLE box is the button (`onClick` on the box
+  div, `cursor:pointer`; "Uvjeti ›" is only its label), so a click anywhere in it opens the flyout, never the PDP. The
+  homepage's small dual-promo cards follow the same rule. `promoVar` 1–10 still previews the other test designs on Stolna računala;
   rate above promo since 20.10.2026.); energy label + "Informacijski
   list" (#888); "Cijena na <date> <anchor>" (#545F71). Every slot keeps its height so rows line up.
 - `minimal` — every ProductCarousel: title, availability (dot + text, back since 20.10.2026.), seller, Uštedi badge, price, rate line (desktop "ili …", since 20.10.2026.), promo box, energy, anchor line. No rating
