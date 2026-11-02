@@ -27,7 +27,7 @@
   var QS = new URLSearchParams(location.search);
   var SET = QS.get('set');
   var FOCUS = QS.has('focus') ? +QS.get('focus') : -1;
-  var STORES = (SET === 'kuhinje' ? window.BB_STORES_KUHINJE : window.BB_STORES) || [];
+  var STORES = (SET === 'kuhinje' ? window.BB_STORES_KUHINJE : SET === 'kuhinje-hr' ? window.BB_STORES_KUHINJE_HR : window.BB_STORES) || [];
   var map = L.map('map', { scrollWheelZoom: false, zoomControl: true, attributionControl: true });
   L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
     attribution: '© OpenStreetMap contributors © CARTO', subdomains: 'abcd', maxZoom: 19

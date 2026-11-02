@@ -140,11 +140,27 @@ Components/InfoAnchorNav.dc.html   left column: the page's own section anchors (
 Pages/Kitchens-body.dc.html    "Kuhinje" campaign landing (header nav link) — own sticky in-page
                                anchor bar, booking form, giveaway countdown; photos in images/kuhinje/.
                                No star ratings anywhere on the Kuhinje pages (hero, booking, reviews) — removed 28.10.2026.;
-                               the hero video is always muted
+                               the hero is always the video (image hero + "Hero" tweak removed 02.11.2026.), always muted.
+                               SI channel (bigbang.si) version — Prototype settings → Kanal → SI (tweak `kitChannel`, default 'si')
+Pages/Kitchens-hr-body.dc.html HR channel (bigbang.hr) copy of the Kuhinje landing — Prototype settings → Kanal → HR
+                               (`kitChannel: 'hr'`, shell `isKitchensHr`). Its own file because the channels differ in language
+                               AND content: edit it, not the SI page, for HR-only sections. Same props, ids and logic as the SI
+                               page (section ids / anchors still the SI slugs); postcode check is 5 digits. HR market changes
+                               (02.11.2026.): NO "Rasprodaja izložbenih modela" section (showroom-kitchen markup, ribbon and nav chip
+                               removed; the old data/logic stays unused in the script) — Prototype settings show „Nagradna igra"
+                               Prikaži / Sakrij instead of Aktivnost, no colour-theme select; booking form has one pre-selected
+                               location (Big Bang Zagreb, City Center one West), no home drawing / address fields; store map =
+                               StoreLocator store-set "kuhinje-hr" (CCO West only); NO customer reviews section
+                               ("Iskustva kupaca", removed with its REVIEWS data). Prices, giveaway terms and company data are
+                               still the SI ones. Hero has no "30 min · …" line under the CTA (removed 02.11.2026.)
 Pages/Kitchen-style-body.dc.html  Kitchen style showcase (prop kitchenStyle: klasicne|rusticne|moderne) — collections
                                data in its logic class (STYLES), images in images/kuhinje/stili/; opened from the
-                               Kuhinje landing "Poglej primere" (shell openKStyle)
-Components/KitchenBooking.dc.html  shared "Rezervacija termina" form block (desktop / mobile); no star rating line
+                               Kuhinje landing "Poglej primere" (shell openKStyle). SI channel version (Kanal → SI)
+Pages/Kitchen-style-hr-body.dc.html  HR channel copy of the style showcase (Kanal → HR, same `kitChannel` tweak, also shown on
+                               this page; shell `isKStyleHr`); opened from the HR landing; uses KitchenBooking-hr
+Components/KitchenBooking.dc.html  shared "Rezervacija termina" form block (desktop / mobile); no star rating line — SI channel
+Components/KitchenBooking-hr.dc.html  HR channel copy of the booking form (Croatian) — one pre-selected location (Big Bang Zagreb,
+                               City Center one West), shown as an info card; no home drawing / address fields
 Pages/Brands-body.dc.html     "Brendovi" (header ••• dropdown) — featured logo tiles, searchable A–Ž brand directory
                                with category chips, letter jump and A–Ž / popularity sort; data in brands-data.js
 brands-data.js                 brand list + categories + featured (window.BB_BRANDS); logos in images/brands/
@@ -154,7 +170,9 @@ Pages/Contact-body.dc.html     "Kontakt" — support block, department cards, st
                                company data (one column; opened from the header nav)
 Components/StoreLocator.dc.html    GLOBAL "Prodajna mjesta" widget — Leaflet map + scrollable
                                store list (scrollbar on the left), "Prikaži trgovinu" link,
-                               two-way select (list ⇄ pin)
+                               two-way select (list ⇄ pin). store-set: "" (all HR stores), "kuhinje" (SI kitchen salons,
+                               BB_STORES_KUHINJE), "kuhinje-hr" (BB_STORES_KUHINJE_HR = Big Bang Zagreb CCO West only, own map
+                               picture images/kuhinje/karta-cco-west.png)
 Components/SupportBand.dc.html     GLOBAL dark support/contact band (#00337A) — eyebrow,
                                title, text, phone + e-mail pills; bottom of every info page
 Components/store-map.html      plain-HTML Leaflet map the widget embeds in an iframe
@@ -635,7 +653,8 @@ app has no export engine.
 - Real content from the source (text, images, links, prices of non-catalog items) — never invented
   copy.
 - Language and channel come from the prompt: `kitchens` and `kstyle` are **Slovenian / SI
-  (bigbang.si)**; every other page is **Croatian / HR (bigbang.hr)**. Category and brand names in
+  (bigbang.si)** — except with Kanal → HR (`kitChannel: 'hr'`), where `kitchens` exports
+  `Pages/Kitchens-hr-body.dc.html` and `kstyle` exports `Pages/Kitchen-style-hr-body.dc.html` as **Croatian / HR**; every other page is **Croatian / HR (bigbang.hr)**. Category and brand names in
   shortcodes use the page language.
 
 ### Package
@@ -982,6 +1001,7 @@ images/kuhinje/kitchen-hero.jpg  /_blob/925a0fc208eecaa97da953280e84bf66
 images/kuhinje/kitchen-hero.mp4  /_blob/b2e3169c600b5d806202c89a5c78653e
 images/kuhinje/kitchen-sink.jpg  /_blob/ebbce1cc7d5cf66ecccaffb7c3accb37
 images/kuhinje/kitchen-tv.jpg  /_blob/b05aa99bba68cfab82e41e4b5f522157
+images/kuhinje/karta-cco-west.png  /_blob/3449263c625e7cea71c6639bb29dadcb
 images/kuhinje/razstavne/btc-glasgow-tloris.png  /_blob/9002b40c9c37def8666bd4ca8f777ec7
 images/kuhinje/razstavne/btc-glasgow.jpg  /_blob/78bcbbf93cf810ddabb5517f6cf466e0
 images/kuhinje/razstavne/btc-porto-tloris.png  /_blob/83adc71a894ddb0345ecb3338e2de73c

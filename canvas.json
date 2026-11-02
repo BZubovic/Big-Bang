@@ -284,6 +284,31 @@
       "w": 1480,
       "x": 26520,
       "y": 4000
+    },
+    "Pages/Kitchens-hr-body.dc.html": {
+      "expand": "fill",
+      "h": 3200,
+      "is_interactive": true,
+      "title": "Kitchens body (HR)",
+      "w": 1480,
+      "x": 28080,
+      "y": 4000
+    },
+    "Pages/Kitchen-style-hr-body.dc.html": {
+      "expand": "fill",
+      "h": 3200,
+      "is_interactive": true,
+      "title": "Kitchen style body (HR)",
+      "w": 1480,
+      "x": 29640,
+      "y": 4000
+    },
+    "Components/KitchenBooking-hr.dc.html": {
+      "h": 800,
+      "is_interactive": true,
+      "w": 1480,
+      "x": 19744,
+      "y": 7600
     }
   },
   "createdOnFiles": {
@@ -333,7 +358,9 @@
     "Pages/Seller-bigbang-body.dc.html",
     "Pages/Contact-body.dc.html",
     "Pages/Kitchens-body.dc.html",
+    "Pages/Kitchens-hr-body.dc.html",
     "Pages/Kitchen-style-body.dc.html",
+    "Pages/Kitchen-style-hr-body.dc.html",
     "Pages/Payment-methods-body.dc.html",
     "Pages/Delivery-methods-body.dc.html",
     "Pages/Terms-body.dc.html",
@@ -355,7 +382,8 @@
     "Components/StoreLocator.dc.html",
     "Components/GeoFaq.dc.html",
     "Components/TvGeo.dc.html",
-    "Components/KitchenBooking.dc.html"
+    "Components/KitchenBooking.dc.html",
+    "Components/KitchenBooking-hr.dc.html"
   ],
   "pages": [],
   "title": "Big Bang Full Site"

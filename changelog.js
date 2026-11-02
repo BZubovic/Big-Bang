@@ -1,6 +1,32 @@
 /* Prototype change log — one entry per piece of work, not per prompt.
    Shown in the "Prototype settings" panel via "View logs". */
 window.BB_CHANGELOG = [
+  { date: '02.11.2026.', title: 'Kuhinje – nove pogodnosti (30. 10.–30. 11. 2026.)', changes: [
+    'SI i HR stranica Kuhinje: popust na drveni dio kuhinje sada je do -66 % (prije -60 %), na značkama u heroju piše „do 30. 11.”',
+    'Popust na bijelu tehniku sada je do -30 % (Haier 30 %, Bosch, Hisense, Gorenje, Beko, Whirlpool, Candy i Asko 20 %) umjesto -15 %',
+    'Uklonjena ponuda „Philips Baristina za 1 €” iz svih prikaza pogodnosti; na njezino mjesto u popisu pogodnosti dolazi „5 godina jamstva proizvođača”',
+    'Nova napomena s uvjetima akcija (SI izvorni tekst, HR prijevod) — vrijedi od 30. 10. do 30. 11. 2026.; uklonjen odlomak o uvjetima beskamatnog kredita i iznimka za BORA',
+    'HR: uklonjen redak „30 min · Posjet salonu ili savjetnik u tvom domu · Bez obveze kupnje” ispod gumba u heroju (desktop i mobitel); poveznica „Najprije pogledaj stilove kuhinja” ostaje u svom redu ispod gumba',
+    'HR česta pitanja: „Moram li doći u trgovinu?” i „Koliko traje termin?” sada kažu da se savjetovanje i nacrt odvijaju u salonu Big Bang Zagreb, City Center one West (bez posjeta u domu i videopoziva)'
+  ] },
+  { date: '02.11.2026.', title: 'Kuhinje (HR kanal) – prilagodba hrvatskom tržištu', changes: [
+    'Uklonjena sekcija „Rasprodaja izložbenih modela” (te traka i poveznica u navigaciji stranice); u Postavkama prototipa umjesto „Aktivnost” stoji „Nagradna igra” Prikaži / Sakrij',
+    'Obrazac za rezervaciju: nema nacrta u domu ni odabira lokacije — prikazana je i unaprijed odabrana jedina lokacija, Big Bang Zagreb, City Center one West (Jankomir 33); polja za adresu i poštanski broj više se ne prikazuju',
+    'Isto vrijedi i za obrazac na stranicama stilova kuhinja (HR kanal)',
+    'Sekcija Trgovine: karta i popis prikazuju samo Big Bang Zagreb CCO West; naslov „Kuhinje možeš pogledati u našem salonu u Zagrebu”',
+    'Sekcija „Zašto Big Bang”: umjesto „6 salona diljem Slovenije” sada piše salon Big Bang Zagreb, City Center one West (Jankomir 33, Zagreb)',
+    'Uklonjena sekcija s iskustvima kupaca („Što kažu naši kupci”), desktop i mobitel'
+  ] },
+  { date: '02.11.2026.', title: 'Kuhinje – samo video u heroju i HR kanal (stranica Kuhinje i stranice stilova)', changes: [
+    'Hero stranice Kuhinje uvijek prikazuje video; postavka „Hero” (Slika / Video) uklonjena je iz Postavki prototipa',
+    'Nova postavka „Kanal” (SI / HR) na stranici Kuhinje i na stranicama stilova kuhinja (Klasične, Rustikalne, Moderne); odabir vrijedi za sve stranice kuhinja',
+    'HR kanal ima vlastite stranice, jer se uz jezik razlikuju i sadržaj i sekcije za hrvatsko tržište',
+    'HR stranica Kuhinje: cijeli sadržaj preveden na hrvatski (hero, koraci, nagradna igra, izložbene kuhinje, pogodnosti, obrazac za rezervaciju, stilovi, trgovine, česta pitanja), desktop i mobitel',
+    'HR stranice stilova kuhinja: prevedeni opisi kolekcija, tekstovi slika, navigacija i obrazac za rezervaciju termina',
+    'U HR obrascu za rezervaciju poštanski broj ima pet znamenki; trgovine, cijene, uvjeti nagradne igre i podaci o tvrtki zasad su ostali slovenski i prilagodit će se hrvatskom tržištu',
+    'Postavke prototipa na stranici Kuhinje prikazuju se na hrvatskom kad je odabran HR kanal',
+    'Export for CMS HR kanala izvozi stranice kao hrvatske za bigbang.hr'
+  ] },
   { date: '02.11.2026.', title: 'Kartice proizvoda – cijeli okvir promo koda je klikabilan', changes: [
     'Klik bilo gdje u zelenom okviru promo koda (postotak, iznos, „dodatno uz kod”, „Uvjeti ›”) otvara ploču s uvjetima i promo kodovima umjesto stranice proizvoda – na svim karticama proizvoda (desktop i mobitel)',
     'Isto vrijedi za male kartice u dvostrukom promo widgetu na naslovnici',

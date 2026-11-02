@@ -163,9 +163,21 @@
     </div>
   </sc-if>
 
+  <sc-if value="{{ isKStyleHr }}" hint-placeholder-val="{{ false }}">
+    <div class="pgin">
+      <dc-import name="Pages/Kitchen-style-hr-body" variant="desktop" kitchen-style="{{ kStyle }}" on-style="{{ openKStyle }}" on-back="{{ goKitchens }}" on-home="{{ goHome }}" hint-size="100%,800px"></dc-import>
+    </div>
+  </sc-if>
+
   <sc-if value="{{ isKitchens }}" hint-placeholder-val="{{ false }}">
     <div class="pgin">
-      <dc-import name="Pages/Kitchens-body" variant="desktop" activity="{{ kitActivity }}" raz-theme="{{ kitRazTheme }}" hero-variant="{{ kitHero }}" show-navdih="{{ kitNavdih }}" on-open-style="{{ openKStyle }}" on-home="{{ goHome }}" hint-size="100%,5200px"></dc-import>
+      <dc-import name="Pages/Kitchens-body" variant="desktop" activity="{{ kitActivity }}" raz-theme="{{ kitRazTheme }}" show-navdih="{{ kitNavdih }}" on-open-style="{{ openKStyle }}" on-home="{{ goHome }}" hint-size="100%,5200px"></dc-import>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isKitchensHr }}" hint-placeholder-val="{{ false }}">
+    <div class="pgin">
+      <dc-import name="Pages/Kitchens-hr-body" variant="desktop" activity="{{ kitActivity }}" raz-theme="{{ kitRazTheme }}" show-navdih="{{ kitNavdih }}" on-open-style="{{ openKStyle }}" on-home="{{ goHome }}" hint-size="100%,5200px"></dc-import>
     </div>
   </sc-if>
 
@@ -290,9 +302,21 @@
         </div>
       </sc-if>
 
+      <sc-if value="{{ isKStyleHr }}" hint-placeholder-val="{{ false }}">
+        <div class="pgin">
+          <dc-import name="Pages/Kitchen-style-hr-body" variant="mobile" kitchen-style="{{ kStyle }}" on-style="{{ openKStyle }}" on-back="{{ goKitchens }}" on-home="{{ goHome }}" hint-size="100%,800px"></dc-import>
+        </div>
+      </sc-if>
+
       <sc-if value="{{ isKitchens }}" hint-placeholder-val="{{ false }}">
         <div class="pgin">
-          <dc-import name="Pages/Kitchens-body" variant="mobile" activity="{{ kitActivity }}" raz-theme="{{ kitRazTheme }}" hero-variant="{{ kitHero }}" show-navdih="{{ kitNavdih }}" on-open-style="{{ openKStyle }}" on-home="{{ goHome }}" hint-size="100%,7000px"></dc-import>
+          <dc-import name="Pages/Kitchens-body" variant="mobile" activity="{{ kitActivity }}" raz-theme="{{ kitRazTheme }}" show-navdih="{{ kitNavdih }}" on-open-style="{{ openKStyle }}" on-home="{{ goHome }}" hint-size="100%,7000px"></dc-import>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isKitchensHr }}" hint-placeholder-val="{{ false }}">
+        <div class="pgin">
+          <dc-import name="Pages/Kitchens-hr-body" variant="mobile" activity="{{ kitActivity }}" raz-theme="{{ kitRazTheme }}" show-navdih="{{ kitNavdih }}" on-open-style="{{ openKStyle }}" on-home="{{ goHome }}" hint-size="100%,7000px"></dc-import>
         </div>
       </sc-if>
 
@@ -489,7 +513,7 @@ class Component extends DCLogic {
       cartEmpty: false,
       wishEmpty: false,
       kitActivity: 'razstavne',
-      kitHero: 'video'
+      kitChannel: 'si'
     }
   };
 
@@ -528,7 +552,8 @@ class Component extends DCLogic {
 
   cmsExport = async () => {
     if (this.state.cmsBusy) return;
-    const s = this.state, key = s.page, meta = this.cmsPages[key] || [key, ''];
+    const s = this.state, key = s.page, kitHr = (key === 'kitchens' || key === 'kstyle') && s.tw.kitChannel === 'hr';
+    const meta = kitHr ? (key === 'kitchens' ? ['Kuhinje (HR)', 'Pages/Kitchens-hr-body.dc.html'] : ['Stil kuhinje (HR)', 'Pages/Kitchen-style-hr-body.dc.html']) : (this.cmsPages[key] || [key, '']);
     this.setState({ cmsBusy: true, menuOpen: false });
     const get = (p) => fetch(encodeURI(p), { cache: 'no-store' }).then(r => r.ok ? r.text() : Promise.reject(new Error(p + ' ' + r.status)));
     try {
@@ -543,7 +568,7 @@ class Component extends DCLogic {
       ));
       const has = (c) => comps.some(n => n.endsWith('/' + c));
       const secs = uniq([...src.matchAll(/data-sec="([a-z0-9-]+)"/g)].map(m => m[1]));
-      const si = !!this.cmsSi[key];
+      const si = !!this.cmsSi[key] && !kitHr;
 
       // dynamic parts found in the source -> the CMS element they become (rules: CLAUDE.md "Prototype parts → CMS elements")
       // only the four CMS element groups become shortcodes (CLAUDE.md "The two kinds of content"); everything else is built like the prototype
@@ -1038,11 +1063,11 @@ class Component extends DCLogic {
       goBrands: this.goBrands,
       isPromos: s.page === 'promos',
       goPromos: this.goPromos,
-      isKitchens: s.page === 'kitchens',
-      isKStyle: s.page === 'kstyle', kStyle: s.kStyle || 'klasicne', openKStyle: this.openKStyle,
+      isKitchens: s.page === 'kitchens' && tw.kitChannel !== 'hr',
+      isKitchensHr: s.page === 'kitchens' && tw.kitChannel === 'hr',
+      isKStyle: s.page === 'kstyle' && tw.kitChannel !== 'hr', isKStyleHr: s.page === 'kstyle' && tw.kitChannel === 'hr', kStyle: s.kStyle || 'klasicne', openKStyle: this.openKStyle,
       kitActivity: tw.kitActivity || 'razstavne',
       kitRazTheme: tw.kitRazTheme || 'ledena',
-      kitHero: tw.kitHero || 'video',
       kitNavdih: tw.kitNavdih === true,
       goKitchens: this.goKitchens,
       isDelivery: s.page === 'delivery',
@@ -1225,14 +1250,24 @@ class Component extends DCLogic {
           list.push(pair('Vrsta korisnika', 'Postojeći', 'Novi', !tw.newUser,
             () => this.setTweak('newUser', false), () => this.setTweak('newUser', true)));
         }
+        if (s.page === 'kstyle') {
+          // Kanal (same tweak as the Kuhinje landing): SI = Pages/Kitchen-style-body, HR = Pages/Kitchen-style-hr-body
+          list.push(pair('Kanal', 'SI', 'HR', tw.kitChannel !== 'hr',
+            () => this.setTweak('kitChannel', 'si'), () => this.setTweak('kitChannel', 'hr')));
+        }
         if (s.page === 'kitchens') {
-          list.push(pair('Hero', 'Slika', 'Video', (tw.kitHero || 'video') !== 'video',
-            () => this.setTweak('kitHero', 'image'), () => this.setTweak('kitHero', 'video')));
-          list.push(pair('Aktivnost', 'Razstavne kuhinje', 'Nagradna igra', (tw.kitActivity || 'razstavne') !== 'igra',
+          // Kanal: SI = Pages/Kitchens-body (bigbang.si), HR = Pages/Kitchens-hr-body (bigbang.hr, its own copy: language AND content per market)
+          const hr = tw.kitChannel === 'hr';
+          list.push(pair('Kanal', 'SI', 'HR', !hr,
+            () => this.setTweak('kitChannel', 'si'), () => this.setTweak('kitChannel', 'hr')));
+          // HR has no showroom-kitchen sale (removed 02.11.2026.): its activity switch only shows / hides the giveaway
+          if (hr) list.push(pair('Nagradna igra', 'Prikaži', 'Sakrij', tw.kitActivity === 'igra',
+            () => this.setTweak('kitActivity', 'igra'), () => this.setTweak('kitActivity', 'razstavne')));
+          else list.push(pair('Aktivnost', 'Razstavne kuhinje', 'Nagradna igra', (tw.kitActivity || 'razstavne') !== 'igra',
             () => this.setTweak('kitActivity', 'razstavne'), () => this.setTweak('kitActivity', 'igra')));
-          list.push(pair('Sekcija »Navdih«', 'Prikaži', 'Sakrij', tw.kitNavdih === true,
+          list.push(pair(hr ? 'Sekcija »Inspiracija«' : 'Sekcija »Navdih«', 'Prikaži', 'Sakrij', tw.kitNavdih === true,
             () => this.setTweak('kitNavdih', true), () => this.setTweak('kitNavdih', false)));
-          list.push({
+          if (!hr) list.push({
             label: 'Razstavne kuhinje — barvna tema', seg: false, sel: true, value: tw.kitRazTheme || 'ledena',
             onChange: (e) => this.setTweak('kitRazTheme', e.target.value),
             options: [['polnoc', 'Polnočna'], ['svetla', 'Svetla'], ['ledena', 'Ledeno modra (privzeto)'], ['modra', 'Big Bang modra'], ['grafit', 'Grafit + turkizna'], ['hrast', 'Topli hrast']].map(o => ({ value: o[0], label: o[1] }))

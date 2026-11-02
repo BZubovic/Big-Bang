@@ -29,3 +29,8 @@ window.BB_STORES_KUHINJE = [
   { name: 'Big Bang Koper', city: 'Koper', address: 'Ankaranska cesta 2, 6000 Koper', hours: 'Pon–Sob 9–21, Ned zaprto', phone: '080 29 29', lat: 45.5550, lng: 13.7470 },
   { name: 'Big Bang Ljubljana, BTC', city: 'Ljubljana', address: 'Šmartinska cesta 152, 1000 Ljubljana', hours: 'Pon–Sob 9–21, Ned zaprto', phone: '080 29 29', lat: 46.0660, lng: 14.5460 }
 ];
+
+/* Kitchen salon for the HR channel Kuhinje landing — only Big Bang Zagreb CCO West (hours to confirm before launch). */
+window.BB_STORES_KUHINJE_HR = [
+  { name: 'Big Bang Zagreb CCO West', city: 'Zagreb', address: 'Jankomir 33, 10000 Zagreb', hours: 'Pon–Sub 9–21, Ned 12–18', phone: '01 6655 555', lat: 45.7955, lng: 15.8850, extras: ['Parking', 'Pristup osobama s invaliditetom'] }
+];
