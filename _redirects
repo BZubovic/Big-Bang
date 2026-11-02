@@ -1,1 +1,3 @@
-/    /main.dc    200
+# Netlify: every address the app knows (e.g. /kuhinje-moderne/) opens the app shell (Main.dc.html).
+# Existing files are served as they are; only unknown paths fall back to the shell.
+/*    /main.dc    200

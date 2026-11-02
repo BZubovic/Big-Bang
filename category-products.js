@@ -212,6 +212,8 @@
   // "Dostupno još N opcija" only for TVs, phones and smart watches
   var OPT = /televizor|^tv\b|mobitel|mobilni|pametni telefon|smartphone|iphone|galaxy [asz]\d|redmi|pametni sat|satovi|smartwatch|watch/i;
   window.BBCatProducts = {
+    // every listed product once (the shell's URL routing resolves /proizvod/<slug>/ against it)
+    all: function () { return ALL; },
     modeFor: modeFor,
     optionsAllowed: function (name) { return OPT.test(String(name || '')); },
     forCat: function (cat) {

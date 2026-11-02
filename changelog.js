@@ -1,6 +1,14 @@
 /* Prototype change log — one entry per piece of work, not per prompt.
    Shown in the "Prototype settings" panel via "View logs". */
 window.BB_CHANGELOG = [
+  { date: '02.11.2026.', title: 'Adrese (URL) za sve stranice na objavljenoj verziji', changes: [
+    'Na objavljenoj verziji (Netlify) svaka stranica ima svoju adresu, npr. /kuhinje/, /kuhinje-moderne/, /kategorija/tv-i-audio/televizori-i-dodaci/televizori/, /proizvod/…/, /pretraga/?q=…, /nacini-placanja/ – poveznica se može podijeliti, otvoriti izravno ili osvježiti',
+    'Gumbi Natrag i Naprijed u pregledniku vode na prethodnu i sljedeću stranicu',
+    'Svaka stranica ima svoj naslov kartice preglednika (npr. „Moderne kuhinje | Big Bang”)',
+    'Proizvodi izvan zajedničkog popisa proizvoda nose podatke kartice u adresi, pa i njihova poveznica otvara istu stranicu proizvoda',
+    'Nepoznata adresa otvara naslovnicu',
+    'Na canvasu se ništa ne mijenja: prototip se i dalje kreće bez promjene adrese'
+  ] },
   { date: '28.10.2026.', title: 'Promo kod s „Uvjeti” na svim karticama proizvoda', changes: [
     'Sve kartice proizvoda na stranici (mreža i popis na kategorijama, karuseli, pretraga, brendovi) prikazuju promo kod kao na Stolnim računalima: postotak, iznos popusta, „dodatno uz kod” i poveznicu „Uvjeti ›”',
     '„Uvjeti ›” otvara ploču s uvjetima i svim promo kodovima proizvoda; kod se kopira u ploči, pa okvir na kartici više nema gumb za kopiranje',

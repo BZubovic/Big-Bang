@@ -3,6 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+/* URL routing, hosted copy only (e.g. Netlify): a deep link such as /kuhinje-moderne/ is served this file
+   by the host's fallback rule (_redirects), so relative paths (support.js, Pages/…, images/…) must resolve
+   from the site root. Not used on the canvas, which renders the shell inside a frame. */
+(function () {
+  try {
+    if (window.top === window.self && /^https?:$/.test(location.protocol) && !/\.html?$/i.test(location.pathname)) {
+      document.write('<base href="/Main.dc.html">');
+    }
+  } catch (e) {}
+})();
+</script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -403,6 +415,33 @@
   &quot;statusClanstva&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;UAU klub član&quot;, &quot;Nije član&quot;], &quot;default&quot;: &quot;UAU klub član&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Moj profil&quot; },
   &quot;vrstaUporabnika&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;options&quot;: [&quot;Postojeći kupac&quot;, &quot;Novi kupac&quot;], &quot;default&quot;: &quot;Postojeći kupac&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Moj profil&quot; }
 }">
+// ── URL routing (hosted copy only, see "URL routing" in CLAUDE.md) ──
+// page state → address. Pages not listed here build their address in urlOf().
+const BB_PATHS = {
+  home: '/', cart: '/kosarica/', wishlist: '/lista-zelja/', stores: '/trgovine/', contact: '/kontakt/',
+  seller: '/prodavac/big-bang/', brands: '/brendovi/', promos: '/akcije/', kitchens: '/kuhinje/',
+  pay: '/nacini-placanja/', delivery: '/nacini-dostave/', terms: '/uvjeti-koristenja/', guarantee: '/zakonsko-jamstvo/',
+  profile: '/moj-racun/', auth: '/prijava/', ds: '/dizajn-sustav/'
+};
+const BB_TITLES = {
+  home: 'Big Bang', cart: 'Košarica', wishlist: 'Lista želja', stores: 'Prodajna mjesta', contact: 'Kontakt',
+  seller: 'Big Bang – službena trgovina', brands: 'Brendovi', promos: 'Akcije i promocije', kitchens: 'Kuhinje',
+  pay: 'Načini plaćanja', delivery: 'Načini dostave', terms: 'Uvjeti korištenja', guarantee: 'Zakonsko jamstvo',
+  profile: 'Moj račun', auth: 'Prijava', ds: 'Dizajn sustav'
+};
+const BB_KSTYLES = { klasicne: 'Klasične kuhinje', rusticne: 'Rustikalne kuhinje', moderne: 'Moderne kuhinje' };
+const bbSlug = (v) => String(v || '').toLowerCase()
+  .replace(/[čć]/g, 'c').replace(/š/g, 's').replace(/ž/g, 'z').replace(/đ/g, 'd')
+  .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+const bbQuery = (o) => {
+  const p = new URLSearchParams();
+  Object.keys(o).forEach(k => { if (o[k]) p.set(k, o[k]); });
+  const t = p.toString();
+  return t ? '?' + t : '';
+};
+const bbNoEuro = (v) => String(v || '').replace(' €', '');
+
 class Component extends DCLogic {
   state = {
     menuOpen: false,
@@ -620,13 +659,187 @@ class Component extends DCLogic {
       else this.cartTimer = setTimeout(this.wireCart, 120);
     };
     this.wireCart();
+    // URL routing: open the page the address names, follow back / forward, keep the address in step
+    if (this.routing) {
+      this.onPopState = () => this.applyRoute();
+      window.addEventListener('popstate', this.onPopState);
+      window.addEventListener('click', this.onRouteClick);
+      this.applyRoute();
+    }
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.onPhoneCheck);
     window.removeEventListener('scroll', this.onWinScroll);
     if (this.cartTimer) clearTimeout(this.cartTimer);
+    if (this.routing) {
+      window.removeEventListener('popstate', this.onPopState);
+      window.removeEventListener('click', this.onRouteClick);
+    }
   }
+
+  // ── URL routing ──
+  // On only when the shell is the top window over http(s) (the hosted copy); the canvas renders the
+  // shell inside a frame and keeps plain state. Every navigation method only sets `page` state;
+  // componentDidUpdate turns that state into an address with urlOf(), and applyRoute() turns an
+  // address back into state with stateOf().
+  routing = (() => {
+    try { return window.top === window.self && /^https?:$/.test(location.protocol); } catch (e) { return false; }
+  })();
+
+  urlOf(s) {
+    switch (s.page) {
+      case 'kstyle':
+        return '/kuhinje-' + (BB_KSTYLES[s.kStyle] ? s.kStyle : 'klasicne') + '/';
+      case 'category': {
+        const c = s.category || {};
+        const names = [c.l1, c.l2, c.l3].filter(Boolean);
+        const slugs = names.map(bbSlug);
+        const back = this.catFromSlugs(slugs) || {};
+        const exact = back.l1 === c.l1 && (back.l2 || '') === (c.l2 || '') && (back.l3 || '') === (c.l3 || '');
+        // a label that is not in the catalog keeps its names in the query so the link still opens it
+        return '/kategorija/' + slugs.map(x => x + '/').join('') + (exact ? '' : bbQuery({ l1: c.l1, l2: c.l2, l3: c.l3 }));
+      }
+      case 'search':
+        return '/pretraga/' + bbQuery({ q: s.searchTerm });
+      case 'brand': {
+        const b = s.brand || 'Samsung';
+        return '/brendovi/' + bbSlug(b) + '/' + (this.brandFromSlug(bbSlug(b)) === b ? '' : bbQuery({ n: b }));
+      }
+      case 'product': {
+        const p = s.product;
+        if (!p || !p.name) return '/proizvod/';
+        const slug = bbSlug(p.name);
+        const known = this.productFromSlug(slug);
+        const same = known && known.img === p.img && known.price === bbNoEuro(p.price) && known.old === bbNoEuro(p.old);
+        // products outside the shared product list carry their card data in the query
+        return '/proizvod/' + slug + '/' + (same ? '' : bbQuery({ n: p.name, i: p.img, c: bbNoEuro(p.price), s: bbNoEuro(p.old) }));
+      }
+      default:
+        return BB_PATHS[s.page] || '/';
+    }
+  }
+
+  titleOf(s) {
+    let t = BB_TITLES[s.page];
+    if (s.page === 'home') return 'Big Bang';
+    if (s.page === 'kstyle') t = BB_KSTYLES[s.kStyle] || 'Kuhinje';
+    else if (s.page === 'category') { const c = s.category || {}; t = c.l3 || c.l2 || c.l1 || 'Kategorija'; }
+    else if (s.page === 'product') t = (s.product && s.product.name) || 'Proizvod';
+    else if (s.page === 'search') t = 'Pretraga' + (s.searchTerm ? ': ' + s.searchTerm : '');
+    else if (s.page === 'brand') t = s.brand || 'Brend';
+    return (t || 'Big Bang') + ' | Big Bang';
+  }
+
+  catFromSlugs(slugs) {
+    const tree = window.BB_CATALOG || [];
+    const t1 = slugs[0] && tree.find(x => bbSlug(x[0]) === slugs[0]);
+    if (!t1) return null;
+    const c = { level: 1, l1: t1[0] };
+    const t2 = slugs[1] && (t1[1] || []).find(x => bbSlug(x[0]) === slugs[1]);
+    if (!t2) return c;
+    c.level = 2; c.l2 = t2[0];
+    const t3 = slugs[2] && (t2[1] || []).find(x => bbSlug(x) === slugs[2]);
+    if (!t3) return c;
+    c.level = 3; c.l3 = t3;
+    return c;
+  }
+
+  brandFromSlug(slug) {
+    const list = (window.BB_BRANDS && window.BB_BRANDS.list) || [];
+    const hit = list.find(b => bbSlug(b.name) === slug);
+    if (hit) return hit.name;
+    return slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  }
+
+  productFromSlug(slug) {
+    const all = (window.BBCatProducts && window.BBCatProducts.all) ? window.BBCatProducts.all() : [];
+    const p = all.find(x => bbSlug(x.name) === slug);
+    return p ? { img: p.img, name: p.name, price: bbNoEuro(p.price), old: bbNoEuro(p.old) } : null;
+  }
+
+  stateOf(pathname, search) {
+    const seg = String(pathname || '/').split('/').filter(Boolean).map(x => { try { return decodeURIComponent(x); } catch (e) { return x; } });
+    const q = new URLSearchParams(search || '');
+    if (!seg.length) return { page: 'home' };
+    const a = seg[0];
+    const k = /^kuhinje-(klasicne|rusticne|moderne)$/.exec(a);
+    if (k) return { page: 'kstyle', kStyle: k[1] };
+    if (a === 'kategorija') {
+      let c = null;
+      if (q.get('l1')) {
+        c = { l1: q.get('l1') };
+        if (q.get('l2')) c.l2 = q.get('l2');
+        if (q.get('l3')) c.l3 = q.get('l3');
+        c.level = c.l3 ? 3 : (c.l2 ? 2 : 1);
+      } else c = this.catFromSlugs(seg.slice(1));
+      return c ? { page: 'category', category: c } : { page: 'home' };
+    }
+    if (a === 'pretraga') return { page: 'search', searchTerm: q.get('q') || '' };
+    if (a === 'brendovi' && seg[1]) return { page: 'brand', brand: q.get('n') || this.brandFromSlug(seg[1]) };
+    if (a === 'proizvod') {
+      if (!seg[1]) return { page: 'product', product: null };
+      if (q.get('n')) return { page: 'product', product: { name: q.get('n'), img: q.get('i') || '', price: q.get('c') || '', old: q.get('s') || '' } };
+      return { page: 'product', product: this.productFromSlug(seg[1]) };
+    }
+    if (a === 'moj-racun' || a === 'prijava') {
+      return this.state.loggedIn ? { page: 'profile' } : { page: 'auth', returnPage: 'home', returnProduct: null };
+    }
+    if (seg.length === 1) for (const key in BB_PATHS) if (BB_PATHS[key] === '/' + a + '/') return { page: key };
+    return { page: 'home' };   // unknown address → home (the address is corrected to /)
+  }
+
+  // address → state. Category and product addresses wait for the catalog scripts the helmet loads.
+  applyRoute = (tries = 0) => {
+    const needsData = /^\/(kategorija|proizvod)\//.test(location.pathname);
+    if (needsData && !(window.BB_CATALOG && window.BBCatProducts) && tries < 80) {
+      setTimeout(() => this.applyRoute(tries + 1), 50);
+      return;
+    }
+    const st = this.stateOf(location.pathname, location.search);
+    this.routeReady = true;
+    this.replaceUrl = true;   // the address already names this page: correct it in place, no new history entry
+    this.setState(Object.assign({ menuOpen: false }, st), () => {
+      this.replaceUrl = false;
+      this.syncUrl();
+      this.toTop();
+    });
+  };
+
+  syncUrl() {
+    if (!this.routing || !this.routeReady) return;
+    const url = this.urlOf(this.state);
+    if (url !== location.pathname + location.search) {
+      try { history[this.replaceUrl ? 'replaceState' : 'pushState']({ bb: 1 }, '', url); } catch (e) {}
+    }
+    const t = this.titleOf(this.state);
+    if (document.title !== t) document.title = t;
+  }
+
+  // Links: "#…" anchors would leave the page under the <base> tag, so they scroll in place instead;
+  // same-site links that a page handler did not take open in the app instead of reloading it.
+  onRouteClick = (e) => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const path = e.composedPath ? e.composedPath() : [];
+    const a = path.find(n => n && n.tagName === 'A') || (e.target && e.target.closest ? e.target.closest('a') : null);
+    if (!a || (a.target && a.target !== '_self') || a.hasAttribute('download')) return;
+    const raw = a.getAttribute('href');
+    if (raw == null) return;
+    if (raw.charAt(0) === '#') {
+      e.preventDefault();
+      let id = raw.slice(1);
+      try { id = decodeURIComponent(id); } catch (err) {}
+      const el = id && document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+    let u;
+    try { u = new URL(a.href); } catch (err) { return; }
+    if (u.origin !== location.origin || /\.[a-z0-9]{2,5}$/i.test(u.pathname)) return;   // other sites and files load normally
+    e.preventDefault();
+    try { history.pushState({ bb: 1 }, '', u.pathname + u.search); } catch (err) { return; }
+    this.applyRoute();
+  };
 
   componentDidUpdate(prevProps) {
     if (prevProps.viewport !== this.props.viewport) this.setTweak('viewport', this.props.viewport === 'Mobile' ? 'Mobile' : 'Desktop');
@@ -637,6 +850,7 @@ class Component extends DCLogic {
       const on = !!this.props.signedIn;
       this.setState(s => ({ loggedIn: on, page: on ? s.page : (s.page === 'profile' ? 'home' : s.page) }));
     }
+    this.syncUrl();
   }
 
   // a page switch starts at the top, like a real navigation would

@@ -65,6 +65,12 @@ Components row). Differences from the original project archive:
   below and `images-c-assets.js` (whose values become `images/c/<name>`), and adds the
   `images/` folder including `images/c/`. Re-importing a portable copy means uploading the
   images as assets again and swapping the paths back.
+  The export also adds `_redirects` at the root (`/*  /main.dc  200`, the same target the Netlify site already used for `/`) so the Netlify copy opens
+  every page address (see "URL routing"), and gives every file under `export/` a build-safe name
+  (lowercase, hyphens, no spaces or `#`).
+  The portable copy lives in the git repo github.com/BZubovic/Big-Bang (deployed to Netlify). When the
+  repo folder is connected to the session, write only the changed files straight into it instead of
+  sending a zip; the user reviews, commits and pushes.
 - Not carried over: `export/`, `screenshots/`, `_ds/`, `export-head.txt`,
   `export-assets.json`, `robots.txt`.
 - **The canvas can't fetch `.md` files.** The Export for CMS button therefore does not load any spec: its
@@ -93,7 +99,7 @@ Components row). Differences from the original project archive:
 ## Files
 
 ```
-Main.dc.html                  THE APP — header, menu, footer, page switch, tweaks
+Main.dc.html                  THE APP — header, menu, footer, page switch, tweaks, URL routing (hosted copy)
 Pages/Homepage-body.dc.html    homepage content only (no header/footer)
 Pages/Product-body.dc.html     PDP content only
 Pages/Cart-body.dc.html        cart content only (seller-grouped boxes + summary)
@@ -167,7 +173,8 @@ tv-size-finder.js              the same widget as a string (window.BB_TVSIZE_HTM
 Components/GeoFaq.dc.html      GLOBAL FAQ block (desktop sticky intro + accordion / mobile accordion). Answers are
                                always in the HTML (collapsed visually only) and it emits FAQPage JSON-LD.
                                40–80 words per answer. Use it for every new GEO category page.
-category-products.js           category → product pool (window.BBCatProducts.forCat / forSearch / forBrand) —
+category-products.js           category → product pool (window.BBCatProducts.forCat / forSearch / forBrand; all() = every
+                               listed product once, used by URL routing for /proizvod/<slug>/) —
                                the category listing and its carousels only show products of the clicked category
 energy-rule.js                 window.BBEnergy.allowed(name) — energy label only for phones, TVs + white goods
 promo-terms.js                 GLOBAL promo-code terms dialog — window.BBPromo.open({ title, pct, save, code, cond, period,
@@ -510,6 +517,38 @@ the mobile scroll position survive every switch.
   **opacity-only** — an animated transform makes `.pgin` a containing block and breaks
   `position: fixed` children like the mobile sticky CTA.
 
+### URL routing (hosted copy)
+
+On the hosted copy (Netlify) every page has its own address, so a page can be shared as a link,
+opened directly, reloaded, and the browser's back / forward buttons work. Navigation is still
+state: the shell turns state into an address (`urlOf()`, pushed after every page change in
+`componentDidUpdate`) and an address back into state (`stateOf()`, on load and on back / forward).
+Each page also gets a tab title (`titleOf()`).
+
+- **On only for the hosted copy:** the shell must be the top window and served over http(s). The
+  canvas renders the shell inside a frame, so there it keeps plain state and the address never changes.
+- **Addresses** (Croatian, like the real site; the kitchen ones match the CMS pages):
+  `/` · `/kategorija/<l1>/<l2>/<l3>/` (slugs of the `catalog.js` names; a label that is not in the
+  catalog keeps its names in `?l1=&l2=&l3=`) · `/proizvod/<slug>/` (a product from
+  `BBCatProducts.all()`; any other product carries its card data in `?n=&i=&c=&s=`; `/proizvod/` =
+  the demo product) · `/pretraga/?q=` · `/brendovi/` · `/brendovi/<slug>/` (`?n=` when the name does
+  not round-trip) · `/akcije/` · `/trgovine/` · `/kontakt/` · `/prodavac/big-bang/` · `/kuhinje/` ·
+  `/kuhinje-klasicne/` · `/kuhinje-rusticne/` · `/kuhinje-moderne/` · `/nacini-placanja/` ·
+  `/nacini-dostave/` · `/uvjeti-koristenja/` · `/zakonsko-jamstvo/` · `/kosarica/` ·
+  `/lista-zelja/` · `/prijava/` · `/moj-racun/` (signed out → sign-in) · `/dizajn-sustav/`.
+  An unknown address opens the homepage and is corrected to `/`.
+- **Slugs:** lowercase, č/ć→c, š→s, ž→z, đ→d, other characters → `-` (`bbSlug`).
+- **Host setup:** `_redirects` (`/*  /main.dc  200` — Netlify serves `Main.dc.html` for that target) serves the shell for every address that
+  is not a real file. A tiny script in `<head>` adds `<base href="/Main.dc.html">` when the address
+  is not an `.html` file, so relative paths (`support.js`, `Pages/…`, `images/…`) still resolve
+  from the site root. The site must be published from the folder that holds `Main.dc.html`.
+- **Links under `<base>`:** a click on an `<a href="#…">` that no handler took scrolls to the
+  anchor in place (instead of leaving the page), and a same-site link a handler did not take
+  (e.g. `/kuhinje-moderne/`) opens in the app without a reload. Handlers that call
+  `preventDefault()` are left alone.
+- **Not in the address:** Prototype settings (viewport, card variant, tweaks), signed-in state,
+  cart and filter / sort choices.
+
 ## Adding a new page
 
 1. New `Pages/Page-name-body.dc.html` — content only, **no header, menu or footer**. File and folder
@@ -521,6 +560,8 @@ the mobile scroll position survive every switch.
    `onOpenProduct` if it shows product cards. No `menuOpen` — that is the shell's.
 4. In the shell, add `<sc-if value="{{ isYourPage }}">` branches (desktop + mobile) with the
    `<dc-import>` wrapped in `<div class="pgin">`, and a `page` value + navigation method.
+5. Give the page an address: a `BB_PATHS` entry + a `BB_TITLES` entry in the shell (a page that
+   carries data, like a product or a category, gets a `case` in `urlOf()` and `stateOf()` instead).
 
 
 ## Export for CMS (Prototype settings → "Export for CMS")
